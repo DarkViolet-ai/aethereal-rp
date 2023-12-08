@@ -144,6 +144,5 @@ export default {
       });
       addUtilities(newUtilities);
     }),
-    require("flowbite/plugin"),
   ],
 } satisfies Config;
