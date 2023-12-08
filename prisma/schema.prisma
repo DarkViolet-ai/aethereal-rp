@@ -13,26 +13,32 @@ datasource db {
 }
 
 model User {
-  id         String      @id
-  name       String      @unique
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  lastActive DateTime    @default(now())
-  stories    Story[]
-  roles      Character[]
+  id            String      @id
+  avatar        String?
+  avatarImageId String?
+  name          String      @unique
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  lastActive    DateTime    @default(now())
+  stories       Story[]
+  roles         Character[]
 }
 
 model Story {
   id         String      @id @default(uuid())
   title      String
+  summary    String
   content    String
   author     User        @relation(fields: [authorId], references: [id])
   characters Character[]
   narrator   Narrator?
   authorId   String
+  isActive   Boolean     @default(false)
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   tags       String[]
+
+  @@unique([title, authorId])
 }
 
 model Character {

@@ -11,6 +11,7 @@ import styles from "~/css/tailwind.css";
 import globalStyles from "~/css/global.css";
 import MainBackground from "./components/specialty/mainBackground";
 import EntirePageContainer from "./components/buildingBlocks/entirePage";
+import { typedjson, useTypedLoaderData } from "remix-typedjson";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -28,7 +29,50 @@ export const links: LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&display=swap",
   },
 ];
+
+export const loader = async ({ request }: DataFunctionArgs) => {
+  const env = {
+    SUPABASE_URL: process.env.SUPABASE_URL!,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY!,
+  };
+
+  const response = new Response();
+
+  const supabase = createServerClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!,
+    {
+      request,
+      response,
+    }
+  );
+
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+  let userId = session?.user?.id;
+  if (userId === "") {
+    userId = undefined;
+  }
+
+  return typedjson(
+    {
+      env,
+      session,
+      userId,
+    },
+    {
+      headers: response.headers,
+    }
+  );
+};
+
+export type RootLoaderData = typeof loader;
+
 export default function App() {
+  const { env, session } = useTypedLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
