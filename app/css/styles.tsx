@@ -50,6 +50,8 @@ export const Stories = [
       "Mystic Raven",
     ],
     narrator: "The Ancient Oak",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -66,6 +68,8 @@ export const Stories = [
       "Star Whisperer",
     ],
     narrator: "The Voice of the Cosmos",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -82,6 +86,8 @@ export const Stories = [
       "Ethereal Serpent",
     ],
     narrator: "The Forgotten Alchemist",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -98,6 +104,8 @@ export const Stories = [
       "Echo of Truth",
     ],
     narrator: "The Shadow Guide",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -114,6 +122,8 @@ export const Stories = [
       "Aqua the Water Nymph",
     ],
     narrator: "The Spirit of Nature",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -129,6 +139,8 @@ export const Stories = [
       "Echo of the Past",
     ],
     narrator: "The Guardian of the Lost City",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -144,6 +156,8 @@ export const Stories = [
       "Reflection of Reality",
     ],
     narrator: "The Reflection",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -159,6 +173,8 @@ export const Stories = [
       "Maze Master",
     ],
     narrator: "The Trickster",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -175,6 +191,8 @@ export const Stories = [
       "Keeper of Relics",
     ],
     narrator: "The Keeper of Time",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
   {
@@ -190,6 +208,8 @@ export const Stories = [
       "Harmony Keeper",
     ],
     narrator: "The Conductor of the Cosmos",
+    link: "/",
+    image: "/images/stories/.png",
     isActive: true,
   },
 ];
@@ -199,6 +219,7 @@ export const Characters = [
     name: "The Whispering Elder",
     story: "The Whispering Woods",
     rolePlayer: "playerOne",
+    image: "/images/stories/.png",
     summary:
       "A wise, ancient tree that communicates secrets of the forest to Dark Violet.",
   },
@@ -206,6 +227,7 @@ export const Characters = [
     name: "Silent Fox",
     story: "The Whispering Woods",
     rolePlayer: "playerTwo",
+    image: "/images/stories/.png",
     summary:
       "A mystical fox that guides Dark Violet through the woods with its silent wisdom.",
   },
@@ -213,6 +235,7 @@ export const Characters = [
     name: "Mystic Raven",
     story: "The Whispering Woods",
     rolePlayer: "playerThree",
+    image: "/images/stories/.png",
     summary:
       "A raven with the ability to perceive hidden truths and reveal them to those who listen.",
   },
@@ -220,6 +243,7 @@ export const Characters = [
     name: "Orion the Lightbringer",
     story: "The Echoes of Infinity",
     rolePlayer: "playerFour",
+    image: "/images/stories/.png",
     summary:
       "A celestial being of light who guides Dark Violet through the cosmos.",
   },
@@ -227,6 +251,7 @@ export const Characters = [
     name: "Shadow Weaver",
     story: "The Echoes of Infinity",
     rolePlayer: "playerFive",
+    image: "/images/stories/.png",
     summary:
       "A mysterious entity that embodies the darker aspects of the universe.",
   },
@@ -234,6 +259,7 @@ export const Characters = [
     name: "Star Whisperer",
     story: "The Echoes of Infinity",
     rolePlayer: "player Six",
+    image: "/images/stories/.png",
     summary:
       "A sage who speaks the ancient language of the stars and shares cosmic knowledge.",
   },
@@ -241,6 +267,7 @@ export const Characters = [
     name: "Alaric the Alchemist",
     story: "The Alchemist's Dream",
     rolePlayer: "playerSeven",
+    image: "/images/stories/.png",
     summary:
       "A forgotten alchemist seeking the secrets of transmutation and the Philosopher's Stone.",
   },
@@ -248,6 +275,7 @@ export const Characters = [
     name: "Flame Sprite",
     story: "The Alchemist's Dream",
     rolePlayer: "playerEight",
+    image: "/images/stories/.png",
     summary:
       "A playful elemental spirit of fire, aiding in the alchemical processes.",
   },
@@ -255,6 +283,7 @@ export const Characters = [
     name: "Ethereal Serpent",
     story: "The Alchemist's Dream",
     rolePlayer: "playerNine",
+    image: "/images/stories/.png",
     summary:
       "A mystical serpent that represents wisdom and the transformative power of alchemy.",
   },
@@ -262,6 +291,7 @@ export const Characters = [
     name: "Dream Wanderer",
     story: "Shadows of the Mind",
     rolePlayer: "playerTen",
+    image: "/images/stories/.png",
     summary:
       "A nomadic spirit that traverses the dream realm, encountering Dark Violet in her subconscious explorations.",
   },
@@ -269,6 +299,7 @@ export const Characters = [
     name: "Nightmare Phantom",
     story: "Shadows of the Mind",
     rolePlayer: "playerEleven",
+    image: "/images/stories/.png",
     summary:
       "An embodiment of fears and nightmares, challenging Dark Violet in the dream world.",
   },
@@ -276,6 +307,7 @@ export const Characters = [
     name: "Echo of Truth",
     story: "Shadows of the Mind",
     rolePlayer: "playerTwelve",
+    image: "/images/stories/.png",
     summary:
       "A mysterious figure that represents the hidden truths within the subconscious.",
   },
@@ -283,6 +315,7 @@ export const Characters = [
     name: "Terra the Earth Guardian",
     story: "The Dance of Elements",
     rolePlayer: "playerThirteen",
+    image: "/images/stories/.png",
     summary:
       "The embodiment of Earth, representing strength and stability in the elemental kingdom.",
   },
@@ -290,6 +323,7 @@ export const Characters = [
     name: "Zephyr the Air Spirit",
     story: "The Dance of Elements",
     rolePlayer: "playerFourteen",
+    image: "/images/stories/.png",
     summary:
       "A gentle and elusive spirit of the Air, embodying freedom and wisdom.",
   },
@@ -297,6 +331,7 @@ export const Characters = [
     name: "Blaze the Fire Lord",
     story: "The Dance of Elements",
     rolePlayer: "playerFifteen",
+    image: "/images/stories/.png",
     summary:
       "A fiery and passionate leader of the Fire element, symbolizing transformation.",
   },
@@ -304,6 +339,7 @@ export const Characters = [
     name: "Aqua the Water Nymph",
     story: "The Dance of Elements",
     rolePlayer: "playerSixteen",
+    image: "/images/stories/.png",
     summary:
       "A graceful and flowing nymph of the Water, representing emotion and intuition.",
   },
@@ -311,6 +347,7 @@ export const Characters = [
     name: "Ancient Librarian",
     story: "Chronicles of the Lost City",
     rolePlayer: "playerSeventeen",
+    image: "/images/stories/.png",
     summary:
       "A keeper of ancient knowledge in the ruins of the lost city, guiding Dark Violet through its history.",
   },
@@ -318,6 +355,7 @@ export const Characters = [
     name: "Guardian of Ruins",
     story: "Chronicles of the Lost City",
     rolePlayer: "playerEighteen",
+    image: "/images/stories/.png",
     summary:
       "A protector of the lost city's secrets, challenging those who seek its hidden wisdom.",
   },
@@ -325,6 +363,7 @@ export const Characters = [
     name: "Echo of the Past",
     story: "Chronicles of the Lost City",
     rolePlayer: "playerNineteen",
+    image: "/images/stories/.png",
     summary:
       "A spectral figure representing the lost city's past and its connection to Dark Violet.",
   },
@@ -332,6 +371,7 @@ export const Characters = [
     name: "Mirror Wraith",
     story: "The Mirror of Souls",
     rolePlayer: "playerTwenty",
+    image: "/images/stories/.png",
     summary:
       "A guardian of the magical mirror, revealing the true nature of those who dare to look.",
   },
@@ -339,6 +379,7 @@ export const Characters = [
     name: "Soul Searcher",
     story: "The Mirror of Souls",
     rolePlayer: "playerTwentyOne",
+    image: "/images/stories/.png",
     summary:
       "A seeker of truth and inner wisdom, drawn to the revealing powers of the mirror.",
   },
@@ -346,6 +387,7 @@ export const Characters = [
     name: "Reflection of Reality",
     story: "The Mirror of Souls",
     rolePlayer: "playerTwentyTwo",
+    image: "/images/stories/.png",
     summary:
       "An enigmatic presence within the mirror, showing the viewers their deepest realities.",
   },
@@ -353,6 +395,7 @@ export const Characters = [
     name: "Illusionist",
     story: "The Labyrinth of Illusions",
     rolePlayer: "playerTwentyThree",
+    image: "/images/stories/.png",
     summary:
       "A master of deception and creator of the maze, testing the perception of all who enter.",
   },
@@ -360,6 +403,7 @@ export const Characters = [
     name: "Keeper of Truths",
     story: "The Labyrinth of Illusions",
     rolePlayer: "playerTwentyFour",
+    image: "/images/stories/.png",
     summary:
       "A mystical figure holding the keys to the truths hidden within the labyrinth.",
   },
@@ -367,6 +411,7 @@ export const Characters = [
     name: "Maze Master",
     story: "The Labyrinth of Illusions",
     rolePlayer: "playerTwentyFive",
+    image: "/images/stories/.png",
     summary:
       "The overseer of the labyrinth, guiding or misguiding adventurers through its twists and turns.",
   },
@@ -374,6 +419,7 @@ export const Characters = [
     name: "Night Walker",
     story: "The Eternal Night",
     rolePlayer: "playerTwentySix",
+    image: "/images/stories/.png",
     summary:
       "A mysterious figure who thrives in the darkness of the eternal night, aiding or hindering Dark Violet.",
   },
@@ -381,6 +427,7 @@ export const Characters = [
     name: "Dawn Harbinger",
     story: "The Eternal Night",
     rolePlayer: "playerTwentySeven",
+    image: "/images/stories/.png",
     summary:
       "A bringer of hope who possesses the knowledge to end the eternal darkness.",
   },
@@ -388,6 +435,7 @@ export const Characters = [
     name: "Keeper of Relics",
     story: "The Eternal Night",
     rolePlayer: "playerTwentyEight",
+    image: "/images/stories/.png",
     summary:
       "A guardian of ancient relics necessary to bring back the light to the world.",
   },
@@ -395,6 +443,7 @@ export const Characters = [
     name: "Star Singer",
     story: "The Symphony of the Stars",
     rolePlayer: "playerTwentyNine",
+    image: "/images/stories/.png",
     summary:
       "A celestial being with a voice that harmonizes the stars, essential to the cosmic symphony.",
   },
@@ -402,6 +451,7 @@ export const Characters = [
     name: "Celestial Musician",
     story: "The Symphony of the Stars",
     rolePlayer: "playerThirty",
+    image: "/images/stories/.png",
     summary:
       "An instrumentalist of the cosmos, playing the music that keeps the universe in balance.",
   },
@@ -409,6 +459,7 @@ export const Characters = [
     name: "Harmony Keeper",
     story: "The Symphony of the Stars",
     rolePlayer: "playerThirtyOne",
+    image: "/images/stories/.png",
     summary:
       "A custodian of cosmic harmony, working to maintain the balance of the universal forces.",
   },
