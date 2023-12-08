@@ -31,7 +31,6 @@ export type CreateStoryInput = {
   title: string;
   summary: string;
   authorId: string;
-  narratorId: string;
   isActive?: boolean;
 };
 
@@ -54,15 +53,17 @@ export const createStory = async ({
 };
 
 export type GetStoryInput = {
-  id: string;
-  title: string;
-  authorId: string;
+  id?: string;
+  title?: string;
+  authorId?: string;
 };
 
 export const getStory = async ({ id, title, authorId }: GetStoryInput) => {
-  if (!id || (!title && !authorId))
+  if (!id && !title && !authorId)
     throw dvError.badRequest("Missing required parameters");
-  const where = id ? { id } : { title_authorId: { title, authorId } };
+  const where = id
+    ? { id }
+    : ({ title_authorId: { title, authorId } } as Prisma.StoryWhereUniqueInput);
   const story = await prisma.story.findUnique({
     where,
     include: {
