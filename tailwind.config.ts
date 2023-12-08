@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 const plugin = require("tailwindcss/plugin");
 
 export default {
-  content: ["./app/**/*.{js,jsx,ts,tsx}", "./node_modules/flowbite/**/*.js"],
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
