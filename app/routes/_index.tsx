@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import Text from "~/components/buildingBlocks/text";
+import StoryCharacters from "~/components/specialty/storiesCharacters";
 import TopNav from "~/components/specialty/topNav";
 
 export const meta: MetaFunction = () => {
@@ -13,7 +13,8 @@ export default function Index() {
   return (
     <>
       <TopNav />
-      <Text>Index</Text>
+
+      <StoryCharacters />
     </>
   );
 }
