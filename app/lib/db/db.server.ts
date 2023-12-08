@@ -78,6 +78,8 @@ export const getStory = async ({ id, title, authorId }: GetStoryInput) => {
   return story;
 };
 
+export type StoryContent
+
 export const getActiveStories = async () => {
   const stories = await prisma.story.findMany({
     where: {

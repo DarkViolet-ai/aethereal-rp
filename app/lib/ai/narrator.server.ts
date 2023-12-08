@@ -4,7 +4,7 @@ import {
   createStory,
   getStory,
 } from "~/lib/db/db.server";
-import type { Narrator } from "@prisma/client";
+import type { Narrator, Story } from "@prisma/client";
 import { dvError } from "~/lib/utils/dvError";
 
 export const beginStory = async ({
@@ -33,18 +33,35 @@ export const beginStory = async ({
   return { story, narrator };
 };
 
-export const narrate = async ({
+export const buildSystemPrompt = async ({
   narrator,
+  story,
+}: {
+  narrator: Narrator;
+  story: Story;
+}) => {
+  const narratorInstructions = narrator.instructions;
+  const storySummary = story.summary;
+  const characterDescriptions = story.characters.map((character) => {
+    
+
+  const systemPrompt = `${narratorInstructions} ${storySummary}`;
+
+  return systemPrompt;
+})
+
+export const narrate = async ({
+  story,
   newInput,
   generator,
 }: {
-  narrator: Narrator;
+  story: Story;
   newInput: string;
+  generator:(systemPrompt: string, input: string) => Promise<string>;
+  
 }) => {
-  const story = await getStory({ id: narrator.storyId });
-  if (!story) {
-    throw dvError.notFound("Story not found");
-  }
+
+
 
   return { narrator: updatedNarrator, story };
 };

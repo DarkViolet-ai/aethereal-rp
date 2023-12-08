@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { DataFunctionArgs, LinksFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -7,6 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { createServerClient } from "@supabase/auth-helpers-remix";
+
 import styles from "~/css/tailwind.css";
 import globalStyles from "~/css/global.css";
 import MainBackground from "./components/specialty/mainBackground";

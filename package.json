@@ -23,7 +23,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
-    "remix-typedjson": "^0.4.1"
+    "remix-typedjson": "^0.4.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.3.1",
