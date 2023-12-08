@@ -1,32 +1,48 @@
-import { cardColors } from "~/css/styles";
+import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Flex from "../buildingBlocks/flex";
 import Text from "../buildingBlocks/text";
+import HStack from "../buildingBlocks/hStack";
+import { useNavigate } from "@remix-run/react";
+import VStack from "../buildingBlocks/vStack";
+import Image from "../buildingBlocks/image";
+import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 
 interface CharacterCardProps {
-  title: string;
-  summary: string;
   characterName: string;
-  image: string;
+  story: string;
+  summary: string;
   link: string;
   bgColor: string;
 }
 export default function CharacterCard({
   characterName,
-  title,
+  story,
   summary,
-  image,
   link,
   bgColor = cardColors[1 % cardColors.length],
 }: CharacterCardProps) {
+  const navigate = useNavigate();
+  const imagePath = GetStoryImagePath(story);
+  console.log(imagePath);
   return (
     <Flex
-      className={`w-full h-full shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad border-2 border-dv-700`}
+      className={`w-full max-w-[550px]  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
+      onClick={() => {
+        navigate(link);
+      }}
     >
-      <Text>{characterName}</Text>
-      <Text>{title}</Text>
-      <Text>{summary}</Text>
-      <Text>{image}</Text>
-      <Text>{link}</Text>
+      <HStack>
+        <VStack align="start">
+          <Text className={`${cursiveText} text-[30px]`}>{characterName}</Text>
+          <Text className="text-shadow-dvTextShadow">
+            <i>{story}</i>
+          </Text>
+          <Text>{summary}</Text>
+        </VStack>
+        <Flex className="w-[150px] flex-shrink-0">
+          <Image src={imagePath} alt={characterName} />
+        </Flex>
+      </HStack>
     </Flex>
   );
 }

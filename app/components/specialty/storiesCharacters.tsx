@@ -10,22 +10,23 @@ const characterOne = Characters[0];
 export default function StoriesCharacters() {
   return (
     <Flex className="w-full max-w-[1750px] p-4">
-      <Flex className="flex-col lg:flex-row bg-dv-625 shadow-shadow3D w-full">
+      <Flex className="flex-col lg:flex-row w-full">
         <CardContainer>
           <StoryCard
             title={storyOne.title}
             summary={storyOne.summary}
-            image={storyOne.image}
             link={storyOne.link}
+            description={storyOne.content}
             bgColor={cardColors[0]}
           />
         </CardContainer>
         <CardContainer>
           <CharacterCard
             characterName={characterOne.name}
-            title={}
+            story={characterOne.story}
             summary={characterOne.summary}
-            image={characterOne.image}
+            link={characterOne.link}
+            bgColor={cardColors[1]}
           />
         </CardContainer>
       </Flex>
