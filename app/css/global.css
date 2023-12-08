@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  div, section, article /* and any other container elements */ {
+    @apply rounded-md; /* Applies your custom medium border-radius */
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: purple;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: purple;
+  overflow-y: hidden;
+}
+
+body {
+  @apply text-md lg:text-lg;
+  font-family: "Barlow", sans-serif;
+  font-size: 1.25rem;
+  padding: 0;
+  position: relative;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: cyan;
+  text-shadow: 2px 2px 3px black;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: cyan;
+  text-shadow: 2px 2px 3px black;
+}
+
+a {
+  color: cyan;
+  text-shadow: 2px 2px 3px black;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+a:hover {
+  @apply text-pinkest;
+  text-shadow: 2px 2px 3px white;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none !important;
+}
+
+p {
+  padding: 0.2rem;
+}
+
+ol {
+  padding: 1rem;
+}
+
+ol li {
+  padding: 0.5rem;
+}
+
+/* SLIDE TRANSITIONS */
+.slide-right-enter {
+  transform: translateX(100%);
+}
+
+.slide-right-enter-active {
+  transform: translateX(0%);
+  transition: transform 300ms;
+}
+
+.slide-left-enter {
+  transform: translateX(-100%);
+}
+
+.slide-left-enter-active {
+  transform: translateX(0%);
+  transition: transform 300ms;
+}
+
+.slide-top-enter {
+  transform: translateY(-100%);
+}
+
+.slide-top-enter-active {
+  transform: translateY(0%);
+  transition: transform 300ms;
+}
+
+.slide-bottom-enter {
+  transform: translateY(100%);
+}
+
+.slide-bottom-enter-active {
+  transform: translateY(0%);
+  transition: transform 300ms;
+}
+
+/* Slide out to right */
+.slide-right-exit {
+  transform: translateX(0%);
+}
+.slide-right-exit-active {
+  transform: translateX(100%);
+  transition: transform 800ms;
+}
+
+/* Slide out to left */
+.slide-left-exit {
+  transform: translateX(0%);
+}
+.slide-left-exit-active {
+  transform: translateX(-100%);
+  transition: transform 300ms;
+}
