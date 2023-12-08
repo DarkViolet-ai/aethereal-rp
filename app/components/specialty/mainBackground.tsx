@@ -9,7 +9,7 @@ export default function MainBackground({
     <Flex
       className="fixed h-screen w-full bg-no-repeat bg-fixed bg-center bg-cover z-[-2] rounded-none"
       style={{
-        backgroundImage: "url('/core/aethereal-background.png')",
+        backgroundImage: "url('/images/core/aethereal-background.png')",
       }}
     >
       {children}
