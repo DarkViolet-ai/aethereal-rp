@@ -6,41 +6,32 @@ import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import HStack from "../buildingBlocks/hStack";
 import VStack from "../buildingBlocks/vStack";
 import Image from "../buildingBlocks/image";
-import Box from "../buildingBlocks/box";
+import { Story } from "@prisma/client";
 
 interface StoryCardProps {
-  title: string;
-  summary: string;
-  description?: string;
-  link: string;
+  story: Story;
   bgColor: string;
 }
-export default function StoryCard({
-  title,
-  summary,
-  description,
-  link,
-  bgColor,
-}: StoryCardProps) {
+export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const navigate = useNavigate();
-  const imagePath = GetStoryImagePath(title);
+  const imagePath = GetStoryImagePath(story.title);
   return (
     <Flex
       className={`w-full max-w-[550px]  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
       onClick={() => {
-        navigate(link);
+        navigate("/");
       }}
     >
       <HStack>
         <VStack align="start">
           <Text className={`${cursiveText} text-[30px]`}>
-            <i>{title}</i>
+            <i>{story.title}</i>
           </Text>
-          <Text>{summary}</Text>
-          <Text>{description}</Text>
+          <Text>{story.summary}</Text>
+          <Text>{story.content}</Text>
         </VStack>
         <Flex className="w-[150px] flex-shrink-0">
-          <Image src={imagePath} alt={title} />
+          <Image src={imagePath} alt={story.title} />
         </Flex>
       </HStack>
     </Flex>
