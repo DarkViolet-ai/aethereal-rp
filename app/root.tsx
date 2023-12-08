@@ -1,4 +1,3 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
@@ -9,10 +8,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import styles from "~/css/tailwind.css";
+import globalStyles from "~/css/global.css";
+import MainBackground from "./components/specialty/mainBackground";
+import EntirePageContainer from "./components/buildingBlocks/entirePage";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
-  //{ rel: "stylesheet", href: globalStyles },
+  { rel: "stylesheet", href: globalStyles },
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
@@ -36,7 +38,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <MainBackground>
+          <EntirePageContainer className="bg-calmVioletCyanGrad rounded-none">
+            <Outlet />
+          </EntirePageContainer>
+        </MainBackground>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

@@ -130,6 +130,10 @@ export default {
           "linear-gradient(to bottom, rgba(29, 30, 43, 0.86), rgba(61, 56, 89, 0.75)), linear-gradient(to right, rgba(61, 56, 89, 0.5), #3D3859)",
         violetCyanGrad:
           "linear-gradient(45deg, rgba(148, 0, 211, 0.5), rgba(0, 255, 255, 0.5)), linear-gradient(to bottom, rgba(119, 149, 242, 0.5), rgba(148, 0, 211, 0.5))",
+        calmVioletCyanGrad:
+          "linear-gradient(45deg, rgba(148, 0, 211, 0.25), rgba(0, 255, 255, 0.25)), linear-gradient(to bottom, rgba(119, 149, 242, 0.25), rgba(148, 0, 211, 0.25))",
+        testGrad:
+          "linear-gradient(45deg, rgba(70, 1, 100, 0.5), rgba(0, 99, 99, 0.5)),linear-gradient(to bottom,rgba(119, 149, 242, 0.5),rgba(148, 0, 211, 0.5));",
       },
     },
   },
