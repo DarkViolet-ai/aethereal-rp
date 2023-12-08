@@ -12,7 +12,7 @@ export default function TopNav() {
   return (
     <Flex className="flex flex-row justify-between items-center w-full h-[50px] bg-dv-925 rounded-none shadow-shadow3D px-2 relative">
       <Box className="h-[38px] w-[300px] sm:h-[48px] sm:w-[390px] absolute bottom-0 left-2">
-        <Image src="/core/aetherealLogo.png" alt="main logo" />
+        <Image src="/images/core/aetherealLogo.png" alt="main logo" />
       </Box>
       <Text className="text-transparent">.</Text>
       <IconButton

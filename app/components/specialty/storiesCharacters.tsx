@@ -1,5 +1,9 @@
+import { Characters, Stories } from "~/css/styles";
 import Flex from "../buildingBlocks/flex";
 import CardContainer from "./cardContainer";
+
+const storyOne = Stories[0];
+const characterOne = Characters[0];
 
 export default function StoriesCharacters() {
   return (
