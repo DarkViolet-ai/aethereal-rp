@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Narrator as DBNarrator } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
 
@@ -58,7 +58,11 @@ export type GetStoryInput = {
   authorId?: string;
 };
 
-export const getStory = async ({ id, title, authorId }: GetStoryInput) => {
+export const getStory = async ({
+  id,
+  title,
+  authorId,
+}: GetStoryInput): Promise<StoryContent | null> => {
   if (!id && !title && !authorId)
     throw dvError.badRequest("Missing required parameters");
   const where = id
@@ -68,8 +72,15 @@ export const getStory = async ({ id, title, authorId }: GetStoryInput) => {
     where,
     include: {
       characters: {
-        include: {
-          rolePlayer: true,
+        select: {
+          rolePlayer: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          name: true,
+          description: true,
         },
       },
       narrator: true,
@@ -78,9 +89,25 @@ export const getStory = async ({ id, title, authorId }: GetStoryInput) => {
   return story;
 };
 
-export type StoryContent
+export type StoryContent = Prisma.StoryGetPayload<{
+  include: {
+    characters: {
+      select: {
+        name: true;
+        description: true;
+        rolePlayer: {
+          select: {
+            id: true;
+            name: true;
+          };
+        };
+      };
+    };
+    narrator: true;
+  };
+}>;
 
-export const getActiveStories = async () => {
+export const getActiveStories = async (): Promise<StoryContent[]> => {
   const stories = await prisma.story.findMany({
     where: {
       isActive: true,
@@ -88,7 +115,12 @@ export const getActiveStories = async () => {
     include: {
       characters: {
         include: {
-          rolePlayer: true,
+          rolePlayer: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
         },
       },
       narrator: true,
@@ -100,16 +132,16 @@ export const getActiveStories = async () => {
 export const createCharacter = async ({
   name,
   storyId,
-  summary,
+  description,
 }: {
   name: string;
   storyId: string;
-  summary: string;
+  description: string;
 }) => {
   const character = await prisma.character.create({
     data: {
       name,
-      summary,
+      description,
       storyId,
     },
   });
@@ -143,6 +175,13 @@ export const assignRolePlayer = async ({
   return character;
 };
 
+export type NarratorInstructions = {
+  integrate?: string;
+  narrate?: string;
+};
+
+export type Narrator = DBNarrator & { instructions: NarratorInstructions };
+
 export const createNarrator = async ({
   storyId,
   name = "Dark Violet",
@@ -150,8 +189,8 @@ export const createNarrator = async ({
 }: {
   storyId: string;
   name?: string;
-  instructions: string;
-}) => {
+  instructions: NarratorInstructions;
+}): Promise<Narrator> => {
   const narrator = await prisma.narrator.create({
     data: {
       storyId,
@@ -159,14 +198,14 @@ export const createNarrator = async ({
       instructions,
     },
   });
-  return narrator;
+  return narrator as Narrator;
 };
 
-export const getNarrator = async (id: string) => {
+export const getNarrator = async (id: string): Promise<Narrator> => {
   const narrator = await prisma.narrator.findUnique({
     where: {
       id,
     },
   });
-  return narrator;
+  return narrator as Narrator;
 };

@@ -3,6 +3,7 @@ import {
   getNarrator,
   createStory,
   getStory,
+  StoryContent,
 } from "~/lib/db/db.server";
 import type { Narrator, Story } from "@prisma/client";
 import { dvError } from "~/lib/utils/dvError";
@@ -36,16 +37,30 @@ export const beginStory = async ({
 export const buildSystemPrompt = async ({
   narrator,
   story,
+  scenario,
 }: {
   narrator: Narrator;
-  story: Story;
+  story: StoryContent;
+  scenario: "integrate" | "narrate"
 }) => {
   const narratorInstructions = narrator.instructions;
   const storySummary = story.summary;
-  const characterDescriptions = story.characters.map((character) => {
-    
+  const storyTitle = story.title;
+  const characters = story.characters.reduce((acc, curr) => {
 
-  const systemPrompt = `${narratorInstructions} ${storySummary}`;
+    const { name, description } = curr;
+    if(!name) throw dvError.badRequest("Character must have a name");
+    acc[name] = description;
+    return acc;
+  }, {} as Record<string, string | null>);
+
+  const characterString = JSON.stringify({ characters });
+
+
+
+  const systemPrompt = `${narratorInstructions} title:${storyTitle}
+   \n summary: ${storySummary}\n characters: ${characterString}\n
+   ${story.content}`;
 
   return systemPrompt;
 })
