@@ -107,6 +107,44 @@ export type StoryContent = Prisma.StoryGetPayload<{
   };
 }>;
 
+export const updateStory = async ({
+  id,
+  title,
+  summary,
+  content,
+}: {
+  id: string;
+  title?: string;
+  summary?: string;
+  content?: string;
+}): Promise<StoryContent> => {
+  const data: Prisma.StoryUpdateInput = {
+    ...(title && { title }),
+    ...(summary && { summary }),
+    ...(content && { content }),
+  };
+  const story = await prisma.story.update({
+    where: {
+      id,
+    },
+    data,
+    include: {
+      characters: {
+        include: {
+          rolePlayer: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      narrator: true,
+    },
+  });
+  return story;
+};
+
 export const getActiveStories = async (): Promise<StoryContent[]> => {
   const stories = await prisma.story.findMany({
     where: {
@@ -176,8 +214,8 @@ export const assignRolePlayer = async ({
 };
 
 export type NarratorInstructions = {
-  integrate?: string;
-  narrate?: string;
+  integrate: string;
+  narrate: string;
 };
 
 export type Narrator = DBNarrator & { instructions: NarratorInstructions };
