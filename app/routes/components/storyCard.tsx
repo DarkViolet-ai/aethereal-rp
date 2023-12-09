@@ -18,7 +18,7 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const imagePath = GetStoryImagePath(story.title);
   return (
     <Flex
-      className={`w-full max-w-[550px]  shadow-shadow3D relative  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
+      className={`w-full max-w-[550px]  shadow-shadow3D  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
       onClick={() => {
         navigate("/");
       }}

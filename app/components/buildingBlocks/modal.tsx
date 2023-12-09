@@ -55,7 +55,7 @@ export default function Modal({
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0  bg-dv-975 backdrop-blur-sm z-40"
+            className="fixed inset-0 w-screen h-screen bg-dv-975 backdrop-blur-sm z-60"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -63,7 +63,7 @@ export default function Modal({
           />
           {/* Modal */}
           <motion.div
-            className={`fixed inset-0 m-auto bg-white shadow-dvShadow z-50 ${className}`}
+            className={`w-full h-full md:w-11/12 md:h-11/12 xxl:w-10/12 xxl:h-10/12 fixed inset-0 m-auto shadow-dvShadow z-50 ${className}`}
             style={{ maxWidth: "95vw", maxHeight: "95vh", ...style }}
             variants={variants}
             initial="closed"

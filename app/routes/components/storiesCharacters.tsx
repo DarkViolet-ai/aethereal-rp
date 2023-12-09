@@ -34,7 +34,7 @@ export default function StoriesCharacters() {
               })}
             </VStack>
             {/* LARGE SCREENS */}
-            <VStack className="w-full hidden xl:flex" gap="gap-3">
+            {/* <VStack className="w-full hidden xl:flex" gap="gap-3">
               {tempStories.slice(0, 5).map((story, index) => {
                 return (
                   <StoryCard
@@ -44,7 +44,7 @@ export default function StoriesCharacters() {
                   />
                 );
               })}
-            </VStack>
+            </VStack> */}
             <Flex className="w-full justify-center py-3">
               <Button>view all</Button>
             </Flex>{" "}
@@ -58,7 +58,7 @@ export default function StoriesCharacters() {
             <VStack className="w-full h-11/12 overflow-y-auto">
               {tempCharacters.map((character, index) => {
                 return (
-                  <Flex className="w-full px-2" key={index}>
+                  <Flex className="w-full px-2 z-45" key={index}>
                     <CharacterCard
                       character={character}
                       bgColor={cardColors[index % cardColors.length]}
