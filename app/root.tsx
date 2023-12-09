@@ -14,6 +14,8 @@ import globalStyles from "~/css/global.css";
 import MainBackground from "./components/specialty/mainBackground";
 import EntirePageContainer from "./components/buildingBlocks/entirePage";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
+import TopNav from "./components/specialty/topNav";
+import Footer from "./components/specialty/footer";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -85,7 +87,9 @@ export default function App() {
       </head>
       <body>
         <MainBackground>
-          <EntirePageContainer className="bg-calmVioletCyanGrad rounded-none">
+          <EntirePageContainer>
+            <TopNav />
+            <Footer />
             <Outlet />
           </EntirePageContainer>
         </MainBackground>

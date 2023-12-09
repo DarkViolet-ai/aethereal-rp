@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <Flex className="w-full h-full">
+    <Flex className="w-full h-full justify-center overflow-y-auto xl:overflow-y-hidden">
       <StoryCharacters />
     </Flex>
   );

@@ -3,16 +3,15 @@ import VStack from "../../components/buildingBlocks/vStack";
 
 export default function CardContainer({
   children,
-  overflowY = "overflow-y-auto",
+  overflowY = "overflow-y-hidden",
 }: {
   children?: React.ReactNode;
   overflowY?: string;
 }) {
   return (
-    <Flex className=" w-full h-full lg:w-1/2 justify-center p-3">
+    <Flex className=" w-full h-full xl:w-1/2 justify-center p-3">
       <VStack
-        className={`w-fit min-w-[375px] sm:min-w-[500px] md:min-w-[550px] bg-dv-450 shadow-dvShadow p-2 ${overflowY}`}
-    
+        className={`w-full min-w-[375px] sm:w-11/12 sm:min-w-[500px] md:w-fit md:min-w-[550px] bg-dv-975 shadow-dvShadow p-2 ${overflowY}`}
       >
         {children}
       </VStack>
