@@ -61,6 +61,7 @@ export default function RegisterPanel() {
           },
         },
       });
+      console.log(result);
       setSigningUp(false);
       navigate("/signupSuccess");
     },
@@ -120,7 +121,7 @@ export default function RegisterPanel() {
               <PasswordInput confirm />
             </VStack>
             <Flex className="w-full justify-end">
-              <Button onClick={() => handleSubmit}>Submit</Button>
+              <Button type="submit">Submit</Button>
             </Flex>
           </VStack>
         </Form>
