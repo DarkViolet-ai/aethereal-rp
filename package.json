@@ -3,6 +3,9 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual",
@@ -25,16 +28,20 @@
     "react-icons": "^4.12.0",
     "remix-flat-routes": "^0.6.4",
     "remix-typedjson": "^0.4.1",
+    "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.3.1",
     "@remix-run/eslint-config": "^2.3.1",
+    "@types/node": "^20.10.4",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^9.0.7",
     "eslint": "^8.38.0",
     "prisma": "^5.7.0",
     "tailwindcss": "^3.3.6",
+    "ts-node": "^10.9.2",
     "typescript": "^5.1.6"
   },
   "engines": {

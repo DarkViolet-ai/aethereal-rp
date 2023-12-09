@@ -11,19 +11,22 @@ import type { Narrator, NarratorInstructions } from "~/lib/db/db.server";
 import { dvError } from "~/lib/utils/dvError";
 import { json } from "@remix-run/node";
 import { z } from "zod";
+import { buildSystemPrompt } from "~/lib/ai/systemPrompt";
 
 export const beginStory = async ({
   title,
   summary,
   authorId,
   narratorInstructions,
+  generator,
 }: {
   title: string;
   summary: string;
   authorId: string;
   narratorInstructions: NarratorInstructions;
+  generator: (systemPrompt: string, input: string) => Promise<string>;
 }) => {
-  const story = await createStory({
+  const initStory = await createStory({
     title,
     summary,
     authorId,
@@ -31,39 +34,23 @@ export const beginStory = async ({
   });
 
   const narrator = createNarrator({
-    storyId: story.id,
+    storyId: initStory.id,
     instructions: narratorInstructions,
   });
 
+  const story = await getStory({ id: initStory.id });
+  if (!story) throw dvError.internalServerError("Story creation failed");
+  const systemPrompt = await buildSystemPrompt({
+    story,
+    scenario: "initialize",
+  });
+  const results = (await generator(systemPrompt, "begin story")) as string;
+  const validatedResults = validateResults({
+    results: results,
+    scenario: "initialize",
+  });
+
   return { story, narrator };
-};
-
-export const buildSystemPrompt = async ({
-  story,
-  scenario,
-}: {
-  story: StoryContent;
-  scenario: "integrate" | "narrate" | "initialize";
-}) => {
-  const narrator = story.narrator as Narrator;
-  const narratorInstructions =
-    narrator?.instructions && narrator.instructions[scenario];
-  const storySummary = story.summary;
-  const storyTitle = story.title;
-  const characters = story.characters.reduce((acc, curr) => {
-    const { name, description } = curr;
-    if (!name) throw dvError.badRequest("Character must have a name");
-    acc[name] = description;
-    return acc;
-  }, {} as Record<string, string | null>);
-
-  const characterString = JSON.stringify({ characters });
-
-  const systemPrompt = `${narratorInstructions} title:${storyTitle}
-   \n summary: ${storySummary}\n ${characterString}\n
-   ${story.content}`;
-
-  return systemPrompt;
 };
 
 const expectedResponseSchema = z.discriminatedUnion("scenario", [
@@ -98,7 +85,7 @@ export const validateResults = ({
   scenario,
 }: {
   results: string;
-  scenario: "integrate" | "characters" | "narrate";
+  scenario: "integrate" | "characters" | "narrate" | "initialize";
 }) => {
   try {
     const jsonResults = JSON.parse(results);
