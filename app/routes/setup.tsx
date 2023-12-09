@@ -67,14 +67,18 @@ export default function Setup() {
           }}
         >
           <input type="hidden" name="storyId" value={story.id} />
-          <Box className="w-11/12 md:w-3/4  xl:w-2/3  xxl:w-1/2">
-            <TextAreaVStack
-              label="Type Things Here"
-              className="w-full h-full"
-              name="newInput"
-            />
-          </Box>
-          <Button type="submit">Submit</Button>
+          <VStack gap="gap-[20px]">
+            <Box className="w-11/12 md:w-3/4  xl:w-2/3  xxl:w-1/2 justify-center">
+              <TextAreaVStack
+                label="Type Things Here"
+                className="w-full h-full"
+                name="newInput"
+              />
+            </Box>
+            <Button type="submit" className="w-[200px]">
+              Submit
+            </Button>
+          </VStack>
         </Form>
       </VStack>
     </Flex>
