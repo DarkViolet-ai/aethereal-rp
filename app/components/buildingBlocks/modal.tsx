@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import { CloseTextButton } from "./closeTextButton";
 import Flex from "./flex";
 import { CloseButton } from "./closeButton";
+import Box from "./box";
+import { borderShadow } from "~/css/styles";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -76,9 +78,17 @@ export default function Modal({
 
               <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
                 <Flex className="flex-1 bg-cyanBack border-l-3 border-dv-900">
-                  {children}
+                  <Box className="w-full h-full pb-[50px]">
+                    <Box
+                      className={`w-full h-full shadow-shadow3D text-shadow-dvTextShadow rounded-b-none bg-darkVioletGrad ${borderShadow} overflow-y-auto`}
+                    >
+                      <Flex className="w-full bg-dv-950 flex-col items-center p-3 rounded-b-none gap-5">
+                        {children}
+                      </Flex>
+                    </Box>
+                  </Box>
                 </Flex>
-                <Flex className="w-full bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
+                <Flex className="w-full h-[50px] bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
                   <CloseTextButton onClose={() => setModalOpen(false)} />
                 </Flex>
               </Flex>
