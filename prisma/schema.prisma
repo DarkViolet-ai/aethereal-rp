@@ -26,6 +26,7 @@ model User {
 
 model Story {
   id         String      @id @default(uuid())
+  version    Int         @default(1)
   title      String
   summary    String
   content    String
@@ -38,7 +39,7 @@ model Story {
   updatedAt  DateTime    @updatedAt
   tags       String[]
 
-  @@unique([title, authorId])
+  @@unique([title, authorId, version])
 }
 
 model Character {
@@ -49,16 +50,18 @@ model Character {
   isActive     Boolean  @default(true)
   storyId      String
   rolePlayerId String?
-  description      String?
+  description  String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  @@unique([name, storyId])
 }
 
 model Narrator {
   id           String   @id @default(uuid())
   name         String
   instructions Json
-  story        Story    @relation(fields: [storyId], references: [id])
+  story        Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
   storyId      String   @unique
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
