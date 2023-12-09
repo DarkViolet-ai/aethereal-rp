@@ -13,7 +13,7 @@ export default function CardContainer({
   return (
     <Flex className={`w-full h-full justify-center p-3 ${className}`}>
       <VStack
-        className={`w-full sm:w-11/12 md:max-w-[700px] xxl:w-10/12 bg-dv-975 shadow-dvShadow p-2`}
+        className={` h-fit w-full xl:h-auto sm:w-11/12 md:max-w-[700px] xxl:w-10/12 bg-dv-975 shadow-dvShadow p-2`}
       >
         {children}
       </VStack>

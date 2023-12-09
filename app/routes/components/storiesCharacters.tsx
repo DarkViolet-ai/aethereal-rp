@@ -14,10 +14,9 @@ export default function StoriesCharacters() {
   return (
     <Flex className="w-full h-full max-w-[1750px] justify-center pt-[50px] ">
       <Flex
-        className="flex-col w-full h-full xl:flex-row xl:justify-center"
+        className="flex-col w-full h-full xl:flex-row xl:justify-center "
         // style={{ height: "88vh" }}
       >
-        {" "}
         <CardContainer className="xxl:w-5/12 xxl:justify-end">
           <VStack className="w-full" gap="gap-5">
             <Text className={`${cursiveText} text-[40px]`}>My Stories</Text>{" "}
@@ -50,12 +49,12 @@ export default function StoriesCharacters() {
             </Flex>{" "}
           </VStack>
         </CardContainer>
-        <CardContainer className="xxl:w-7/12 h-fit xl:h-full">
-          <VStack className="w-full h-full" gap="gap-5">
+        <CardContainer className="h-fit xxl:w-7/12 xl:h-full">
+          <VStack className="w-full h-fit xl:h-full" gap="gap-5">
             <Text className={`${cursiveText} text-[40px]`}>
               Current Openings
             </Text>
-            <VStack className="w-full h-11/12 overflow-y-auto">
+            <VStack className="w-full h-fit xl:h-11/12 overflow-y-auto">
               {tempCharacters.map((character, index) => {
                 return (
                   <Flex className="w-full px-2" key={index}>
