@@ -1,21 +1,19 @@
-import { DataFunctionArgs } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 import { Form, useNavigate, useOutletContext } from "@remix-run/react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { AnimatePresence } from "framer-motion";
 import { useCallback, useState } from "react";
 import { redirect } from "remix-typedjson";
 import { z } from "zod";
-import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
-import Image from "~/components/buildingBlocks/image";
 import InputVStack from "~/components/buildingBlocks/inputVStack";
 import PasswordInput from "~/components/buildingBlocks/passwordInput";
 import Text from "~/components/buildingBlocks/text";
 import Toast, { useToast } from "~/components/buildingBlocks/toast";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
-import { DVNameLogo, LittleDV, borderShadow, violetsSmall } from "~/css/styles";
+import { borderShadow } from "~/css/styles";
 
 export const action = async ({ request }: DataFunctionArgs) => {
   const formData = await request.formData();
@@ -30,9 +28,10 @@ export const action = async ({ request }: DataFunctionArgs) => {
 
 export default function RegisterPanel() {
   const { supabase } = useOutletContext<{ supabase: SupabaseClient }>();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [signingUp, setSigningUp] = useState(false);
   const navigate = useNavigate();
-  const [username, setUsername] = useState(""); // State for the username
+  const { isToastVisible, showToast, hideToast } = useToast();
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -51,6 +50,7 @@ export default function RegisterPanel() {
         redirectUrl = "https://darkvioletai.fly.dev/verify";
       }
       const username = formData.get("username") as string;
+
       const result = await supabase.auth.signUp({
         email,
         password,
@@ -64,17 +64,8 @@ export default function RegisterPanel() {
       setSigningUp(false);
       navigate("/signupSuccess");
     },
-    [supabase, navigate]
+    [supabase, navigate, showToast]
   );
-
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
-  const [isInputValid, setInputValid] = useState(false);
-  const handleValidityChange = (isValid: boolean) => {
-    setInputValid(isValid);
-  };
-
-  const { isToastVisible, showToast, hideToast } = useToast();
 
   return (
     <Flex className="w-full h-full justify-center items-center">
