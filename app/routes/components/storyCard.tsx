@@ -1,12 +1,12 @@
 import { borderShadow, cursiveText } from "~/css/styles";
-import Flex from "../buildingBlocks/flex";
-import Text from "../buildingBlocks/text";
+import Flex from "../../components/buildingBlocks/flex";
+import Text from "../../components/buildingBlocks/text";
 import { useNavigate } from "@remix-run/react";
 import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
-import HStack from "../buildingBlocks/hStack";
-import VStack from "../buildingBlocks/vStack";
-import Image from "../buildingBlocks/image";
-import { Story } from "@prisma/client";
+import HStack from "../../components/buildingBlocks/hStack";
+import VStack from "../../components/buildingBlocks/vStack";
+import Image from "../../components/buildingBlocks/image";
+import type { Story } from "@prisma/client";
 
 interface StoryCardProps {
   story: Story;
@@ -17,20 +17,20 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const imagePath = GetStoryImagePath(story.title);
   return (
     <Flex
-      className={`w-full max-w-[550px]  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
+      className={`w-full max-w-[550px]  shadow-shadow3D relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
       onClick={() => {
         navigate("/");
       }}
     >
-      <HStack>
-        <VStack align="start">
+      <HStack className="w-full h-full p-2 shadow-shadow3D ">
+        <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-1">
           <Text className={`${cursiveText} text-[30px]`}>
             <i>{story.title}</i>
           </Text>
           <Text>{story.summary}</Text>
-          <Text>{story.content}</Text>
+          <Text noOfLines={2}>{story.content}</Text>
         </VStack>
-        <Flex className="w-[150px] flex-shrink-0">
+        <Flex className="h-[150px] flex-shrink-0">
           <Image src={imagePath} alt={story.title} />
         </Flex>
       </HStack>

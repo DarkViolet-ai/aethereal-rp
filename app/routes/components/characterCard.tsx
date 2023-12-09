@@ -1,14 +1,14 @@
 import { borderShadow, cardColors, cursiveText } from "~/css/styles";
-import Flex from "../buildingBlocks/flex";
-import Text from "../buildingBlocks/text";
-import HStack from "../buildingBlocks/hStack";
+import Flex from "../../components/buildingBlocks/flex";
+import Text from "../../components/buildingBlocks/text";
+import HStack from "../../components/buildingBlocks/hStack";
 import { useNavigate } from "@remix-run/react";
-import VStack from "../buildingBlocks/vStack";
-import Image from "../buildingBlocks/image";
+import VStack from "../../components/buildingBlocks/vStack";
+import Image from "../../components/buildingBlocks/image";
 import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import { BsInfoSquareFill } from "react-icons/bs/index.js";
 import type { Character } from "@prisma/client";
-import Box from "../buildingBlocks/box";
+import Box from "../../components/buildingBlocks/box";
 
 export default function CharacterCardMini({
   character,
@@ -26,7 +26,7 @@ export default function CharacterCardMini({
       }}
     >
       <HStack className="justify-between w-full">
-        <HStack>
+        <HStack className="text-shadow-dvTextShadow">
           <Text className={`${cursiveText} text-[26px]`}>{character.name}</Text>
           <Text className="text-shadow-dvTextShadow">
             <i>{character.storyId}</i>
