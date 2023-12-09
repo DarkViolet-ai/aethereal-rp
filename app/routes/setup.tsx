@@ -56,7 +56,7 @@ export default function Setup() {
             <Text>{story.prompt}</Text>
           </Box>
         </Box>
-        <Form method="post">
+        <Form method="post" style={{ width: "100%" }}>
           <input type="hidden" name="storyId" value={story.id} />
           <Box className="w-11/12 md:w-3/4  xl:w-2/3  xxl:w-1/2">
             <TextAreaVStack
