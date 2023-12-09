@@ -23,7 +23,7 @@ export default function CharacterCardMini({
   const navigate = useNavigate();
   return (
     <Flex
-      className={`w-full  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
+      className={`w-full  shadow-shadow3D p-2  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
       onClick={() => {
         navigate("/");
       }}
@@ -38,8 +38,8 @@ export default function CharacterCardMini({
         <Box className="shadow-dvShadow" onClick={() => setModalOpen(true)}>
           <BsInfoSquareFill
             className="text-white hover:cursor-pointer w-[30px] h-[30px]"
-            onClick={(e) => {
-              e.stopPropagation(); // Prevents the navigate("/") from being triggered
+            onClick={(e: React.MouseEvent<SVGElement>) => {
+              e.stopPropagation();
               setModalOpen(true);
             }}
           />
