@@ -18,7 +18,7 @@ export default function StoriesCharacters() {
         // style={{ height: "88vh" }}
       >
         {" "}
-        <CardContainer>
+        <CardContainer className="xxl:w-5/12">
           <VStack className="w-full" gap="gap-5">
             <Text className={`${cursiveText} text-[40px]`}>My Stories</Text>{" "}
             {/* SMALL SCREENS */}
@@ -50,19 +50,20 @@ export default function StoriesCharacters() {
             </Flex>{" "}
           </VStack>
         </CardContainer>
-        <CardContainer>
+        <CardContainer className="xxl:w-7/12 bg-white">
           <VStack className="w-full h-full" gap="gap-5">
             <Text className={`${cursiveText} text-[40px]`}>
               Current Openings
             </Text>
-            <VStack className="w-full">
+            <VStack className="w-full h-11/12 overflow-y-auto">
               {tempCharacters.map((character, index) => {
                 return (
-                  <CharacterCard
-                    key={index}
-                    character={character}
-                    bgColor={cardColors[index % cardColors.length]}
-                  />
+                  <Flex className="w-full px-2" key={index}>
+                    <CharacterCard
+                      character={character}
+                      bgColor={cardColors[index % cardColors.length]}
+                    />
+                  </Flex>
                 );
               })}{" "}
             </VStack>

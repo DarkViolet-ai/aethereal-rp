@@ -23,7 +23,7 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
         navigate("/");
       }}
     >
-      <HStack className="w-full h-full p-2 shadow-shadow3D ">
+      <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
         <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
           <Text className={`${cursiveText} text-[30px]`}>
             <i>{story.title}</i>

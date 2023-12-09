@@ -20,7 +20,7 @@ export default function CharacterCardMini({
   const navigate = useNavigate();
   return (
     <Flex
-      className={`w-full max-w-[550px]  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
+      className={`w-full  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
       onClick={() => {
         navigate("/");
       }}
