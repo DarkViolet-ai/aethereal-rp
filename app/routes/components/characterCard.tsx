@@ -9,6 +9,8 @@ import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import { BsInfoSquareFill } from "react-icons/bs/index.js";
 import type { Character } from "@prisma/client";
 import Box from "../../components/buildingBlocks/box";
+import { useState } from "react";
+import Modal from "~/components/buildingBlocks/modal";
 
 export default function CharacterCardMini({
   character,
@@ -17,6 +19,7 @@ export default function CharacterCardMini({
   character: Character;
   bgColor?: string;
 }) {
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   return (
     <Flex
@@ -32,15 +35,23 @@ export default function CharacterCardMini({
             <i>{character.storyId}</i>
           </Text>
         </HStack>
-        <Box className="shadow-dvShadow">
+        <Box className="shadow-dvShadow" onClick={() => setModalOpen(true)}>
           <BsInfoSquareFill
             className="text-white hover:cursor-pointer w-[30px] h-[30px]"
-            onClick={() => {
-              navigate("/");
+            onClick={(e) => {
+              e.stopPropagation(); // Prevents the navigate("/") from being triggered
+              setModalOpen(true);
             }}
           />
         </Box>
       </HStack>
+      <Modal
+        setModalOpen={setModalOpen}
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+      >
+        <Text>Testing</Text>
+      </Modal>
     </Flex>
   );
 }
@@ -55,7 +66,6 @@ export function CharacterCard({
 }: CharacterCardProps) {
   const navigate = useNavigate();
   const imagePath = GetStoryImagePath(character.storyId);
-  console.log(imagePath);
   return (
     <Flex
       className={`w-full max-w-[550px]  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}  hover:cursor-pointer`}
