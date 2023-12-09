@@ -165,5 +165,5 @@ export const narrate = async ({
   updatedContent = `${updatedStory.content}\n${validatedNarrateResults.text}`;
   updatedStory = await updateStory({ id: story.id, content: updatedContent });
 
-  return updatedStory;
+  return { characters, nextCharacter, userPrompt, updatedStory };
 };
