@@ -50,8 +50,8 @@ export default function StoriesCharacters() {
             </Flex>{" "}
           </VStack>
         </CardContainer>
-        <CardContainer className="xxl:w-7/12 bg-white">
-          <VStack className="w-full h-full" gap="gap-5">
+        <CardContainer className="xxl:w-7/12 ">
+          <VStack className="w-full h-full " gap="gap-5">
             <Text className={`${cursiveText} text-[40px]`}>
               Current Openings
             </Text>

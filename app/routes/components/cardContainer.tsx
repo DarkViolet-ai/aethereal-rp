@@ -11,9 +11,9 @@ export default function CardContainer({
   overflowY?: string;
 }) {
   return (
-    <Flex className={`w-full h-full xl:w-1/2 justify-center p-3 ${className}`}>
+    <Flex className={`w-full h-full   justify-center p-3 ${className}`}>
       <VStack
-        className={`w-full min-w-[375px] sm:w-11/12 sm:min-w-[500px] md:w-fit md:min-w-[550px] bg-dv-975 shadow-dvShadow p-2 ${overflowY}`}
+        className={`w-full min-w-[375px] sm:w-11/12 sm:min-w-[500px] md:w-fit md:min-w-[550px] xxl:w-10/12 bg-dv-975 shadow-dvShadow p-2 ${overflowY}`}
       >
         {children}
       </VStack>
