@@ -64,8 +64,8 @@ export default function Modal({
           />
           {/* Modal */}
           <motion.div
-            className={`w-full max-w-[1300px] h-full md:w-11/12 md:h-11/12 xxl:w-10/12 xxl:h-10/12 fixed inset-0 m-auto shadow-shadow3D z-50 ${className}`}
-            style={{ maxWidth: "95vw", maxHeight: "95vh", ...style }}
+            className={`w-full max-w-[1300px] h-full mdpl:w-11/12 mdpl:h-96% xxl:w-10/12 xxl:h-10/12 fixed inset-0 m-auto shadow-shadow3D z-50 ${className}`}
+            style={{ ...style }}
             variants={variants}
             initial="closed"
             animate="open"

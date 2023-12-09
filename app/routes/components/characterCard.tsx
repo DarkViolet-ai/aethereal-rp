@@ -18,6 +18,7 @@ import Box from "../../components/buildingBlocks/box";
 import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
 import LabelValue from "~/components/buildingBlocks/labelValue";
+import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 
 export default function CharacterCardMini({
   character,
@@ -82,7 +83,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   const storyCharacters = Characters.filter(
     (character) => character.storyId === story?.id
   );
-  const imagePath = `/images/stories/`;
+  const imagePath = GetStoryImagePath(story?.title || "");
 
   console.log("CHARACTERS: ", storyCharacters);
 
