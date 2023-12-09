@@ -25,19 +25,22 @@ model User {
 }
 
 model Story {
-  id         String      @id @default(uuid())
-  version    Int         @default(1)
-  title      String
-  summary    String
-  content    String
-  author     User        @relation(fields: [authorId], references: [id])
-  characters Character[]
-  narrator   Narrator?
-  authorId   String
-  isActive   Boolean     @default(false)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  tags       String[]
+  id            String      @id @default(uuid())
+  version       Int         @default(1)
+  prompt        String?
+  nextCharacter String?
+  lastInput     String?
+  title         String
+  summary       String
+  content       String
+  author        User        @relation(fields: [authorId], references: [id])
+  characters    Character[] @relation(name: "inStory")
+  narrator      Narrator?
+  authorId      String
+  isActive      Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  tags          String[]
 
   @@unique([title, authorId, version])
 }
@@ -45,8 +48,8 @@ model Story {
 model Character {
   id           String   @id @default(uuid())
   name         String
-  story        Story    @relation(fields: [storyId], references: [id])
-  rolePlayer   User?    @relation(fields: [rolePlayerId], references: [id])
+  story        Story    @relation(name: "inStory", fields: [storyId], references: [id], onDelete: Cascade)
+  rolePlayer   User?    @relation(fields: [rolePlayerId], references: [id], onDelete: SetNull)
   isActive     Boolean  @default(true)
   storyId      String
   rolePlayerId String?

@@ -1,4 +1,5 @@
 import { DataFunctionArgs } from "@remix-run/node";
+import { Form } from "@remix-run/react";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
@@ -7,10 +8,10 @@ import Text from "~/components/buildingBlocks/text";
 import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
 import { borderShadow } from "~/css/styles";
-import { beginStory } from "~/lib/ai/narrator.server";
+import { continueStory } from "~/lib/ai/narrator.server";
 import { narratorInstructions } from "~/lib/ai/narratorInstructions";
 import { openaiGenerator } from "~/lib/ai/openaiGenerator.server";
-import { getStory, getUser } from "~/lib/db/db.server";
+import { getStory, getUser, setLastInputInStory } from "~/lib/db/db.server";
 import { dvError } from "~/lib/utils/dvError";
 
 export const loader = async ({ request }: DataFunctionArgs) => {
@@ -21,16 +22,29 @@ export const loader = async ({ request }: DataFunctionArgs) => {
   initStory.version += 1;
 
   const generator = openaiGenerator;
-  const { story, narrator, prompt } = await beginStory({
-    ...initStory,
+  const { story } = await continueStory({
+    story: initStory,
     narratorInstructions,
     generator,
   });
-  return typedjson({ story, narrator, prompt });
+  console.log();
+  return typedjson({ story });
+};
+
+export const action = async ({ request }: DataFunctionArgs) => {
+  const formData = await request.formData();
+  const newInput = formData.get("newInput");
+  const storyId = formData.get("storyId");
+  if (!newInput || !storyId) throw dvError.badRequest("Missing input");
+  await setLastInputInStory({
+    storyId: "seed-story-id-1",
+    lastInput: newInput.toString(),
+  });
+  return typedjson({ status: "ok" });
 };
 
 export default function Setup() {
-  const { story, narrator, prompt } = useTypedLoaderData<typeof loader>();
+  const { story } = useTypedLoaderData<typeof loader>();
   return (
     <Flex className="w-full h-full justify-center pt-[50px] pb-[35px] items-center">
       <VStack className="w-full p-4" gap="gap-5">
@@ -39,13 +53,20 @@ export default function Setup() {
         >
           <Box className="w-full h-[400px] bg-dv-800 shadow-shadow3D p-2 overflow-y-auto">
             <Text>{story.content}</Text>
-            <Text>{prompt}</Text>
+            <Text>{story.prompt}</Text>
           </Box>
         </Box>
-        <Box className="w-11/12 md:w-3/4  xl:w-2/3  xxl:w-1/2">
-          <TextAreaVStack label="Type Things Here" className="w-full h-full" />
-        </Box>
-        <Button type="submit">Submit</Button>
+        <Form method="post">
+          <input type="hidden" name="storyId" value={story.id} />
+          <Box className="w-11/12 md:w-3/4  xl:w-2/3  xxl:w-1/2">
+            <TextAreaVStack
+              label="Type Things Here"
+              className="w-full h-full"
+              name="newInput"
+            />
+          </Box>
+          <Button type="submit">Submit</Button>
+        </Form>
       </VStack>
     </Flex>
   );

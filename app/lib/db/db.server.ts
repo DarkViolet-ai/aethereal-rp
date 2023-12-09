@@ -207,6 +207,46 @@ export const updateCharactersInStory = async ({
   });
 };
 
+export const setNextCharacterInStory = async ({
+  storyId,
+  nextCharacterName,
+  nextPrompt,
+}: {
+  storyId: string;
+  nextCharacterName: string;
+  nextPrompt: string;
+}) => {
+  const story = await prisma.story.update({
+    where: {
+      id: storyId,
+    },
+    data: {
+      nextCharacter: nextCharacterName,
+      prompt: nextPrompt,
+      lastInput: null,
+    },
+  });
+  return story;
+};
+
+export const setLastInputInStory = async ({
+  storyId,
+  lastInput,
+}: {
+  storyId: string;
+  lastInput: string;
+}) => {
+  const story = await prisma.story.update({
+    where: {
+      id: storyId,
+    },
+    data: {
+      lastInput,
+    },
+  });
+  return story;
+};
+
 export const __updateCharactersInStory = async ({
   id,
   characters,
