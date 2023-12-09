@@ -14,6 +14,7 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   setModalOpen: (isOpen: boolean) => void;
   onClose: () => void;
   children?: React.ReactNode;
+  maxWidth?: string;
 }
 
 export default function Modal({
@@ -23,6 +24,7 @@ export default function Modal({
   onClose,
   children,
   setModalOpen,
+  maxWidth = "max-w-[1300px]",
   ...props
 }: ModalProps) {
   // Animation variants for scaling in and out
@@ -65,7 +67,7 @@ export default function Modal({
           />
           {/* Modal */}
           <motion.div
-            className={`w-full max-w-[1300px] fixed inset-0 m-auto shadow-shadow3D z-50 md:w-98% md:h-98% ${className}`}
+            className={`w-full ${maxWidth} fixed inset-0 m-auto shadow-shadow3D z-50 md:w-98% md:h-98% ${className}`}
             style={{ ...style }}
             variants={variants}
             initial="closed"

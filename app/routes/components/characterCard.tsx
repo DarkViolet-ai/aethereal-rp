@@ -94,7 +94,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   console.log("story: ", story);
 
   return (
-    <>
+    <Flex className="w-full h-full items-center flex-col gap-5">
       <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg">
         <Image src={imagePath} alt={character.name} />
       </Flex>
@@ -129,7 +129,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
             <VStack className="w-full gap-0">
               <LabelValue label="Other Characters" />
               <Flex className="w-full">
-                <VStack className="w-full px-4">
+                <VStack className="w-full px-4" align="start">
                   {storyCharacters.map((character, index) => (
                     <LabelValue
                       key={index}
@@ -144,6 +144,6 @@ export function CharacterCard({ character }: CharacterCardProps) {
           </VStack>
         </VStack>
       </Flex>
-    </>
+    </Flex>
   );
 }
