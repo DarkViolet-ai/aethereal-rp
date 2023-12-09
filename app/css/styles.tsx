@@ -22,6 +22,8 @@ export const violetsTwo = "/images/core/violetsRowTwo.png";
 export const cursiveText =
   "font-cursive text-dv-400 text-shadow-dvTextShadow text-[25px]";
 export const borderShadow = "border-[1.5px] border-dv-800 shadow-dvShadow";
+export const highlightedText =
+  "text-dv-400 text-shadow-dvTextShadow font-semibold";
 
 // CARD COLORS
 export const cardColors = [

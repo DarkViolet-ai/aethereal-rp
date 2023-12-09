@@ -64,7 +64,7 @@ export default function Modal({
           />
           {/* Modal */}
           <motion.div
-            className={`w-full h-full md:w-11/12 md:h-11/12 xxl:w-10/12 xxl:h-10/12 fixed inset-0 m-auto shadow-dvShadow z-50 ${className}`}
+            className={`w-full max-w-[1300px] h-full md:w-11/12 md:h-11/12 xxl:w-10/12 xxl:h-10/12 fixed inset-0 m-auto shadow-shadow3D z-50 ${className}`}
             style={{ maxWidth: "95vw", maxHeight: "95vh", ...style }}
             variants={variants}
             initial="closed"
@@ -76,7 +76,7 @@ export default function Modal({
               <CloseButton onClose={() => setModalOpen(false)} />
 
               <VStack
-                className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900"
+                className="w-full  h-full justify-between bg-cyanBack border-l-3 border-dv-900"
                 gap="gap-0"
               >
                 {children}
