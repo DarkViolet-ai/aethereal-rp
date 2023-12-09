@@ -39,21 +39,24 @@ export default function CharacterCardMini({
     >
       <HStack className="justify-between w-full">
         <HStack className="text-shadow-dvTextShadow">
-          <VStack className="w-full" align="start" gap="gap-0">
+          <Flex className="w-full flex-col items-start md:flex-row xl:flex-col xxl:flex-row">
             <Text className={`${cursiveText} text-[26px] xl:text-[33px]`}>
               {character.name}
             </Text>
+            <Flex className="hidden md:flex xl:hidden xxl:flex px-2">
+              <Text> | </Text>
+            </Flex>
             <Text className="text-shadow-dvTextShadow">
               <i>{story?.title}</i>
             </Text>
-          </VStack>
+          </Flex>
         </HStack>
         <Box
           className="shadow-dvShadow h-fit"
           onClick={() => setModalOpen(true)}
         >
           <BsInfoSquareFill
-            className="text-white hover:cursor-pointer w-[30px] h-[30px]"
+            className="text-white hover:cursor-pointer w-[30px] h-[30px] hover:text-dv-400 transition:all duration-300 ease-in-out"
             onClick={(e: React.MouseEvent<SVGElement>) => {
               e.stopPropagation();
               setModalOpen(true);
@@ -81,45 +84,69 @@ export function CharacterCard({ character }: CharacterCardProps) {
 
   const story = Stories.find((story) => story.id === character.storyId);
   const storyCharacters = Characters.filter(
-    (character) => character.storyId === story?.id
+    (otherCharacter) =>
+      otherCharacter.storyId === character.storyId &&
+      otherCharacter.id !== character.id
   );
   const imagePath = GetStoryImagePath(story?.title || "");
 
-  console.log("CHARACTERS: ", storyCharacters);
+  console.log("character: ", character);
+  console.log("story: ", story);
 
   return (
     <Flex
-      className={`w-full h-full shadow-shadow3D text-shadow-dvTextShadow p-2 rounded-b-none bg-darkVioletGrad ${borderShadow} flex-col items-center overflow-y-auto gap-5`}
+      className={`w-full h-full shadow-shadow3D text-shadow-dvTextShadow rounded-b-none bg-darkVioletGrad ${borderShadow} items-center overflow-y-auto`}
     >
-      <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg">
-        <Image src={imagePath} alt={character.name} />
-      </Flex>
-      <Flex className="w-full flex-col">
-        <VStack align="start w-full gap-[30px]">
-          <VStack className="w-full" gap="gap-[20px]">
-            <Text className={`${cursiveText} text-[43px]`}>
-              {character.name}
-            </Text>
-            <Text className="text-center">{character.summary}</Text>
+      <Flex className="w-full h-full bg-dv-950 flex-col items-center p-3 rounded-b-none gap-5">
+        <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg">
+          <Image src={imagePath} alt={character.name} />
+        </Flex>
+        <Flex className="w-full flex-col">
+          <VStack align="start w-full gap-[30px]">
+            <VStack className="w-full" gap="gap-[20px]">
+              <Text className={`${cursiveText} text-[43px]`}>
+                {character.name}
+              </Text>
+              <Text className="text-center">{character.summary}</Text>
+            </VStack>
+
+            {/* STORY TAGS */}
+
+            <VStack className="w-full gap-4 px-2 pb-2">
+              <LabelValue
+                label="Story"
+                value={story?.title || "No title available."}
+                containerClassName="items-start"
+                valueClassName="italic"
+              />
+              <VStack className="w-full gap-0">
+                <LabelValue
+                  label="Story Summary"
+                  value={
+                    story?.summary ||
+                    "There is no summary available for this story."
+                  }
+                />
+                <Text>{story?.content}</Text>
+              </VStack>
+              <VStack className="w-full gap-0">
+                <LabelValue label="Other Characters" />
+                <Flex className="w-full">
+                  <VStack className="w-full px-4">
+                    {storyCharacters.map((character, index) => (
+                      <LabelValue
+                        key={index}
+                        direction="flex-row"
+                        label={storyCharacters[index].name}
+                        value={storyCharacters[index].summary}
+                      />
+                    ))}
+                  </VStack>
+                </Flex>
+              </VStack>
+            </VStack>
           </VStack>
-          <VStack className="w-full gap-4">
-            <LabelValue
-              direction="flex-column"
-              label="Story"
-              value={story?.title || "No title available."}
-              containerClassName="items-start"
-              valueClassName="italic"
-            />
-            <LabelValue
-              direction="flex-column"
-              label="Story Summary"
-              value={
-                story?.summary ||
-                "There is no summary available for this story."
-              }
-            />
-          </VStack>
-        </VStack>
+        </Flex>
       </Flex>
     </Flex>
   );

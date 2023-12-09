@@ -5,7 +5,7 @@ import Flex from "./flex";
 
 interface LabelValueProps {
   label: string;
-  value: string;
+  value?: string;
   direction?: "flex-row" | "flex-column";
   containerClassName?: string;
   labelClassName?: string;
@@ -15,7 +15,7 @@ interface LabelValueProps {
 export default function LabelValue({
   label,
   value,
-  direction = "flex-row",
+  direction = "flex-column",
   containerClassName = "",
   labelClassName = "",
   valueClassName = "",
@@ -41,7 +41,9 @@ export default function LabelValue({
           <Text className={`${highlightedText} ${labelClassName}`}>
             {label}
           </Text>
-          <Text className={`text-dv-100 ${valueClassName}`}>{value}</Text>
+          {value && (
+            <Text className={`text-dv-100 ${valueClassName}`}>{value}</Text>
+          )}
         </VStack>
       )}
     </>

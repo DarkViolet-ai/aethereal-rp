@@ -1,7 +1,6 @@
 // FramerMotionModal.tsx
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect } from "react";
-import VStack from "./vStack";
 import { CloseTextButton } from "./closeTextButton";
 import Flex from "./flex";
 import { CloseButton } from "./closeButton";
@@ -64,7 +63,7 @@ export default function Modal({
           />
           {/* Modal */}
           <motion.div
-            className={`w-full max-w-[1300px] h-full mdpl:w-11/12 mdpl:h-96% xxl:w-10/12 xxl:h-10/12 fixed inset-0 m-auto shadow-shadow3D z-50 ${className}`}
+            className={`w-full max-w-[1300px] fixed inset-0 m-auto shadow-shadow3D z-50 md:w-98% md:h-98% ${className}`}
             style={{ ...style }}
             variants={variants}
             initial="closed"
@@ -72,18 +71,17 @@ export default function Modal({
             exit="closed"
             {...(props as any)}
           >
-            <Flex className="w-full h-full relative">
+            <Flex className="w-full h-full relative ">
               <CloseButton onClose={() => setModalOpen(false)} />
 
-              <VStack
-                className="w-full  h-full justify-between bg-cyanBack border-l-3 border-dv-900"
-                gap="gap-0"
-              >
-                {children}
-                <Flex className="w-full bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center">
+              <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
+                <Flex className="flex-1 bg-cyanBack border-l-3 border-dv-900">
+                  {children}
+                </Flex>
+                <Flex className="w-full bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
                   <CloseTextButton onClose={() => setModalOpen(false)} />
                 </Flex>
-              </VStack>
+              </Flex>
             </Flex>
           </motion.div>
         </>
