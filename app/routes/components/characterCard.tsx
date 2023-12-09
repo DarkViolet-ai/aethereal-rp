@@ -94,16 +94,19 @@ export function CharacterCard({ character }: CharacterCardProps) {
   console.log("story: ", story);
 
   return (
-    <Flex className="w-full h-full items-center flex-col gap-5">
-      <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg">
-        <Image src={imagePath} alt={character.name} />
+    <Flex className="w-full h-fit lg:h-full items-center flex-col gap-5 lg:flex-row bg-dv-950 p-3 ">
+      <Flex className="w-full lg:w-40% justify-center">
+        <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg ">
+          <Image src={imagePath} alt={character.name} w="100%" h="100%" />
+        </Flex>
       </Flex>
-      <Flex className="w-full flex-col">
+      <Flex className="w-full flex-col lg:w-60%">
         <VStack align="start w-full gap-[30px]">
           <VStack className="w-full" gap="gap-[20px]">
             <Text className={`${cursiveText} text-[43px]`}>
               {character.name}
             </Text>
+            {/* Figure out this typescript issue. Summary is on the data and renders, but Typescript does not believe. */}
             <Text className="text-center">{character.summary}</Text>
           </VStack>
 
