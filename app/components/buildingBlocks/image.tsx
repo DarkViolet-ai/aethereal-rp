@@ -23,7 +23,7 @@ export default function Image({
   w = "auto",
   h = "auto",
   objectFit = "cover",
-  pos = "relative",
+  pos,
   t,
   b,
   l,

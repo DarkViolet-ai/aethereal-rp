@@ -1,0 +1,48 @@
+POSITIONING vs Z INDEX:
+
+QUESTION: Why is it that for some of my elements, when I set position to relative, they operate as if they have a 
+higher z index than elements that have a set high z index, even when the elements with relative position have no 
+z index set at all?
+
+The behavior you're observing, where elements with `position: relative` seem to have a higher stacking order 
+(akin to `z-index`) than other elements, even without a set `z-index`, can be attributed to how the CSS stacking 
+context works.
+
+Here's a brief overview of the key points that might be causing this behavior:
+
+1. **Creation of Stacking Contexts**: Certain CSS properties and values create new stacking contexts. The most 
+common way to create a stacking context is by setting an element's `z-index` to a value other than `auto` in 
+combination with a `position` value other than `static` (like `relative`, `absolute`, `fixed`, or `sticky`). 
+However, other properties can also create stacking contexts, such as `opacity` values less than 1, certain 
+`filter` values, and more.
+
+2. **Relative Positioning**: When you set an element's position to `relative`, it doesn't by itself create a new 
+stacking context, but it does change how the element is positioned in the flow of the document. A relatively 
+positioned element is shifted from its normal position, which can affect how it stacks with other elements.
+
+3. **Implicit Stacking Order**: Even if you don't explicitly set a `z-index`, elements are stacked in a specific 
+order by default:
+   - Background and borders of the root element
+   - Non-positioned, non-floated, block-level elements
+   - Non-positioned, floated elements
+   - Inline-level elements (including inline-block and inline-table)
+   - Positioned elements (`relative`, `absolute`, `fixed`, `sticky`) without a `z-index` or with `z-index: auto`
+
+4. **Parent-Child Stacking**: The stacking context of a parent can influence the stacking of its children. If an 
+element B is a child of element A, and A has a higher stacking context, B will appear above elements that are 
+outside of A's context, even if those outside elements have a higher `z-index`.
+
+5. **Browser Rendering Quirks**: Sometimes, browser-specific rendering quirks or bugs can affect stacking order 
+in unexpected ways.
+
+To troubleshoot your specific issue:
+
+- Ensure that there are no parent elements creating unexpected stacking contexts that might affect the stacking 
+of your relatively positioned elements.
+- Check if other CSS properties applied to these elements or their ancestors might be influencing the stacking 
+context.
+- Use browser developer tools to inspect the elements and understand their stacking context and how they are 
+rendered in the document flow.
+
+Understanding and debugging CSS stacking contexts can be tricky, especially in complex layouts, but the developer 
+tools in modern browsers are quite helpful in visualizing and resolving these issues.

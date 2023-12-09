@@ -1,4 +1,3 @@
-import { useNavigate } from "@remix-run/react";
 import type { ReactNode, MouseEventHandler } from "react";
 
 interface ButtonProps {

@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import VStack from "./vStack";
 import { CloseTextButton } from "./closeTextButton";
 import Flex from "./flex";
+import { CloseButton } from "./closeButton";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -71,15 +72,19 @@ export default function Modal({
             exit="closed"
             {...(props as any)}
           >
-            <VStack
-              className="w-full h-full justify-between relative bg-cyanBack border-l-3 border-dv-900"
-              gap="gap-0"
-            >
-              {children}
-              <Flex className="w-full bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center">
-                <CloseTextButton onClose={() => setModalOpen(false)} />
-              </Flex>
-            </VStack>
+            <Flex className="w-full h-full relative">
+              <CloseButton onClose={() => setModalOpen(false)} />
+
+              <VStack
+                className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900"
+                gap="gap-0"
+              >
+                {children}
+                <Flex className="w-full bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center">
+                  <CloseTextButton onClose={() => setModalOpen(false)} />
+                </Flex>
+              </VStack>
+            </Flex>
           </motion.div>
         </>
       )}
