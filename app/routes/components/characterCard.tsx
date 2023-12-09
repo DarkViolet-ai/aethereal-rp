@@ -58,7 +58,7 @@ export function CharacterCard({
   console.log(imagePath);
   return (
     <Flex
-      className={`w-full max-w-[550px]  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
+      className={`w-full max-w-[550px]  shadow-shadow3D p-2 relative  ${bgColor} bg-darkVioletGrad ${borderShadow}  hover:cursor-pointer`}
       onClick={() => {
         navigate("/");
       }}

@@ -26,7 +26,7 @@ export default function TextAreaVStack(
       className={props.className}
       align="start"
       style={props.style}
-      gap={0}
+      gap="gap-0"
     >
       <Text className="text-shadow-dvTextShadow">{props.label}</Text>
       <TextArea

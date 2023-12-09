@@ -7,6 +7,7 @@ import HStack from "../../components/buildingBlocks/hStack";
 import VStack from "../../components/buildingBlocks/vStack";
 import Image from "../../components/buildingBlocks/image";
 import type { Story } from "@prisma/client";
+import FormatDate from "~/lib/utils/formatDate";
 
 interface StoryCardProps {
   story: Story;
@@ -17,21 +18,23 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const imagePath = GetStoryImagePath(story.title);
   return (
     <Flex
-      className={`w-full max-w-[550px]  shadow-shadow3D relative  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
+      className={`w-full max-w-[550px]  shadow-shadow3D relative  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
       onClick={() => {
         navigate("/");
       }}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D ">
-        <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-1">
+        <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
           <Text className={`${cursiveText} text-[30px]`}>
             <i>{story.title}</i>
           </Text>
-          <Text>{story.summary}</Text>
-          <Text noOfLines={2}>{story.content}</Text>
+          <Text className="leading-[15px]">
+            {FormatDate(String(story.createdAt))}
+          </Text>
+          <Text noOfLines={2}>{story.summary}</Text>
         </VStack>
-        <Flex className="h-[150px] flex-shrink-0">
-          <Image src={imagePath} alt={story.title} />
+        <Flex className="h-[100px] w-[100px] flex-shrink-0">
+          <Image src={imagePath} alt={story.title} h="100%" w="100%" />
         </Flex>
       </HStack>
     </Flex>
