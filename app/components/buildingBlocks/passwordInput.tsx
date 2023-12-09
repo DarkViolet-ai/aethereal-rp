@@ -30,7 +30,7 @@ export default function PasswordInput({
             type={show ? "text" : "password"}
             placeholder="password"
             id={id}
-            name={name}
+            name={confirm ? "confirmPassword" : name}
             required
           />
         </Box>
