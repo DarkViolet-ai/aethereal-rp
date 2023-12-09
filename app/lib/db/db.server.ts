@@ -1,6 +1,7 @@
 import { Prisma, Narrator as DBNarrator } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
+import { inView } from "framer-motion";
 
 export const createUser = async (data: Prisma.UserCreateInput) => {
   const user = await prisma.user.create({
@@ -214,6 +215,7 @@ export const assignRolePlayer = async ({
 };
 
 export type NarratorInstructions = {
+  initialize: string;
   integrate: string;
   narrate: string;
 };

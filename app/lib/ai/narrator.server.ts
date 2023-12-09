@@ -43,7 +43,7 @@ export const buildSystemPrompt = async ({
   scenario,
 }: {
   story: StoryContent;
-  scenario: "integrate" | "narrate";
+  scenario: "integrate" | "narrate" | "initialize";
 }) => {
   const narrator = story.narrator as Narrator;
   const narratorInstructions =
@@ -73,6 +73,13 @@ const expectedResponseSchema = z.discriminatedUnion("scenario", [
   }),
   z.object({
     scenario: z.literal("narrate"),
+    text: z.string(),
+    userPrompt: z.string(),
+    characters: z.record(z.string()),
+    nextCharacter: z.string(),
+  }),
+  z.object({
+    scenario: z.literal("initialize"),
     text: z.string(),
     userPrompt: z.string(),
     characters: z.record(z.string()),
