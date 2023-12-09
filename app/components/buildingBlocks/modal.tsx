@@ -67,7 +67,7 @@ export default function Modal({
           />
           {/* Modal */}
           <motion.div
-            className={`w-full ${maxWidth} fixed inset-0 m-auto shadow-shadow3D z-50 md:w-98% md:h-98% ${className}`}
+            className={`w-full h-full ${maxWidth} fixed inset-0 m-auto shadow-shadow3D z-50 lg:w-94% lg:h-94% ${className}`}
             style={{ ...style }}
             variants={variants}
             initial="closed"
@@ -79,12 +79,12 @@ export default function Modal({
               <CloseButton onClose={() => setModalOpen(false)} />
 
               <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
-                <Flex className="flex-1 bg-cyanBack border-l-3 border-dv-900">
+                <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900">
                   <Box className="w-full h-full pb-[50px]">
                     <Box
                       className={`w-full h-full shadow-shadow3D text-shadow-dvTextShadow rounded-b-none bg-darkVioletGrad ${borderShadow} overflow-y-auto`}
                     >
-                      <Flex className="w-full bg-dv-950 flex-col items-center p-3 rounded-b-none gap-5">
+                      <Flex className="w-full h-full flex-col items-center rounded-b-none gap-5">
                         {children}
                       </Flex>
                     </Box>
