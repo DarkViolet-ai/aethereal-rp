@@ -6,8 +6,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRevalidator,
 } from "@remix-run/react";
-import { createServerClient } from "@supabase/auth-helpers-remix";
+import {
+  createBrowserClient,
+  createServerClient,
+} from "@supabase/auth-helpers-remix";
 
 import styles from "~/css/tailwind.css";
 import globalStyles from "~/css/global.css";
@@ -16,6 +20,7 @@ import EntirePageContainer from "./components/buildingBlocks/entirePage";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import TopNav from "./components/specialty/topNav";
 import Footer from "./components/specialty/footer";
+import { useEffect, useState } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -76,6 +81,29 @@ export type RootLoaderData = typeof loader;
 
 export default function App() {
   const { env, session } = useTypedLoaderData<typeof loader>();
+  const { revalidate } = useRevalidator();
+  // const navigation = useNavigation();
+  const [supabase] = useState(() =>
+    createBrowserClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY)
+  );
+  const serverAccessToken = session?.access_token;
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (
+        event !== "INITIAL_SESSION" &&
+        session?.access_token !== serverAccessToken
+      ) {
+        // server and client are out of sync.
+        revalidate();
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [serverAccessToken, supabase, revalidate]);
 
   return (
     <html lang="en">
@@ -90,7 +118,7 @@ export default function App() {
           <EntirePageContainer>
             <TopNav />
             <Footer />
-            <Outlet />
+            <Outlet context={{ supabase }} />
           </EntirePageContainer>
         </MainBackground>
         <ScrollRestoration />

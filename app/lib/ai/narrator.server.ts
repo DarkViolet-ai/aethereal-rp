@@ -39,7 +39,7 @@ export const continueStory = async ({
     return await initializeStory({ story, generator });
   }
   if (!story.lastInput) return { story };
-  return await narrate({ story, newInput, generator });
+  return await narrate({ story, newInput: story.lastInput, generator });
 };
 
 const initializeStory = async ({

@@ -1,3 +1,5 @@
+// (c) copyright 2023 by Evan Marie Carr and Dustin W. Carr all rights reserved.
+
 import { NarratorInstructions } from "../db/db.server";
 
 const darkVioletBase =
