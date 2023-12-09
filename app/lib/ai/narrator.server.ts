@@ -5,24 +5,29 @@ import {
   getStory,
   StoryContent,
   updateStory,
+  updateCharactersInStory,
 } from "~/lib/db/db.server";
-import type { Story } from "@prisma/client";
+import type { Character, Story } from "@prisma/client";
 import type { Narrator, NarratorInstructions } from "~/lib/db/db.server";
 import { dvError } from "~/lib/utils/dvError";
 import { json } from "@remix-run/node";
 import { z } from "zod";
 import { buildSystemPrompt } from "~/lib/ai/systemPrompt";
+import internal from "node:stream";
 
 export const beginStory = async ({
   title,
   summary,
   authorId,
+  version,
   narratorInstructions,
+
   generator,
 }: {
   title: string;
   summary: string;
   authorId: string;
+  version: number;
   narratorInstructions: NarratorInstructions;
   generator: (systemPrompt: string, input: string) => Promise<string>;
 }) => {
@@ -30,27 +35,62 @@ export const beginStory = async ({
     title,
     summary,
     authorId,
+    version,
     isActive: true,
   });
+  console.log("initStory", initStory);
 
-  const narrator = createNarrator({
+  const narrator = await createNarrator({
     storyId: initStory.id,
     instructions: narratorInstructions,
   });
 
+  console.log("narrator", narrator);
+
   const story = await getStory({ id: initStory.id });
+  console.log("story", story);
   if (!story) throw dvError.internalServerError("Story creation failed");
   const systemPrompt = await buildSystemPrompt({
     story,
     scenario: "initialize",
   });
+  console.log("systemPrompt", systemPrompt);
   const results = (await generator(systemPrompt, "begin story")) as string;
+  console.log("results", results);
   const validatedResults = validateResults({
     results: results,
     scenario: "initialize",
   });
+  let updatedContent =
+    validatedResults?.scenario === "initialize" &&
+    `${story.content}\n${validatedResults.text}`;
+  let updatedStory = await updateStory({
+    id: story.id,
+    content: updatedContent || story.content,
+  });
 
-  return { story, narrator };
+  const prompt =
+    validatedResults?.scenario === "initialize" && validatedResults?.prompt;
+
+  const characters =
+    (validatedResults?.scenario === "initialize" &&
+      validatedResults?.characters &&
+      Object.keys(validatedResults?.characters).map(
+        (name) =>
+          ({
+            name,
+            description: validatedResults?.characters[name].description,
+            storyId: story.id,
+            isActive: true,
+          } as Character)
+      )) ||
+    [];
+  const newCharacters = await updateCharactersInStory({
+    story: updatedStory,
+    characters,
+  });
+  updatedStory = (await getStory({ id: story.id })) as StoryContent;
+  return { story: updatedStory, narrator, prompt };
 };
 
 const expectedResponseSchema = z.discriminatedUnion("scenario", [
@@ -61,15 +101,15 @@ const expectedResponseSchema = z.discriminatedUnion("scenario", [
   z.object({
     scenario: z.literal("narrate"),
     text: z.string(),
-    userPrompt: z.string(),
-    characters: z.record(z.string()),
+    prompt: z.string(),
+    characters: z.record(z.object({ description: z.string() })),
     nextCharacter: z.string(),
   }),
   z.object({
     scenario: z.literal("initialize"),
     text: z.string(),
-    userPrompt: z.string(),
-    characters: z.record(z.string()),
+    prompt: z.string(),
+    characters: z.record(z.object({ description: z.string() })),
     nextCharacter: z.string(),
   }),
   z.object({
@@ -154,10 +194,10 @@ export const narrate = async ({
     console.log("results", results);
     throw dvError.badRequest("Invalid results");
   }
-  const { characters, nextCharacter, userPrompt } = validatedNarrateResults;
+  const { characters, nextCharacter, prompt } = validatedNarrateResults;
 
   updatedContent = `${updatedStory.content}\n${validatedNarrateResults.text}`;
   updatedStory = await updateStory({ id: story.id, content: updatedContent });
 
-  return { characters, nextCharacter, userPrompt, updatedStory };
+  return { characters, nextCharacter, prompt, updatedStory };
 };

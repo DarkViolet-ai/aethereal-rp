@@ -9,6 +9,7 @@ export const buildSystemPrompt = async ({
   scenario: "integrate" | "narrate" | "initialize";
 }) => {
   const narrator = story.narrator as Narrator;
+  console.log("narrator", narrator);
   const narratorInstructions =
     narrator?.instructions && narrator.instructions[scenario];
   const storySummary = story.summary;
