@@ -9,16 +9,19 @@ export default function SignUpSuccess() {
     <Flex className="w-full h-full justify-center items-center">
       <VStack
         gap="gap-3"
-        className={`${borderShadow} relative w-[375px] h-[585px] p-3 text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad `}
+        className={`${borderShadow} relative w-[375px] h-[585px] p-5 text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad text-[44px] font-cursive leading-[60px]`}
       >
-        <DarkViolet b="-bottom-[2px]" l="left-2" w="w-[125px]" />
+        <DarkViolet name="1" b="-bottom-[2px]" r="right-2" w="w-[200px]" />
         <DarkViolet
-          name="violetsRowSmall"
+          name="violetsRowTwo"
           b="bottom-0"
-          r="right-4"
-          w="w-[150px]"
+          l="left-4"
+          w="w-[120px]"
         />
-        <Text className="text-[44px] font-cursive">You did it!</Text>
+        <Text className="text-dv-400">You did it!</Text>
+        <Text>
+          Check your email, and follow the link to login and get started.{" "}
+        </Text>
       </VStack>
     </Flex>
   );
