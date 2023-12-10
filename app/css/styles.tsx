@@ -17,6 +17,7 @@ export const LittleDV = "/images/core/darkVioletMain.png";
 export const violetsLarge = "/images/core/violetsRow.png";
 export const violetsSmall = "/images/core/violetsRowSmall.png";
 export const violetsTwo = "/images/core/violetsRowTwo.png";
+export const parchmentCorner = "/images/core/parchmentCorner.png";
 
 // STYLES
 export const cursiveText =

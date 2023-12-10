@@ -229,6 +229,7 @@ export default {
           "rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
         boxGlow:
           "#00FFFF 0px 0px 5px, #00FFFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, 8px 2px 6px rgba(0,0,0,0);",
+          parchmentShadow: "inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.15);",
       },
       textShadow: {
         lightTextShadow: "1px 1px 3px rgba(255, 255, 255, 0.9)",
@@ -262,6 +263,7 @@ export default {
           "linear-gradient(45deg, rgba(148, 0, 211, 0.25), rgba(0, 255, 255, 0.25)), linear-gradient(to bottom, rgba(119, 149, 242, 0.25), rgba(148, 0, 211, 0.25))",
         testGrad:
           "linear-gradient(45deg, rgba(70, 1, 100, 0.5), rgba(0, 99, 99, 0.5)),linear-gradient(to bottom,rgba(119, 149, 242, 0.5),rgba(148, 0, 211, 0.5));",
+        parchment: "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,242,211,1) 55%, rgba(255,236,191,1) 70%, rgba(255,236,189,1) 82%, rgba(255,232,176,1) 93%, rgba(255,232,176,1) 100%)",
       },
     },
   },

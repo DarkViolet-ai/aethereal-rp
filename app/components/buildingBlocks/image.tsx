@@ -15,6 +15,7 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   borderRadius?: string;
   shadow?: string;
   rounded?: string;
+  className?: string;
 }
 
 export default function Image({
@@ -32,11 +33,10 @@ export default function Image({
   borderRadius = "10px",
   shadow = "none",
   rounded,
+  className,
   ...props
 }: ImageProps) {
   const imageStyle: CSSProperties = {
-    width: w,
-    height: h,
     objectFit,
     position: pos,
     top: t,
@@ -46,6 +46,9 @@ export default function Image({
     zIndex,
     borderRadius,
     boxShadow: shadow,
+    // Only apply width and height if they are not 'auto'
+    ...(w !== "auto" && { width: w }),
+    ...(h !== "auto" && { height: h }),
   };
 
   return (
@@ -54,7 +57,7 @@ export default function Image({
       alt={alt}
       style={imageStyle}
       {...props}
-      className={`${rounded} ${shadow}`}
+      className={`${rounded} ${shadow} ${className}`}
     />
   );
 }
