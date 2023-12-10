@@ -37,7 +37,7 @@ export default function ValidatedInput({
   const inputClass = isInvalid
     ? `border-pinkest shadow-[0_0_0_1px_lilac] ${additionalStyles}`
     : `${additionalStyles}`;
-  const textColorClass = isInvalid ? `text-pinkest` : `text-dv-175`;
+  const textColorClass = isInvalid ? `text-dv-400` : `text-dv-175`;
   const textShadowClass = isInvalid
     ? "text-shadow-dvTextShadow"
     : "text-shadow-none";
@@ -46,7 +46,8 @@ export default function ValidatedInput({
     const newValue = e.target.value;
     setInputValue(newValue);
   };
-
+  const baseTextStyle =
+    "text-[18px] font-semibold leading-none sm:leading-1rem";
   const fieldTooShort = inputValue.length < min;
   const fieldTooLong = inputValue.length > max;
   return (
@@ -62,24 +63,28 @@ export default function ValidatedInput({
         placeholder={placeholder}
         required={isRequired}
       />
-      <div
-        className={`flex space-x-3 text-sm w-full font-bold ${textColorClass} leading-1rem`}
-      >
-        <span className={`${textColorClass} ${textShadowClass} `}>
-          {inputValue.length} / {max} chars
+      <div className={`flex space-x-1 w-full ${textColorClass} `}>
+        <span
+          className={`${textColorClass} ${textShadowClass} ${baseTextStyle}`}
+        >
+          {inputValue.length} / {max} chars -
         </span>
 
         <div className="flex space-x-1">
           {isInvalid && fieldTooLong && (
             <>
               <ImageIcon keyword="warning" h="h-[22px]" w="w-[22px]" />
-              <span className={`text-sm ${textColorClass} ${textShadowClass}`}>
+              <span
+                className={`${textColorClass} ${textShadowClass}  ${baseTextStyle}`}
+              >
                 Backspace 😱
               </span>
             </>
           )}
           {isInvalid && fieldTooShort && (
-            <span className={`text-sm ${textColorClass} ${textShadowClass}`}>
+            <span
+              className={` ${baseTextStyle} ${textColorClass} ${textShadowClass}`}
+            >
               Gonna need at least {min} chars.
             </span>
           )}

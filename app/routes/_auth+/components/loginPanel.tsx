@@ -41,7 +41,7 @@ export default function LoginPanel() {
     <Flex className="w-full h-full justify-center items-center">
       <VStack
         gap="gap-3"
-        className={`${borderShadow} relative w-[375px] h-[585px] p-3 text-shadow-dvTextShadow  bg-dv-975 bg-darkVioletBack `}
+        className={`${borderShadow} relative w-[375px] h-[585px] p-3 text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad `}
       >
         <DarkViolet b="-bottom-[2px]" l="left-2" w="w-[125px]" />
         <DarkViolet
