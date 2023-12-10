@@ -20,30 +20,30 @@ export default function ParchmentCorner({
 
   switch (corner) {
     case "top-left":
-      parchmentCornerStyle.top = "-18px";
-      parchmentCornerStyle.left = "-18px";
+      parchmentCornerStyle.top = "-20px";
+      parchmentCornerStyle.left = "-20px";
       parchmentCornerStyle.transform = "rotate(180deg)";
       break;
     case "top-right":
-      parchmentCornerStyle.top = "-18px";
-      parchmentCornerStyle.right = "-18px";
+      parchmentCornerStyle.top = "-20px";
+      parchmentCornerStyle.right = "-20px";
       parchmentCornerStyle.transform = "rotate(-90deg)";
       break;
     case "bottom-left":
-      parchmentCornerStyle.bottom = "-18px";
-      parchmentCornerStyle.left = "-18px";
+      parchmentCornerStyle.bottom = "-20px";
+      parchmentCornerStyle.left = "-20px";
       parchmentCornerStyle.transform = "rotate(90deg)";
       break;
     case "bottom-right":
       // Original image orientation, no rotation needed
-      parchmentCornerStyle.bottom = "-18px";
-      parchmentCornerStyle.right = "-18px";
+      parchmentCornerStyle.bottom = "-20px";
+      parchmentCornerStyle.right = "-20px";
       parchmentCornerStyle.transform = "rotate(0deg)";
       break;
   }
 
   return (
-    <Box style={parchmentCornerStyle} className={className}>
+    <Box style={parchmentCornerStyle} className={`z-20 ${className}`}>
       <Image src="/images/core/parchmentCorner.png" alt="parchment corner" />
     </Box>
   );

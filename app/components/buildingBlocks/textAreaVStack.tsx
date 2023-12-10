@@ -23,7 +23,7 @@ export default function TextAreaVStack(
 ): React.ReactElement {
   return (
     <VStack
-      className={props.className}
+      className={`w-full ${props.className}`}
       align="start"
       style={props.style}
       gap="gap-0"
@@ -31,7 +31,6 @@ export default function TextAreaVStack(
       <Text className="text-shadow-dvTextShadow">{props.label}</Text>
       <TextArea
         textAreaHeight={props.textAreaHeight}
-        textAreaWidth={props.textAreaWidth}
         name={props.name}
         placeholder={props.placeholder}
         value={props.value}
