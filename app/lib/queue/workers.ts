@@ -4,6 +4,7 @@ import {
   QueueName,
   submitCharacterGeneration,
   submitError,
+  submitLog,
   submitStatus,
   submitStoryGeneration,
 } from "~/lib/queue/queues";
@@ -31,6 +32,7 @@ import {
   createNarratorStep,
   createUserCharacterStep,
 } from "../db/steps.server";
+import { clearStoryTimeouts, setStoryTimeouts } from "./timeouts";
 
 const REDIS_URL = process.env.REDIS_URL as string;
 
@@ -41,9 +43,11 @@ export type WorkerDispatch = {
 const workerDispatch: WorkerDispatch = {
   [QueueName.ERROR]: async (job: Job) => {
     const { message, stack } = job.data as { message: string; stack?: string };
+    submitLog({ type: "ERROR", message, stack });
     console.log("error", message, stack);
   },
 
+  //**************************************************************************/
   [QueueName.STATUS]: async (job: Job) => {
     const { storyId, statusMessage } = job.data as {
       storyId: string;
@@ -53,9 +57,10 @@ const workerDispatch: WorkerDispatch = {
     dvEvent.status(storyId);
   },
 
+  //**************************************************************************/
   [QueueName.GENERATE_STORY]: async (job: Job) => {
     const { storyId, input } = job.data as { storyId: string; input: string };
-
+    await clearStoryTimeouts(storyId);
     const story = await getStory({ id: storyId });
     if (!story) {
       console.log("story not found", storyId);
@@ -111,7 +116,11 @@ const workerDispatch: WorkerDispatch = {
     newContent.length > 0 &&
       (await createNarratorStep({ storyId, content: newContent }));
 
-    const { characterName, characterUsername } = await getNextCharacterInStory({
+    const {
+      characterName,
+      characterUsername,
+      characterUserId: _characterUserId,
+    } = await getNextCharacterInStory({
       story,
     });
     if (!characterName) {
@@ -125,16 +134,27 @@ const workerDispatch: WorkerDispatch = {
       storyId,
       statusMessage: `${characterUsername}:${story.nextCharacter}`,
     });
+
     if (characterUsername === "ai") {
       submitCharacterGeneration({
         story,
       });
+    } else {
+      _characterUserId &&
+        setStoryTimeouts({ story, characterName, userId: _characterUserId });
     }
   },
+
+  //**************************************************************************/
   [QueueName.GENERATE_CHARACTER]: async (job: Job) => {
     const { story } = job.data as {
       story: StoryData;
     };
+    // if there are no roleplayers left, set the story to inactive.
+    if (!story.characters.some((c) => c.rolePlayer !== null)) {
+      submitStatus({ storyId: story.id, statusMessage: "inactive" });
+      return;
+    }
     const result = await generateCharaterOutput({
       story,
       characterInstructions,
@@ -152,6 +172,8 @@ const workerDispatch: WorkerDispatch = {
       input: result,
     });
   },
+
+  //**************************************************************************/
   [QueueName.LOG]: async (job: Job) => {
     const { type, message, stack } = job.data as {
       type: LogType;

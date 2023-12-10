@@ -1,6 +1,7 @@
 import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
+import { submitLog } from "../queue/queues";
 
 // todo: move the auto increment to a db trigger
 export const getNextStepNum = async (storyId: string) => {
@@ -42,6 +43,10 @@ export const createStep = async ({
       isAI: userId ? false : true,
       isNarrator: characterName ? false : true,
     },
+  });
+  submitLog({
+    type: "INFO",
+    message: `Created step ${step.serialNumber} of ${storyId}`,
   });
   return step;
 };

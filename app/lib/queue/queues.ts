@@ -1,7 +1,7 @@
 import { Queue } from "bullmq";
 import { getWorker } from "./workers";
 import { qRedisGetConnection } from "../utils/redis.server";
-import { Character } from "@prisma/client";
+import { Character, LogType } from "@prisma/client";
 import { StoryCharacter } from "../db/character.server";
 import { StoryData } from "../db/story.server";
 
@@ -93,9 +93,11 @@ export const submitCharacterGeneration = async ({
 };
 
 export const submitLog = async ({
+  type,
   message,
   stack,
 }: {
+  type: LogType;
   message: string;
   stack?: string;
 }) => {
