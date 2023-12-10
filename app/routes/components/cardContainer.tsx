@@ -19,38 +19,39 @@ export default function CardContainer({
   // overflowY?: string;
 }) {
   function MobileHeading() {
-    const MobileInactiveTab = `${cursiveText} text-[45px]`;
-    const MobileActiveTab = "text-brightPink";
-
+    const MobileInactiveStyle = `${cursiveText} text-[45px] hover:text-brightPink hover:cursor-pointer`;
+    const MobileActiveStyle = `${cursiveText} text-[50px] text-dv-900 text-shadow-textGlow`;
     return (
-      <HStack className="w-full h-full justify-evenly items-center">
-        <NavLink
-          to="#stories"
-          className={({ isActive }) =>
-            isActive
-              ? `${MobileInactiveTab} ${MobileActiveTab} `
-              : MobileInactiveTab
-          }
-        >
-          <Text>My Stories</Text>
-        </NavLink>
-        <NavLink
-          to="#openings"
-          className={({ isActive }) =>
-            isActive ? `${MobileInactiveTab}` : MobileInactiveTab
-          }
-        >
-          <Text>Openings</Text>
-        </NavLink>
-      </HStack>
+      <>
+        {heading === "My Stories" ? (
+          <HStack className="w-full h-full justify-evenly items-center">
+            <NavLink to="#stories">
+              <Text className={`${MobileActiveStyle}`}>My Stories</Text>
+            </NavLink>
+            <NavLink to="#openings">
+              <Text className={`${MobileInactiveStyle}`}>Openings</Text>
+            </NavLink>
+          </HStack>
+        ) : (
+          <HStack className="w-full h-full justify-evenly items-center">
+            <NavLink to="#stories">
+              <Text className={`${MobileInactiveStyle}`}>My Stories</Text>
+            </NavLink>
+            <NavLink to="#openings">
+              <Text className={`${MobileActiveStyle}`}>Openings</Text>
+            </NavLink>
+          </HStack>
+        )}
+      </>
     );
   }
+
   return (
     <Flex className={`w-full h-full justify-center p-3 ${className}`} id={id}>
       <VStack
-        className={`h-fit w-full xl:h-auto sm:w-11/12 md:max-w-[700px] xxl:w-10/12 bg-dv-975 shadow-dvShadow`}
+        className={`h-fit w-full xl:h-auto sm:w-11/12 md:max-w-[700px] xxl:w-10/12 bg-dv-975 shadow-dvShadow gap-0`}
       >
-        <Flex className="w-full h-[60px] justify-center items-center p-2 pb-1 flex-shrink-0 bg-dv-975 rounded-b-none shadow-shadow3D">
+        <Flex className="w-full h-[70px] justify-center items-center p-2 pb-1 flex-shrink-0 bg-dv-975 rounded-b-none shadow-shadow3D">
           <Flex className="w-full h-full justify-center items-center flex xl:hidden">
             <MobileHeading />
           </Flex>
