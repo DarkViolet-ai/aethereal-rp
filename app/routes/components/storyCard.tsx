@@ -19,9 +19,7 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
   return (
     <Flex
       className={`w-full max-w-[550px]  shadow-shadow3D  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
-      onClick={() => {
-        navigate("/");
-      }}
+      onClick={() => navigate(`/story/${story.id}`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
         <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
