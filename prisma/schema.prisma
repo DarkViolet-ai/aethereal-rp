@@ -44,8 +44,8 @@ model Story {
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   tags            String[]
-  StorySteps      StoryStep[]
-  StoryTemplate   StoryTemplate? @relation(fields: [storyTemplateId], references: [id])
+  storySteps      StoryStep[]
+  storyTemplate   StoryTemplate? @relation(fields: [storyTemplateId], references: [id])
   storyTemplateId String?
 
   @@unique([title, authorId, version])
@@ -78,31 +78,33 @@ model Narrator {
 }
 
 model StoryStep {
-  id            String          @id @default(uuid())
-  serialNumber  Int
-  story         Story           @relation(fields: [storyId], references: [id], onDelete: Cascade)
-  storyId       String
-  character     Character?      @relation(fields: [characterName, storyId], references: [name, storyId], onDelete: Cascade)
-  characterName String?
-  content       String
-  user          User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId        String?
-  isAI          Boolean         @default(false)
-  isNarrator    Boolean         @default(false)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  votes         StoryStepVote[]
+  serialNumber    Int
+  story           Story           @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  storyId         String
+  character       Character?      @relation(fields: [characterName, storyId], references: [name, storyId], onDelete: Cascade)
+  characterName   String?
+  content         String
+  user            User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId          String?
+  characterPrompt String?
+  isAI            Boolean         @default(false)
+  isNarrator      Boolean         @default(false)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  votes           StoryStepVote[]
+
+  @@id([serialNumber, storyId])
 }
 
 model StoryStepVote {
-  id          String    @id @default(uuid())
-  storyStep   StoryStep @relation(fields: [storyStepId], references: [id], onDelete: Cascade)
-  storyStepId String
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  value       Int
+  id           String    @id @default(uuid())
+  storyStep    StoryStep @relation(fields: [storyStepNum, id], references: [serialNumber, storyId], onDelete: Cascade)
+  storyStepNum Int
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  value        Int
 }
 
 model StoryTemplate {

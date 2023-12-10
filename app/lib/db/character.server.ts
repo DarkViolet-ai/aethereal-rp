@@ -7,7 +7,7 @@ export type StoryCharacterQueryType = {
     rolePlayer: {
       select: {
         id: true;
-        username: true;
+        name: true;
       };
     };
     name: true;
@@ -20,7 +20,7 @@ export const storyCharacterQuery = {
     rolePlayer: {
       select: {
         id: true,
-        username: true,
+        name: true,
       },
     },
     name: true,

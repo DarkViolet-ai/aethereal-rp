@@ -3,6 +3,7 @@ import { getWorker } from "./workers";
 import { qRedisGetConnection } from "../utils/redis.server";
 import { Character } from "@prisma/client";
 import { StoryCharacter } from "../db/character.server";
+import { StoryData } from "../db/story.server";
 
 const REDIS_URL = process.env.REDIS_URL as string;
 
@@ -81,19 +82,13 @@ export const submitStoryGeneration = async ({
 };
 
 export const submitCharacterGeneration = async ({
-  storyId,
-  character,
-  input,
+  story,
 }: {
-  storyId: string;
-  character: StoryCharacter;
-  input: string;
+  story: StoryData;
 }) => {
   const queue = getQueue(QueueName.GENERATE_CHARACTER);
   await queue.add(QueueName.GENERATE_CHARACTER, {
-    storyId,
-    character,
-    input,
+    story,
   });
 };
 

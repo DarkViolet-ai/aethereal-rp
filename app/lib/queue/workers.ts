@@ -5,18 +5,32 @@ import {
   submitCharacterGeneration,
   submitError,
   submitStatus,
+  submitStoryGeneration,
 } from "~/lib/queue/queues";
 import { dvEvent } from "~/lib/events/dvEvents";
 import { qRedisGetConnection } from "../utils/redis.server";
 import { redis } from "../utils/redis.server";
-import { getStory, updateStoryStatus } from "../db/story.server";
+import {
+  StoryData,
+  getNextCharacterInStory,
+  getStory,
+  updateStoryStatus,
+} from "../db/story.server";
 import { narratorInstructions } from "../ai/narratorInstructions";
 import {
   openaiCharacterGenerator,
   openaiStoryGenerator,
 } from "~/lib/ai/openaiGenerator.server";
-import { continueStory } from "../ai/narrator.server";
+import { continueStory } from "../ai/narratorGen.server";
 import { StoryCharacter } from "../db/character.server";
+import { generateCharaterOutput } from "../ai/charcterGen.server";
+import { LogType } from "@prisma/client";
+import { createLogEntry } from "../db/log.server";
+import {
+  createAICharacterStep,
+  createNarratorStep,
+  createUserCharacterStep,
+} from "../db/steps.server";
 
 const REDIS_URL = process.env.REDIS_URL as string;
 
@@ -49,42 +63,102 @@ const workerDispatch: WorkerDispatch = {
       submitStatus({ storyId, statusMessage: "error" });
       return;
     }
-    submitStatus({ storyId, statusMessage: "narrator" });
-    await continueStory({
-      story,
-      narratorInstructions,
-      generator: openaiStoryGenerator,
-      newInput: input,
-    });
-    const nextCharacterRecord = story.characters.find(
-      (character) => character.name === story.nextCharacter
-    );
-    if (!nextCharacterRecord) {
+    if (!story.nextCharacter) {
       submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
       submitStatus({ storyId, statusMessage: "error" });
       return;
     }
-    const nextUser = nextCharacterRecord.rolePlayer?.name || "ai";
+    if (!story.prompt) {
+      submitError({ message: `prompt not found: ${story.prompt}` });
+      submitStatus({ storyId, statusMessage: "error" });
+      return;
+    }
+    const { characterUsername: stepUsername, characterUserId } =
+      await getNextCharacterInStory({ story });
+
+    if (stepUsername === "ai") {
+      createAICharacterStep({
+        storyId,
+        content: input,
+        characterName: story.nextCharacter,
+        characterPrompt: story.prompt,
+      });
+    } else {
+      if (!characterUserId) {
+        submitError({
+          message: `characterUserId not found: ${characterUserId}`,
+        });
+        submitStatus({ storyId, statusMessage: "error" });
+        return;
+      }
+      createUserCharacterStep({
+        storyId,
+        content: input,
+        characterName: story.nextCharacter,
+        characterPrompt: story.prompt,
+        userId: characterUserId,
+      });
+    }
+    submitStatus({ storyId, statusMessage: "narrator" });
+    const { newContent } = await continueStory({
+      story,
+      narratorInstructions,
+      generator: openaiStoryGenerator,
+      newInput: input,
+    });
+    newContent.length > 0 &&
+      (await createNarratorStep({ storyId, content: newContent }));
+
+    const { characterName, characterUsername } = await getNextCharacterInStory({
+      story,
+    });
+    if (!characterName) {
+      submitError({
+        message: `next character not found: ${story.nextCharacter}`,
+      });
+      submitStatus({ storyId, statusMessage: "error" });
+      return;
+    }
     submitStatus({
       storyId,
-      statusMessage: `${nextUser}:${story.nextCharacter}`,
+      statusMessage: `${characterUsername}:${story.nextCharacter}`,
     });
-    if (nextUser === "ai") {
+    if (characterUsername === "ai") {
       submitCharacterGeneration({
-        storyId,
-        character: nextCharacterRecord,
-        input,
+        story,
       });
     }
   },
   [QueueName.GENERATE_CHARACTER]: async (job: Job) => {
-    const { storyId, character, input } = job.data as {
-      storyId: string;
-      character: StoryCharacter;
-      input: string;
+    const { story } = job.data as {
+      story: StoryData;
     };
+    const result = await generateCharaterOutput({
+      story,
+      characterInstructions,
+      generator: openaiCharacterGenerator,
+    });
+    if (!result) {
+      submitError({
+        message: `character generation failed: ${story.nextCharacter}`,
+      });
+      submitStatus({ storyId: story.id, statusMessage: "error" });
+      return;
+    }
+    await submitStoryGeneration({
+      storyId: story.id,
+      input: result,
+    });
+  },
+  [QueueName.LOG]: async (job: Job) => {
+    const { type, message, stack } = job.data as {
+      type: LogType;
+      message: string;
+      stack?: string;
+    };
+    await createLogEntry({ type, message, stack });
   },
 };
 

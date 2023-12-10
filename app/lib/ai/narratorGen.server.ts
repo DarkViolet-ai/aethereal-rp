@@ -27,7 +27,7 @@ export const continueStory = async ({
   narratorInstructions: NarratorInstructions;
   generator: (systemPrompt: string, input: string) => Promise<string>;
   newInput?: string;
-}) => {
+}): Promise<{ story: StoryData; newContent: string }> => {
   //console.log("initStory", initStory);
   if (!story.narrator) {
     story.narrator = await createNarrator({
@@ -39,7 +39,7 @@ export const continueStory = async ({
   if (!story.content) {
     return await initializeStory({ story, generator });
   }
-  if (!story.lastInput) return { story };
+  if (!story.lastInput) return { story, newContent: "" };
   return await narrate({ story, newInput: story.lastInput, generator });
 };
 
@@ -49,7 +49,7 @@ const initializeStory = async ({
 }: {
   story: StoryData;
   generator: (systemPrompt: string, input: string) => Promise<string>;
-}) => {
+}): Promise<{ story: StoryData; newContent: string }> => {
   const narrator = story.narrator as Narrator;
   const systemPrompt = await buildSystemPrompt({
     story,
@@ -91,7 +91,7 @@ const initializeStory = async ({
   });
 
   const _updatedStory = (await getStory({ id: story.id })) as StoryData;
-  return { story: _updatedStory };
+  return { story: _updatedStory, newContent: text };
 };
 
 const expectedResponseSchema = z.discriminatedUnion("scenario", [
@@ -147,7 +147,7 @@ export const narrate = async ({
   story: StoryData;
   newInput: string;
   generator: (systemPrompt: string, input: string) => Promise<string>;
-}) => {
+}): Promise<{ story: StoryData; newContent: string }> => {
   const narrator = story.narrator as Narrator;
   if (!narrator) throw dvError.badRequest("Story has no narrator");
   // first integrate the new input into the story
@@ -163,15 +163,15 @@ export const narrate = async ({
     scenario: "narrate",
   });
   if (!validatedNarrateResults) {
-    return { story };
+    return { story, newContent: "" };
   }
   if (validatedNarrateResults?.scenario !== "narrate") {
     throw dvError.badRequest("Invalid results");
   }
 
-  const { characters, nextCharacter, prompt } = validatedNarrateResults;
+  const { characters, nextCharacter, prompt, text } = validatedNarrateResults;
 
-  const updatedContent = `${story.content}\n${validatedNarrateResults.text}`;
+  const updatedContent = `${story.content}\n${text}`;
   const _characters =
     Object.keys(characters).map(
       (name) =>
@@ -197,5 +197,5 @@ export const narrate = async ({
     content: updatedContent,
   });
 
-  return { story: updatedStory };
+  return { story: updatedStory, newContent: text };
 };

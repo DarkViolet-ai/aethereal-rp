@@ -224,3 +224,27 @@ export const getActiveStories = async (): Promise<StoryData[]> => {
   });
   return stories;
 };
+
+export const getNextCharacterInStory = async ({
+  story,
+}: {
+  story: StoryData;
+}) => {
+  const nextCharacterRecord = story.characters.find(
+    (character) => character.name === story.nextCharacter
+  );
+  if (!nextCharacterRecord) {
+    return {
+      characterName: null,
+      characterUsername: null,
+      characterUserId: null,
+    };
+  }
+  const characterUsername = nextCharacterRecord.rolePlayer?.name || "ai";
+  const characterUserId = nextCharacterRecord.rolePlayer?.id || null;
+  return {
+    characterName: story.nextCharacter,
+    characterUsername,
+    characterUserId,
+  };
+};
