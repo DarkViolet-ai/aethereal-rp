@@ -10,7 +10,7 @@ import VStack from "~/components/buildingBlocks/vStack";
 import { borderShadow } from "~/css/styles";
 import { continueStory } from "~/lib/ai/narrator.server";
 import { narratorInstructions } from "~/lib/ai/narratorInstructions";
-import { openaiGenerator } from "~/lib/ai/openaiGenerator.server";
+//import { openaiGenerator } from "~/lib/ai/openaiGenerator.server";
 import { getStory, getUser, setLastInputInStory } from "~/lib/db/db.server";
 import { dvError } from "~/lib/utils/dvError";
 
@@ -21,14 +21,14 @@ export const loader = async ({ request }: DataFunctionArgs) => {
     throw dvError.internalServerError("Could not find story or user");
   initStory.version += 1;
 
-  const generator = openaiGenerator;
-  const { story } = await continueStory({
-    story: initStory,
-    narratorInstructions,
-    generator,
-  });
-  console.log();
-  return typedjson({ story });
+  //const generator = openaiGenerator;
+  // const { story } = await continueStory({
+  //   story: initStory,
+  //   narratorInstructions,
+  //   generator,
+  // });
+  // console.log();
+  return typedjson({ story: initStory });
 };
 
 export const action = async ({ request }: DataFunctionArgs) => {
