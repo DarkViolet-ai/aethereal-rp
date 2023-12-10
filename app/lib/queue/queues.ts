@@ -1,6 +1,8 @@
 import { Queue } from "bullmq";
 import { getWorker } from "./workers";
 import { qRedisGetConnection } from "../utils/redis.server";
+import { Character } from "@prisma/client";
+import { StoryCharacter } from "../db/character.server";
 
 const REDIS_URL = process.env.REDIS_URL as string;
 
@@ -9,6 +11,7 @@ export enum QueueName {
   GENERATE_STORY = "generate-story",
   GENERATE_CHARACTER = "generate-character",
   ERROR = "error",
+  LOG = "log",
 }
 
 declare global {
@@ -79,14 +82,31 @@ export const submitStoryGeneration = async ({
 
 export const submitCharacterGeneration = async ({
   storyId,
+  character,
   input,
 }: {
   storyId: string;
+  character: StoryCharacter;
   input: string;
 }) => {
   const queue = getQueue(QueueName.GENERATE_CHARACTER);
   await queue.add(QueueName.GENERATE_CHARACTER, {
     storyId,
+    character,
     input,
+  });
+};
+
+export const submitLog = async ({
+  message,
+  stack,
+}: {
+  message: string;
+  stack?: string;
+}) => {
+  const queue = getQueue(QueueName.LOG);
+  await queue.add(QueueName.LOG, {
+    message,
+    stack,
   });
 };

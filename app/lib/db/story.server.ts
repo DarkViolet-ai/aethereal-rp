@@ -1,31 +1,10 @@
 import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
-
-export const createUser = async (data: Prisma.UserCreateInput) => {
-  const user = await prisma.user.create({
-    data,
-  });
-  return user;
-};
-
-export const getUser = async (id: string) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      id,
-    },
-  });
-  return user;
-};
-
-export const getUserStories = async (id: string) => {
-  const stories = await prisma.story.findMany({
-    where: {
-      authorId: id,
-    },
-  });
-  return stories;
-};
+import {
+  StoryCharacterQueryType,
+  storyCharacterQuery,
+} from "./character.server";
 
 export type CreateStoryInput = {
   title: string;
@@ -101,7 +80,7 @@ export const getStory = async ({
   title,
   authorId,
   version = 1,
-}: GetStoryInput): Promise<StoryContent | null> => {
+}: GetStoryInput): Promise<StoryData | null> => {
   if (!id && !title && !authorId)
     throw dvError.badRequest("Missing required parameters");
   const where = id
@@ -112,38 +91,16 @@ export const getStory = async ({
   const story = await prisma.story.findUnique({
     where,
     include: {
-      characters: {
-        select: {
-          rolePlayer: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-          name: true,
-          description: true,
-        },
-      },
+      characters: storyCharacterQuery,
       narrator: true,
     },
   });
   return story;
 };
 
-export type StoryContent = Prisma.StoryGetPayload<{
+export type StoryData = Prisma.StoryGetPayload<{
   include: {
-    characters: {
-      select: {
-        name: true;
-        description: true;
-        rolePlayer: {
-          select: {
-            id: true;
-            name: true;
-          };
-        };
-      };
-    };
+    characters: StoryCharacterQueryType;
     narrator: true;
   };
 }>;
@@ -176,7 +133,7 @@ export const updateStory = async ({
   title?: string;
   summary?: string;
   content?: string;
-}): Promise<StoryContent> => {
+}): Promise<StoryData> => {
   const data: Prisma.StoryUpdateInput = {
     ...(title && { title }),
     ...(summary && { summary }),
@@ -188,16 +145,7 @@ export const updateStory = async ({
     },
     data,
     include: {
-      characters: {
-        include: {
-          rolePlayer: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
-      },
+      characters: storyCharacterQuery,
       narrator: true,
     },
   });
@@ -208,7 +156,7 @@ export const updateCharactersInStory = async ({
   story,
   characters,
 }: {
-  story: StoryContent;
+  story: StoryData;
   characters: Character[];
 }) => {
   // first find any characters that are not in story.characters
@@ -264,137 +212,15 @@ export const setLastInputInStory = async ({
   return story;
 };
 
-export const getActiveStories = async (): Promise<StoryContent[]> => {
+export const getActiveStories = async (): Promise<StoryData[]> => {
   const stories = await prisma.story.findMany({
     where: {
       isActive: true,
     },
     include: {
-      characters: {
-        include: {
-          rolePlayer: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
-      },
+      characters: storyCharacterQuery,
       narrator: true,
     },
   });
   return stories;
-};
-
-export const createCharacter = async ({
-  name,
-  storyId,
-  description,
-}: {
-  name: string;
-  storyId: string;
-  description: string;
-}) => {
-  const character = await prisma.character.create({
-    data: {
-      name,
-      description,
-      storyId,
-    },
-  });
-  return character;
-};
-
-export type OpenCharacterView = Prisma.CharacterGetPayload<{
-  include: {
-    story: {
-      select: {
-        title: true;
-        summary: true;
-      };
-    };
-  };
-}>;
-
-export const getActiveOpenCharacters = async (): Promise<
-  OpenCharacterView[]
-> => {
-  const characters = await prisma.character.findMany({
-    where: {
-      isActive: true,
-      rolePlayerId: null,
-    },
-    include: {
-      story: {
-        select: {
-          title: true,
-          summary: true,
-        },
-      },
-    },
-  });
-  return characters;
-};
-
-export const getCharacter = async (id: string) => {
-  const character = await prisma.character.findUnique({
-    where: {
-      id,
-    },
-  });
-  return character;
-};
-
-export const assignRolePlayer = async ({
-  characterId,
-  userId,
-}: {
-  characterId: string;
-  userId: string;
-}) => {
-  const character = await prisma.character.update({
-    where: {
-      id: characterId,
-    },
-    data: {
-      rolePlayerId: userId,
-    },
-  });
-  return character;
-};
-
-export type NarratorInstructions = {
-  initialize: string;
-  integrate: string;
-  narrate: string;
-};
-
-export type Narrator = DBNarrator & { instructions: NarratorInstructions };
-
-export const createNarrator = async ({
-  storyId,
-  name = "Dark Violet",
-  instructions,
-}: {
-  storyId: string;
-  name?: string;
-  instructions: NarratorInstructions;
-}): Promise<Narrator> => {
-  const narrator = await prisma.narrator.create({
-    data: {
-      storyId,
-      name,
-      instructions,
-    },
-  });
-  return narrator as Narrator;
-};
-
-export const getNarrator = async (id: string): Promise<Narrator> => {
-  const narrator = await prisma.narrator.findUnique({
-    where: {
-      id,
-    },
-  });
-  return narrator as Narrator;
 };
