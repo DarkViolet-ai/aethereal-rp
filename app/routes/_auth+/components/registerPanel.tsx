@@ -71,8 +71,8 @@ export default function RegisterPanel() {
   return (
     <Flex className="w-full h-full justify-center items-center">
       <VStack
-        gap="gap-2"
-        className={`${borderShadow} relative w-[375px] h-[600px] p-3 text-shadow-dvTextShadow  bg-dv-900 bg-violetCyanGrad`}
+        gap="gap-0 sm:gap-3"
+        className={`${borderShadow} relative w-[375px] h-[610px] sm:h-[700px] p-3 text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad`}
       >
         <DarkViolet b="-bottom-[2px]" l="left-2" w="w-[115px]" />
         <DarkViolet
@@ -81,11 +81,13 @@ export default function RegisterPanel() {
           r="right-2"
           w="w-[125px]"
         />
-        <Text className="text-[44px] font-cursive">Welcome to</Text>
-        <DarkViolet name="Logo" pos="relative" w="w-[300px]" />
+        <Text className="text-[36px] sm:text-[44px] font-cursive mb-0 sm:mb-2">
+          Welcome to
+        </Text>
+        <DarkViolet name="Logo" pos="relative" w="w-[200px] sm:w-[300px]" />
 
         <Form onSubmit={handleSubmit} style={{ width: "95%" }}>
-          <VStack gap="gap-3">
+          <VStack gap="gap-1 sm:gap-3">
             <VStack gap="gap-0" className="w-full">
               <InputVStack
                 className="w-full"

@@ -40,8 +40,8 @@ export default function LoginPanel() {
   return (
     <Flex className="w-full h-full justify-center items-center">
       <VStack
-        gap="gap-6"
-        className={`${borderShadow} relative w-[375px] h-[500px] p-3 text-shadow-dvTextShadow  bg-dv-900 bg-violetCyanGrad`}
+        gap="gap-3"
+        className={`${borderShadow} relative w-[375px] h-[585px] p-3 text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad `}
       >
         <DarkViolet b="-bottom-[2px]" l="left-2" w="w-[125px]" />
         <DarkViolet
@@ -51,7 +51,7 @@ export default function LoginPanel() {
           w="w-[150px]"
         />
         <Text className="text-[44px] font-cursive">Login to</Text>
-        <DarkViolet name="Logo" pos="relative" w="w-[300px]" />
+        <DarkViolet name="Logo" pos="relative" w="w-98%" />
 
         <Form onSubmit={handleSubmit} style={{ width: "95%" }}>
           <VStack gap="gap-3">

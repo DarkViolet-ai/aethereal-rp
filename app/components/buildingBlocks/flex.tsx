@@ -5,6 +5,7 @@ interface FlexProps {
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
+  id?: string;
 }
 
 export default function Flex({
@@ -12,9 +13,15 @@ export default function Flex({
   style,
   onClick = () => {},
   className = "",
+  id,
 }: FlexProps) {
   return (
-    <div className={`flex ${className}`} style={style} onClick={onClick}>
+    <div
+      id={id}
+      className={`flex ${className}`}
+      style={style}
+      onClick={onClick}
+    >
       {children}
     </div>
   );

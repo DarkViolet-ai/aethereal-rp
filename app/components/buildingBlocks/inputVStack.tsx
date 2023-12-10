@@ -7,6 +7,7 @@ interface InputVStackProps {
   isValidated?: boolean;
   validationMin?: number;
   validationMax?: number;
+  autoFocus?: boolean;
   isRequired?: boolean;
   label: string;
   className?: string;
@@ -20,7 +21,8 @@ interface InputVStackProps {
 }
 
 export default function InputVStack(
-  props: InputVStackProps
+  props: InputVStackProps,
+  autoFocus = false
 ): React.ReactElement {
   return (
     <VStack
@@ -32,6 +34,7 @@ export default function InputVStack(
       <Text className="text-shadow-dvTextShadow">{props.label}</Text>
       {props.isValidated && props.validationMax ? (
         <ValidatedInput
+          autoFocus={autoFocus}
           isRequired={props.isRequired}
           min={props.validationMin}
           max={props.validationMax}
@@ -42,6 +45,7 @@ export default function InputVStack(
         />
       ) : (
         <Input
+          autoFocus={autoFocus}
           required={props.isRequired}
           name={props.name}
           placeholder={props.placeholder}
