@@ -67,7 +67,7 @@ export default function LoginPanel() {
             <PasswordInput />
             <Flex className="w-full justify-end gap-4">
               <Button onClick={() => navigate("/register")}>Join</Button>
-              <Button onClick={() => handleSubmit}>Submit</Button>
+              <Button type="submit">Submit</Button>
             </Flex>
           </VStack>
         </Form>
