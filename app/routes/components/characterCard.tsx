@@ -94,7 +94,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   console.log("story: ", story);
 
   return (
-    <Flex className="w-full h-fit lg:h-full items-center flex-col gap-5 lg:flex-row bg-dv-950 p-3 ">
+    <Flex className="w-full h-fit lg:h-full items-center flex-col gap-5 lg:flex-row bg-dv-950 p-3 rounded-b-none">
       <Flex className="w-full lg:w-40% justify-center">
         <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg ">
           <Image src={imagePath} alt={character.name} w="100%" h="100%" />

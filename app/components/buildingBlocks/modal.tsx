@@ -79,8 +79,8 @@ export default function Modal({
               <CloseButton onClose={() => setModalOpen(false)} />
 
               <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
-                <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900">
-                  <Box className="w-full h-full pb-[50px]">
+                <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900 ">
+                  <Box className="w-full h-full pb-[50px] rounded-b-none">
                     <Box
                       className={`w-full h-full shadow-shadow3D text-shadow-dvTextShadow rounded-b-none bg-darkVioletGrad ${borderShadow} overflow-y-auto`}
                     >
