@@ -33,6 +33,7 @@ model Story {
   title         String
   summary       String
   content       String
+  status        String?      
   author        User        @relation(fields: [authorId], references: [id])
   characters    Character[] @relation(name: "inStory")
   narrator      Narrator?

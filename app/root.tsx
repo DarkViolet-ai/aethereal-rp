@@ -21,6 +21,7 @@ import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import TopNav from "./components/specialty/topNav";
 import Footer from "./components/specialty/footer";
 import { useEffect, useState } from "react";
+import { getUser } from "./lib/db/db.server";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -64,6 +65,7 @@ export const loader = async ({ request }: DataFunctionArgs) => {
   if (userId === "") {
     userId = undefined;
   }
+  const user = userId && (await getUser(userId));
 
   return typedjson(
     {

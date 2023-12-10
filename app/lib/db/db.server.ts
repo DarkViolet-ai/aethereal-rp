@@ -149,6 +149,24 @@ export type StoryContent = Prisma.StoryGetPayload<{
   };
 }>;
 
+export const updateStoryStatus = async ({
+  id,
+  status,
+}: {
+  id: string;
+  status: string;
+}) => {
+  const story = await prisma.story.update({
+    where: {
+      id,
+    },
+    data: {
+      status,
+    },
+  });
+  return story;
+};
+
 export const updateStory = async ({
   id,
   title,
@@ -247,48 +265,6 @@ export const setLastInputInStory = async ({
   return story;
 };
 
-export const __updateCharactersInStory = async ({
-  id,
-  characters,
-}: {
-  id: string;
-  characters: Character[];
-}) => {
-  const story = await prisma.story.update({
-    where: {
-      id,
-    },
-    data: {
-      characters: {
-        upsert: characters.map((character) => ({
-          where: {
-            name_storyId: {
-              name: character.name,
-              storyId: id,
-            },
-          },
-          update: { ...character, storyId: id },
-          create: { ...character, storyId: id },
-        })),
-      },
-    },
-    include: {
-      characters: {
-        include: {
-          rolePlayer: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
-      },
-      narrator: true,
-    },
-  });
-  return story;
-};
-
 export const getActiveStories = async (): Promise<StoryContent[]> => {
   const stories = await prisma.story.findMany({
     where: {
@@ -328,6 +304,37 @@ export const createCharacter = async ({
     },
   });
   return character;
+};
+
+export type OpenCharacterView = Prisma.CharacterGetPayload<{
+  include: {
+    story: {
+      select: {
+        title: true;
+        summary: true;
+      };
+    };
+  };
+}>;
+
+export const getActiveOpenCharacters = async (): Promise<
+  OpenCharacterView[]
+> => {
+  const characters = await prisma.character.findMany({
+    where: {
+      isActive: true,
+      rolePlayerId: null,
+    },
+    include: {
+      story: {
+        select: {
+          title: true,
+          summary: true,
+        },
+      },
+    },
+  });
+  return characters;
 };
 
 export const getCharacter = async (id: string) => {
