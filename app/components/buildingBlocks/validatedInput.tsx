@@ -7,6 +7,7 @@ interface ValidatedInputProps {
   defaultValue?: string;
   min?: number;
   max: number;
+  autoFocus?: boolean;
   additionalStyles?: string;
   isRequired?: boolean;
   name?: string;
@@ -20,6 +21,7 @@ export default function ValidatedInput({
   defaultValue = "",
   min = 3,
   max,
+  autoFocus = false,
   additionalStyles = "",
   isRequired = false,
   name = "",
@@ -50,6 +52,7 @@ export default function ValidatedInput({
   return (
     <VStack className="w-full flex flex-col space-y-0">
       <Input
+        autoFocus={autoFocus}
         value={inputValue}
         type="text"
         name={name}
@@ -69,7 +72,7 @@ export default function ValidatedInput({
         <div className="flex space-x-1">
           {isInvalid && fieldTooLong && (
             <>
-              <ImageIcon keyword="warning" height="h-[22px]" width="w-[22px]" />
+              <ImageIcon keyword="warning" h="h-[22px]" w="w-[22px]" />
               <span className={`text-sm ${textColorClass} ${textShadowClass}`}>
                 Backspace 😱
               </span>
