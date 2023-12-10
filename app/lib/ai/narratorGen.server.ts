@@ -1,13 +1,13 @@
+import { createNarrator, getNarrator } from "~/lib/db/narrator.server";
+
 import {
-  createNarrator,
-  getNarrator,
   createStory,
   getStory,
-  StoryContent,
   updateStory,
   updateCharactersInStory,
   setNextCharacterInStory,
-} from "~/lib/db/db.server";
+} from "~/lib/db/story.server";
+
 import type { Character, Story } from "@prisma/client";
 import type { Narrator, NarratorInstructions } from "~/lib/db/db.server";
 import { dvError } from "~/lib/utils/dvError";
@@ -15,6 +15,7 @@ import { json } from "@remix-run/node";
 import { set, z } from "zod";
 import { buildSystemPrompt } from "~/lib/ai/systemPrompt";
 import internal from "node:stream";
+import type { StoryData } from "~/lib/db/story.server";
 
 export const continueStory = async ({
   story,
@@ -22,7 +23,7 @@ export const continueStory = async ({
   generator,
   newInput,
 }: {
-  story: StoryContent;
+  story: StoryData;
   narratorInstructions: NarratorInstructions;
   generator: (systemPrompt: string, input: string) => Promise<string>;
   newInput?: string;
@@ -46,7 +47,7 @@ const initializeStory = async ({
   story,
   generator,
 }: {
-  story: StoryContent;
+  story: StoryData;
   generator: (systemPrompt: string, input: string) => Promise<string>;
 }) => {
   const narrator = story.narrator as Narrator;
@@ -89,7 +90,7 @@ const initializeStory = async ({
     nextPrompt: prompt,
   });
 
-  const _updatedStory = (await getStory({ id: story.id })) as StoryContent;
+  const _updatedStory = (await getStory({ id: story.id })) as StoryData;
   return { story: _updatedStory };
 };
 
@@ -143,7 +144,7 @@ export const narrate = async ({
   story,
   generator,
 }: {
-  story: StoryContent;
+  story: StoryData;
   newInput: string;
   generator: (systemPrompt: string, input: string) => Promise<string>;
 }) => {
