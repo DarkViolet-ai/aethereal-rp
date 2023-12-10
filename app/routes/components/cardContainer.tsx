@@ -19,8 +19,8 @@ export default function CardContainer({
   // overflowY?: string;
 }) {
   function MobileHeading() {
-    const MobileInactiveStyle = `${cursiveText} text-[45px] hover:text-brightPink hover:cursor-pointer`;
-    const MobileActiveStyle = `${cursiveText} text-[50px] text-dv-900 text-shadow-textGlow`;
+    const MobileInactiveStyle = `${cursiveText} text-[35px] sm:text-[45px] hover:text-brightPink hover:cursor-pointer`;
+    const MobileActiveStyle = `${cursiveText} text-[40px] sm:text-[50px] text-dv-900 text-shadow-textGlow`;
     return (
       <>
         {heading === "My Stories" ? (

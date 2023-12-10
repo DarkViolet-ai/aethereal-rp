@@ -80,7 +80,7 @@ export const loader = async ({ request }: DataFunctionArgs) => {
 export type RootLoaderData = typeof loader;
 
 export default function App() {
-  const { env, session } = useTypedLoaderData<typeof loader>();
+  const { env, session, userId } = useTypedLoaderData<typeof loader>();
   const { revalidate } = useRevalidator();
   // const navigation = useNavigation();
   const [supabase] = useState(() =>
@@ -116,7 +116,7 @@ export default function App() {
       <body>
         <MainBackground>
           <EntirePageContainer>
-            <TopNav />
+            {userId && <TopNav />}
             <Footer />
             <Outlet context={{ supabase }} />
           </EntirePageContainer>
