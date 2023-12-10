@@ -107,3 +107,19 @@ export const assignRolePlayer = async ({
   });
   return character;
 };
+
+export const removeRolePlayer = async ({
+  characterId,
+}: {
+  characterId: string;
+}) => {
+  const character = await prisma.character.update({
+    where: {
+      id: characterId,
+    },
+    data: {
+      rolePlayerId: null,
+    },
+  });
+  return character;
+};

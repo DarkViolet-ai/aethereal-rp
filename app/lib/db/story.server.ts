@@ -2,7 +2,9 @@ import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
 import {
+  StoryCharacter,
   StoryCharacterQueryType,
+  createCharacter,
   storyCharacterQuery,
 } from "./character.server";
 
@@ -12,6 +14,7 @@ export type CreateStoryInput = {
   authorId: string;
   isActive?: boolean;
   version?: number;
+  characters?: { name: string; description: string }[];
 };
 
 export const createStory = async ({
@@ -20,6 +23,7 @@ export const createStory = async ({
   authorId,
   isActive = true,
   version = 1,
+  characters = [],
 }: CreateStoryInput) => {
   const story = await prisma.story.create({
     data: {
@@ -31,6 +35,14 @@ export const createStory = async ({
       version,
     },
   });
+  const newCharacters = await Promise.all(
+    characters.map((character) =>
+      createCharacter({
+        ...character,
+        storyId: story.id,
+      })
+    )
+  );
   return story;
 };
 
@@ -247,4 +259,42 @@ export const getNextCharacterInStory = async ({
     characterUsername,
     characterUserId,
   };
+};
+
+export const duplicateStoryForUser = async ({
+  storyId,
+  userId,
+}: {
+  storyId: string;
+  userId: string;
+}) => {
+  const story = await prisma.story.findUnique({
+    where: {
+      id: storyId,
+    },
+    include: {
+      characters: storyCharacterQuery,
+      narrator: true,
+    },
+  });
+  if (!story) {
+    return null;
+  }
+  const newCharacters = story.characters.map((character) => ({
+    name: character.name,
+    description: character.description || "",
+  }));
+  const newStory = await createStory({
+    title: story.title,
+    summary: story.summary,
+    authorId: userId,
+    isActive: false,
+    version: story.version + 1,
+    characters: newCharacters,
+  });
+
+  return await updateStory({
+    id: newStory.id,
+    content: story.content,
+  });
 };
