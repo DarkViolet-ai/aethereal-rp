@@ -1,6 +1,32 @@
 import type { Config } from "tailwindcss";
 const plugin = require("tailwindcss/plugin");
 
+const scrollbarPlugin = plugin(
+  ({
+    addUtilities,
+  }: {
+    addUtilities: (utilities: any, variants?: string[]) => void;
+  }) => {
+    const newUtilities = {
+      "::-webkit-scrollbar": {
+        width: "4px",
+        height: "4px",
+      },
+      "::-webkit-scrollbar-track": {
+        backgroundColor: "rgba(39, 41, 61, 0.5)",
+      },
+      "::-webkit-scrollbar-thumb": {
+        backgroundColor: "#9400D3",
+        borderRadius: "2px",
+        "&:hover": {
+          backgroundColor: "rgba(39, 41, 61, 0.5)",
+        },
+      },
+    };
+    addUtilities(newUtilities, ["responsive", "hover"]);
+  }
+);
+
 export default {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -250,5 +276,6 @@ export default {
       });
       addUtilities(newUtilities);
     }),
+    scrollbarPlugin,
   ],
 } satisfies Config;
