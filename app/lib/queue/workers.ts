@@ -34,14 +34,21 @@ const workerDispatch: WorkerDispatch = {
       submitStatus({ storyId, statusMessage: "error" });
       return;
     }
-    submitStatus({ storyId, statusMessage: "narrator generating" });
+    submitStatus({ storyId, statusMessage: "narrator" });
     await continueStory({
       story,
       narratorInstructions,
       generator: openaiStoryGenerator,
       newInput: input,
     });
-    submitStatus({ storyId, statusMessage: "narrator complete" });
+    const nextCharacterRecord = story.characters.find((character) => character.name === story.nextCharacter);
+    if(!nextCharacterRecord) {
+      submitError({ message: `next character not found: ${story.nextCharacter}` });
+      submitStatus({ storyId, statusMessage: "error" });
+      return;
+    }
+    const nextUser = nextCharacterRecord.rolePlayer?.name || "ai";
+    submitStatus({ storyId, statusMessage: `${nextUser}:${story.nextCharacter}` });
 
 };
 
