@@ -1,9 +1,9 @@
-import React, { ReactNode, MouseEventHandler, CSSProperties } from "react";
+import React, { MouseEventHandler } from "react";
 import { Spinner } from "./spinner";
 import Tooltip from "./tooltip";
 
 interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  icon: ReactNode;
+  icon: JSX.Element;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
   iconSize?: string;
@@ -31,7 +31,7 @@ export default function IconButton({
   icon,
   onClick,
   className = "h-8 w-8 md:h-9 md:w-9",
-  iconSize = "1.6rem",
+  iconSize = "text-[23px]",
   isLoading = false,
   isDisabled = false,
   label,
@@ -44,9 +44,6 @@ export default function IconButton({
   tooltipPlacement = "bottomRight",
   ...props
 }: IconButtonProps) {
-  // Inline style for the icon size
-  const iconStyle: CSSProperties = { fontSize: iconSize };
-
   return (
     <div className={`${position} ${top} ${right} ${left} ${bottom}`}>
       <Tooltip label={label} placement={tooltipPlacement}>
@@ -60,7 +57,7 @@ export default function IconButton({
           {isLoading ? (
             <Spinner />
           ) : (
-            <span style={iconStyle}>{icon}</span> // Apply the icon size style here
+            React.cloneElement(icon, { className: iconSize }) // Apply the iconSize to the icon
           )}
         </button>
       </Tooltip>
