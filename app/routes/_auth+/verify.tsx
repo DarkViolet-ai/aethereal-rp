@@ -1,4 +1,4 @@
-import { DataFunctionArgs } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 import { createServerClient } from "@supabase/auth-helpers-remix";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "~/lib/utils/session.server";
 import { redirect } from "remix-typedjson";

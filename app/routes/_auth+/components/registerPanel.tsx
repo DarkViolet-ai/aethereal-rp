@@ -113,7 +113,7 @@ export default function RegisterPanel() {
               <PasswordInput />
               <PasswordInput confirm />
             </VStack>
-            <Flex className="w-full justify-end">
+            <Flex className="w-full justify-end py-4">
               <Button type="submit">Submit</Button>
             </Flex>
           </VStack>
