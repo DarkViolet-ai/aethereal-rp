@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import Flex from "~/components/buildingBlocks/flex";
+import ResponsiveFlex from "~/components/buildingBlocks/responsiveFlex";
 import StoryCharacters from "~/routes/components/storiesCharacters";
 
 export const meta: MetaFunction = () => {
@@ -14,8 +14,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <Flex className="w-full h-full justify-center overflow-y-auto xl:overflow-y-hidden">
+    <ResponsiveFlex>
       <StoryCharacters />
-    </Flex>
+    </ResponsiveFlex>
   );
 }
