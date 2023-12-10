@@ -11,7 +11,10 @@ const tempCharacters = Characters;
 
 export default function StoriesCharacters() {
   return (
-    <Flex className="w-full h-fit xl:h-full max-w-[1750px] justify-center pt-[50px]">
+    <Flex
+      className="w-full h-fit xl:h-full max-w-[1750px] justify-center pt-[50px]"
+      id="stories"
+    >
       <Flex
         className="flex-col w-full h-full xl:flex-row xl:justify-center"
         // style={{ height: "88vh" }}
@@ -32,9 +35,16 @@ export default function StoriesCharacters() {
             })}
           </VStack>
         </CardContainer>
+        <Flex
+          className="w-full h-[55px] xl:hidden text-transparent"
+          id="openings"
+        >
+          .
+        </Flex>
         <CardContainer
           className="h-fit xxl:w-7/12 xl:h-full"
           heading="Current Openings"
+          id="openings"
         >
           <VStack className="w-full h-fit xl:h-11/12 overflow-y-auto pb-3 px-2">
             {tempCharacters.map((character, index) => {
