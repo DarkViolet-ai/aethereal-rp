@@ -7,6 +7,7 @@ import {
   submitLog,
   submitStatus,
   submitStoryGeneration,
+  submitUserPrompt,
 } from "~/lib/queue/queues";
 import { dvEvent } from "~/lib/events/dvEvents";
 import { qRedisGetConnection } from "../utils/redis.server";
@@ -15,6 +16,7 @@ import {
   StoryData,
   getNextCharacterInStory,
   getStory,
+  updateStory,
   updateStoryStatus,
 } from "../db/story.server";
 import { narratorInstructions } from "../ai/narratorInstructions";
@@ -24,7 +26,7 @@ import {
 } from "~/lib/ai/openaiGenerator.server";
 import { continueStory } from "../ai/narratorGen.server";
 import { StoryCharacter } from "../db/character.server";
-import { generateCharaterOutput } from "../ai/charcterGen.server";
+import { generateCharaterOutput } from "../ai/characterGen.server";
 import { LogType } from "@prisma/client";
 import { createLogEntry } from "../db/log.server";
 import {
@@ -55,6 +57,68 @@ const workerDispatch: WorkerDispatch = {
     };
     await updateStoryStatus({ id: storyId, status: statusMessage });
     dvEvent.status(storyId);
+  },
+
+  //**************************************************************************/
+  [QueueName.INITIATE_STORY]: async (job: Job) => {
+    const { storyId } = job.data as { storyId: string };
+    const story = await getStory({ id: storyId });
+    if (!story) {
+      console.log("story not found", storyId);
+      submitError({ message: `story not found: ${storyId}` });
+      submitStatus({ storyId, statusMessage: "error" });
+      return;
+    }
+    const { story: updatedStory, newContent } = await continueStory({
+      story,
+      narratorInstructions,
+      generator: openaiStoryGenerator,
+    });
+
+    newContent.length > 0 &&
+      (await createNarratorStep({ storyId, content: newContent }));
+    await submitUserPrompt({ story: updatedStory });
+  },
+  //**************************************************************************/
+  [QueueName.PROMPT_USER]: async (job: Job) => {
+    const { story } = job.data as { story: StoryData };
+
+    if (!story.nextCharacter) {
+      submitError({
+        message: `next character not found: ${story.nextCharacter}`,
+      });
+      submitStatus({ storyId: story.id, statusMessage: "error" });
+      return;
+    }
+    if (!story.prompt) {
+      submitError({ message: `prompt not found: ${story.prompt}` });
+      submitStatus({ storyId: story.id, statusMessage: "error" });
+      return;
+    }
+    const { characterName, characterUsername, characterUserId } =
+      await getNextCharacterInStory({ story });
+
+    if (!characterName) {
+      submitError({
+        message: `next character not found: ${story.nextCharacter}`,
+      });
+      submitStatus({ storyId: story.id, statusMessage: "error" });
+      return;
+    }
+
+    submitStatus({
+      storyId: story.id,
+      statusMessage: `${characterUsername}:${story.nextCharacter}`,
+    });
+
+    if (characterUsername === "ai") {
+      submitCharacterGeneration({
+        story,
+      });
+    } else {
+      characterUserId &&
+        setStoryTimeouts({ story, characterName, userId: characterUserId });
+    }
   },
 
   //**************************************************************************/
@@ -115,34 +179,7 @@ const workerDispatch: WorkerDispatch = {
     });
     newContent.length > 0 &&
       (await createNarratorStep({ storyId, content: newContent }));
-
-    const {
-      characterName,
-      characterUsername,
-      characterUserId: _characterUserId,
-    } = await getNextCharacterInStory({
-      story,
-    });
-    if (!characterName) {
-      submitError({
-        message: `next character not found: ${story.nextCharacter}`,
-      });
-      submitStatus({ storyId, statusMessage: "error" });
-      return;
-    }
-    submitStatus({
-      storyId,
-      statusMessage: `${characterUsername}:${story.nextCharacter}`,
-    });
-
-    if (characterUsername === "ai") {
-      submitCharacterGeneration({
-        story,
-      });
-    } else {
-      _characterUserId &&
-        setStoryTimeouts({ story, characterName, userId: _characterUserId });
-    }
+    await submitUserPrompt({ story });
   },
 
   //**************************************************************************/
@@ -153,6 +190,7 @@ const workerDispatch: WorkerDispatch = {
     // if there are no roleplayers left, set the story to inactive.
     if (!story.characters.some((c) => c.rolePlayer !== null)) {
       submitStatus({ storyId: story.id, statusMessage: "inactive" });
+      updateStory({ id: story.id, isActive: false });
       return;
     }
     const result = await generateCharaterOutput({

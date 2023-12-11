@@ -1,4 +1,9 @@
-import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
+import {
+  Prisma,
+  Narrator as DBNarrator,
+  Character,
+  StoryTemplate,
+} from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
 import {
@@ -21,7 +26,7 @@ export const createStory = async ({
   title,
   summary,
   authorId,
-  isActive = true,
+  isActive = false,
   version = 1,
   characters = [],
 }: CreateStoryInput) => {
@@ -44,6 +49,22 @@ export const createStory = async ({
     )
   );
   return story;
+};
+
+export const createStoryFromTemplate = async ({
+  template,
+  authorId,
+}: {
+  template: StoryTemplate;
+  authorId: string;
+}) => {
+  const story = await createStory({
+    title: template.title,
+    summary: template.summary || "",
+    authorId,
+    isActive: false,
+    version: 1,
+  });
 };
 
 export type GetStoryInput = {
@@ -140,11 +161,13 @@ export const updateStory = async ({
   title,
   summary,
   content,
+  isActive,
 }: {
   id: string;
   title?: string;
   summary?: string;
   content?: string;
+  isActive?: boolean;
 }): Promise<StoryData> => {
   const data: Prisma.StoryUpdateInput = {
     ...(title && { title }),
