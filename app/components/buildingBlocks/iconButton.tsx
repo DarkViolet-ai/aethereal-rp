@@ -10,7 +10,7 @@ interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
   isLoading?: boolean;
   isDisabled?: boolean;
   label: string;
-  pos?: "absolute" | "relative" | "fixed" | "sticky";
+  pos?: "absolute" | "relative" | "fixed" | "sticky" | "static";
   t?: string;
   l?: string;
   r?: string;

@@ -2,9 +2,10 @@ import Box from "../buildingBlocks/box";
 import Flex from "../buildingBlocks/flex";
 import HStack from "../buildingBlocks/hStack";
 import Image from "../buildingBlocks/image";
-
 import { useLocation, useNavigate } from "@remix-run/react";
-import IconDrawer from "./iconNavDrawer";
+import Drawer from "../buildingBlocks/drawer";
+import StoryNav from "~/routes/story+/components/storyNav";
+import { IoIosArrowDropdown } from "react-icons/io/index.js";
 
 export default function TopNav() {
   const navigate = useNavigate();
@@ -19,7 +20,21 @@ export default function TopNav() {
       >
         <Image src="/images/core/aetherealLogo.png" alt="main logo" />
       </Box>
-      {isStory && <IconDrawer />}
+      {isStory && (
+        <Drawer
+          icon={<IoIosArrowDropdown />}
+          label="interact"
+          buttonPos="absolute"
+          buttonT="top-2"
+          buttonR="right-2"
+          showBottomButton={false}
+          slideDirection="top-right"
+          drawerWidth="w-[60px]"
+          buttonTooltipPlacement="bottomLeft"
+        >
+          <StoryNav />
+        </Drawer>
+      )}
       <HStack></HStack>
     </Flex>
   );

@@ -79,7 +79,6 @@ export default function Modal({
             >
               <Flex className="w-full h-full relative ">
                 <CloseButton onClose={() => setModalOpen(false)} />
-
                 <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
                   <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900 ">
                     <Box className="w-full h-full pb-[50px] rounded-b-none">
