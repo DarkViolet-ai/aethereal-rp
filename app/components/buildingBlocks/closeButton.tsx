@@ -14,9 +14,9 @@ export function CloseButton({
       icon={CloseIcon}
       onClick={onClose}
       className={` m-2 z-10 ${className}`}
-      position="absolute"
-      top="top=0"
-      right="right-0"
+      pos="absolute"
+      t="top=0"
+      r="right-0"
       tooltipPlacement="left"
     />
   );
