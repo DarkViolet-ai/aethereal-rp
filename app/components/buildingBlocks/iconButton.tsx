@@ -48,7 +48,7 @@ export default function IconButton({
     <div className={`${position} ${top} ${right} ${left} ${bottom}`}>
       <Tooltip label={label} placement={tooltipPlacement}>
         <button
-          className={`inline-flex items-center justify-center rounded-md text-dv-400 bg-dv-900 border border-solid border-1.5 border-dv-400 shadow-dvShadow transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-900 hover:border-dv-900 ${className}`}
+          className={`inline-flex items-center justify-center rounded-md text-dv-400 bg-dv-900 border border-solid border-1.5 border-dv-400 shadow-dvShadow transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-800 text-shadow-dvTextShadow hover:border-dv-900 ${className}`}
           type={type}
           onClick={onClick}
           disabled={isDisabled || isLoading}

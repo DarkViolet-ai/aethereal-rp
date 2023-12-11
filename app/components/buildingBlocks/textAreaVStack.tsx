@@ -5,7 +5,7 @@ import VStack from "./vStack";
 
 // Update the onChange type to be more generic
 interface TextAreaVStackProps {
-  label: string;
+  label?: string;
   className?: string;
   style?: React.CSSProperties;
   name?: string;
@@ -15,6 +15,7 @@ interface TextAreaVStackProps {
   type?: string;
   textAreaWidth?: string;
   textAreaHeight?: string;
+  autoFocus?: boolean;
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 
@@ -28,8 +29,11 @@ export default function TextAreaVStack(
       style={props.style}
       gap="gap-0"
     >
-      <Text className="text-shadow-dvTextShadow">{props.label}</Text>
+      {props.label && (
+        <Text className="text-shadow-dvTextShadow">{props.label}</Text>
+      )}
       <TextArea
+        autoFocus={props.autoFocus} // Use props.autoFocus here
         textAreaHeight={props.textAreaHeight}
         name={props.name}
         placeholder={props.placeholder}

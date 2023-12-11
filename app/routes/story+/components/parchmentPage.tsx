@@ -2,13 +2,13 @@ import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
 import ParchmentCorner from "./parchmentCorners";
 import Text from "~/components/buildingBlocks/text";
-import { StoryNavButtons } from "./storyNavButtons";
+// import { StoryNavButtons } from "./storyNavButtons";
 import ParchmentSpacer from "./parchmentSpacer";
 
 export default function ParchmentPage() {
   return (
     <VStack className="w-full h-full justify-between">
-      <Flex className="h-90% w-92% bg-parchment shadow-parchmentShadow relative">
+      <Flex className=" h-98% w-92% md:h-96% bg-parchment shadow-parchmentShadow relative pr-2">
         <ParchmentSpacer />
         <ParchmentSpacer placement="bottom" />
         <ParchmentCorner />
@@ -71,12 +71,12 @@ export default function ParchmentPage() {
           </VStack>
         </VStack>
       </Flex>
-      <Flex className="flex-shrink-0 h-[40px] ">
+      {/* <Flex className="flex-shrink-0 h-[40px] ">
         <StoryNavButtons
           onNext={() => console.log("next")}
           onPrevious={() => console.log("previous")}
         />
-      </Flex>
+      </Flex> */}
     </VStack>
   );
 }

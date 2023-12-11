@@ -3,21 +3,54 @@ import { Form } from "@remix-run/react";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
+import HStack from "~/components/buildingBlocks/hStack";
 import Text from "~/components/buildingBlocks/text";
 import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
+import DarkViolet from "~/components/specialty/darkViolet";
+import LoadingText from "~/components/specialty/loading";
 import { borderShadow } from "~/css/styles";
 
 export default function InteractionPage({ story }: { story: Story }) {
   return (
     <Flex className="w-full h-full justify-center items-center">
       <VStack className="w-full h-full p-2 pb-4" gap="gap-5">
-        <VStack className="w-full h-40%">
-          <Box className={`w-full h-40% ${borderShadow}`}>
-            <Box className="w-full h-full bg-dv-800 shadow-shadow3D p-2 overflow-y-auto">
-              <Text>{story.content}</Text>
-              <Text>{story.prompt}</Text>
-            </Box>
+        <VStack className="w-full h-40% flex-shrink-0">
+          <Box className={`w-full h-full relative ${borderShadow}`}>
+            {!story.content && !story.prompt && (
+              <Box className="absolute bottom-0 right-2 w-150px">
+                <LoadingText dotCount={4} />
+              </Box>
+            )}
+
+            <DarkViolet
+              name="4"
+              w="w-20%"
+              pos="absolute"
+              b="bottom-0"
+              l="left-[5px]"
+            />
+
+            <DarkViolet
+              name="star1"
+              w="w-16% lg:w-13% xl:w-12% xxl:w-8%"
+              pos="absolute"
+              t="top-[44px] xl:top-[20px] xxl:top-[13px]"
+              l="left-[23px]"
+            />
+
+            <Flex className="w-full h-full bg-dv-700 bg-darkVioletGrad shadow-shadow3D overflow-y-auto justify-end">
+              <VStack className="w-76% bg-dv-950 shadow-shadow3D h-fit min-h-full p-2 rounded-l-none">
+                {story.content && <Text>{story.content}</Text>}
+                {story.prompt && <Text>{story.prompt}</Text>}
+                <Text>
+                  The adventure begins as Dark Violet stumbles upon a mystical
+                  forest, where each tree whispers ancient tales. Guided by the
+                  whispers, she navigates through the enigmatic woods,
+                  uncovering hidden truths and mystical artifacts.
+                </Text>
+              </VStack>
+            </Flex>
           </Box>
         </VStack>
         <Form
@@ -35,7 +68,7 @@ export default function InteractionPage({ story }: { story: Story }) {
           <VStack className="w-full h-full" gap="gap-[20px]">
             <Flex className="w-full h-full justify-center ">
               <TextAreaVStack
-                label="Type Things Here"
+                autoFocus={true}
                 textAreaWidth="w-full"
                 textAreaHeight="h-full"
                 name="newInput"

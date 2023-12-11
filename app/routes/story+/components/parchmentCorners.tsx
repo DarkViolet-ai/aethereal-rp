@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react";
 import Box from "~/components/buildingBlocks/box";
 import Image from "~/components/buildingBlocks/image";
 
@@ -11,42 +10,29 @@ export default function ParchmentCorner({
   corner = "bottom-right",
   className = "",
 }: ParchmentCornerProps) {
-  const parchmentCornerStyle: CSSProperties = {
-    position: "absolute",
-    width: "200px",
-    height: "200px",
+  const getPositionClasses = (
+    corner: "top-left" | "top-right" | "bottom-left" | "bottom-right"
+  ) => {
+    switch (corner) {
+      case "top-left":
+        return "top-[-10px] left-[-10px] sm:top-[-15px] sm:left-[-15px] md:top-[-20px] md:left-[-20px] rotate-180";
+      case "top-right":
+        return "top-[-10px] right-[-10px] sm:top-[-15px] sm:right-[-15px] md:top-[-20px] md:right-[-20px] -rotate-90";
+      case "bottom-left":
+        return "bottom-[-10px] left-[-10px] sm:bottom-[-15px] sm:left-[-15px] md:bottom-[-20px] md:left-[-20px] rotate-90";
+      case "bottom-right":
+        return "bottom-[-10px] right-[-10px] sm:bottom-[-15px] sm:right-[-15px] md:bottom-[-20px] md:right-[-20px] rotate-0";
+      default:
+        return "";
+    }
   };
 
-  switch (corner) {
-    case "top-left":
-      parchmentCornerStyle.top = "-20px";
-      parchmentCornerStyle.left = "-20px";
-      parchmentCornerStyle.transform = "rotate(180deg)";
-      break;
-    case "top-right":
-      parchmentCornerStyle.top = "-20px";
-      parchmentCornerStyle.right = "-20px";
-      parchmentCornerStyle.transform = "rotate(-90deg)";
-      break;
-    case "bottom-left":
-      parchmentCornerStyle.bottom = "-20px";
-      parchmentCornerStyle.left = "-20px";
-      parchmentCornerStyle.transform = "rotate(90deg)";
-      break;
-    case "bottom-right":
-      // Original image orientation, no rotation needed
-      parchmentCornerStyle.bottom = "-20px";
-      parchmentCornerStyle.right = "-20px";
-      parchmentCornerStyle.transform = "rotate(0deg)";
-      break;
-  }
-
   return (
-    <Box style={parchmentCornerStyle} className={`${className}`}>
+    <Box className={`absolute z-30 ${getPositionClasses(corner)} ${className}`}>
       <Image
         src="/images/core/parchmentCorner.png"
         alt="parchment corner"
-        className="z-30"
+        className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[170px] md:h-[170px]"
       />
     </Box>
   );
