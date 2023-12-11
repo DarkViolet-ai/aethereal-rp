@@ -14,7 +14,7 @@ export default function StoryId() {
 
   // console.log(tempStory);
   return (
-    <Transition type="zoom">
+    <Transition type="zoom" className="w-full h-full">
       <Flex className="w-full h-full justify-start items-center flex-col lg:flex-row lg:justify-center lg:items-start pt-7 overflow-y-hidden">
         <VStack className="w-full h-full lg:w-7/12 justify-center py-[5px]">
           <Text

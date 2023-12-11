@@ -25,14 +25,15 @@ export default function TopNav() {
       {isStory && (
         <Drawer
           icon={<MdOutlineGroups2 />}
-          label="interact"
+          label="characters"
           buttonPos="absolute"
           buttonT="top-2"
           buttonR="right-2"
           slideDirection="top-right"
-          drawerWidth="w-full max-w-[400px]"
+          drawerWidth="w-full max-w-[600px]"
           drawerHeight="h-full"
           buttonTooltipPlacement="bottomLeft"
+          overlayBlur="backdrop-blur-none"
         >
           <Characters characters={characters} />
         </Drawer>

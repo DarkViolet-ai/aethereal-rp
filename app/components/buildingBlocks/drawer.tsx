@@ -7,6 +7,7 @@ import Flex from "./flex";
 import IconButton from "./iconButton";
 import Portal from "./portal";
 import { CloseButton } from "./closeButton";
+import { defaultOverlayBlur, defaultOverlayColor } from "~/css/styles";
 
 interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -33,6 +34,9 @@ interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   buttonB?: string;
   buttonL?: string;
   showBottomButton?: boolean;
+  overlayBlur?: string;
+  overlayColor?: string;
+  drawerBg?: string;
   buttonTooltipPlacement?:
     | "top"
     | "bottom"
@@ -58,7 +62,10 @@ export default function Drawer({
   buttonL,
   showBottomButton = true,
   drawerWidth = "w-[400px]",
+  drawerBg = "bg-dv-700",
   drawerHeight = "h-full",
+  overlayBlur = defaultOverlayBlur,
+  overlayColor = defaultOverlayColor,
   buttonTooltipPlacement = "bottomRight",
   ...props
 }: DrawerProps) {
@@ -168,7 +175,7 @@ export default function Drawer({
             <>
               {/* Overlay */}
               <motion.div
-                className="fixed inset-0 bg-dv-850 backdrop-blur-sm z-40"
+                className={`fixed inset-0 ${overlayColor} ${overlayBlur} z-40`}
                 onClick={() => setDrawerOpen(false)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -188,7 +195,7 @@ export default function Drawer({
                 {...(props as any)}
               >
                 <VStack
-                  className="w-full h-full justify-between relative bg-cyanBack border-l-3 border-dv-900"
+                  className={`w-full h-full justify-between relative ${drawerBg} border-l-3 border-dv-900`}
                   gap="gap-0"
                 >
                   <CloseButton onClose={() => setDrawerOpen(false)} />
