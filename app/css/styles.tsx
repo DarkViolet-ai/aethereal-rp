@@ -1,4 +1,5 @@
 import { MdClose, MdOutlineMenuOpen } from "react-icons/md/index.js";
+import { dummyText } from "~/lib/utils/randomText";
 
 export const scrollBarStyles =
   "thin-scrollbar scrollbar-thumb-rounded scrollbar-track-transparent scrollbar-thumb-dv-900 scrollbar-track-lilac";
@@ -45,8 +46,7 @@ export const Stories = [
     title: "The Whispering Woods",
     summary:
       "In a realm where trees communicate secrets, a hidden path reveals itself.",
-    content:
-      "The adventure begins as Dark Violet stumbles upon a mystical forest, where each tree whispers ancient tales. Guided by the whispers, she navigates through the enigmatic woods, uncovering hidden truths and mystical artifacts.",
+    content: dummyText,
     authorId: "MysticScribe001",
     isActive: true,
     createdAt: new Date("2023-01-01"),
@@ -58,8 +58,7 @@ export const Stories = [
     title: "The Echoes of Infinity",
     summary:
       "A cosmic journey through time and space, exploring the fabric of the universe.",
-    content:
-      "Dark Violet embarks on a celestial odyssey, traversing through various dimensions and experiencing the echoes of infinity. Along the way, she encounters beings of light and darkness, learning profound cosmic truths.",
+    content: dummyText,
     authorId: "CelestialStoryteller002",
     isActive: true,
     createdAt: new Date("2023-01-02"),
@@ -70,9 +69,8 @@ export const Stories = [
     id: "3",
     title: "The Alchemist's Dream",
     summary:
-      "An exploration of transformation and the quest for the Philosopher's Stone.",
-    content:
-      "In a tale of alchemy and transformation, Dark Violet assists a wise but forgotten alchemist in his quest to create the Philosopher's Stone. Their journey is filled with mystical symbols and transformative experiences.",
+      "Delving into the labyrinth of the subconscious, where dreams and reality merge.",
+    content: dummyText,
     authorId: "SageOfShadows003",
     isActive: true,
     createdAt: new Date("2023-01-03"),
@@ -84,8 +82,7 @@ export const Stories = [
     title: "Shadows of the Mind",
     summary:
       "Delving into the labyrinth of the subconscious, where dreams and reality merge.",
-    content:
-      "Dark Violet enters the realm of dreams, navigating through the labyrinth of the subconscious. In this world where reality and dreams intertwine, she encounters shadowy figures representing hidden fears and desires.",
+    content: dummyText,
     authorId: "Dreamweaver004",
     isActive: true,
     createdAt: new Date("2023-01-04"),
@@ -96,8 +93,7 @@ export const Stories = [
     id: "5",
     title: "The Dance of Elements",
     summary: "A journey to harmonize the elemental forces of nature.",
-    content:
-      "Tasked with restoring balance, Dark Violet travels to the elemental kingdoms. She must persuade the embodiments of Earth, Air, Fire, and Water to harmonize, preventing an impending natural catastrophe.",
+    content: dummyText,
     authorId: "ElementalEnchanter005",
     isActive: true,
     createdAt: new Date("2023-01-05"),
@@ -108,8 +104,7 @@ export const Stories = [
     id: "6",
     title: "Chronicles of the Lost City",
     summary: "Uncovering the mysteries of an ancient, hidden civilization.",
-    content:
-      "Dark Violet discovers clues leading to a lost city, believed to hold ancient wisdom. As she explores the forgotten ruins, she unravels the city's mysterious past and its connection to her own destiny.",
+    content: dummyText,
     authorId: "KeeperOfSecrets006",
     isActive: true,
     createdAt: new Date("2023-01-06"),
@@ -120,8 +115,7 @@ export const Stories = [
     id: "7",
     title: "The Mirror of Souls",
     summary: "A magical mirror that reflects the true essence of one's soul.",
-    content:
-      "Dark Violet encounters a mystical mirror that reveals the true nature of anyone who looks into it. As she delves deeper, she confronts her own inner truths and helps others face their deepest selves.",
+    content: dummyText,
     authorId: "MirrorMage007",
     isActive: true,
     createdAt: new Date("2023-01-07"),
@@ -132,8 +126,7 @@ export const Stories = [
     id: "8",
     title: "The Labyrinth of Illusions",
     summary: "A test of perception and reality in a maze of deceptions.",
-    content:
-      "In a maze where reality is distorted, Dark Violet must use her intuition and wisdom to navigate through a series of illusions, puzzles, and hidden truths, challenging her perception of reality.",
+    content: dummyText,
     authorId: "MasterOfIllusions008",
     isActive: true,
     createdAt: new Date("2023-01-08"),
@@ -145,8 +138,7 @@ export const Stories = [
     title: "The Eternal Night",
     summary:
       "A journey to bring back the light in a world enveloped by eternal darkness.",
-    content:
-      "Dark Violet embarks on a quest to end an unending night that has fallen over the land. She must gather ancient relics and summon the courage to confront the darkness, bringing back the dawn.",
+    content: dummyText,
     authorId: "GuardianOfLight009",
     isActive: true,
     createdAt: new Date("2023-01-09"),
@@ -157,8 +149,7 @@ export const Stories = [
     id: "10",
     title: "The Symphony of the Stars",
     summary: "A cosmic event where the harmony of the universe is at stake.",
-    content:
-      "In a race against time, Dark Violet must unite the celestial musicians to perform the Symphony of the Stars, a musical event that maintains the harmony of the universe and prevents cosmic discord.",
+    content: dummyText,
     authorId: "CosmicComposer010",
     isActive: true,
     createdAt: new Date("2023-01-10"),

@@ -1,5 +1,5 @@
 import type { Story } from "@prisma/client";
-import { Form } from "@remix-run/react";
+import { Form, useParams } from "@remix-run/react";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
@@ -8,9 +8,14 @@ import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import LoadingText from "~/components/specialty/loading";
-import { borderShadow } from "~/css/styles";
+import { borderShadow, cursiveText } from "~/css/styles";
+import { dummyText } from "~/lib/utils/randomText";
 
 export default function InteractionPage({ story }: { story: Story }) {
+  const promptText = story.prompt ? story.prompt : dummyText;
+  const paragraphs = promptText.split("\n");
+  const characterName = useParams().characterName || "Jehosephat";
+
   return (
     <Flex className="w-full h-full justify-center items-center">
       <VStack className="w-full h-full p-2 pb-4" gap="gap-5">
@@ -40,14 +45,14 @@ export default function InteractionPage({ story }: { story: Story }) {
 
             <Flex className="w-full h-full bg-dv-700 bg-darkVioletGrad shadow-shadow3D overflow-y-auto justify-end">
               <VStack className="w-76% bg-dv-950 shadow-shadow3D h-fit min-h-full p-2 rounded-l-none">
-                {story.content && <Text>{story.content}</Text>}
-                {story.prompt && <Text>{story.prompt}</Text>}
-                <Text>
-                  The adventure begins as Dark Violet stumbles upon a mystical
-                  forest, where each tree whispers ancient tales. Guided by the
-                  whispers, she navigates through the enigmatic woods,
-                  uncovering hidden truths and mystical artifacts.
-                </Text>
+                {paragraphs.map((paragraph, index) => (
+                  <Text
+                    key={index}
+                    className="text-[16px] leading-[23px] text-shadow-dvTextShadow"
+                  >
+                    {paragraph.trim()}
+                  </Text>
+                ))}
               </VStack>
             </Flex>
           </Box>
@@ -64,7 +69,12 @@ export default function InteractionPage({ story }: { story: Story }) {
           }}
         >
           <input type="hidden" name="storyId" value={story.id} />
-          <VStack className="w-full h-full" gap="gap-[20px]">
+          <VStack className="w-full h-full" gap="gap-[15px]">
+            <Flex
+              className={`${cursiveText}  text-[33px] text-shadow-textFog flex-shrink-0`}
+            >
+              <Text>You are {characterName}</Text>
+            </Flex>
             <Flex className="w-full h-full justify-center ">
               <TextAreaVStack
                 autoFocus={true}

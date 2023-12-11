@@ -6,11 +6,14 @@ import { useLocation, useNavigate } from "@remix-run/react";
 import Drawer from "../buildingBlocks/drawer";
 import StoryNav from "~/routes/story+/components/storyNav";
 import { IoIosArrowDropdown } from "react-icons/io/index.js";
+import { Characters } from "~/css/styles";
 
 export default function TopNav() {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
   const isStory = pathname.includes("story");
+  const characters = isStory && Characters.slice(0, 5);
+  // console.log(characters);
 
   return (
     <Flex className="fixed top-0 left-0 z-49 flex-row justify-between items-center w-full h-[50px] bg-dv-990 rounded-none shadow-shadow3D px-2 flex-shrink-0">
@@ -30,9 +33,10 @@ export default function TopNav() {
           showBottomButton={false}
           slideDirection="top-right"
           drawerWidth="w-[60px]"
+          drawerHeight="h-fit"
           buttonTooltipPlacement="bottomLeft"
         >
-          <StoryNav />
+          <StoryNav characters={characters} />
         </Drawer>
       )}
       <HStack></HStack>

@@ -21,7 +21,7 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
 }
 
-export default function Modal({
+export default function ModalWithButton({
   className = "",
   style = {},
   // isOpen,
