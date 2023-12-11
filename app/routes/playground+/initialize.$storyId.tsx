@@ -6,7 +6,7 @@ import Text from "~/components/buildingBlocks/text";
 import { borderShadow } from "~/css/styles";
 import { getStory } from "~/lib/db/story.server";
 import useStatusStream from "~/lib/hooks/useStatusStream";
-import { Link, useParams, useRevalidator } from "@remix-run/react";
+import { Link, Outlet, useParams, useRevalidator } from "@remix-run/react";
 import { DataFunctionArgs } from "@remix-run/node";
 import { useEffect } from "react";
 
@@ -17,7 +17,10 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
 };
 
 export default function Setup() {
-  const { storyId } = useParams() as { storyId: string };
+  const { storyId } = useParams() as {
+    storyId: string;
+    characterId: string;
+  };
   const { revalidate } = useRevalidator();
 
   const data = useStatusStream(storyId);
@@ -43,8 +46,8 @@ export default function Setup() {
         {story?.characters.map(
           (character) =>
             character.rolePlayer === null && (
-              <Box>
-                <Link to={`${character.id}`}>
+              <Box key={character.id}>
+                <Link to={`/playground/${storyId}/${character.id}`}>
                   <Text>{character.name}</Text>
                 </Link>
                 <Text>{character.description}</Text>

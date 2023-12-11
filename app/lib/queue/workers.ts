@@ -36,8 +36,6 @@ import {
 } from "../db/steps.server";
 import { clearStoryTimeouts, setStoryTimeouts } from "./timeouts";
 
-const REDIS_URL = process.env.REDIS_URL as string;
-
 export type WorkerDispatch = {
   [key in QueueName]: (job: Job) => Promise<void>;
 };
@@ -45,7 +43,7 @@ export type WorkerDispatch = {
 const workerDispatch: WorkerDispatch = {
   [QueueName.ERROR]: async (job: Job) => {
     const { message, stack } = job.data as { message: string; stack?: string };
-    submitLog({ type: "ERROR", message, stack });
+    await submitLog({ type: "ERROR", message, stack });
     console.log("error", message, stack);
   },
 
@@ -65,8 +63,8 @@ const workerDispatch: WorkerDispatch = {
     const story = await getStory({ id: storyId });
     if (!story) {
       console.log("story not found", storyId);
-      submitError({ message: `story not found: ${storyId}` });
-      submitStatus({ storyId, statusMessage: "error" });
+      await submitError({ message: `story not found: ${storyId}` });
+      await submitStatus({ storyId, statusMessage: "error" });
       return;
     }
     const { story: updatedStory, newContent } = await continueStory({
@@ -84,40 +82,44 @@ const workerDispatch: WorkerDispatch = {
     const { story } = job.data as { story: StoryData };
 
     if (!story.nextCharacter) {
-      submitError({
+      await submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
-      submitStatus({ storyId: story.id, statusMessage: "error" });
+      await submitStatus({ storyId: story.id, statusMessage: "error" });
       return;
     }
     if (!story.prompt) {
-      submitError({ message: `prompt not found: ${story.prompt}` });
-      submitStatus({ storyId: story.id, statusMessage: "error" });
+      await submitError({ message: `prompt not found: ${story.prompt}` });
+      await submitStatus({ storyId: story.id, statusMessage: "error" });
       return;
     }
     const { characterName, characterUsername, characterUserId } =
-      await getNextCharacterInStory({ story });
+      getNextCharacterInStory({ story });
 
     if (!characterName) {
-      submitError({
+      await submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
-      submitStatus({ storyId: story.id, statusMessage: "error" });
+      await submitStatus({ storyId: story.id, statusMessage: "error" });
       return;
     }
 
-    submitStatus({
+    await submitStatus({
       storyId: story.id,
       statusMessage: `${characterUsername}:${story.nextCharacter}`,
     });
 
     if (characterUsername === "ai") {
-      submitCharacterGeneration({
+      await submitCharacterGeneration({
         story,
       });
     } else {
       characterUserId &&
-        setStoryTimeouts({ story, characterName, userId: characterUserId });
+        (await setStoryTimeouts({
+          story,
+          characterName,
+          userId: characterUserId,
+        }));
     }
   },
 
@@ -128,27 +130,27 @@ const workerDispatch: WorkerDispatch = {
     const story = await getStory({ id: storyId });
     if (!story) {
       console.log("story not found", storyId);
-      submitError({ message: `story not found: ${storyId}` });
-      submitStatus({ storyId, statusMessage: "error" });
+      await submitError({ message: `story not found: ${storyId}` });
+      await submitStatus({ storyId, statusMessage: "error" });
       return;
     }
     if (!story.nextCharacter) {
-      submitError({
+      await submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
-      submitStatus({ storyId, statusMessage: "error" });
+      await submitStatus({ storyId, statusMessage: "error" });
       return;
     }
     if (!story.prompt) {
-      submitError({ message: `prompt not found: ${story.prompt}` });
-      submitStatus({ storyId, statusMessage: "error" });
+      await submitError({ message: `prompt not found: ${story.prompt}` });
+      await submitStatus({ storyId, statusMessage: "error" });
       return;
     }
     const { characterUsername: stepUsername, characterUserId } =
-      await getNextCharacterInStory({ story });
+      getNextCharacterInStory({ story });
 
     if (stepUsername === "ai") {
-      createAICharacterStep({
+      await createAICharacterStep({
         storyId,
         content: input,
         characterName: story.nextCharacter,
@@ -156,13 +158,13 @@ const workerDispatch: WorkerDispatch = {
       });
     } else {
       if (!characterUserId) {
-        submitError({
+        await submitError({
           message: `characterUserId not found: ${characterUserId}`,
         });
-        submitStatus({ storyId, statusMessage: "error" });
+        await submitStatus({ storyId, statusMessage: "error" });
         return;
       }
-      createUserCharacterStep({
+      await createUserCharacterStep({
         storyId,
         content: input,
         characterName: story.nextCharacter,
@@ -170,7 +172,7 @@ const workerDispatch: WorkerDispatch = {
         userId: characterUserId,
       });
     }
-    submitStatus({ storyId, statusMessage: "narrator" });
+    await submitStatus({ storyId, statusMessage: "narrator" });
     const { newContent } = await continueStory({
       story,
       narratorInstructions,
@@ -189,8 +191,8 @@ const workerDispatch: WorkerDispatch = {
     };
     // if there are no roleplayers left, set the story to inactive.
     if (!story.characters.some((c) => c.rolePlayer !== null)) {
-      submitStatus({ storyId: story.id, statusMessage: "inactive" });
-      updateStory({ id: story.id, isActive: false });
+      await submitStatus({ storyId: story.id, statusMessage: "inactive" });
+      await updateStory({ id: story.id, isActive: false });
       return;
     }
     const result = await generateCharaterOutput({
@@ -199,10 +201,10 @@ const workerDispatch: WorkerDispatch = {
       generator: openaiCharacterGenerator,
     });
     if (!result) {
-      submitError({
+      await submitError({
         message: `character generation failed: ${story.nextCharacter}`,
       });
-      submitStatus({ storyId: story.id, statusMessage: "error" });
+      await submitStatus({ storyId: story.id, statusMessage: "error" });
       return;
     }
     await submitStoryGeneration({

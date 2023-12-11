@@ -9,7 +9,7 @@ import {
 } from "~/lib/db/story.server";
 
 import type { Character, Story } from "@prisma/client";
-import type { Narrator, NarratorInstructions } from "~/lib/db/db.server";
+import type { Narrator, NarratorInstructions } from "~/lib/db/narrator.server";
 import { dvError } from "~/lib/utils/dvError";
 import { json } from "@remix-run/node";
 import { set, z } from "zod";

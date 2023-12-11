@@ -1,7 +1,7 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import { z } from "zod";
 import { createServerClient } from "@supabase/auth-helpers-remix";
-import { getUser } from "~/lib/db/db.server";
+import { getUser } from "~/lib/db/user.server";
 import { dvError } from "~/lib/utils/dvError";
 
 const envSchema = z.object({

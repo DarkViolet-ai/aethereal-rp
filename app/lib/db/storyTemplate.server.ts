@@ -2,7 +2,7 @@ import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
 
-export const getStoryTemplate = async (id: string) => {
+export const getStoryTemplate = async ({ id }: { id: string }) => {
   const storyTemplate = await prisma.storyTemplate.findUnique({
     where: {
       id,

@@ -3,17 +3,14 @@ import { eventStream } from "remix-utils/sse/server";
 import { emitter } from "~/lib/utils/emitter.server";
 import { dvEvent, dvEventNames } from "~/lib/events/dvEvents";
 import { getUserId } from "~/lib/utils/session.server";
+import { submitLog } from "~/lib/queue/queues";
 
-export async function statusEvenStreamLoader({
-  request,
-  params,
-}: LoaderFunctionArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   const storyId = params.storyId as string;
   const userId = await getUserId(request);
   //return { userId };
   return eventStream(request.signal, (send) => {
     const handle = (statusMessage: string) => {
-      // console.log("eventStream: " + eventName);
       send({
         data: String(statusMessage),
       });
