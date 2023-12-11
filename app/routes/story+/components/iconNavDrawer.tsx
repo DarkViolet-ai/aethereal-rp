@@ -1,11 +1,13 @@
 // FramerMotionDrawer.tsx
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import VStack from "../buildingBlocks/vStack";
-import { IoIosClose } from "react-icons/io/index.js";
-import Box from "../buildingBlocks/box";
-import Portal from "../buildingBlocks/portal";
-import Text from "../buildingBlocks/text";
+import { IoIosClose, IoIosArrowDropdownCircle } from "react-icons/io/index.js";
+import Box from "~/components/buildingBlocks/box";
+import IconButton from "~/components/buildingBlocks/iconButton";
+import Portal from "~/components/buildingBlocks/portal";
+import VStack from "~/components/buildingBlocks/vStack";
+import { AiFillCloseCircle } from "react-icons/ai/index.js";
+
 // import { set } from "zod";
 
 interface IconDrawerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -50,12 +52,17 @@ export default function IconDrawer({
 
   return (
     <>
-      <Box
-        className="absolute top-0 right-0"
+      <IconButton
+        icon={
+          isDrawerOpen ? <AiFillCloseCircle /> : <IoIosArrowDropdownCircle />
+        }
+        pos="absolute"
+        t="top-2"
+        r="right-2"
+        alt="interact"
+        label="interact"
         onClick={() => setDrawerOpen(true)}
-      >
-        Open
-      </Box>
+      />
       <Portal>
         <AnimatePresence>
           {isDrawerOpen && (
@@ -83,7 +90,6 @@ export default function IconDrawer({
                   className="w-full h-full justify-between relative bg-cyanBack border-l-3 border-dv-900 pt-[25px]"
                   gap="gap-0"
                 >
-                  <Text>One</Text> <Text>Two</Text> <Text>Three</Text>
                   {children}
                   <Box
                     onClick={() => setDrawerOpen(false)}

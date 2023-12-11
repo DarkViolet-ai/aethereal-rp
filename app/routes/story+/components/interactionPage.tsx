@@ -3,7 +3,6 @@ import { Form } from "@remix-run/react";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
-import HStack from "~/components/buildingBlocks/hStack";
 import Text from "~/components/buildingBlocks/text";
 import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
@@ -24,7 +23,7 @@ export default function InteractionPage({ story }: { story: Story }) {
             )}
 
             <DarkViolet
-              name="4"
+              name="10"
               w="w-20%"
               pos="absolute"
               b="bottom-0"

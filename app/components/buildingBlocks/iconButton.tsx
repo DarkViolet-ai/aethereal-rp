@@ -10,11 +10,11 @@ interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
   isLoading?: boolean;
   isDisabled?: boolean;
   label: string;
-  position?: "absolute" | "relative" | "fixed" | "sticky";
-  top?: string;
-  left?: string;
-  right?: string;
-  bottom?: string;
+  pos?: "absolute" | "relative" | "fixed" | "sticky";
+  t?: string;
+  l?: string;
+  r?: string;
+  b?: string;
   type?: "button" | "submit" | "reset";
   tooltipPlacement?:
     | "top"
@@ -35,17 +35,17 @@ export default function IconButton({
   isLoading = false,
   isDisabled = false,
   label,
-  position = "relative",
-  top,
-  left,
-  right,
-  bottom,
+  pos = "relative",
+  t,
+  l,
+  r,
+  b,
   type = "button",
   tooltipPlacement = "bottomRight",
   ...props
 }: IconButtonProps) {
   return (
-    <div className={`${position} ${top} ${right} ${left} ${bottom}`}>
+    <div className={`${pos} ${t} ${r} ${l} ${b}`}>
       <Tooltip label={label} placement={tooltipPlacement}>
         <button
           className={`inline-flex items-center justify-center rounded-md text-dv-400 bg-dv-900 border border-solid border-1.5 border-dv-400 shadow-dvShadow transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-800 text-shadow-dvTextShadow hover:border-dv-900 ${className}`}

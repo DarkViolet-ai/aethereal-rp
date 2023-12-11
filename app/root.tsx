@@ -123,6 +123,7 @@ export default function App() {
             <Outlet context={{ supabase }} />
           </EntirePageContainer>
         </MainBackground>
+        <div id="modal-root"></div>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
