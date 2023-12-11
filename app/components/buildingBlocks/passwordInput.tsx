@@ -37,10 +37,9 @@ export default function PasswordInput({
         <Box className="absolute right-[5px] top-1">
           <IconButton
             className="h-[25px] w-[25px]"
+            iconSize="text-[17px]"
             label="show/hide"
-            icon={
-              show ? <FaEyeSlash fontSize="15px" /> : <FaEye fontSize="15px" />
-            }
+            icon={show ? <FaEyeSlash /> : <FaEye />}
             onClick={handleClick}
           />
         </Box>

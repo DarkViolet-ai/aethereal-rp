@@ -12,8 +12,8 @@ export default function InteractionPage({ story }: { story: Story }) {
   return (
     <Flex className="w-full h-full justify-center items-center">
       <VStack className="w-full h-full p-2 pb-4" gap="gap-5">
-        <VStack className="w-full h-40%">
-          <Box className={`w-full h-40% ${borderShadow}`}>
+        <VStack className="w-full h-40% flex-shrink-0">
+          <Box className={`w-full h-full ${borderShadow}`}>
             <Box className="w-full h-full bg-dv-800 shadow-shadow3D p-2 overflow-y-auto">
               <Text>{story.content}</Text>
               <Text>{story.prompt}</Text>

@@ -8,7 +8,7 @@ import ParchmentSpacer from "./parchmentSpacer";
 export default function ParchmentPage() {
   return (
     <VStack className="w-full h-full justify-between">
-      <Flex className="h-90% w-92% bg-parchment shadow-parchmentShadow relative">
+      <Flex className="h-90% w-92% bg-parchment shadow-parchmentShadow relative pr-2">
         <ParchmentSpacer />
         <ParchmentSpacer placement="bottom" />
         <ParchmentCorner />
