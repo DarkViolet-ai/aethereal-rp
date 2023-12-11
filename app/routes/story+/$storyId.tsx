@@ -2,7 +2,7 @@ import { Stories } from "~/css/styles";
 import Flex from "~/components/buildingBlocks/flex";
 import ParchmentPage from "./components/parchmentPage";
 import InteractionPage from "./components/interactionPage";
-import { Transition } from "~/components/buildingBlocks/transition";
+import Transition from "~/components/buildingBlocks/transition";
 
 export default function StoryId() {
   const tempStory = Stories[0];

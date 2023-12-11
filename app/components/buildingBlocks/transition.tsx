@@ -5,7 +5,7 @@ import React, { type ReactNode } from "react";
 
 type TransitionType = "fade" | "scale" | "slide" | "rotate" | "flip" | "zoom";
 
-interface PageTransitionProps {
+interface TransitionProps {
   children: ReactNode;
   type: TransitionType;
 }
@@ -43,10 +43,7 @@ const transitionVariants: Record<TransitionType, Variants> = {
   },
 };
 
-export const Transition: React.FC<PageTransitionProps> = ({
-  children,
-  type,
-}) => {
+export default function Transition({ children, type }: TransitionProps) {
   return (
     <AnimatePresence>
       <motion.div
@@ -61,4 +58,4 @@ export const Transition: React.FC<PageTransitionProps> = ({
       </motion.div>
     </AnimatePresence>
   );
-};
+}
