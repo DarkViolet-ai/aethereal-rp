@@ -1,15 +1,27 @@
-import React, { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-export default function Portal({ children }: { children: React.ReactNode }) {
-  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
+interface PortalProps {
+  children: ReactNode;
+}
+
+// Remember to place a div in the root <div id="modal-root"></div> inside the body tag
+// preferably just under all the main content
+
+const Portal: React.FC<PortalProps> = ({ children }) => {
+  const [container] = useState(document.createElement("div"));
 
   useEffect(() => {
-    // Set the portal root only when in a browser environment
-    const rootElem = document.getElementById("portal-root");
-    if (rootElem) setPortalRoot(rootElem);
-  }, []);
+    const portalRoot = document.getElementById("modal-root") || document.body;
+    portalRoot.appendChild(container);
 
-  // Render children only if portalRoot is set
-  return portalRoot ? ReactDOM.createPortal(children, portalRoot) : null;
-}
+    return () => {
+      portalRoot.removeChild(container);
+    };
+  }, [container]);
+
+  return ReactDOM.createPortal(children, container);
+};
+
+export default Portal;
