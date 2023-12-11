@@ -21,7 +21,7 @@ import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import TopNav from "./components/specialty/topNav";
 import Footer from "./components/specialty/footer";
 import { useEffect, useState } from "react";
-import { getUser } from "./lib/db/db.server";
+import { getUser } from "./lib/db/user.server";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },

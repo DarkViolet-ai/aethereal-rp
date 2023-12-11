@@ -1,11 +1,12 @@
-import { Narrator, StoryContent } from "../db/db.server";
+import { Narrator } from "~/lib/db/narrator.server";
+import { StoryData } from "~/lib/db/story.server";
 import { dvError } from "../utils/dvError";
 
 export const buildSystemPrompt = async ({
   story,
   scenario,
 }: {
-  story: StoryContent;
+  story: StoryData;
   scenario: "integrate" | "narrate" | "initialize";
 }) => {
   const narrator = story.narrator as Narrator;

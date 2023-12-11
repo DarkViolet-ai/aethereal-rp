@@ -7,5 +7,6 @@ declare global {
 }
 
 prisma = global.__db__ || new PrismaClient();
+global.__db__ = prisma;
 
 export { prisma };

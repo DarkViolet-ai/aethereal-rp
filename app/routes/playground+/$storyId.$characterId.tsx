@@ -11,11 +11,38 @@ import { DataFunctionArgs } from "@remix-run/node";
 import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import Button from "~/components/buildingBlocks/button";
 import { useEffect } from "react";
+import { dvError } from "~/lib/utils/dvError";
+import { getUserId, requireUserId } from "~/lib/utils/session.server";
+import { assignRolePlayer } from "~/lib/db/character.server";
+import { submitStoryGeneration } from "~/lib/queue/queues";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
+  const userId = await requireUserId(request);
   const storyId = params.storyId as string;
   const story = await getStory({ id: storyId });
-  return typedjson({ story });
+  if (!story) throw dvError.notFound("Story not found");
+  const { characters } = story;
+  const characterId = params.characterId as string;
+  const character = characters.find((c) => c.id === characterId);
+  if (!character) throw dvError.notFound("Character not found");
+  if (character.rolePlayer && userId !== character.rolePlayer.id) {
+    throw dvError.forbidden("You are not allowed to play this character");
+  } else if (!character.rolePlayer) {
+    assignRolePlayer({ characterId, userId });
+  }
+  const nextCharacterData = story && getNextCharacterInStory({ story });
+  const isActiveCharacter = nextCharacterData?.characterId === characterId;
+
+  return typedjson({ story, isActiveCharacter });
+};
+
+export const action = async ({ request, params }: DataFunctionArgs) => {
+  const storyId = params.storyId as string;
+  const characterId = params.characterId as string;
+  const formData = await request.formData();
+  const newInput = formData.get("newInput") as string;
+  await submitStoryGeneration({ storyId, input: newInput });
+  return typedjson({ status: "ok" });
 };
 
 export default function Story() {
@@ -23,10 +50,8 @@ export default function Story() {
     storyId: string;
     characterId: string;
   };
-  const { story } = useTypedLoaderData<typeof loader>();
+  const { story, isActiveCharacter } = useTypedLoaderData<typeof loader>();
 
-  const nextCharacterData = story && getNextCharacterInStory({ story });
-  const isActiveCharacter = nextCharacterData?.characterId === characterId;
   const data = useStatusStream(storyId);
   const { revalidate } = useRevalidator();
   useEffect(() => {

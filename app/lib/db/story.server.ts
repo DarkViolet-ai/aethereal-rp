@@ -21,6 +21,7 @@ export type CreateStoryInput = {
   isActive?: boolean;
   version?: number;
   characters?: { name: string; description: string }[];
+  templateId?: string;
 };
 
 export const createStory = async ({
@@ -30,6 +31,7 @@ export const createStory = async ({
   isActive = false,
   version = 1,
   characters = [],
+  templateId,
 }: CreateStoryInput) => {
   const story = await prisma.story.create({
     data: {
@@ -39,6 +41,7 @@ export const createStory = async ({
       authorId,
       isActive,
       version,
+      storyTemplateId: templateId,
     },
   });
   const newCharacters = await Promise.all(
@@ -59,14 +62,29 @@ export const createStoryFromTemplate = async ({
   templateId: string;
   authorId: string;
 }) => {
-  const template = await getStoryTemplate(templateId);
+  const template = await getStoryTemplate({ id: templateId });
   if (!template) throw dvError.notFound("Template not found");
+  const latestVersionFromTemplate = await prisma.story.findFirst({
+    where: {
+      storyTemplateId: templateId,
+    },
+    orderBy: {
+      version: "desc",
+    },
+    select: {
+      version: true,
+    },
+  });
+  const version = latestVersionFromTemplate
+    ? latestVersionFromTemplate.version + 1
+    : 1;
   return await createStory({
     title: template.title,
     summary: template.summary || "",
     authorId,
     isActive: false,
-    version: 1,
+    version,
+    templateId,
   });
 };
 
@@ -188,6 +206,7 @@ export const updateStory = async ({
     ...(title && { title }),
     ...(summary && { summary }),
     ...(content && { content }),
+    ...(isActive && { isActive }),
   };
   const story = await prisma.story.update({
     where: {

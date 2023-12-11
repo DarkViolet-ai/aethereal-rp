@@ -8,10 +8,11 @@ import Text from "~/components/buildingBlocks/text";
 import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
 import { borderShadow } from "~/css/styles";
-import { continueStory } from "~/lib/ai/narrator.server";
+import { continueStory } from "~/lib/ai/narratorGen.server";
 import { narratorInstructions } from "~/lib/ai/narratorInstructions";
 //import { openaiGenerator } from "~/lib/ai/openaiGenerator.server";
-import { getStory, getUser, setLastInputInStory } from "~/lib/db/db.server";
+import { getUser } from "~/lib/db/user.server";
+import { getStory, setLastInputInStory } from "~/lib/db/story.server";
 import { dvError } from "~/lib/utils/dvError";
 
 export const loader = async ({ request }: DataFunctionArgs) => {
