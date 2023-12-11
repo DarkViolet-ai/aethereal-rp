@@ -30,10 +30,9 @@ export default function TopNav() {
           buttonPos="absolute"
           buttonT="top-2"
           buttonR="right-2"
-          showBottomButton={false}
           slideDirection="top-right"
-          drawerWidth="w-[60px]"
-          drawerHeight="h-fit"
+          drawerWidth="w-full max-w-[400px]"
+          drawerHeight="h-full"
           buttonTooltipPlacement="bottomLeft"
         >
           <StoryNav characters={characters} />

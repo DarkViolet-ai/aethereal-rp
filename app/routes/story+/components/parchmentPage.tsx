@@ -6,18 +6,24 @@ import Text from "~/components/buildingBlocks/text";
 import ParchmentSpacer from "./parchmentSpacer";
 import { Stories } from "~/css/styles";
 import { useParams } from "@remix-run/react";
+import Button from "~/components/buildingBlocks/button";
+import { useState } from "react";
+import Modal from "~/components/buildingBlocks/modal";
+import InteractionPage from "./interactionPage";
 
 export default function ParchmentPage() {
   const params = useParams();
   const storyId = Number(params.storyId);
   const tempStory = Stories[storyId];
   const paragraphs = tempStory.content.split("\n");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const onClose = () => setModalOpen(false);
 
   console.log(tempStory);
 
   return (
-    <VStack className="w-full h-full justify-between">
-      <Flex className=" h-94% w-92% md:h-93% bg-parchment shadow-parchmentShadow relative pr-2">
+    <VStack className="w-full h-full gap-[20px]">
+      <Flex className=" h-90% w-92% lg:h-94% bg-parchment shadow-parchmentShadow relative pr-2">
         <ParchmentSpacer />
         <ParchmentSpacer placement="bottom" />
         <ParchmentCorner />
@@ -38,6 +44,20 @@ export default function ParchmentPage() {
           </VStack>
         </VStack>
       </Flex>
+      <Flex className="w-full justify-center flex lg:hidden">
+        <Button onClick={() => setModalOpen(true)}>Interact</Button>
+      </Flex>
+      <Modal
+        isOpen={isModalOpen}
+        setModalOpen={setModalOpen}
+        onClose={onClose}
+        showTopClose={false}
+        modalOverlayClassName="lg:hidden"
+      >
+        <Flex className="w-full h-full">
+          <InteractionPage story={tempStory} />
+        </Flex>
+      </Modal>
     </VStack>
   );
 }

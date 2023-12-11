@@ -35,7 +35,7 @@ export const continueStory = async ({
       instructions: narratorInstructions,
     });
   }
-  console.log("story", story);
+  // console.log("story", story);
   if (!story.content) {
     return await initializeStory({ story, generator });
   }

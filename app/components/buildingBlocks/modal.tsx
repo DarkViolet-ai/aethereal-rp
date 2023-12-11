@@ -9,22 +9,28 @@ import { borderShadow } from "~/css/styles";
 import Portal from "./portal";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
-  className?: string;
+  modalContentClassName?: string;
+  modalOverlayClassName?: string;
   style?: React.CSSProperties;
   isOpen: boolean;
   setModalOpen: (isOpen: boolean) => void;
   onClose: () => void;
   children?: React.ReactNode;
   maxWidth?: string;
+  showTopClose?: boolean;
+  showBottomClose?: boolean;
 }
 
 export default function Modal({
-  className = "",
+  modalContentClassName = "",
+  modalOverlayClassName = "",
   style = {},
   isOpen,
   onClose,
   children,
   setModalOpen,
+  showTopClose = true,
+  showBottomClose = true,
   maxWidth = "max-w-[1300px]",
   ...props
 }: ModalProps) {
@@ -61,7 +67,7 @@ export default function Modal({
           <>
             {/* Overlay */}
             <motion.div
-              className="fixed inset-0 w-screen h-screen bg-dv-975 backdrop-blur-sm z-60"
+              className={`fixed inset-0 w-screen h-screen bg-dv-975 backdrop-blur-sm z-60 ${modalOverlayClassName}`}
               onClick={onClose}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -69,7 +75,7 @@ export default function Modal({
             />
             {/* Modal */}
             <motion.div
-              className={`w-full h-full ${maxWidth} fixed inset-0 m-auto shadow-shadow3D z-50 lg:w-94% lg:h-94% ${className}`}
+              className={`w-full h-full ${maxWidth} fixed inset-0 m-auto shadow-shadow3D z-50 lg:w-94% lg:h-94% ${modalContentClassName}`}
               style={{ ...style }}
               variants={variants}
               initial="closed"
@@ -78,7 +84,9 @@ export default function Modal({
               {...(props as any)}
             >
               <Flex className="w-full h-full relative ">
-                <CloseButton onClose={() => setModalOpen(false)} />
+                {showTopClose && (
+                  <CloseButton onClose={() => setModalOpen(false)} />
+                )}
                 <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
                   <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900 ">
                     <Box className="w-full h-full pb-[50px] rounded-b-none">
@@ -91,9 +99,11 @@ export default function Modal({
                       </Box>
                     </Box>
                   </Flex>
-                  <Flex className="w-full h-[50px] bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
-                    <CloseTextButton onClose={() => setModalOpen(false)} />
-                  </Flex>
+                  {showBottomClose && (
+                    <Flex className="w-full h-[50px] bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
+                      <CloseTextButton onClose={() => setModalOpen(false)} />
+                    </Flex>
+                  )}
                 </Flex>
               </Flex>
             </motion.div>
