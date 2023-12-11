@@ -7,5 +7,6 @@ export const dvEventNames = {
 };
 
 export const dvEvent = {
-  status: (userId: string) => emitter.emit(dvEventNames.status(userId)),
+  status: (storyId: string, status: string) =>
+    emitter.emit(dvEventNames.status(storyId), status),
 };

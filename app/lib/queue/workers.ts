@@ -56,7 +56,7 @@ const workerDispatch: WorkerDispatch = {
       statusMessage: string;
     };
     await updateStoryStatus({ id: storyId, status: statusMessage });
-    dvEvent.status(storyId);
+    dvEvent.status(storyId, statusMessage);
   },
 
   //**************************************************************************/
