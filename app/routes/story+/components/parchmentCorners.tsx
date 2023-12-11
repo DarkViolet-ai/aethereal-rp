@@ -9,42 +9,45 @@ interface ParchmentCornerProps {
 
 export default function ParchmentCorner({
   corner = "bottom-right",
-  className,
+  className = "",
 }: ParchmentCornerProps) {
   const parchmentCornerStyle: CSSProperties = {
     position: "absolute",
     width: "200px",
     height: "200px",
-    zIndex: 1,
   };
 
   switch (corner) {
     case "top-left":
-      parchmentCornerStyle.top = "-18px";
-      parchmentCornerStyle.left = "-18px";
+      parchmentCornerStyle.top = "-20px";
+      parchmentCornerStyle.left = "-20px";
       parchmentCornerStyle.transform = "rotate(180deg)";
       break;
     case "top-right":
-      parchmentCornerStyle.top = "-18px";
-      parchmentCornerStyle.right = "-18px";
+      parchmentCornerStyle.top = "-20px";
+      parchmentCornerStyle.right = "-20px";
       parchmentCornerStyle.transform = "rotate(-90deg)";
       break;
     case "bottom-left":
-      parchmentCornerStyle.bottom = "-18px";
-      parchmentCornerStyle.left = "-18px";
+      parchmentCornerStyle.bottom = "-20px";
+      parchmentCornerStyle.left = "-20px";
       parchmentCornerStyle.transform = "rotate(90deg)";
       break;
     case "bottom-right":
       // Original image orientation, no rotation needed
-      parchmentCornerStyle.bottom = "-18px";
-      parchmentCornerStyle.right = "-18px";
+      parchmentCornerStyle.bottom = "-20px";
+      parchmentCornerStyle.right = "-20px";
       parchmentCornerStyle.transform = "rotate(0deg)";
       break;
   }
 
   return (
-    <Box style={parchmentCornerStyle} className={className}>
-      <Image src="/images/core/parchmentCorner.png" alt="parchment corner" />
+    <Box style={parchmentCornerStyle} className={`${className}`}>
+      <Image
+        src="/images/core/parchmentCorner.png"
+        alt="parchment corner"
+        className="z-30"
+      />
     </Box>
   );
 }

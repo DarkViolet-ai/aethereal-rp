@@ -10,18 +10,21 @@ import { borderShadow } from "~/css/styles";
 
 export default function InteractionPage({ story }: { story: Story }) {
   return (
-    <Flex className="w-full h-full justify-center  items-center">
-      <VStack className="w-full p-4" gap="gap-5">
-        <Box className={`w-full h-[400px] ${borderShadow}`}>
-          <Box className="w-full h-[400px] bg-dv-800 shadow-shadow3D p-2 overflow-y-auto">
-            <Text>{story.content}</Text>
-            <Text>{story.prompt}</Text>
+    <Flex className="w-full h-full justify-center items-center">
+      <VStack className="w-full h-full p-2 pb-4" gap="gap-5">
+        <VStack className="w-full h-40%">
+          <Box className={`w-full h-40% ${borderShadow}`}>
+            <Box className="w-full h-full bg-dv-800 shadow-shadow3D p-2 overflow-y-auto">
+              <Text>{story.content}</Text>
+              <Text>{story.prompt}</Text>
+            </Box>
           </Box>
-        </Box>
+        </VStack>
         <Form
           method="post"
           style={{
             width: "100%",
+            height: "60%",
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
@@ -29,14 +32,15 @@ export default function InteractionPage({ story }: { story: Story }) {
           }}
         >
           <input type="hidden" name="storyId" value={story.id} />
-          <VStack gap="gap-[20px]">
-            <Box className="w-full justify-center">
+          <VStack className="w-full h-full" gap="gap-[20px]">
+            <Flex className="w-full h-full justify-center ">
               <TextAreaVStack
                 label="Type Things Here"
-                className="w-full h-full"
+                textAreaWidth="w-full"
+                textAreaHeight="h-full"
                 name="newInput"
               />
-            </Box>
+            </Flex>
             <Button type="submit" className="w-[200px]">
               Submit
             </Button>
