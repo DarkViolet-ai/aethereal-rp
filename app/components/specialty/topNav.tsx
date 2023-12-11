@@ -2,14 +2,18 @@ import Box from "../buildingBlocks/box";
 import Flex from "../buildingBlocks/flex";
 import HStack from "../buildingBlocks/hStack";
 import Image from "../buildingBlocks/image";
-
 import { useLocation, useNavigate } from "@remix-run/react";
-import IconDrawer from "./iconNavDrawer";
+import Drawer from "../buildingBlocks/drawer";
+import StoryNav from "~/routes/story+/components/storyNav";
+import { IoIosArrowDropdown } from "react-icons/io/index.js";
+import { Characters } from "~/css/styles";
 
 export default function TopNav() {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
   const isStory = pathname.includes("story");
+  const characters = isStory && Characters.slice(0, 5);
+  // console.log(characters);
 
   return (
     <Flex className="fixed top-0 left-0 z-49 flex-row justify-between items-center w-full h-[50px] bg-dv-990 rounded-none shadow-shadow3D px-2 flex-shrink-0">
@@ -19,7 +23,21 @@ export default function TopNav() {
       >
         <Image src="/images/core/aetherealLogo.png" alt="main logo" />
       </Box>
-      {isStory && <IconDrawer />}
+      {isStory && (
+        <Drawer
+          icon={<IoIosArrowDropdown />}
+          label="interact"
+          buttonPos="absolute"
+          buttonT="top-2"
+          buttonR="right-2"
+          slideDirection="top-right"
+          drawerWidth="w-full max-w-[400px]"
+          drawerHeight="h-full"
+          buttonTooltipPlacement="bottomLeft"
+        >
+          <StoryNav characters={characters} />
+        </Drawer>
+      )}
       <HStack></HStack>
     </Flex>
   );

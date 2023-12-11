@@ -236,6 +236,7 @@ export default {
         dvTextShadow: "2px 2px 2px rgba(0, 0, 0, 0.9)",
         subtleTextShadow: "1px 1px 2px rgba(0, 0, 0, 0.9)",
         standoutTextShadow: "3px 3px 4px rgba(0, 0, 0, 0.9)",
+        textFog: "0 0 5px #000, 0 0 10px #000, 0 0 15px #000, 0 0 20px #000, 0 0 30px #000, 0 0 40px #575757, 0 0 55px #5E5E5E, 0 0 75px #000, 2px 2px 2px rgba(0,0,0,0);",
         textGlow:
           "#00FFFF 0px 0px 5px, #00FFFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, 8px 2px 6px rgba(0,0,0,0);",
       },
