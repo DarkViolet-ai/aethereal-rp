@@ -13,8 +13,8 @@ import Button from "~/components/buildingBlocks/button";
 import { useEffect } from "react";
 import { dvError } from "~/lib/utils/dvError";
 import { getUserId, requireUserId } from "~/lib/utils/session.server";
-import { assignRolePlayer } from "~/lib/db/character.server";
-import { submitStoryGeneration } from "~/lib/queue/queues";
+import { StoryCharacter, assignRolePlayer } from "~/lib/db/character.server";
+import { submitStoryGeneration, submitUserPrompt } from "~/lib/queue/queues";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const userId = await requireUserId(request);
@@ -22,13 +22,24 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
   const story = await getStory({ id: storyId });
   if (!story) throw dvError.notFound("Story not found");
   const { characters } = story;
+
   const characterId = params.characterId as string;
   const character = characters.find((c) => c.id === characterId);
   if (!character) throw dvError.notFound("Character not found");
+
   if (character.rolePlayer && userId !== character.rolePlayer.id) {
     throw dvError.forbidden("You are not allowed to play this character");
   } else if (!character.rolePlayer) {
     assignRolePlayer({ characterId, userId });
+  }
+  const rolePlayerCount = new Set(
+    characters
+      .filter((c: StoryCharacter) => c.rolePlayer !== null)
+      .map((c: StoryCharacter) => c.rolePlayer?.id)
+  ).size;
+  console.log("rolePlayerCount", rolePlayerCount);
+  if (rolePlayerCount === 1) {
+    await submitUserPrompt({ story });
   }
   const nextCharacterData = story && getNextCharacterInStory({ story });
   const isActiveCharacter = nextCharacterData?.characterId === characterId;
@@ -41,6 +52,7 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   const characterId = params.characterId as string;
   const formData = await request.formData();
   const newInput = formData.get("newInput") as string;
+  console.log("submitting for story generation", newInput);
   await submitStoryGeneration({ storyId, input: newInput });
   return typedjson({ status: "ok" });
 };

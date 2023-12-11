@@ -66,7 +66,10 @@ export const createStoryFromTemplate = async ({
   if (!template) throw dvError.notFound("Template not found");
   const latestVersionFromTemplate = await prisma.story.findFirst({
     where: {
-      storyTemplateId: templateId,
+      OR: [
+        { storyTemplateId: templateId },
+        { title: template.title, authorId },
+      ],
     },
     orderBy: {
       version: "desc",
@@ -276,6 +279,10 @@ export const setLastInputInStory = async ({
     },
     data: {
       lastInput,
+    },
+    include: {
+      characters: storyCharacterQuery,
+      narrator: true,
     },
   });
   return story;

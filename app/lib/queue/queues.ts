@@ -4,6 +4,7 @@ import { qRedisGetConnection } from "../utils/redis.server";
 import { Character, LogType } from "@prisma/client";
 import { StoryCharacter } from "../db/character.server";
 import { StoryData } from "../db/story.server";
+import { QueueEvents } from "bullmq";
 
 const REDIS_URL = process.env.REDIS_URL as string;
 
@@ -25,6 +26,25 @@ declare global {
 
 export const getQueue = (name: QueueName): Queue => {
   if (!global.__queues) {
+    const { connection: qeConnection } = qRedisGetConnection();
+    const queueEvents = new QueueEvents(QueueName.GENERATE_STORY, {
+      connection: qeConnection,
+    });
+
+    queueEvents.on(
+      "completed",
+      ({ jobId, returnvalue }: { jobId: string; returnvalue: any }) => {
+        console.log(`Job completed`, jobId);
+      }
+    );
+
+    queueEvents.on(
+      "failed",
+      ({ jobId, failedReason }: { jobId: string; failedReason: string }) => {
+        console.log(`Job failed`, jobId, failedReason);
+      }
+    );
+
     // iterate over all values of QueueName and create a queue for each
     global.__queues = Object.values(QueueName).reduce(
       (queues: { [key in QueueName]: Queue }, queueName: QueueName) => {

@@ -16,6 +16,7 @@ import {
   StoryData,
   getNextCharacterInStory,
   getStory,
+  setLastInputInStory,
   updateStory,
   updateStoryStatus,
 } from "../db/story.server";
@@ -27,7 +28,7 @@ import {
 import { continueStory } from "../ai/narratorGen.server";
 import { StoryCharacter } from "../db/character.server";
 import { generateCharaterOutput } from "../ai/characterGen.server";
-import { LogType } from "@prisma/client";
+import { LogType, Story } from "@prisma/client";
 import { createLogEntry } from "../db/log.server";
 import {
   createAICharacterStep,
@@ -80,7 +81,13 @@ const workerDispatch: WorkerDispatch = {
   //**************************************************************************/
   [QueueName.PROMPT_USER]: async (job: Job) => {
     const { story } = job.data as { story: StoryData };
-
+    if (!story.isActive) {
+      submitLog({
+        type: "INFO",
+        message: "Story is not active.  Will wait for user to join.",
+      });
+      return;
+    }
     if (!story.nextCharacter) {
       await submitError({
         message: `next character not found: ${story.nextCharacter}`,
@@ -114,20 +121,33 @@ const workerDispatch: WorkerDispatch = {
         story,
       });
     } else {
-      characterUserId &&
-        (await setStoryTimeouts({
-          story,
-          characterName,
-          userId: characterUserId,
-        }));
+      const { characters } = story;
+      const rolePlayerCount = new Set(
+        characters
+          .filter((c: StoryCharacter) => c.rolePlayer !== null)
+          .map((c: StoryCharacter) => c.rolePlayer?.id)
+      ).size;
+      console.log("rolePlayerCount", rolePlayerCount);
+      // characterUserId &&
+      //   rolePlayerCount > 1 &&
+      //   (await setStoryTimeouts({
+      //     story,
+      //     characterName,
+      //     userId: characterUserId,
+      //   }));
     }
   },
 
   //**************************************************************************/
   [QueueName.GENERATE_STORY]: async (job: Job) => {
     const { storyId, input } = job.data as { storyId: string; input: string };
-    await clearStoryTimeouts(storyId);
-    const story = await getStory({ id: storyId });
+    //await clearStoryTimeouts(storyId);
+    //await submitLog({ type: "INFO", message: "generate story" });
+    console.log("generate story", storyId, input);
+    const story = await setLastInputInStory({
+      storyId,
+      lastInput: input,
+    });
     if (!story) {
       console.log("story not found", storyId);
       await submitError({ message: `story not found: ${storyId}` });
@@ -172,7 +192,10 @@ const workerDispatch: WorkerDispatch = {
         userId: characterUserId,
       });
     }
+
+    console.log("submitting narrator status");
     await submitStatus({ storyId, statusMessage: "narrator" });
+    console.log("submitting narrator generation");
     const { newContent } = await continueStory({
       story,
       narratorInstructions,
@@ -229,6 +252,9 @@ export const getWorker = (name: QueueName) => {
   const worker = new Worker(name, workerDispatch[name], {
     connection,
     concurrency: 50,
+  });
+  worker.on("error", (error) => {
+    console.log("worker error", error);
   });
   return worker;
 };
