@@ -11,7 +11,7 @@ export default function ParchmentSpacer({
     <>
       {" "}
       {placement === "top" ? (
-        <Flex className="w-full h-[60px] min-h-[60px] flex-shrink-0 text-transparent bg-parchmentSpacerTop absolute top-0 left-0">
+        <Flex className="w-full h-[50px] min-h-[50px] flex-shrink-0 text-transparent bg-parchmentSpacerTop absolute top-0 left-0">
           .
         </Flex>
       ) : (

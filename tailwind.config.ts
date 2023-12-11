@@ -265,8 +265,8 @@ export default {
           "linear-gradient(45deg, rgba(70, 1, 100, 0.5), rgba(0, 99, 99, 0.5)),linear-gradient(to bottom,rgba(119, 149, 242, 0.5),rgba(148, 0, 211, 0.5));",
         parchment:
           "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,242,211,1) 55%, rgba(255,236,191,1) 70%, rgba(255,236,189,1) 82%, rgba(255,232,176,1) 93%, rgba(255,232,176,1) 100%)",
-        parchmentSpacerTop:
-          "linear-gradient(to bottom, rgba(255,232,176,1), rgba(255,232,176,1),  rgba(255,232,176,0.9),  rgba(255,232,176,0.8))",
+         parchmentSpacerTop:
+          "linear-gradient(to bottom, rgba(255,232,176,1) 0%, rgba(255,232,176,0.7) 33%,  rgba(255,232,176,0.4) 66%,  rgba(255,232,176,0.1) 100%)",
         parchmentSpacerBottom:
           "linear-gradient(to top, rgba(255,232,176,1) 0%, rgba(255,232,176,0.7) 33%,  rgba(255,232,176,0.4) 66%,  rgba(255,232,176,0.1) 100%)",
       },
