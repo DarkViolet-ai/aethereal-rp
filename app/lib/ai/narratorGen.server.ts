@@ -35,11 +35,13 @@ export const continueStory = async ({
       instructions: narratorInstructions,
     });
   }
-  console.log("story", story);
+  console.log("story", story.title);
   if (!story.content) {
+    console.log("initializing story");
     return await initializeStory({ story, generator });
   }
   if (!story.lastInput) return { story, newContent: "" };
+  console.log("generating narration");
   return await narrate({ story, newInput: story.lastInput, generator });
 };
 
@@ -157,6 +159,7 @@ export const narrate = async ({
     story,
     scenario: "narrate",
   });
+  console.log("nextPrompt", { nextPrompt, lastInput: story.lastInput });
   const narrateResults = await generator(nextPrompt, story.lastInput || "");
   const validatedNarrateResults = validateResults({
     results: narrateResults,
