@@ -158,7 +158,7 @@ export const Stories = [
   },
 ];
 
-export const Characters = [
+export const TempCharacterList = [
   {
     id: "character1",
     name: "The Whispering Elder",

@@ -1,5 +1,5 @@
 import {
-  Characters,
+  TempCharacterList,
   Stories,
   borderShadow,
   cardColors,
@@ -84,7 +84,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   // const imagePath = GetStoryImagePath(character.storyId.title);
 
   const story = Stories.find((story) => story.id === character.storyId);
-  const storyCharacters = Characters.filter(
+  const storyCharacters = TempCharacterList.filter(
     (otherCharacter) =>
       otherCharacter.storyId === character.storyId &&
       otherCharacter.id !== character.id

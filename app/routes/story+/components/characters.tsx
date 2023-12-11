@@ -4,7 +4,11 @@ import VStack from "~/components/buildingBlocks/vStack";
 import { GiCharacter } from "react-icons/gi/index.js";
 import type { Character } from "@prisma/client";
 
-export default function StoryNav({ characters }: { characters: Character[] }) {
+export default function Characters({
+  characters,
+}: {
+  characters: Character[];
+}) {
   function CharacterTemplate({ characterName }: { characterName: string }) {
     return (
       <VStack className="py-4 px-2">

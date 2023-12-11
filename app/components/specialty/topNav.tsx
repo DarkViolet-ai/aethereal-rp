@@ -1,18 +1,17 @@
 import Box from "../buildingBlocks/box";
 import Flex from "../buildingBlocks/flex";
-import HStack from "../buildingBlocks/hStack";
 import Image from "../buildingBlocks/image";
 import { useLocation, useNavigate } from "@remix-run/react";
 import Drawer from "../buildingBlocks/drawer";
-import StoryNav from "~/routes/story+/components/storyNav";
-import { IoIosArrowDropdown } from "react-icons/io/index.js";
-import { Characters } from "~/css/styles";
+import { MdOutlineGroups2 } from "react-icons/md/index.js";
+import { TempCharacterList } from "~/css/styles";
+import Characters from "~/routes/story+/components/characters";
 
 export default function TopNav() {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
   const isStory = pathname.includes("story");
-  const characters = isStory && Characters.slice(0, 5);
+  const characters = isStory && TempCharacterList.slice(0, 5);
   // console.log(characters);
 
   return (
@@ -25,7 +24,7 @@ export default function TopNav() {
       </Box>
       {isStory && (
         <Drawer
-          icon={<IoIosArrowDropdown />}
+          icon={<MdOutlineGroups2 />}
           label="interact"
           buttonPos="absolute"
           buttonT="top-2"
@@ -35,10 +34,9 @@ export default function TopNav() {
           drawerHeight="h-full"
           buttonTooltipPlacement="bottomLeft"
         >
-          <StoryNav characters={characters} />
+          <Characters characters={characters} />
         </Drawer>
       )}
-      <HStack></HStack>
     </Flex>
   );
 }
