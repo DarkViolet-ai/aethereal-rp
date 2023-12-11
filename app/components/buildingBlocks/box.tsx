@@ -10,7 +10,7 @@ interface BoxProps {
 export default function Box({
   children,
   onClick,
-  style,
+  style = {},
   className = "",
 }: BoxProps) {
   return (

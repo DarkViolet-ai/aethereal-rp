@@ -9,13 +9,12 @@ interface ParchmentCornerProps {
 
 export default function ParchmentCorner({
   corner = "bottom-right",
-  className,
+  className = "",
 }: ParchmentCornerProps) {
   const parchmentCornerStyle: CSSProperties = {
     position: "absolute",
     width: "200px",
     height: "200px",
-    zIndex: 1,
   };
 
   switch (corner) {
@@ -43,8 +42,12 @@ export default function ParchmentCorner({
   }
 
   return (
-    <Box style={parchmentCornerStyle} className={`z-20 ${className}`}>
-      <Image src="/images/core/parchmentCorner.png" alt="parchment corner" />
+    <Box style={parchmentCornerStyle} className={`${className}`}>
+      <Image
+        src="/images/core/parchmentCorner.png"
+        alt="parchment corner"
+        className="z-30"
+      />
     </Box>
   );
 }
