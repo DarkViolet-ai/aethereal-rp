@@ -12,6 +12,7 @@ import {
   createCharacter,
   storyCharacterQuery,
 } from "./character.server";
+import { getStoryTemplate } from "./storyTemplate.server";
 
 export type CreateStoryInput = {
   title: string;
@@ -52,13 +53,15 @@ export const createStory = async ({
 };
 
 export const createStoryFromTemplate = async ({
-  template,
+  templateId,
   authorId,
 }: {
-  template: StoryTemplate;
+  templateId: string;
   authorId: string;
 }) => {
-  const story = await createStory({
+  const template = await getStoryTemplate(templateId);
+  if (!template) throw dvError.notFound("Template not found");
+  return await createStory({
     title: template.title,
     summary: template.summary || "",
     authorId,
@@ -154,6 +157,18 @@ export const updateStoryStatus = async ({
     },
   });
   return story;
+};
+
+export const getStoryStatus = async (id: string) => {
+  const story = await prisma.story.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      status: true,
+    },
+  });
+  return story?.status;
 };
 
 export const updateStory = async ({
@@ -260,16 +275,13 @@ export const getActiveStories = async (): Promise<StoryData[]> => {
   return stories;
 };
 
-export const getNextCharacterInStory = async ({
-  story,
-}: {
-  story: StoryData;
-}) => {
+export const getNextCharacterInStory = ({ story }: { story: StoryData }) => {
   const nextCharacterRecord = story.characters.find(
     (character) => character.name === story.nextCharacter
   );
   if (!nextCharacterRecord) {
     return {
+      characterId: null,
       characterName: null,
       characterUsername: null,
       characterUserId: null,
@@ -278,6 +290,7 @@ export const getNextCharacterInStory = async ({
   const characterUsername = nextCharacterRecord.rolePlayer?.name || "ai";
   const characterUserId = nextCharacterRecord.rolePlayer?.id || null;
   return {
+    characterId: nextCharacterRecord.id,
     characterName: story.nextCharacter,
     characterUsername,
     characterUserId,

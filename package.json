@@ -30,6 +30,7 @@
     "react-icons": "^4.12.0",
     "remix-flat-routes": "^0.6.4",
     "remix-typedjson": "^0.4.1",
+    "remix-utils": "^7.3.0",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
   },
