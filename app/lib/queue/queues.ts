@@ -9,6 +9,8 @@ const REDIS_URL = process.env.REDIS_URL as string;
 
 export enum QueueName {
   STATUS = "status",
+  INITIATE_STORY = "create-story",
+  PROMPT_USER = "prompt-user",
   GENERATE_STORY = "generate-story",
   GENERATE_CHARACTER = "generate-character",
   ERROR = "error",
@@ -64,6 +66,24 @@ export const submitStatus = async ({
   await queue.add(QueueName.STATUS, {
     storyId,
     statusMessage,
+  });
+};
+
+export const submitStoryInitiation = async ({
+  storyId,
+}: {
+  storyId: string;
+}) => {
+  const queue = getQueue(QueueName.INITIATE_STORY);
+  await queue.add(QueueName.INITIATE_STORY, {
+    storyId,
+  });
+};
+
+export const submitUserPrompt = async ({ story }: { story: StoryData }) => {
+  const queue = getQueue(QueueName.PROMPT_USER);
+  await queue.add(QueueName.PROMPT_USER, {
+    story,
   });
 };
 

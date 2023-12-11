@@ -1,6 +1,8 @@
 import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
+import { updateStory } from "./story.server";
+import { submitStatus } from "../queue/queues";
 
 export type StoryCharacterQueryType = {
   select: {
@@ -104,7 +106,21 @@ export const assignRolePlayer = async ({
     data: {
       rolePlayerId: userId,
     },
+    include: {
+      story: {
+        select: {
+          isActive: true,
+        },
+      },
+    },
   });
+  if (!character.story.isActive) {
+    await updateStory({
+      id: character.storyId,
+      isActive: true,
+    });
+    await submitStatus({ storyId: character.storyId, statusMessage: "active" });
+  }
   return character;
 };
 
