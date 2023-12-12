@@ -238,7 +238,13 @@ export const updateCharactersInStory = async ({
 }) => {
   // first find any characters that are not in story.characters
   const newCharacters = characters.filter(
-    (character) => !story.characters.find((c) => c.name === character.name)
+    (character) =>
+      !story.characters.find((c) => {
+        // convert names to lowercase and remove whitespace
+        const cName = c.name.toLowerCase().replace(/\s/g, "");
+        const characterName = character.name.toLowerCase().replace(/\s/g, "");
+        return cName === characterName;
+      })
   );
   // add these new characters to the story
   const addedCharacters = await prisma.character.createMany({

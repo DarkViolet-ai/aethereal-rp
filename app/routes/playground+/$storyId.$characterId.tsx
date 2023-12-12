@@ -72,7 +72,11 @@ export default function StoryId() {
           >
             {story?.title || ""}
           </Text>
-          <ParchmentPage isActiveCharacter={isActiveCharacter} story={story} />
+          <ParchmentPage
+            isActiveCharacter={isActiveCharacter}
+            story={story}
+            characterName={characterName}
+          />
         </VStack>
       </Transition>
       <Transition

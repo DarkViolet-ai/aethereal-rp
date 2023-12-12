@@ -15,12 +15,14 @@ interface ParchmentPageProps {
   showInteractionButton?: boolean;
   isActiveCharacter: boolean;
   story: StoryData;
+  characterName: string;
 }
 
 export default function ParchmentPage({
   story,
   showInteractionButton = true,
   isActiveCharacter,
+  characterName,
 }: ParchmentPageProps) {
   const paragraphs = story.content.split("\n");
   const [isModalOpen, setModalOpen] = useState(false);
@@ -65,6 +67,7 @@ export default function ParchmentPage({
           <InteractionPage
             story={story}
             isActiveCharacter={isActiveCharacter}
+            characterName={characterName}
           />
         </Flex>
       </Modal>
