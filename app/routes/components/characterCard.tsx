@@ -20,15 +20,15 @@ import Modal from "~/components/buildingBlocks/modal";
 import LabelValue from "~/components/buildingBlocks/labelValue";
 import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import Divider from "~/components/buildingBlocks/divider";
+import { OpenCharacterView } from "~/lib/db/character.server";
 
 export default function CharacterCardMini({
   character,
   bgColor = cardColors[1 % cardColors.length],
 }: {
-  character: Character;
+  character: OpenCharacterView;
   bgColor?: string;
 }) {
-  const story = Stories.find((story) => story.id === character.storyId);
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   return (
@@ -40,15 +40,15 @@ export default function CharacterCardMini({
     >
       <HStack className="justify-between w-full">
         <HStack className="text-shadow-dvTextShadow">
-          <Flex className="w-full flex-col items-start md:flex-row xl:flex-col xxl:flex-row">
-            <Text className={`${cursiveText} text-[26px] xl:text-[33px]`}>
+          <Flex className="w-full flex-col items-start md:flex-row lg:flex-col xxxl:flex-row">
+            <Text className={`${cursiveText} text-[23px] xxl:text-[25px]`}>
               {character.name}
             </Text>
-            <Flex className="hidden md:flex xl:hidden xxl:flex px-2">
+            <Flex className="hidden md:flex lg:hidden xxxl:flex px-2">
               <Text> | </Text>
             </Flex>
-            <Text className="text-shadow-dvTextShadow">
-              <i>{story?.title}</i>
+            <Text className="text-shadow-dvTextShadow text-[20px]">
+              <i>{character.story?.title}</i>
             </Text>
           </Flex>
         </HStack>

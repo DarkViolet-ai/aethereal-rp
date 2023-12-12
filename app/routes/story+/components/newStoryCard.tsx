@@ -4,14 +4,14 @@ import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
 import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
-import { borderShadow, cursiveText } from "~/css/styles";
+import { borderShadow, cursiveText, textSizes } from "~/css/styles";
 
 export default function NewStoryCard() {
   const navigate = useNavigate();
 
   return (
     <Flex
-      className={`w-full shadow-slate-500 max-w-[550px] bg-cyanGrad ${borderShadow} hover:cursor-pointer`}
+      className={`w-full shadow-slate-500 bg-cyanGrad ${borderShadow} hover:cursor-pointer ${textSizes}`}
       onClick={() => navigate(`/story/new`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
@@ -21,7 +21,7 @@ export default function NewStoryCard() {
         >
           <Flex className="pt-3">
             <Text
-              className={`${cursiveText} text-shadow-boldTextGlow text-dv-900 text-[45px]`}
+              className={`${cursiveText} text-shadow-boldTextGlow text-dv-900 text-[45px] leading-[47px]`}
             >
               Create a New Story!
             </Text>
@@ -31,7 +31,7 @@ export default function NewStoryCard() {
             Start something new and exciting...or new and chill!
           </Text>
         </VStack>
-        <Flex className="h-[100px] w-[100px] flex-shrink-0">
+        <Flex className="h-98% w-[100px] flex-shrink-0">
           <Image
             src="/images/stories/create_a_new_story.png"
             alt="create a new story"
