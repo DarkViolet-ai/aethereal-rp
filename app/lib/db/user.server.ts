@@ -45,6 +45,8 @@ export const getUserStories = async (
       id: true,
       title: true,
       summary: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
 
@@ -57,6 +59,8 @@ export const getUserStories = async (
       id: true,
       title: true,
       summary: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
   return { stories, activeStories };
@@ -68,6 +72,8 @@ export type StorySummaryData = Prisma.StoryGetPayload<{
     title: true;
     summary: true;
     characters: StoryCharacterQueryType;
+    createdAt: true;
+    updatedAt: true;
   };
 }>;
 
