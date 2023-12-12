@@ -1,4 +1,4 @@
-import { DataFunctionArgs } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 import { typedjson } from "remix-typedjson";
 import {
   getAllTemplates,

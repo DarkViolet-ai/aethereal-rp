@@ -7,14 +7,9 @@ import CharacterCard from "./characterCard";
 import VStack from "~/components/buildingBlocks/vStack";
 import { useTypedLoaderData } from "remix-typedjson";
 import type { UserStoriesLoaderData } from "../index";
+import NewStoryCard from "../story+/components/newStoryCard";
 
-const newStory = {
-  id: "new",
-  title: "Create a New Story",
-  createdAt: new Date(),
-  summary: "Create something new and exciting!",
-  characters: [],
-};
+
 
 export default function StoriesCharacters() {
   const { stories, activeStories, availableCharacters } =
@@ -34,7 +29,7 @@ export default function StoriesCharacters() {
           heading="My Stories"
         >
           <VStack className="w-full h-fit xl:h-11/12 overflow-y-auto py-3 px-3 gap-4">
-            <StoryCard story={newStory} bgColor="bg-dv-400" />
+            <NewStoryCard  />
 
             {allStories.map((story, index) => {
               return (

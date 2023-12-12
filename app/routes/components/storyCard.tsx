@@ -6,6 +6,7 @@ import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import HStack from "../../components/buildingBlocks/hStack";
 import VStack from "../../components/buildingBlocks/vStack";
 import Image from "../../components/buildingBlocks/image";
+
 import FormatDate from "~/lib/utils/formatDate";
 import type { StorySummaryData } from "~/lib/db/user.server";
 
@@ -13,19 +14,12 @@ interface StoryCardProps {
   story: StorySummaryData;
   bgColor: string;
 }
-
 export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const navigate = useNavigate();
   const imagePath = GetStoryImagePath(story.title);
-  const newStory = story.title === "Create a New Story";
-  const cardShadow =
-    story.title === "Create a New Story"
-      ? "shadow-[5px_5px_20px_rgba(148,0,211)]"
-      : "shadow-shadow3D";
-
   return (
     <Flex
-      className={`w-full max-w-[550px]  ${cardShadow}  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
+      className={`w-full max-w-[550px]  shadow-shadow3D  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
