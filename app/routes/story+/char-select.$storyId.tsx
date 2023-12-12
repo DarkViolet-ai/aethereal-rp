@@ -1,20 +1,15 @@
-import {
-  Stories,
-  TempCharacterList,
-  borderShadow,
-  cursiveText,
-} from "~/css/styles";
+import { borderShadow, cursiveText } from "~/css/styles";
 import Flex from "~/components/buildingBlocks/flex";
 import Transition from "~/components/buildingBlocks/transition";
-import { Outlet, useParams } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
 import Text from "~/components/buildingBlocks/text";
 import Characters from "./components/characters";
 import HStack from "~/components/buildingBlocks/hStack";
-import { DataFunctionArgs } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 import { getStory } from "~/lib/db/story.server";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
-import { StoryCharacter } from "~/lib/db/character.server";
+import type { StoryCharacter } from "~/lib/db/character.server";
+import Box from "~/components/buildingBlocks/box";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const storyId = params.storyId as string;
@@ -24,9 +19,13 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
 
 export default function StoryId() {
   const { story } = useTypedLoaderData<typeof loader>();
-  const storyId = story?.id;
   const characters = story?.characters || ([] as StoryCharacter[]);
   const paragraphs = story?.content.split("\n") || ([] as string[]);
+  const colMaxWidths = "xxl:w-90%";
+  const textSizes =
+    "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px]";
+  const cardWidths = "w-98% sm:w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
+
   return (
     <>
       <VStack className="w-full h-full gap-[15px] lg:gap-[35px] overflow-y-hidden">
@@ -45,15 +44,18 @@ export default function StoryId() {
               </Text>
             </Flex>
           </VStack>
-          <Flex className="w-full h-fit lg:h-90% flex-col lg:flex-row gap-[10px] lg:gap-[20px] ">
+          <Flex className="w-full h-fit lg:h-90% flex-col lg:flex-row gap-[40px] lg:gap-[20px] ">
             <Transition
               type="slideInLeft"
               className="w-full h-full lg:w-1/2 px-4 flex justify-center"
             >
-              <Flex
-                className={`h-full bg-calmGrayBack bg-darkCyanGrad max-w-[700px] ${borderShadow}`}
-              >
-                <Characters characters={characters} />
+              <Flex className={`w-full justify-center`}>
+                {" "}
+                <Flex
+                  className={`h-full bg-calmGrayBack bg-darkCyanGrad justify-center ${borderShadow} ${colMaxWidths} ${textSizes}`}
+                >
+                  <Characters characters={characters} cardWidths={cardWidths} />
+                </Flex>
               </Flex>
             </Transition>
             <Transition
@@ -62,25 +64,28 @@ export default function StoryId() {
               duration={0.7}
               className="w-full h-full lg:w-1/2 px-4 flex justify-center"
             >
-              <VStack
-                className={`w-full bg-calmGrayBack bg-darkCyanGrad ${borderShadow} max-w-[700px]`}
-              >
-                <HStack className="w-full h-[70px] bg-dv-975 bg-darkCyanGrad rounded-b-none p-3 items-center border-b-2 border-dv-450">
-                  <Text
-                    className={`${cursiveText} text-[40px] text-shadow-textFog`}
-                  >
-                    The Story
-                  </Text>
-                </HStack>
-
-                <VStack className="w-full h-fit lg:h-full lg:overflow-y-auto px-[40px] text-dv-100 text-shadow-dvTextShadow leading-[20px] py-3">
-                  {paragraphs.map((paragraph, index) => (
-                    <Text key={index} className="text-[18px]">
-                      {paragraph.trim()}
+              {" "}
+              <Flex className={`w-full justify-center`}>
+                <VStack
+                  className={`w-full bg-calmGrayBack bg-darkCyanGrad ${borderShadow} ${colMaxWidths} ${textSizes}`}
+                >
+                  <HStack className="w-full h-[70px] bg-dv-975 bg-darkCyanGrad rounded-b-none p-3 items-center border-b-2 border-dv-450 ">
+                    <Text
+                      className={`${cursiveText} text-[40px] text-shadow-textFog`}
+                    >
+                      The Story
                     </Text>
-                  ))}
+                  </HStack>
+
+                  <VStack className="w-full h-fit lg:h-full lg:overflow-y-auto text-dv-100 text-shadow-dvTextShadow py-3">
+                    {paragraphs.map((paragraph, index) => (
+                      <Box key={index} className={`${cardWidths} px-2`}>
+                        <Text>{paragraph.trim()}</Text>
+                      </Box>
+                    ))}
+                  </VStack>
                 </VStack>
-              </VStack>
+              </Flex>
             </Transition>
           </Flex>
         </VStack>

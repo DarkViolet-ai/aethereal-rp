@@ -230,26 +230,28 @@ export default {
           "#00FFFF 0px 0px 5px, #00FFFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, 8px 2px 6px rgba(0,0,0,0);",
         parchmentShadow:
           "inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.15);",
-        },
+      },
 
       textShadow: {
         lightTextShadow: "1px 1px 3px rgba(255, 255, 255, 0.9)",
         dvTextShadow: "2px 2px 2px rgba(0, 0, 0, 0.9)",
         subtleTextShadow: "1px 1px 2px rgba(0, 0, 0, 0.9)",
         standoutTextShadow: "3px 3px 4px rgba(0, 0, 0, 0.9)",
-        textFog: "0 0 5px #000, 0 0 10px #000, 0 0 15px #000, 0 0 20px #000, 0 0 30px #000, 0 0 40px #575757, 0 0 55px #5E5E5E, 0 0 75px #000, 2px 2px 2px rgba(0,0,0,0);",
+        textFog:
+          "0 0 5px #000, 0 0 10px #000, 0 0 15px #000, 0 0 20px #000, 0 0 30px #000, 0 0 40px #575757, 0 0 55px #5E5E5E, 0 0 75px #000, 2px 2px 2px rgba(0,0,0,0);",
         textGlow:
           "#00FFFF 0px 0px 5px, #00FFFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, 8px 2px 6px rgba(0,0,0,0);",
-       boldTextGlow:
+        boldTextGlow:
           "#000 1px 1px 1px, #00FFFF 0px 0px 5px, #00FFFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, 8px 2px 6px rgba(0,0,0,0);",
-      
-        },
+      },
 
       backgroundImage: {
         darkVioletBack:
           "linear-gradient(to top, rgba(148, 0, 211, 0.15), rgba(148, 0, 211, 0.25), rgba(148, 0, 211, 0.4), rgba(148, 0, 211, 0.5)), linear-gradient(to top, rgba(29, 30, 43, 0.9), #1d1e2b)",
         darkVioletGrad:
           "linear-gradient(to top, rgba(148, 0, 211, 0.15), rgba(148, 0, 211, 0.25), rgba(148, 0, 211, 0.4), rgba(148, 0, 211, 0.5))",
+        darkenGrad:
+          "linear-gradient(to top, rgba(39, 41, 61, 0.1), rgba(39, 41, 61, 0.2), rgba(39, 41, 61, 0.3), rgba(39, 41, 61, 0.2), rgba(39, 41, 61, 0.1))",
         cyanGrad:
           "linear-gradient(to bottom, rgba(0,255,255, 0.5), rgba(119, 149, 242, 0.75), rgba(0,255,255, 0.5))",
         transCyanGrad:

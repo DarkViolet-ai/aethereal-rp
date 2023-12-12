@@ -33,9 +33,9 @@ export const defaultOverlayBlur = "backdrop-blur-sm";
 export const cardColors = [
   "bg-dv-500",
   "bg-dv-600",
-  "bg-lilac",
+
   "bg-dv-300",
-  "bg-dv-700",
+  "bg-dv-500",
   "bg-purple",
   "bg-mauve",
 ];
