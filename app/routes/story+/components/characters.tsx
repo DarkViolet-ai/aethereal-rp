@@ -10,17 +10,9 @@ import { NavLink } from "@remix-run/react";
 
 export default function Characters({
   characters,
-  link,
 }: {
   characters: StoryCharacter[];
 }) {
-  const params = useParams();
-  const characterId = Number(params.characterId);
-  const character = characters.find(
-    (character) => Number(character.id) === characterId
-  );
-  const story = Stories.find((story) => story.id === character?.storyId);
-
   function CharacterTemplate({
     character,
     cardColor,
