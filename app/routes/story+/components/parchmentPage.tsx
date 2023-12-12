@@ -2,7 +2,6 @@ import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
 import ParchmentCorner from "./parchmentCorners";
 import Text from "~/components/buildingBlocks/text";
-// import { StoryNavButtons } from "./storyNavButtons";
 import ParchmentSpacer from "./parchmentSpacer";
 import { Stories } from "~/css/styles";
 import { useParams } from "@remix-run/react";
@@ -11,7 +10,13 @@ import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
 import InteractionPage from "./interactionPage";
 
-export default function ParchmentPage() {
+interface ParchmentPageProps {
+  showInteractionButton?: boolean;
+}
+
+export default function ParchmentPage({
+  showInteractionButton = true,
+}: ParchmentPageProps) {
   const params = useParams();
   const storyId = Number(params.storyId);
   const tempStory = Stories[storyId];
@@ -19,11 +24,9 @@ export default function ParchmentPage() {
   const [isModalOpen, setModalOpen] = useState(false);
   const onClose = () => setModalOpen(false);
 
-  console.log(tempStory);
-
   return (
-    <VStack className="w-full h-full gap-[20px]">
-      <Flex className=" h-90% w-92% lg:h-94% bg-parchment shadow-parchmentShadow relative pr-2">
+    <VStack className="w-full h-full">
+      <Flex className="h-90% w-92% lg:h-94% bg-parchment shadow-parchmentShadow relative pr-2">
         <ParchmentSpacer />
         <ParchmentSpacer placement="bottom" />
         <ParchmentCorner />
@@ -44,9 +47,11 @@ export default function ParchmentPage() {
           </VStack>
         </VStack>
       </Flex>
-      <Flex className="w-full justify-center flex lg:hidden">
-        <Button onClick={() => setModalOpen(true)}>Interact</Button>
-      </Flex>
+      {showInteractionButton && (
+        <Flex className="w-full justify-center flex lg:hidden pt-[20px]">
+          <Button onClick={() => setModalOpen(true)}>Interact</Button>
+        </Flex>
+      )}
       <Modal
         isOpen={isModalOpen}
         setModalOpen={setModalOpen}
