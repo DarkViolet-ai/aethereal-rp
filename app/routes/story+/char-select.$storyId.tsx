@@ -1,4 +1,12 @@
-import { borderShadow, cursiveText } from "~/css/styles";
+import {
+  borderShadow,
+  cardWidths,
+  colMaxWidths,
+  cursiveText,
+  headingSizes,
+  textSizes,
+  titleSizes,
+} from "~/css/styles";
 import Flex from "~/components/buildingBlocks/flex";
 import Transition from "~/components/buildingBlocks/transition";
 import VStack from "~/components/buildingBlocks/vStack";
@@ -21,10 +29,6 @@ export default function StoryId() {
   const { story } = useTypedLoaderData<typeof loader>();
   const characters = story?.characters || ([] as StoryCharacter[]);
   const paragraphs = story?.content.split("\n") || ([] as string[]);
-  const colMaxWidths = "xxl:w-90%";
-  const textSizes =
-    "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px]";
-  const cardWidths = "w-98% sm:w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
 
   return (
     <>
@@ -33,7 +37,7 @@ export default function StoryId() {
           <VStack className="w-full flex-shrink-0">
             <Flex className="w-full justify-center">
               <Text
-                className={`${cursiveText} text-[33px] md:text-[40px] lg:text-[28px] xl:text-[32px] xxl:text-[40px] text-shadow-textFog`}
+                className={`${cursiveText} ${titleSizes} text-shadow-textFog`}
               >
                 {story?.title || ""}
               </Text>
@@ -54,7 +58,7 @@ export default function StoryId() {
                 <Flex
                   className={`h-full bg-calmGrayBack bg-darkCyanGrad justify-center ${borderShadow} ${colMaxWidths} ${textSizes}`}
                 >
-                  <Characters characters={characters} cardWidths={cardWidths} />
+                  <Characters characters={characters} />
                 </Flex>
               </Flex>
             </Transition>
@@ -71,7 +75,7 @@ export default function StoryId() {
                 >
                   <HStack className="w-full h-[70px] bg-dv-975 bg-darkCyanGrad rounded-b-none p-3 items-center border-b-2 border-dv-450 ">
                     <Text
-                      className={`${cursiveText} text-[40px] text-shadow-textFog`}
+                      className={`${cursiveText} ${headingSizes} text-shadow-textFog`}
                     >
                       The Story
                     </Text>

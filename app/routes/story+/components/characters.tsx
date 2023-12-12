@@ -2,16 +2,19 @@ import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
 import { GiCharacter } from "react-icons/gi/index.js";
 import HStack from "~/components/buildingBlocks/hStack";
-import { borderShadow, cardColors, cursiveText } from "~/css/styles";
+import {
+  borderShadow,
+  cardColors,
+  cardWidths,
+  cursiveText,
+} from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
 import type { StoryCharacter } from "~/lib/db/character.server";
 import { NavLink } from "@remix-run/react";
 
 export default function Characters({
-  cardWidths = "w-full",
   characters,
 }: {
-  cardWidths?: string;
   characters: StoryCharacter[];
 }) {
   function CharacterTemplate({
