@@ -29,7 +29,8 @@ export const highlightedText =
 export const defaultOverlayColor = "bg-dv-850";
 export const defaultOverlayBlur = "backdrop-blur-sm";
 
-export const colMaxWidths = "md:w-80% lg:w-full xxl:w-90% xxxl:w-80%";
+export const colMaxWidths =
+  "w-full md:w-80% lg:w-full xxl:w-90% xxxl:w-80% justify-center";
 export const textSizes =
   "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] xxl:text-[23px] leading-[27px]";
 export const cardWidths = "w-98% sm:w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";

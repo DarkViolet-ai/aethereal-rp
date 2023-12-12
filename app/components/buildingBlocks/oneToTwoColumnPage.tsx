@@ -1,25 +1,17 @@
-import type { DataFunctionArgs } from "@remix-run/node";
-import { typedjson } from "remix-typedjson";
-import Flex from "~/components/buildingBlocks/flex";
-import Text from "~/components/buildingBlocks/text";
-import VStack from "~/components/buildingBlocks/vStack";
-import { Stories, cardWidths, colMaxWidths } from "~/css/styles";
-import {
-  getAllTemplates,
-  getStoryTemplate,
-} from "~/lib/db/storyTemplate.server";
+import Flex from "./flex";
+import Text from "./text";
+import VStack from "./vStack";
 
-export const loader = async ({ request, params }: DataFunctionArgs) => {
-  const templates = await getAllTemplates();
-  return typedjson({ templates });
-};
-
-export default function StoryTemplate({
-  templates,
-}: {
-  templates: ReturnType<typeof getAllTemplates>;
-}) {
-  const dummyData = Stories;
+export default function OneToTwoColumnPage() {
+  const colMaxWidths =
+    "w-full md:w-80% lg:w-full xxl:w-90% xxxl:w-80% justify-center";
+  const cardWidths = "w-98% sm:w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
+  //   const textSizes =
+  //     "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] xxl:text-[23px] leading-[27px]";
+  //   const titleSizes =
+  //     "text-[33px] md:text-[40px] lg:text-[42px] xl:text-[44px] xxl:text-[46px] xxxl:text-[50px]";
+  //   const headingSizes =
+  //     "text-[40px] xl:text-[42px] xxl:text-[44px] xxxl:text-[46px]";
   return (
     <Flex className="h-full w-full pt-50px justify-center overflow-y-hidden">
       <Flex
