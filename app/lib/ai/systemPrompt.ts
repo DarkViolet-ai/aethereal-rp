@@ -10,7 +10,7 @@ export const buildSystemPrompt = async ({
   scenario: "integrate" | "narrate" | "initialize";
 }) => {
   const narrator = story.narrator as Narrator;
-  console.log("narrator", narrator);
+  console.log("narrator", narrator.name);
   const narratorInstructions =
     narrator?.instructions && narrator.instructions[scenario];
   const storySummary = story.summary;
@@ -19,9 +19,9 @@ export const buildSystemPrompt = async ({
     const characters = story.characters.reduce((acc, curr) => {
       const { name, description } = curr;
       if (!name) throw dvError.badRequest("Character must have a name");
-      acc[name] = description;
+      acc[name] = { description };
       return acc;
-    }, {} as Record<string, string | null>);
+    }, {} as Record<string, { description: string | null }>);
 
     const characterString = JSON.stringify({ characters });
 

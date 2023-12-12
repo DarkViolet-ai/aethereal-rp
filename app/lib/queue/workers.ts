@@ -27,7 +27,7 @@ import {
 } from "~/lib/ai/openaiGenerator.server";
 import { continueStory } from "../ai/narratorGen.server";
 import { StoryCharacter } from "../db/character.server";
-import { generateCharaterOutput } from "../ai/characterGen.server";
+import { generateCharacterOutput } from "../ai/characterGen.server";
 import { LogType, Story } from "@prisma/client";
 import { createLogEntry } from "../db/log.server";
 import {
@@ -36,6 +36,7 @@ import {
   createUserCharacterStep,
 } from "../db/steps.server";
 import { clearStoryTimeouts, setStoryTimeouts } from "./timeouts";
+import { characterInstructions } from "~/lib/ai/characterInstructions";
 
 export type WorkerDispatch = {
   [key in QueueName]: (job: Job) => Promise<void>;
@@ -80,22 +81,24 @@ const workerDispatch: WorkerDispatch = {
   },
   //**************************************************************************/
   [QueueName.PROMPT_USER]: async (job: Job) => {
-    const { story } = job.data as { story: StoryData };
-    if (!story.isActive) {
+    const { story: _story } = job.data as { story: StoryData };
+    const story = await getStory({ id: _story.id });
+
+    if (!story?.isActive) {
       submitLog({
         type: "INFO",
         message: "Story is not active.  Will wait for user to join.",
       });
       return;
     }
-    if (!story.nextCharacter) {
+    if (!story?.nextCharacter) {
       await submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
       await submitStatus({ storyId: story.id, statusMessage: "error" });
       return;
     }
-    if (!story.prompt) {
+    if (!story?.prompt) {
       await submitError({ message: `prompt not found: ${story.prompt}` });
       await submitStatus({ storyId: story.id, statusMessage: "error" });
       return;
@@ -144,6 +147,10 @@ const workerDispatch: WorkerDispatch = {
     //await clearStoryTimeouts(storyId);
     //await submitLog({ type: "INFO", message: "generate story" });
     console.log("generate story", storyId, input);
+    if (await redis.get(`story-input:${storyId}:${input}`)) {
+      return;
+    }
+    await redis.setex(`story-input:${storyId}:${input}`, 60, "1");
     const story = await setLastInputInStory({
       storyId,
       lastInput: input,
@@ -209,31 +216,42 @@ const workerDispatch: WorkerDispatch = {
 
   //**************************************************************************/
   [QueueName.GENERATE_CHARACTER]: async (job: Job) => {
-    const { story } = job.data as {
+    const { story: _story } = job.data as {
       story: StoryData;
     };
+    const story = await getStory({ id: _story.id });
+
     // if there are no roleplayers left, set the story to inactive.
-    if (!story.characters.some((c) => c.rolePlayer !== null)) {
-      await submitStatus({ storyId: story.id, statusMessage: "inactive" });
-      await updateStory({ id: story.id, isActive: false });
+    console.log("generate character ", story?.nextCharacter);
+    if (!story || !story.characters.some((c) => c.rolePlayer !== null)) {
+      story &&
+        (await submitStatus({ storyId: story.id, statusMessage: "inactive" }));
+      story && (await updateStory({ id: story.id, isActive: false }));
       return;
     }
-    const result = await generateCharaterOutput({
-      story,
-      characterInstructions,
-      generator: openaiCharacterGenerator,
-    });
-    if (!result) {
-      await submitError({
-        message: `character generation failed: ${story.nextCharacter}`,
+    console.log("submitting character generation");
+    //console.log(characterInstructions);
+    if (
+      (await redis.get(`story-prompt:${story.id}:${story.prompt}`)) === null
+    ) {
+      await redis.setex(`story-prompt:${story.id}:${story.prompt}`, 60, "1");
+      const result = await generateCharacterOutput({
+        story,
+        characterInstructions,
+        generator: openaiCharacterGenerator,
       });
-      await submitStatus({ storyId: story.id, statusMessage: "error" });
-      return;
+      if (!result) {
+        await submitError({
+          message: `character generation failed: ${story.nextCharacter}`,
+        });
+        await submitStatus({ storyId: story.id, statusMessage: "error" });
+        return;
+      }
+      await submitStoryGeneration({
+        storyId: story.id,
+        input: result,
+      });
     }
-    await submitStoryGeneration({
-      storyId: story.id,
-      input: result,
-    });
   },
 
   //**************************************************************************/
