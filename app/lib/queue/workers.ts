@@ -28,7 +28,7 @@ import {
 import { continueStory } from "../ai/narratorGen.server";
 import { StoryCharacter } from "../db/character.server";
 import { generateCharacterOutput } from "../ai/characterGen.server";
-import { LogType, Story } from "@prisma/client";
+import { LogType, Story, StoryStatus } from "@prisma/client";
 import { createLogEntry } from "../db/log.server";
 import {
   createAICharacterStep,
@@ -37,6 +37,7 @@ import {
 } from "../db/steps.server";
 import { clearStoryTimeouts, setStoryTimeouts } from "./timeouts";
 import { characterInstructions } from "~/lib/ai/characterInstructions";
+import { getStatusMessage } from "./statusMessages";
 
 export type WorkerDispatch = {
   [key in QueueName]: (job: Job) => Promise<void>;
@@ -51,12 +52,12 @@ const workerDispatch: WorkerDispatch = {
 
   //**************************************************************************/
   [QueueName.STATUS]: async (job: Job) => {
-    const { storyId, statusMessage } = job.data as {
+    const { storyId, status } = job.data as {
       storyId: string;
-      statusMessage: string;
+      status: StoryStatus;
     };
-    await updateStoryStatus({ id: storyId, status: statusMessage });
-    dvEvent.status(storyId, statusMessage);
+    const story = await updateStoryStatus({ id: storyId, status });
+    dvEvent.status(storyId, getStatusMessage({ story }));
   },
 
   //**************************************************************************/
@@ -66,9 +67,10 @@ const workerDispatch: WorkerDispatch = {
     if (!story) {
       console.log("story not found", storyId);
       await submitError({ message: `story not found: ${storyId}` });
-      await submitStatus({ storyId, statusMessage: "error" });
+      await submitStatus({ storyId, status: StoryStatus.ERROR });
       return;
     }
+    await submitStatus({ storyId, status: StoryStatus.NARRATOR });
     const { story: updatedStory, newContent } = await continueStory({
       story,
       narratorInstructions,
@@ -77,6 +79,7 @@ const workerDispatch: WorkerDispatch = {
 
     newContent.length > 0 &&
       (await createNarratorStep({ storyId, content: newContent }));
+    await submitStatus({ storyId: story.id, status: StoryStatus.USER });
     await submitUserPrompt({ story: updatedStory });
   },
   //**************************************************************************/
@@ -95,12 +98,12 @@ const workerDispatch: WorkerDispatch = {
       await submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
-      await submitStatus({ storyId: story.id, statusMessage: "error" });
+      await submitStatus({ storyId: story.id, status: StoryStatus.ERROR });
       return;
     }
     if (!story?.prompt) {
       await submitError({ message: `prompt not found: ${story.prompt}` });
-      await submitStatus({ storyId: story.id, statusMessage: "error" });
+      await submitStatus({ storyId: story.id, status: StoryStatus.ERROR });
       return;
     }
     const { characterName, characterUsername, characterUserId } =
@@ -110,20 +113,23 @@ const workerDispatch: WorkerDispatch = {
       await submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
-      await submitStatus({ storyId: story.id, statusMessage: "error" });
+      await submitStatus({ storyId: story.id, status: StoryStatus.ERROR });
       return;
     }
 
-    await submitStatus({
-      storyId: story.id,
-      statusMessage: `${characterUsername}:${story.nextCharacter}`,
-    });
-
     if (characterUsername === "ai") {
+      await submitStatus({
+        storyId: story.id,
+        status: StoryStatus.AICHARACTER,
+      });
       await submitCharacterGeneration({
         story,
       });
     } else {
+      await submitStatus({
+        storyId: story.id,
+        status: StoryStatus.USER,
+      });
       const { characters } = story;
       const rolePlayerCount = new Set(
         characters
@@ -158,19 +164,19 @@ const workerDispatch: WorkerDispatch = {
     if (!story) {
       console.log("story not found", storyId);
       await submitError({ message: `story not found: ${storyId}` });
-      await submitStatus({ storyId, statusMessage: "error" });
+      await submitStatus({ storyId, status: StoryStatus.ERROR });
       return;
     }
     if (!story.nextCharacter) {
       await submitError({
         message: `next character not found: ${story.nextCharacter}`,
       });
-      await submitStatus({ storyId, statusMessage: "error" });
+      await submitStatus({ storyId, status: StoryStatus.ERROR });
       return;
     }
     if (!story.prompt) {
       await submitError({ message: `prompt not found: ${story.prompt}` });
-      await submitStatus({ storyId, statusMessage: "error" });
+      await submitStatus({ storyId, status: StoryStatus.ERROR });
       return;
     }
     const { characterUsername: stepUsername, characterUserId } =
@@ -188,7 +194,7 @@ const workerDispatch: WorkerDispatch = {
         await submitError({
           message: `characterUserId not found: ${characterUserId}`,
         });
-        await submitStatus({ storyId, statusMessage: "error" });
+        await submitStatus({ storyId, status: StoryStatus.ERROR });
         return;
       }
       await createUserCharacterStep({
@@ -201,7 +207,7 @@ const workerDispatch: WorkerDispatch = {
     }
 
     console.log("submitting narrator status");
-    await submitStatus({ storyId, statusMessage: "narrator" });
+    await submitStatus({ storyId, status: StoryStatus.NARRATOR });
     console.log("submitting narrator generation");
     const { newContent } = await continueStory({
       story,
@@ -225,7 +231,7 @@ const workerDispatch: WorkerDispatch = {
     console.log("generate character ", story?.nextCharacter);
     if (!story || !story.characters.some((c) => c.rolePlayer !== null)) {
       story &&
-        (await submitStatus({ storyId: story.id, statusMessage: "inactive" }));
+        (await submitStatus({ storyId: story.id, status: StoryStatus.PAUSED }));
       story && (await updateStory({ id: story.id, isActive: false }));
       return;
     }
@@ -244,7 +250,7 @@ const workerDispatch: WorkerDispatch = {
         await submitError({
           message: `character generation failed: ${story.nextCharacter}`,
         });
-        await submitStatus({ storyId: story.id, statusMessage: "error" });
+        await submitStatus({ storyId: story.id, status: StoryStatus.ERROR });
         return;
       }
       await submitStoryGeneration({

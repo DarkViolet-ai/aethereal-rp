@@ -105,7 +105,7 @@ const expectedResponseSchema = z.discriminatedUnion("scenario", [
     scenario: z.literal("narrate"),
     text: z.string(),
     prompt: z.string(),
-    characters: z.record(z.object({ description: z.string() })),
+    characters: z.record(z.object({ description: z.string() })).optional(),
     nextCharacter: z.string(),
   }),
   z.object({
@@ -176,15 +176,17 @@ export const narrate = async ({
 
   const updatedContent = `${story.content}\n${text}`;
   const _characters =
-    Object.keys(characters).map(
-      (name) =>
-        ({
-          name,
-          description: characters[name].description,
-          storyId: story.id,
-          isActive: true,
-        } as Character)
-    ) || [];
+    (characters &&
+      Object.keys(characters).map(
+        (name) =>
+          ({
+            name,
+            description: characters[name].description,
+            storyId: story.id,
+            isActive: true,
+          } as Character)
+      )) ||
+    [];
 
   const newCharacters = await updateCharactersInStory({
     story,

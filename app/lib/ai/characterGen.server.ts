@@ -10,7 +10,13 @@ export const generateCharacterOutput = async ({
   maxOutputLength = 500,
 }: {
   story: StoryData;
-  characterInstructions: string;
+  characterInstructions: ({
+    character,
+    story,
+  }: {
+    character: any;
+    story: any;
+  }) => string;
   generator: (systemPrompt: string, input: string) => Promise<string>;
   maxPromptLength?: number;
   maxOutputLength?: number;
@@ -31,7 +37,13 @@ export const buildCharacterPrompt = async ({
   maxLength = 13000,
 }: {
   story: StoryData;
-  characterInstructions: string;
+  characterInstructions: ({
+    character,
+    story,
+  }: {
+    character: any;
+    story: any;
+  }) => string;
   maxLength?: number;
 }) => {
   const { content, characters, nextCharacter, prompt } = story;
@@ -43,9 +55,7 @@ export const buildCharacterPrompt = async ({
     return null;
   }
   const characterPromptPrefix = `
-  ${characterInstructions}\n 
-  CharacterName: ${character.name}:\n CharacterDescription: ${character.description}\n
-  story title: ${story.title}\n story:`;
+  ${characterInstructions({ character, story })}\n`;
   const availableLength =
     maxLength - characterPromptPrefix.length - (prompt?.length || 0);
   const characterPrompt = `${characterPromptPrefix}${content.slice(

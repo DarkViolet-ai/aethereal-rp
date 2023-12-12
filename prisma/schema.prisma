@@ -26,6 +26,15 @@ model User {
   StoryStepVote StoryStepVote[]
 }
 
+enum StoryStatus {
+  USER
+  AICHARACTER
+  NARRATOR
+  ERROR
+  PAUSED
+  LOCKED
+}
+
 model Story {
   id              String         @id @default(uuid())
   version         Int            @default(1)
@@ -35,7 +44,7 @@ model Story {
   title           String
   summary         String
   content         String
-  status          String?
+  status          StoryStatus?    
   author          User           @relation(fields: [authorId], references: [id])
   characters      Character[]    @relation(name: "inStory")
   narrator        Narrator?

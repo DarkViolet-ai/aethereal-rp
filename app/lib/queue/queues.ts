@@ -1,7 +1,7 @@
 import { Queue } from "bullmq";
 import { getWorker } from "./workers";
 import { qRedisGetConnection } from "../utils/redis.server";
-import { Character, LogType } from "@prisma/client";
+import { Character, LogType, StoryStatus } from "@prisma/client";
 import { StoryCharacter } from "../db/character.server";
 import { StoryData } from "../db/story.server";
 import { QueueEvents } from "bullmq";
@@ -78,15 +78,15 @@ export const submitError = async ({
 
 export const submitStatus = async ({
   storyId,
-  statusMessage,
+  status,
 }: {
   storyId: string;
-  statusMessage: string;
+  status: StoryStatus;
 }) => {
   const queue = getQueue(QueueName.STATUS);
   await queue.add(QueueName.STATUS, {
     storyId,
-    statusMessage,
+    status,
   });
 };
 

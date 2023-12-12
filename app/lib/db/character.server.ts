@@ -1,4 +1,9 @@
-import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
+import {
+  Prisma,
+  Narrator as DBNarrator,
+  Character,
+  StoryStatus,
+} from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
 import { updateStory } from "./story.server";
@@ -121,7 +126,10 @@ export const assignRolePlayer = async ({
       id: character.storyId,
       isActive: true,
     });
-    await submitStatus({ storyId: character.storyId, statusMessage: "active" });
+    await submitStatus({
+      storyId: character.storyId,
+      status: StoryStatus.USER,
+    });
   }
   return character;
 };

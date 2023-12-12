@@ -3,6 +3,7 @@ import {
   Narrator as DBNarrator,
   Character,
   StoryTemplate,
+  StoryStatus,
 } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
@@ -167,7 +168,7 @@ export const updateStoryStatus = async ({
   status,
 }: {
   id: string;
-  status: string;
+  status: StoryStatus;
 }) => {
   const story = await prisma.story.update({
     where: {
@@ -175,6 +176,10 @@ export const updateStoryStatus = async ({
     },
     data: {
       status,
+    },
+    include: {
+      characters: storyCharacterQuery,
+      narrator: true,
     },
   });
   return story;
