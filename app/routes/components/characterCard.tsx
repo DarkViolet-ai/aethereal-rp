@@ -40,11 +40,11 @@ export default function CharacterCardMini({
     >
       <HStack className="justify-between w-full">
         <HStack className="text-shadow-dvTextShadow">
-          <Flex className="w-full flex-col items-start md:flex-row xl:flex-col xxl:flex-row">
+          <Flex className="w-full flex-col items-start md:flex-row lg:flex-col xxl:flex-row">
             <Text className={`${cursiveText} text-[26px] xl:text-[33px]`}>
               {character.name}
             </Text>
-            <Flex className="hidden md:flex xl:hidden xxl:flex px-2">
+            <Flex className="hidden md:flex lg:hidden xxl:flex px-2">
               <Text> | </Text>
             </Flex>
             <Text className="text-shadow-dvTextShadow">

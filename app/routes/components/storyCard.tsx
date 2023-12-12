@@ -1,4 +1,4 @@
-import { borderShadow, cursiveText } from "~/css/styles";
+import { borderShadow, cursiveText, textSizes } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text from "../../components/buildingBlocks/text";
 import { useNavigate } from "@remix-run/react";
@@ -19,7 +19,7 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const imagePath = GetStoryImagePath(story.title);
   return (
     <Flex
-      className={`w-full max-w-[550px]  shadow-shadow3D  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
+      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
@@ -27,10 +27,13 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
           <Text className={`${cursiveText} text-[30px]`}>
             <i>{story.title}</i>
           </Text>
-          <Text className="leading-[15px]">
-            {FormatDate(String(story.createdAt))}
-          </Text>
-          <Text noOfLines={2}>{story.summary}</Text>
+          <VStack
+            className={`w-full leading-[15px] ${textSizes}`}
+            align="start"
+          >
+            <Text>{FormatDate(String(story.createdAt))}</Text>
+            <Text noOfLines={2}>{story.summary}</Text>
+          </VStack>
         </VStack>
         <Flex className="h-[100px] w-[100px] flex-shrink-0">
           <Image src={imagePath} alt={story.title} h="100%" w="100%" />
