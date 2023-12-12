@@ -230,7 +230,10 @@ export default {
           "#00FFFF 0px 0px 5px, #00FFFF 0px 0px 10px, #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, 8px 2px 6px rgba(0,0,0,0);",
         parchmentShadow:
           "inset 0 0 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.15);",
-      },
+      // boxGlow: 
+      //           "#00FFFF 0px 0px 2px, #00FFFF 0px 0px 3px, #FFF 0px 0px 5px, #FF2D95 0px 0px 8px, #FF2D95 0px 0px 10px, 8px 2px 6px rgba(0,0,0,0);",
+        },
+
       textShadow: {
         lightTextShadow: "1px 1px 3px rgba(255, 255, 255, 0.9)",
         dvTextShadow: "2px 2px 2px rgba(0, 0, 0, 0.9)",

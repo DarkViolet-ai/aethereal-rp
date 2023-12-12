@@ -6,28 +6,42 @@ import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import HStack from "../../components/buildingBlocks/hStack";
 import VStack from "../../components/buildingBlocks/vStack";
 import Image from "../../components/buildingBlocks/image";
-import type { Story } from "@prisma/client";
 import FormatDate from "~/lib/utils/formatDate";
-import { StoryData } from "~/lib/db/story.server";
-import { StorySummaryData } from "~/lib/db/user.server";
+import type { StorySummaryData } from "~/lib/db/user.server";
 
 interface StoryCardProps {
   story: StorySummaryData;
   bgColor: string;
 }
+
 export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const navigate = useNavigate();
   const imagePath = GetStoryImagePath(story.title);
+  const newStory = story.title === "Create a New Story";
+  const cardShadow = newStory
+    ? "shadow-[5px_5px_20px_rgba(148,0,211)]"
+    : "shadow-shadow3D";
+
   return (
     <Flex
-      className={`w-full max-w-[550px]  shadow-shadow3D  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
+      className={`w-full max-w-[550px]  ${cardShadow}  ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
         <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
-          <Text className={`${cursiveText} text-[30px]`}>
-            <i>{story.title}</i>
-          </Text>
+          {newStory ? (
+            <Text className={`${cursiveText} text-[30px]`}>
+              Create a{" "}
+              <span className="text-shadow-textGlow text-dv-900 text-[35px]">
+                New
+              </span>{" "}
+              Story
+            </Text>
+          ) : (
+            <Text className={`${cursiveText} text-[30px]`}>
+              <i>{story.title}</i>
+            </Text>
+          )}
           <Text className="leading-[15px]">
             {FormatDate(String(story.createdAt))}
           </Text>

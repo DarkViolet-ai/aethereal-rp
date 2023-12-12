@@ -9,3 +9,11 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
   const templates = await getAllTemplates();
   return typedjson({ templates });
 };
+
+export default function StoryTemplate({
+  templates,
+}: {
+  templates: ReturnType<typeof getAllTemplates>;
+}) {
+  return <div></div>;
+}

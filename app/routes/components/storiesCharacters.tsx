@@ -1,4 +1,4 @@
-import { TempCharacterList, Stories, cardColors } from "~/css/styles";
+import { cardColors } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import CardContainer from "./cardContainer";
 import StoryCard from "./storyCard";
@@ -8,8 +8,13 @@ import VStack from "~/components/buildingBlocks/vStack";
 import { useTypedLoaderData } from "remix-typedjson";
 import type { UserStoriesLoaderData } from "../index";
 
-const tempStories = Stories;
-const tempCharacters = TempCharacterList;
+const newStory = {
+  id: "new",
+  title: "Create a New Story",
+  createdAt: new Date(),
+  summary: "Create something new and exciting!",
+  characters: [],
+};
 
 export default function StoriesCharacters() {
   const { stories, activeStories, availableCharacters } =
@@ -28,7 +33,9 @@ export default function StoriesCharacters() {
           className="xxl:w-5/12 xxl:justify-end"
           heading="My Stories"
         >
-          <VStack className="w-full h-fit xl:h-11/12 overflow-y-auto pb-3 px-3">
+          <VStack className="w-full h-fit xl:h-11/12 overflow-y-auto py-3 px-3 gap-4">
+            <StoryCard story={newStory} bgColor="bg-dv-400" />
+
             {allStories.map((story, index) => {
               return (
                 <StoryCard
