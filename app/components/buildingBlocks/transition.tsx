@@ -3,12 +3,28 @@
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import React, { type ReactNode } from "react";
 
-type TransitionType = "fade" | "scale" | "slide" | "rotate" | "flip" | "zoom";
+type TransitionType =
+  | "fade"
+  | "scale"
+  | "slide"
+  | "rotate"
+  | "flip"
+  | "zoom"
+  | "slideInLeft"
+  | "slideInTopLeft"
+  | "slideInBottomLeft"
+  | "slideInTop"
+  | "slideInTopRight"
+  | "slideInRight"
+  | "slideInBottomRight"
+  | "slideInBottom";
 
 interface TransitionProps {
   children: ReactNode;
   className?: string;
   type: TransitionType;
+  delay?: number;
+  duration?: number;
 }
 
 const transitionVariants: Record<TransitionType, Variants> = {
@@ -42,23 +58,65 @@ const transitionVariants: Record<TransitionType, Variants> = {
     animate: { scale: 1, opacity: 1 },
     exit: { scale: 0.5, opacity: 0 },
   },
+  slideInLeft: {
+    initial: { x: "-100%" },
+    animate: { x: 0 },
+    exit: { x: "-100%" },
+  },
+  slideInTopLeft: {
+    initial: { x: "-100%", y: "-100%" },
+    animate: { x: 0, y: 0 },
+    exit: { x: "-100%", y: "-100%" },
+  },
+  slideInBottomLeft: {
+    initial: { x: "-100%", y: "100%" },
+    animate: { x: 0, y: 0 },
+    exit: { x: "-100%", y: "100%" },
+  },
+  slideInTop: {
+    initial: { y: "-100%" },
+    animate: { y: 0 },
+    exit: { y: "-100%" },
+  },
+  slideInTopRight: {
+    initial: { x: "100%", y: "-100%" },
+    animate: { x: 0, y: 0 },
+    exit: { x: "100%", y: "-100%" },
+  },
+  slideInRight: {
+    initial: { x: "100%" },
+    animate: { x: 0 },
+    exit: { x: "100%" },
+  },
+  slideInBottomRight: {
+    initial: { x: "100%", y: "100%" },
+    animate: { x: 0, y: 0 },
+    exit: { x: "100%", y: "100%" },
+  },
+  slideInBottom: {
+    initial: { y: "100%" },
+    animate: { y: 0 },
+    exit: { y: "100%" },
+  },
 };
 
 export default function Transition({
   children,
   type,
+  delay = 0,
   className = "",
+  duration = 0.5,
 }: TransitionProps) {
   return (
     <AnimatePresence>
       <motion.div
         className={className}
-        key={type} // Change the key to trigger animation on type change
+        key={type}
         variants={transitionVariants[type]}
         initial="initial"
         animate="animate"
         exit="exit"
-        transition={{ duration: 0.5 }}
+        transition={{ duration, delay }}
       >
         {children}
       </motion.div>

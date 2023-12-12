@@ -40,19 +40,21 @@ export default function Characters({
   }
 
   return (
-    <VStack className="w-full gap-4">
+    <VStack className={`w-full h-full `} gap="gap-0">
       <HStack className="w-full h-[70px] bg-dv-975 bg-darkCyanGrad rounded-b-none p-3 items-center border-b-2 border-dv-450">
-        <Text className={`${cursiveText} text-[50px] text-shadow-textFog`}>
-          Characters
+        <Text className={`${cursiveText} text-[40px] text-shadow-textFog`}>
+          The Characters
         </Text>
       </HStack>
-      {characters.map((character, index) => (
-        <CharacterTemplate
-          key={index}
-          character={character}
-          cardColor={cardColors[index % cardColors.length]}
-        />
-      ))}
+      <VStack className="w-full h-fit lg:h-full overflow-y-auto py-4">
+        {characters.map((character, index) => (
+          <CharacterTemplate
+            key={index}
+            character={character}
+            cardColor={cardColors[index % cardColors.length]}
+          />
+        ))}
+      </VStack>
     </VStack>
   );
 }

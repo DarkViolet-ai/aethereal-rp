@@ -14,9 +14,10 @@ export default function StoryId() {
 
   // console.log(tempStory);
   return (
-    <Transition type="zoom" className="w-full h-full">
-      <Flex className="w-full h-full justify-start items-center flex-col lg:flex-row lg:justify-center lg:items-start pt-7 overflow-y-hidden">
-        <VStack className="w-full h-full lg:w-7/12 justify-center py-[5px]">
+    // <Transition type="zoom" className="w-full h-full">
+    <Flex className="w-full h-full justify-start items-center flex-col lg:flex-row lg:justify-center lg:items-start pt-7 overflow-y-hidden">
+      <Transition type="fade" className="w-full h-full lg:w-7/12 ">
+        <VStack className="w-full h-full justify-center py-[5px]">
           <Text
             className={`${cursiveText} text-[33px] md:text-[40px] lg:text-[28px] xl:text-[32px] xxl:text-[34px] text-shadow-textFog`}
           >
@@ -24,10 +25,16 @@ export default function StoryId() {
           </Text>
           <ParchmentPage />
         </VStack>
-        <Flex className="hidden lg:flex w-full h-full lg:w-5/12 justify-center pt-2">
-          <InteractionPage story={tempStory} />
-        </Flex>
-      </Flex>
-    </Transition>
+      </Transition>
+      <Transition
+        type="fade"
+        delay={0.3}
+        className="hidden lg:flex w-full h-full lg:w-5/12 justify-center pt-2"
+        duration={0.7}
+      >
+        <InteractionPage story={tempStory} />
+      </Transition>
+    </Flex>
+    // </Transition>
   );
 }
