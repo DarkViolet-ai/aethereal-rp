@@ -33,3 +33,8 @@ export const createTemplateFromStory = async (storyId: string) => {
   if (!story) throw dvError.notFound("Story not found");
   const storyTemplate = await createStoryTemplate(story);
 };
+
+export const getAllTemplates = async () => {
+  const templates = await prisma.storyTemplate.findMany();
+  return templates;
+};
