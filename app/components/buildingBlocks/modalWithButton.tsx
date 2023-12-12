@@ -5,31 +5,33 @@ import { CloseTextButton } from "./closeTextButton";
 import Flex from "./flex";
 import { CloseButton } from "./closeButton";
 import Box from "./box";
-import { borderShadow } from "~/css/styles";
+import {
+  borderShadow,
+  defaultOverlayBlur,
+  defaultOverlayColor,
+} from "~/css/styles";
 import Portal from "./portal";
 import IconButton from "./iconButton";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   style?: React.CSSProperties;
-  // isOpen: boolean;
-  // setModalOpen: (isOpen: boolean) => void;
-  // onClose: () => void;
   children?: React.ReactNode;
   maxWidth?: string;
   icon?: JSX.Element;
   label?: string;
+  overlayBlur?: string;
+  overlayColor?: string;
 }
 
 export default function ModalWithButton({
   className = "",
   style = {},
-  // isOpen,
-  // onClose,
-  // setModalOpen,
   icon: Icon,
   label,
   children,
+  overlayBlur = defaultOverlayBlur,
+  overlayColor = defaultOverlayColor,
   maxWidth = "max-w-[1300px]",
   ...props
 }: ModalProps) {
@@ -77,7 +79,7 @@ export default function ModalWithButton({
             <>
               {/* Overlay */}
               <motion.div
-                className="fixed inset-0 w-screen h-screen bg-dv-975 backdrop-blur-sm z-60"
+                className={`fixed inset-0 w-screen h-screen ${overlayColor} ${overlayBlur} z-60`}
                 onClick={() => setModalOpen(false)}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

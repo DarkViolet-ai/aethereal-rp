@@ -1,18 +1,17 @@
 import Box from "../buildingBlocks/box";
 import Flex from "../buildingBlocks/flex";
-import HStack from "../buildingBlocks/hStack";
 import Image from "../buildingBlocks/image";
-import { useLocation, useNavigate } from "@remix-run/react";
+import { useLocation, useNavigate, useParams } from "@remix-run/react";
 import Drawer from "../buildingBlocks/drawer";
-import StoryNav from "~/routes/story+/components/storyNav";
-import { IoIosArrowDropdown } from "react-icons/io/index.js";
-import { Characters } from "~/css/styles";
+import { MdOutlineGroups2 } from "react-icons/md/index.js";
+import { TempCharacterList } from "~/css/styles";
+import Characters from "~/routes/story+/components/characters";
 
 export default function TopNav() {
   const navigate = useNavigate();
-  const pathname = useLocation().pathname;
-  const isStory = pathname.includes("story");
-  const characters = isStory && Characters.slice(0, 5);
+  const params = useParams();
+  const isStory = params.characterId !== undefined;
+  const characters = isStory && TempCharacterList.slice(0, 5);
   // console.log(characters);
 
   return (
@@ -25,20 +24,20 @@ export default function TopNav() {
       </Box>
       {isStory && (
         <Drawer
-          icon={<IoIosArrowDropdown />}
-          label="interact"
+          icon={<MdOutlineGroups2 />}
+          label="characters"
           buttonPos="absolute"
           buttonT="top-2"
           buttonR="right-2"
           slideDirection="top-right"
-          drawerWidth="w-full max-w-[400px]"
+          drawerWidth="w-full max-w-[600px]"
           drawerHeight="h-full"
           buttonTooltipPlacement="bottomLeft"
+          overlayBlur="backdrop-blur-none"
         >
-          <StoryNav characters={characters} />
+          <Characters characters={characters} />
         </Drawer>
       )}
-      <HStack></HStack>
     </Flex>
   );
 }

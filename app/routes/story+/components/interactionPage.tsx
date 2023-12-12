@@ -1,5 +1,6 @@
 import type { Story } from "@prisma/client";
 import { Form, useParams } from "@remix-run/react";
+import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
@@ -44,16 +45,18 @@ export default function InteractionPage({ story }: { story: Story }) {
             />
 
             <Flex className="w-full h-full bg-dv-700 bg-darkVioletGrad shadow-shadow3D overflow-y-auto justify-end">
-              <VStack className="w-76% bg-dv-950 shadow-shadow3D h-fit min-h-full p-2 rounded-l-none">
-                {paragraphs.map((paragraph, index) => (
-                  <Text
-                    key={index}
-                    className="text-[16px] leading-[23px] text-shadow-dvTextShadow"
-                  >
-                    {paragraph.trim()}
-                  </Text>
-                ))}
-              </VStack>
+              <Flex className="w-76% bg-dv-950 shadow-shadow3D h-fit min-h-full p-2 pr-0 rounded-l-none">
+                <VStack className="w-full gap-[10px]">
+                  {paragraphs.map((paragraph, index) => (
+                    <Text
+                      key={index}
+                      className="text-[16px] leading-[23px] text-shadow-dvTextShadow"
+                    >
+                      {paragraph.trim()}
+                    </Text>
+                  ))}
+                </VStack>
+              </Flex>
             </Flex>
           </Box>
         </VStack>

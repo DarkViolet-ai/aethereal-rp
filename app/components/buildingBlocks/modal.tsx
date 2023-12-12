@@ -5,7 +5,11 @@ import { CloseTextButton } from "./closeTextButton";
 import Flex from "./flex";
 import { CloseButton } from "./closeButton";
 import Box from "./box";
-import { borderShadow } from "~/css/styles";
+import {
+  borderShadow,
+  defaultOverlayBlur,
+  defaultOverlayColor,
+} from "~/css/styles";
 import Portal from "./portal";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,6 +23,8 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   maxWidth?: string;
   showTopClose?: boolean;
   showBottomClose?: boolean;
+  overlayBlur?: string;
+  overlayColor?: string;
 }
 
 export default function Modal({
@@ -32,6 +38,8 @@ export default function Modal({
   showTopClose = true,
   showBottomClose = true,
   maxWidth = "max-w-[1300px]",
+  overlayBlur = defaultOverlayBlur,
+  overlayColor = defaultOverlayColor,
   ...props
 }: ModalProps) {
   // Animation variants for scaling in and out
@@ -67,7 +75,7 @@ export default function Modal({
           <>
             {/* Overlay */}
             <motion.div
-              className={`fixed inset-0 w-screen h-screen bg-dv-975 backdrop-blur-sm z-60 ${modalOverlayClassName}`}
+              className={`fixed inset-0 w-screen h-screen ${overlayColor} ${overlayBlur} z-60 ${modalOverlayClassName}`}
               onClick={onClose}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

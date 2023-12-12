@@ -7,6 +7,7 @@ type TransitionType = "fade" | "scale" | "slide" | "rotate" | "flip" | "zoom";
 
 interface TransitionProps {
   children: ReactNode;
+  className?: string;
   type: TransitionType;
 }
 
@@ -43,10 +44,15 @@ const transitionVariants: Record<TransitionType, Variants> = {
   },
 };
 
-export default function Transition({ children, type }: TransitionProps) {
+export default function Transition({
+  children,
+  type,
+  className = "",
+}: TransitionProps) {
   return (
     <AnimatePresence>
       <motion.div
+        className={className}
         key={type} // Change the key to trigger animation on type change
         variants={transitionVariants[type]}
         initial="initial"

@@ -52,9 +52,9 @@ export default function ParchmentPage() {
         setModalOpen={setModalOpen}
         onClose={onClose}
         showTopClose={false}
-        modalOverlayClassName="lg:hidden"
+        maxWidth="max-w-[700px]"
       >
-        <Flex className="w-full h-full">
+        <Flex className="w-full h-full max-w-[500px]">
           <InteractionPage story={tempStory} />
         </Flex>
       </Modal>

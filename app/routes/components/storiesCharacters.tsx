@@ -1,4 +1,4 @@
-import { Characters, Stories, cardColors } from "~/css/styles";
+import { TempCharacterList, Stories, cardColors } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import CardContainer from "./cardContainer";
 import StoryCard from "./storyCard";
@@ -7,7 +7,7 @@ import CharacterCard from "./characterCard";
 import VStack from "~/components/buildingBlocks/vStack";
 
 const tempStories = Stories;
-const tempCharacters = Characters;
+const tempCharacters = TempCharacterList;
 
 export default function StoriesCharacters() {
   return (

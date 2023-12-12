@@ -26,6 +26,8 @@ export const cursiveText =
 export const borderShadow = "border-[1.5px] border-dv-800 shadow-dvShadow";
 export const highlightedText =
   "text-dv-400 text-shadow-dvTextShadow font-semibold";
+export const defaultOverlayColor = "bg-dv-850";
+export const defaultOverlayBlur = "backdrop-blur-sm";
 
 // CARD COLORS
 export const cardColors = [
@@ -158,7 +160,7 @@ export const Stories = [
   },
 ];
 
-export const Characters = [
+export const TempCharacterList = [
   {
     id: "character1",
     name: "The Whispering Elder",
