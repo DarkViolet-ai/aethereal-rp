@@ -27,6 +27,7 @@ declare global {
 export const getQueue = (name: QueueName): Queue => {
   if (!global.__queues) {
     const { connection: qeConnection } = qRedisGetConnection();
+    qeConnection.flushall();
     const queueEvents = new QueueEvents(QueueName.GENERATE_STORY, {
       connection: qeConnection,
     });

@@ -2,7 +2,7 @@ import { string } from "zod";
 import type { StoryData } from "~/lib/db/story.server";
 import { submitError } from "../queue/queues";
 
-export const generateCharaterOutput = async ({
+export const generateCharacterOutput = async ({
   story,
   characterInstructions,
   generator,
@@ -22,6 +22,7 @@ export const generateCharaterOutput = async ({
   });
   if (!characterPrompt) return null;
   const results = await generator(characterPrompt, story?.prompt || "");
+  return results;
 };
 
 export const buildCharacterPrompt = async ({
@@ -50,4 +51,5 @@ export const buildCharacterPrompt = async ({
   const characterPrompt = `${characterPromptPrefix}${content.slice(
     -availableLength
   )}`;
+  return characterPrompt;
 };
