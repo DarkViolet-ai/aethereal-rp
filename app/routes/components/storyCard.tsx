@@ -18,9 +18,10 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const navigate = useNavigate();
   const imagePath = GetStoryImagePath(story.title);
   const newStory = story.title === "Create a New Story";
-  const cardShadow = newStory
-    ? "shadow-[5px_5px_20px_rgba(148,0,211)]"
-    : "shadow-shadow3D";
+  const cardShadow =
+    story.title === "Create a New Story"
+      ? "shadow-[5px_5px_20px_rgba(148,0,211)]"
+      : "shadow-shadow3D";
 
   return (
     <Flex
@@ -29,19 +30,9 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
         <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
-          {newStory ? (
-            <Text className={`${cursiveText} text-[30px]`}>
-              Create a{" "}
-              <span className="text-shadow-textGlow text-dv-900 text-[35px]">
-                New
-              </span>{" "}
-              Story
-            </Text>
-          ) : (
-            <Text className={`${cursiveText} text-[30px]`}>
-              <i>{story.title}</i>
-            </Text>
-          )}
+          <Text className={`${cursiveText} text-[30px]`}>
+            <i>{story.title}</i>
+          </Text>
           <Text className="leading-[15px]">
             {FormatDate(String(story.createdAt))}
           </Text>
