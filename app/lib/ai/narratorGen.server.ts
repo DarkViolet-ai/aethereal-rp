@@ -174,7 +174,7 @@ export const narrate = async ({
 
   const { characters, nextCharacter, prompt, text } = validatedNarrateResults;
 
-  const updatedContent = `${story.content}\n${text}`;
+  const updatedContent = `${story.content}\n${text}\n`;
   const _characters =
     (characters &&
       Object.keys(characters).map(
