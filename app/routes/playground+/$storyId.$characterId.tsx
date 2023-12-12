@@ -43,7 +43,7 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
   const nextCharacterData = story && getNextCharacterInStory({ story });
   const isActiveCharacter = nextCharacterData?.characterId === characterId;
 
-  return typedjson({ story, isActiveCharacter });
+  return typedjson({ story, isActiveCharacter, characterName: character.name });
 };
 
 export const action = async ({ request, params }: DataFunctionArgs) => {
@@ -57,7 +57,8 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 };
 
 export default function StoryId() {
-  const { story, isActiveCharacter } = useTypedLoaderData<typeof loader>();
+  const { story, isActiveCharacter, characterName } =
+    useTypedLoaderData<typeof loader>();
   const storyId = story?.id;
 
   // console.log(tempStory);
@@ -80,7 +81,11 @@ export default function StoryId() {
         className="hidden lg:flex w-full h-full lg:w-5/12 justify-center pt-2"
         duration={0.7}
       >
-        <InteractionPage story={story} isActiveCharacter={isActiveCharacter} />
+        <InteractionPage
+          story={story}
+          isActiveCharacter={isActiveCharacter}
+          characterName={characterName}
+        />
       </Transition>
     </Flex>
     // </Transition>

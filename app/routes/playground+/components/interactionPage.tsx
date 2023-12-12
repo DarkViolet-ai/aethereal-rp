@@ -16,13 +16,14 @@ import { dummyText } from "~/lib/utils/randomText";
 export default function InteractionPage({
   story,
   isActiveCharacter,
+  characterName,
 }: {
   story: StoryData;
   isActiveCharacter: boolean;
+  characterName: string;
 }) {
-  const promptText = story.prompt ? story.prompt : dummyText;
+  const promptText = (isActiveCharacter && story?.prompt) || "";
   const paragraphs = promptText.split("\n");
-  const characterName = useParams().characterName || "Jehosephat";
 
   return (
     <Flex className="w-full h-full justify-center items-center">
@@ -42,7 +43,6 @@ export default function InteractionPage({
               b="bottom-0"
               l="left-[5px]"
             />
-            {isActiveCharacter && story.prompt}
             <DarkViolet
               name="star1"
               w="w-16% lg:w-13% xl:w-12% xxl:w-8%"
