@@ -11,7 +11,7 @@ export default function NewStoryCard() {
 
   return (
     <Flex
-      className={`w-full max-w-[550px] bg-cyanGrad ${borderShadow} hover:cursor-pointer shadow-[0_20px_30px_rgba(8,_112,_184,_0.7)]`}
+      className={`w-full shadow-slate-500 max-w-[550px] bg-cyanGrad ${borderShadow} hover:cursor-pointer`}
       onClick={() => navigate(`/story/new`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
@@ -21,13 +21,15 @@ export default function NewStoryCard() {
         >
           <Flex className="pt-3">
             <Text
-              className={`${cursiveText} text-shadow-textGlow text-dv-900 text-[45px]`}
+              className={`${cursiveText} text-shadow-boldTextGlow text-dv-900 text-[45px]`}
             >
-              <i>Create a New Story!</i>
+              Create a New Story!
             </Text>
           </Flex>
 
-          <Text noOfLines={2}>Start your own new and exciting story!</Text>
+          <Text noOfLines={2}>
+            Start something new and exciting...or new and chill!
+          </Text>
         </VStack>
         <Flex className="h-[100px] w-[100px] flex-shrink-0">
           <Image
