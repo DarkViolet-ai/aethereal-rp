@@ -1,19 +1,21 @@
-import { Stories, cursiveText } from "~/css/styles";
 import Flex from "~/components/buildingBlocks/flex";
-import ParchmentPage from "./components/parchmentPage";
-import InteractionPage from "./components/interactionPage";
-import Transition from "~/components/buildingBlocks/transition";
-import { useParams } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
 import Text from "~/components/buildingBlocks/text";
-import { requireUserId } from "~/lib/utils/session.server";
+import { borderShadow } from "~/css/styles";
 import { getNextCharacterInStory, getStory } from "~/lib/db/story.server";
-import { dvError } from "~/lib/utils/dvError";
-import { StoryCharacter, assignRolePlayer } from "~/lib/db/character.server";
-import { StoryStatus } from "@prisma/client";
-import { submitStoryGeneration, submitUserPrompt } from "~/lib/queue/queues";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
+import Box from "~/components/buildingBlocks/box";
+import { Form, useParams, useRevalidator } from "@remix-run/react";
+import useStatusStream from "~/lib/hooks/useStatusStream";
 import { DataFunctionArgs } from "@remix-run/node";
+import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
+import Button from "~/components/buildingBlocks/button";
+import { useEffect } from "react";
+import { dvError } from "~/lib/utils/dvError";
+import { getUserId, requireUserId } from "~/lib/utils/session.server";
+import { StoryCharacter, assignRolePlayer } from "~/lib/db/character.server";
+import { submitStoryGeneration, submitUserPrompt } from "~/lib/queue/queues";
+import { StoryStatus } from "@prisma/client";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const userId = await requireUserId(request);
@@ -56,33 +58,57 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   return typedjson({ status: "ok" });
 };
 
-export default function StoryId() {
+export default function Story() {
+  const { storyId, characterId } = useParams() as {
+    storyId: string;
+    characterId: string;
+  };
   const { story, isActiveCharacter } = useTypedLoaderData<typeof loader>();
-  const storyId = story?.id;
 
-  // console.log(tempStory);
+  const data = useStatusStream(storyId);
+  const { revalidate } = useRevalidator();
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      revalidate();
+    }
+  }, [data]);
   return (
-    // <Transition type="zoom" className="w-full h-full">
-    <Flex className="w-full h-full justify-start items-center flex-col lg:flex-row lg:justify-center lg:items-start pt-7 overflow-y-hidden">
-      <Transition type="fade" className="w-full h-full lg:w-7/12 ">
-        <VStack className="w-full h-full justify-center py-[5px]">
-          <Text
-            className={`${cursiveText} text-[33px] md:text-[40px] lg:text-[28px] xl:text-[32px] xxl:text-[34px] text-shadow-textFog`}
-          >
-            {story?.title || ""}
-          </Text>
-          <ParchmentPage isActiveCharacter={isActiveCharacter} story={story} />
-        </VStack>
-      </Transition>
-      <Transition
-        type="fade"
-        delay={0.3}
-        className="hidden lg:flex w-full h-full lg:w-5/12 justify-center pt-2"
-        duration={0.7}
-      >
-        <InteractionPage story={story} isActiveCharacter={isActiveCharacter} />
-      </Transition>
+    <Flex className="w-full h-full justify-center pt-[50px] pb-[35px] items-center">
+      <VStack className="w-full p-4" gap="gap-5">
+        <Box
+          className={`w-11/12 md:w-3/4 xl:w-2/3 xxl:w-1/2 h-[400px] ${borderShadow}`}
+        >
+          <Box className="w-full h-[400px] bg-dv-800 shadow-shadow3D p-2 overflow-y-auto">
+            <Text>{story?.content}</Text>
+            <Text>{isActiveCharacter ? story?.prompt : ""}</Text>
+          </Box>
+        </Box>
+        <Form
+          method="post"
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            gap: "20px",
+          }}
+        >
+          <input type="hidden" name="storyId" value={storyId} />
+          <VStack gap="gap-[20px]">
+            <Box className="w-11/12 md:w-3/4  xl:w-2/3  xxl:w-1/2 justify-center">
+              <TextAreaVStack
+                label="Type Things Here"
+                className="w-full h-full"
+                name="newInput"
+              />
+            </Box>
+            <Button type="submit" className="w-[200px]">
+              Submit
+            </Button>
+          </VStack>
+        </Form>
+      </VStack>
     </Flex>
-    // </Transition>
   );
 }

@@ -236,7 +236,7 @@ const workerDispatch: WorkerDispatch = {
       return;
     }
     console.log("submitting character generation");
-    //console.log(characterInstructions);
+    // duplicate generations can only be re-sent every 60 seconds
     if (
       (await redis.get(`story-prompt:${story.id}:${story.prompt}`)) === null
     ) {
