@@ -22,7 +22,10 @@ export default function Characters({
   }) {
     console.log("CHAR: ", character);
     return (
-      <NavLink to={`/playground/${character.storyId}/${character.id}`}>
+      <NavLink
+        to={`/playground/${character.storyId}/${character.id}`}
+        style={{ width: "100%" }}
+      >
         <Box className="w-96% shadow-dvShadow">
           <VStack
             className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}

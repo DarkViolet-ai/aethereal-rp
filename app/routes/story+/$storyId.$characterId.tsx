@@ -10,6 +10,7 @@ import Text from "~/components/buildingBlocks/text";
 export default function StoryId() {
   const params = useParams();
   const storyId = Number(params.storyId);
+  const character = params.characterId;
   const tempStory = Stories[storyId];
 
   // console.log(tempStory);

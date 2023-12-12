@@ -3,29 +3,20 @@ import VStack from "~/components/buildingBlocks/vStack";
 import { GiCharacter } from "react-icons/gi/index.js";
 import type { Character } from "@prisma/client";
 import HStack from "~/components/buildingBlocks/hStack";
-import { Stories, borderShadow, cardColors, cursiveText } from "~/css/styles";
+import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
-import { NavLink, useParams } from "@remix-run/react";
+import type { StoryCharacter } from "~/lib/db/character.server";
 
-export default function Characters({
+export default function CharactersMenu({
   characters,
-  link,
 }: {
-  characters: Character[];
-  link: string;
+  characters: StoryCharacter[];
 }) {
-  const params = useParams();
-  const characterId = Number(params.characterId);
-  const character = characters.find(
-    (character) => Number(character.id) === characterId
-  );
-  const story = Stories.find((story) => story.id === character?.storyId);
-
-  function CharacterTemplate({
+  function CharacterMenuTemplate({
     character,
     cardColor,
   }: {
-    character: Character;
+    character: StoryCharacter;
     cardColor: string;
   }) {
     console.log("CHAR: ", character);
@@ -43,7 +34,9 @@ export default function Characters({
               {character.name}
             </Text>
           </HStack>
-          <Text className="text-shadow-dvTextShadow">{character.summary}</Text>
+          <Text className="text-shadow-dvTextShadow">
+            {character.description}
+          </Text>
         </VStack>
       </Box>
     );
@@ -58,7 +51,7 @@ export default function Characters({
       </HStack>
       <VStack className="w-full h-fit lg:h-full overflow-y-auto py-4">
         {characters.map((character, index) => (
-          <CharacterTemplate
+          <CharacterMenuTemplate
             key={index}
             character={character}
             cardColor={cardColors[index % cardColors.length]}

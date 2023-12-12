@@ -37,6 +37,7 @@ body {
   position: relative;
   overflow-y: hidden;
   scroll-behavior: smooth;
+  /* background-image: "url('/images/core/aethereal-background.png')"; */
 }
 
 h1 {
