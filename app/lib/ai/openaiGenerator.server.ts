@@ -34,3 +34,12 @@ export const openaiCharacterGenerator = async (
   });
   return completion.choices[0].message.content || "";
 };
+
+export const openaiImageGenerator = async ({ prompt }: { prompt: string }) => {
+  const imageUrl = await openai.images.generate({
+    model: "dall-e-3",
+    prompt,
+    size: "1024x1024",
+  });
+  return imageUrl;
+};

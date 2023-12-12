@@ -56,7 +56,6 @@ export const loader = async ({ request }: DataFunctionArgs) => {
       response,
     }
   );
-
   const {
     data: { session },
     error,

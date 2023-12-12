@@ -44,11 +44,12 @@ model Story {
   title           String
   summary         String
   content         String
-  status          StoryStatus?    
+  status          StoryStatus?
   author          User           @relation(fields: [authorId], references: [id])
   characters      Character[]    @relation(name: "inStory")
   narrator        Narrator?
   authorId        String
+  imageUrl        String?
   isActive        Boolean        @default(false)
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
