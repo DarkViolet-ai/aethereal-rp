@@ -1,7 +1,7 @@
 import Box from "../buildingBlocks/box";
 import Flex from "../buildingBlocks/flex";
 import Image from "../buildingBlocks/image";
-import { useLocation, useNavigate } from "@remix-run/react";
+import { useLocation, useNavigate, useParams } from "@remix-run/react";
 import Drawer from "../buildingBlocks/drawer";
 import { MdOutlineGroups2 } from "react-icons/md/index.js";
 import { TempCharacterList } from "~/css/styles";
@@ -9,8 +9,8 @@ import Characters from "~/routes/story+/components/characters";
 
 export default function TopNav() {
   const navigate = useNavigate();
-  const pathname = useLocation().pathname;
-  const isStory = pathname.includes("story");
+  const params = useParams();
+  const isStory = params.characterId !== undefined;
   const characters = isStory && TempCharacterList.slice(0, 5);
   // console.log(characters);
 
