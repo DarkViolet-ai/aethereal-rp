@@ -5,11 +5,16 @@ import StoryCard from "./storyCard";
 import CharacterCard from "./characterCard";
 
 import VStack from "~/components/buildingBlocks/vStack";
+import { useTypedLoaderData } from "remix-typedjson";
+import type { UserStoriesLoaderData } from "../index";
 
 const tempStories = Stories;
 const tempCharacters = TempCharacterList;
 
 export default function StoriesCharacters() {
+  const { stories, activeStories, availableCharacters } =
+    useTypedLoaderData<UserStoriesLoaderData>();
+  const allStories = [...activeStories, ...stories];
   return (
     <Flex
       className="w-full h-fit xl:h-full max-w-[1750px] justify-center pt-[50px]"
@@ -24,7 +29,7 @@ export default function StoriesCharacters() {
           heading="My Stories"
         >
           <VStack className="w-full h-fit xl:h-11/12 overflow-y-auto pb-3 px-3">
-            {tempStories.map((story, index) => {
+            {allStories.map((story, index) => {
               return (
                 <StoryCard
                   key={index}
@@ -47,7 +52,7 @@ export default function StoriesCharacters() {
           id="openings"
         >
           <VStack className="w-full h-fit xl:h-11/12 overflow-y-auto pb-3 px-2">
-            {tempCharacters.map((character, index) => {
+            {availableCharacters.map((character, index) => {
               return (
                 <Flex className="w-full px-2" key={index}>
                   <CharacterCard

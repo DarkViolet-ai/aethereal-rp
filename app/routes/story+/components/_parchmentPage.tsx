@@ -8,23 +8,19 @@ import { useParams } from "@remix-run/react";
 import Button from "~/components/buildingBlocks/button";
 import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
-import InteractionPage from "./interactionPage";
-import { StoryData } from "~/lib/db/story.server";
+import InteractionPage from "./_interactionPage";
 
 interface ParchmentPageProps {
   showInteractionButton?: boolean;
-  isActiveCharacter: boolean;
-  story: StoryData;
-  characterName: string;
 }
 
 export default function ParchmentPage({
-  story,
   showInteractionButton = true,
-  isActiveCharacter,
-  characterName,
 }: ParchmentPageProps) {
-  const paragraphs = story.content.split("\n");
+  const params = useParams();
+  const storyId = Number(params.storyId);
+  const tempStory = Stories[storyId];
+  const paragraphs = tempStory.content.split("\n");
   const [isModalOpen, setModalOpen] = useState(false);
   const onClose = () => setModalOpen(false);
 
@@ -64,11 +60,7 @@ export default function ParchmentPage({
         maxWidth="max-w-[700px]"
       >
         <Flex className="w-full h-full max-w-[500px]">
-          <InteractionPage
-            story={story}
-            isActiveCharacter={isActiveCharacter}
-            characterName={characterName}
-          />
+          <InteractionPage story={tempStory} />
         </Flex>
       </Modal>
     </VStack>

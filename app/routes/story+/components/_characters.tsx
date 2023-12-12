@@ -5,45 +5,37 @@ import type { Character } from "@prisma/client";
 import HStack from "~/components/buildingBlocks/hStack";
 import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
-import { StoryCharacter } from "~/lib/db/character.server";
-import { NavLink } from "@remix-run/react";
 
 export default function Characters({
   characters,
 }: {
-  characters: StoryCharacter[];
+  characters: Character[];
 }) {
   function CharacterTemplate({
     character,
     cardColor,
   }: {
-    character: StoryCharacter;
+    character: Character;
     cardColor: string;
   }) {
     console.log("CHAR: ", character);
     return (
-      <NavLink to={`/story/${character.storyId}/${character.id}`}>
-        <Box className="w-96% shadow-dvShadow">
-          <VStack
-            className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
-            align="start"
-          >
-            <HStack className="w-full items-center">
-              <Box className="bg-dv-400 shadow-dvShadow">
-                <GiCharacter className="text-dv-800 text-[33px]" />
-              </Box>
-              <Text
-                className={`${cursiveText} text-[30px] text-shadow-textFog`}
-              >
-                {character.name}
-              </Text>
-            </HStack>
-            <Text className="text-shadow-dvTextShadow">
-              {character.description}
+      <Box className="w-96% shadow-dvShadow">
+        <VStack
+          className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
+          align="start"
+        >
+          <HStack className="w-full items-center">
+            <Box className="bg-dv-400 shadow-dvShadow">
+              <GiCharacter className="text-dv-800 text-[33px]" />
+            </Box>
+            <Text className={`${cursiveText} text-[30px] text-shadow-textFog`}>
+              {character.name}
             </Text>
-          </VStack>
-        </Box>
-      </NavLink>
+          </HStack>
+          <Text className="text-shadow-dvTextShadow">{character.summary}</Text>
+        </VStack>
+      </Box>
     );
   }
 

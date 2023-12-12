@@ -10,20 +10,12 @@ import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import LoadingText from "~/components/specialty/loading";
 import { borderShadow, cursiveText } from "~/css/styles";
-import { StoryData } from "~/lib/db/story.server";
 import { dummyText } from "~/lib/utils/randomText";
 
-export default function InteractionPage({
-  story,
-  isActiveCharacter,
-  characterName,
-}: {
-  story: StoryData;
-  isActiveCharacter: boolean;
-  characterName: string;
-}) {
-  const promptText = (isActiveCharacter && story?.prompt) || "";
+export default function InteractionPage({ story }: { story: Story }) {
+  const promptText = story.prompt ? story.prompt : dummyText;
   const paragraphs = promptText.split("\n");
+  const characterName = useParams().characterName || "Jehosephat";
 
   return (
     <Flex className="w-full h-full justify-center items-center">
@@ -43,6 +35,7 @@ export default function InteractionPage({
               b="bottom-0"
               l="left-[5px]"
             />
+
             <DarkViolet
               name="star1"
               w="w-16% lg:w-13% xl:w-12% xxl:w-8%"

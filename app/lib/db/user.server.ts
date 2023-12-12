@@ -1,7 +1,11 @@
 import { Prisma, Narrator as DBNarrator, Character } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
-import { removeRolePlayer } from "./character.server";
+import {
+  StoryCharacterQueryType,
+  removeRolePlayer,
+  storyCharacterQuery,
+} from "./character.server";
 import { duplicateStoryForUser } from "./story.server";
 
 export const createUser = async (data: Prisma.UserCreateInput) => {
@@ -20,7 +24,12 @@ export const getUser = async (id: string) => {
   return user;
 };
 
-export const getUserStories = async (id: string) => {
+export const getUserStories = async (
+  id: string
+): Promise<{
+  stories: StorySummaryData[];
+  activeStories: StorySummaryData[];
+}> => {
   const activeStories = await prisma.story.findMany({
     where: {
       characters: {
@@ -31,15 +40,36 @@ export const getUserStories = async (id: string) => {
         },
       },
     },
+    select: {
+      characters: storyCharacterQuery,
+      id: true,
+      title: true,
+      summary: true,
+    },
   });
 
   const stories = await prisma.story.findMany({
     where: {
       authorId: id,
     },
+    select: {
+      characters: storyCharacterQuery,
+      id: true,
+      title: true,
+      summary: true,
+    },
   });
   return { stories, activeStories };
 };
+
+export type StorySummaryData = Prisma.StoryGetPayload<{
+  select: {
+    id: true;
+    title: true;
+    summary: true;
+    characters: StoryCharacterQueryType;
+  };
+}>;
 
 export const userLeaveStory = async ({
   storyId,
