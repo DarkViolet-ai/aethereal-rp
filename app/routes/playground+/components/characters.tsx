@@ -1,11 +1,10 @@
 import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
 import { GiCharacter } from "react-icons/gi/index.js";
-import type { Character } from "@prisma/client";
 import HStack from "~/components/buildingBlocks/hStack";
 import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
-import { StoryCharacter } from "~/lib/db/character.server";
+import type { StoryCharacter } from "~/lib/db/character.server";
 import { NavLink } from "@remix-run/react";
 
 export default function Characters({
@@ -26,7 +25,7 @@ export default function Characters({
         to={`/playground/${character.storyId}/${character.id}`}
         style={{ width: "100%" }}
       >
-        <Box className="w-96% shadow-dvShadow">
+        <Box className="w-96% shadow-dvShadow hover:cursor-pointer">
           <VStack
             className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
             align="start"

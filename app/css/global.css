@@ -37,7 +37,14 @@ body {
   position: relative;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  /* background-image: "url('/images/core/aethereal-background.png')"; */
+  background-color: #7795f2;
+  background-image: url("/images/core/aethereal-background.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
 }
 
 h1 {

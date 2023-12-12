@@ -30,7 +30,7 @@ export default function Characters({
   }) {
     console.log("CHAR: ", character);
     return (
-      <Box className="w-96% shadow-dvShadow">
+      <Box className="w-96% shadow-dvShadow hover:cursor-pointer">
         <VStack
           className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
           align="start"
