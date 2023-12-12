@@ -21,7 +21,7 @@ export default function StoriesCharacters() {
     >
       <Flex className="w-full h-fit lg:h-98% flex-col lg:flex-row gap-[40px] lg:gap-[10px] ">
         <Transition
-          type="slideInBottom"
+          type="slideInLeft"
           className="w-full h-full lg:w-1/2 px-4 flex justify-center"
           duration={0.6}
         >
@@ -54,7 +54,7 @@ export default function StoriesCharacters() {
           .
         </Flex>
         <Transition
-          type="slideInTop"
+          type="slideInRight"
           className="w-full h-full lg:w-1/2 px-4 flex justify-center"
           duration={0.8}
           delay={0.2}
