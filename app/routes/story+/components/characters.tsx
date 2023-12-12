@@ -3,16 +3,24 @@ import VStack from "~/components/buildingBlocks/vStack";
 import { GiCharacter } from "react-icons/gi/index.js";
 import type { Character } from "@prisma/client";
 import HStack from "~/components/buildingBlocks/hStack";
-import { borderShadow, cardColors, cursiveText } from "~/css/styles";
+import { Stories, borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
 import { StoryCharacter } from "~/lib/db/character.server";
 import { NavLink } from "@remix-run/react";
 
 export default function Characters({
   characters,
+  link,
 }: {
   characters: StoryCharacter[];
 }) {
+  const params = useParams();
+  const characterId = Number(params.characterId);
+  const character = characters.find(
+    (character) => Number(character.id) === characterId
+  );
+  const story = Stories.find((story) => story.id === character?.storyId);
+
   function CharacterTemplate({
     character,
     cardColor,

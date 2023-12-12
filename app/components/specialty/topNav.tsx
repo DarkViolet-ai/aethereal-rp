@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useParams } from "@remix-run/react";
 import Drawer from "../buildingBlocks/drawer";
 import { MdOutlineGroups2 } from "react-icons/md/index.js";
 import { TempCharacterList } from "~/css/styles";
-import Characters from "~/routes/story+/components/characters";
+import CharactersMenu from "~/routes/story+/components/characterMenu";
 
 export default function TopNav() {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ export default function TopNav() {
           buttonTooltipPlacement="bottomLeft"
           overlayBlur="backdrop-blur-none"
         >
-          <Characters characters={characters} />
+          <CharactersMenu characters={characters} />
         </Drawer>
       )}
     </Flex>
