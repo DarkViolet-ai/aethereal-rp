@@ -32,7 +32,9 @@ export default function StoryTemplate() {
     <ColumnsPageContainer transitionScreen="lg">
       <ColumnsPageColumn heading="Start a Story" transitionType="slideInLeft">
         <VStack className="w-full gap-5">
-          <NewStoryCard newTemplate />
+          <NavLink to="edit" style={{ width: "100%" }}>
+            <NewStoryCard newTemplate />
+          </NavLink>
           {templates.map((template, index) => (
             <NavLink
               to={`/story/new/${template.id}/view`}
