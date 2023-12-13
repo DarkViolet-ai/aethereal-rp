@@ -1,53 +1,47 @@
 import type { DataFunctionArgs } from "@remix-run/node";
-import { typedjson } from "remix-typedjson";
-import Flex from "~/components/buildingBlocks/flex";
-import Text from "~/components/buildingBlocks/text";
-import VStack from "~/components/buildingBlocks/vStack";
-import { Stories, cardWidths, colMaxWidths } from "~/css/styles";
+import {
+  typedjson,
+  useTypedActionData,
+  useTypedLoaderData,
+} from "remix-typedjson";
+import {
+  ColumnsPageColumn,
+  ColumnsPageContainer,
+} from "~/components/buildingBlocks/columnsPage";
+// import { Stories } from "~/css/styles";
 import {
   getAllTemplates,
-  getStoryTemplate,
+  // getStoryTemplate,
 } from "~/lib/db/storyTemplate.server";
+import NewStoryCard from "./components/newStoryCard";
+import StoryCard from "../components/storyCard";
+import { cardColors } from "~/css/styles";
+import VStack from "~/components/buildingBlocks/vStack";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const templates = await getAllTemplates();
   return typedjson({ templates });
 };
 
-export default function StoryTemplate({
-  templates,
-}: {
-  templates: ReturnType<typeof getAllTemplates>;
-}) {
-  const dummyData = Stories;
+export default function StoryTemplate() {
+  // const dummyData = Stories;
+  const { templates } = useTypedLoaderData<typeof loader>();
+
   return (
-    <Flex className="h-full w-full pt-50px justify-center overflow-y-hidden">
-      <Flex
-        className={`w-full h-full flex-col lg:flex-row items-center lg:items-start overflow-y-auto lg:overflow-y-hidden gap-[40px] lg:gap-[10px] py-5`}
-      >
-        <Flex className={`w-full ${colMaxWidths} h-fit lg:h-full`}>
-          <Flex className="w-full h-fit min-h-full lg:h-full justify-center">
-            {" "}
-            <VStack className={`${cardWidths} bg-dv-700 h-fit lg:h-full`}>
-              <Text>TEST</Text>
-              <Text>TEST</Text>
-              <Text>TEST</Text>
-              <Text>TEST</Text>
-            </VStack>
-          </Flex>
-        </Flex>
-        <Flex className={`w-full ${colMaxWidths} h-fit lg:h-full `}>
-          <Flex className="w-full h-fit min-h-full lg:h-full justify-center">
-            {" "}
-            <VStack className={`${cardWidths} bg-dv-700 h-fit lg:h-full`}>
-              <Text>TEST</Text>
-              <Text>TEST</Text>
-              <Text>TEST</Text>
-              <Text>TEST</Text>
-            </VStack>
-          </Flex>
-        </Flex>
-      </Flex>{" "}
-    </Flex>
+    <ColumnsPageContainer transitionScreen="lg">
+      <ColumnsPageColumn heading="Start a Story">
+        <VStack  className="w-full gap-4">
+          <NewStoryCard />
+          {templates.map((template, index) => (
+            <StoryCard
+              key={template.id}
+              story={template}
+              bgColor={cardColors[index % cardColors.length]}
+            />
+          ))}
+        </VStack>
+      </ColumnsPageColumn>
+      <ColumnsPageColumn>COLUMN 2</ColumnsPageColumn>
+    </ColumnsPageContainer>
   );
 }

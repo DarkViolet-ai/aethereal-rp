@@ -11,7 +11,7 @@ export default function NewStoryCard() {
 
   return (
     <Flex
-      className={`w-full shadow-slate-500 bg-cyanGrad ${borderShadow} hover:cursor-pointer ${textSizes}`}
+      className={`w-full shadow-slate-500 bg-cyanGrad ${borderShadow} hover:cursor-pointer ${textSizes} story-card-hover`}
       onClick={() => navigate(`/story/new`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">

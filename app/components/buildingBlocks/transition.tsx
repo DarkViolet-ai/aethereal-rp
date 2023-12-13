@@ -3,7 +3,7 @@
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import React, { type ReactNode } from "react";
 
-type TransitionType =
+export type TransitionType =
   | "fade"
   | "scale"
   | "slide"

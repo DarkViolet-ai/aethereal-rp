@@ -19,7 +19,7 @@ export default function StoryCard({ story, bgColor }: StoryCardProps) {
   const imagePath = GetStoryImagePath(story.title);
   return (
     <Flex
-      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer`}
+      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">

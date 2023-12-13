@@ -153,3 +153,8 @@ ol li {
       rgba(148, 0, 211, 0.25)
     );
 }
+
+.story-card-hover:hover {
+  transform: scale(1.02);
+  transition: transform 0.5s ease-in-out;
+}
