@@ -18,6 +18,7 @@ import StoryCard from "../components/storyCard";
 import { cardColors } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
 import Transition from "~/components/buildingBlocks/transition";
+import { Outlet } from "@remix-run/react";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const templates = await getAllTemplates();
@@ -44,7 +45,7 @@ export default function StoryTemplate() {
         </VStack>
       </ColumnsPageColumn>
       <ColumnsPageColumn transitionType="slideInRight">
-        COLUMN 2
+        <Outlet />
       </ColumnsPageColumn>
     </ColumnsPageContainer>
   );
