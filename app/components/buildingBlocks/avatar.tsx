@@ -50,7 +50,7 @@ export const Avatar = ({
 
   return (
     <div
-      className={`${rounded} overflow-hidden ${
+      className={`${rounded} overflow-hidden flex-shrink-0 ${
         sizeClasses[size || "sm"]
       } border-[1.5px] border-solid border-dv-400 shadow-dvShadow flex items-center justify-center text-dv-400 bg-dv-900`}
     >

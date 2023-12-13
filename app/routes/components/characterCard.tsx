@@ -21,6 +21,7 @@ import LabelValue from "~/components/buildingBlocks/labelValue";
 import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import Divider from "~/components/buildingBlocks/divider";
 import { OpenCharacterView } from "~/lib/db/character.server";
+import { Avatar } from "~/components/buildingBlocks/avatar";
 
 export default function CharacterCardMini({
   character,
@@ -38,20 +39,23 @@ export default function CharacterCardMini({
         navigate("/");
       }}
     >
-      <HStack className="justify-between w-full">
-        <HStack className="text-shadow-dvTextShadow">
-          <Flex className="w-full flex-col items-start md:flex-row lg:flex-col xxxl:flex-row">
-            <Text className={`${cursiveText} text-[23px] xxl:text-[25px]`}>
-              {character.name}
-            </Text>
-            <Flex className="hidden md:flex lg:hidden xxxl:flex px-2">
-              <Text> | </Text>
-            </Flex>
-            <Text className="text-shadow-dvTextShadow text-[20px]">
-              <i>{character.story?.title}</i>
-            </Text>
-          </Flex>
-        </HStack>
+      <HStack className="justify-between w-full bg-white" gap="gap-1">
+        <Avatar src="images/icons/profileIcon.png" />
+
+        <VStack
+          className="w-full text-shadow-dvTextShadow"
+          align="start"
+          gap="gap-0"
+        >
+          <Text className={`${cursiveText} text-[23px] xxl:text-[25px]`}>
+            {character.name}
+          </Text>
+
+          <Text className="text-shadow-dvTextShadow text-[20px]">
+            <i>{character.story?.title}</i>
+          </Text>
+        </VStack>
+
         <Box
           className="shadow-dvShadow h-fit"
           onClick={() => setModalOpen(true)}
