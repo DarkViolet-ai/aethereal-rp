@@ -57,7 +57,6 @@ export default function TemplateDisplay() {
         <Form method="post">
           <Button type="submit">Begin Story</Button>
         </Form>
-
         <Button>Edit</Button>
       </HStack>
     </VStack>
