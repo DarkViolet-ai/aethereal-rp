@@ -1,4 +1,9 @@
-import { cardColors, cardWidths, colMaxWidths } from "~/css/styles";
+import {
+  cardColors,
+  cardWidths,
+  colMaxWidths,
+  headerFooterPadding,
+} from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import CardContainer from "./cardContainer";
 import StoryCard from "./storyCard";
@@ -16,7 +21,7 @@ export default function StoriesCharacters() {
   const allStories = [...activeStories, ...stories];
   return (
     <Flex
-      className="w-full h-fit lg:h-full justify-center pt-[50px]"
+      className={`w-full h-fit lg:h-full justify-center ${headerFooterPadding}`}
       id="stories"
     >
       <Flex className="w-full h-fit lg:h-98% flex-col lg:flex-row gap-[40px] lg:gap-[10px] ">

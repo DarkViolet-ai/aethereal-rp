@@ -28,7 +28,8 @@ export const highlightedText =
   "text-dv-400 text-shadow-dvTextShadow font-semibold";
 export const defaultOverlayColor = "bg-dv-850";
 export const defaultOverlayBlur = "backdrop-blur-sm";
-
+export const headerFooterPadding =
+  "pt-[50px] pb-[35px] quadHD:pt-[75px] ultraHD:pt-[100px]";
 export const colMaxWidths =
   "w-full md:w-80% lg:w-full xxl:w-90% xxxl:w-75% justify-center";
 export const textSizes =

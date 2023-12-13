@@ -155,30 +155,34 @@ export function ColumnsPageColumn({
 
   return (
     <Flex
-      className={`w-full h-fit justify-center align-start ${columnSize} ${transitionHeight}`}
+      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[20px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight}`}
     >
-      <Transition
-        type={transitionType}
-        className={`w-full h-full ${transitionClassName}`}
+      <Flex
+        className={`w-full h-fit justify-center align-start ${transitionHeight}`}
       >
-        <Flex
-          className={`h-fit min-h-full justify-center align-start ${textSizes} ${transitionHeight} ${innerColMaxW} `}
+        <Transition
+          type={transitionType}
+          className={`w-full h-full ${transitionClassName}`}
         >
-          {" "}
-          <VStack
-            className={`w-full  h-fit gap-0 pb-4 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
+          <Flex
+            className={`h-fit min-h-full justify-center align-start ${textSizes} ${transitionHeight} ${innerColMaxW} `}
           >
-            {heading && (
-              <Flex
-                className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3 py-1 border-b-2 border-b-dv-225 ${headingSizes}`}
-              >
-                {heading}
-              </Flex>
-            )}
-            <VStack className={`${cardWidths} py-3`}>{children}</VStack>
-          </VStack>
-        </Flex>
-      </Transition>
+            {" "}
+            <VStack
+              className={`w-full  h-fit gap-0 pb-4 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
+            >
+              {heading && (
+                <Flex
+                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3 py-1 border-b-2 border-b-dv-225 ${headingSizes}`}
+                >
+                  {heading}
+                </Flex>
+              )}
+              <VStack className={`${cardWidths} py-3`}>{children}</VStack>
+            </VStack>
+          </Flex>
+        </Transition>
+      </Flex>
     </Flex>
   );
 }

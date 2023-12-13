@@ -234,9 +234,10 @@ export default {
         mdpl: "900px",
         lg: "1024px",
         xl: "1280px",
-        xxl: "1536px",
-        xxxl: "1850px",
-        hd: ""
+        xxl: "1600px",
+        fullHD: "1920px",
+        quadHD: "2560px",
+        ultraHD: "3840px",
       },
       boxShadow: {
         dvShadow: "2px 2px 8px rgba(0, 0, 0, 0.9)",

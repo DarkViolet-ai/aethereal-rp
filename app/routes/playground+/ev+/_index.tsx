@@ -1,5 +1,6 @@
 import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
+import { headerFooterPadding } from "~/css/styles";
 import RandomText from "~/lib/utils/randomText";
 import CharacterCardMini, {
   CharacterCard,
@@ -22,7 +23,7 @@ export const tempCharacter = {
 
 export default function EvsPlace() {
   return (
-    <Flex className="w-full h-full justify-center pt-[50px]">
+    <Flex className={`w-full h-full justify-center ${headerFooterPadding} `}>
       <VStack className="w-full max-w-[600px] px-3 pt-[50px]">
         <CharacterCardMini character={tempCharacter} />
         <CharacterCard character={tempCharacter} />
