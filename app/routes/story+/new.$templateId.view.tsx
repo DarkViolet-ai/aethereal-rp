@@ -1,5 +1,5 @@
 import type { DataFunctionArgs } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { Form, NavLink } from "@remix-run/react";
 import { redirect, typedjson, useTypedLoaderData } from "remix-typedjson";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
@@ -57,7 +57,12 @@ export default function TemplateDisplay() {
         <Form method="post">
           <Button type="submit">Begin Story</Button>
         </Form>
-        <Button>Edit</Button>
+        <NavLink
+          to={`/story/new/${storyTemplate?.id}/edit`}
+          style={{ width: "100%" }}
+        >
+          <Button>Edit</Button>
+        </NavLink>
       </HStack>
     </VStack>
   );
