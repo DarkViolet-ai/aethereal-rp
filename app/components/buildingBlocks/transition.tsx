@@ -110,7 +110,7 @@ export default function Transition({
   return (
     <AnimatePresence>
       <motion.div
-        className={className}
+        className={`flex justify-center ${className}`}
         key={type}
         variants={transitionVariants[type]}
         initial="initial"

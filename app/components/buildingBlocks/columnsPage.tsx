@@ -2,6 +2,7 @@ import { borderShadow, cursiveText } from "~/css/styles";
 import Flex from "./flex";
 import Text from "./text";
 import VStack from "./vStack";
+import Transition, { TransitionType } from "./transition";
 
 const colMaxWidths = "w-full md:w-80% lg:w-full xxl:w-90% xxxl:w-80% ";
 const cardWidths = "w-98% sm:w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
@@ -117,6 +118,8 @@ export function ColumnsPageColumn({
   transitionScreen = "lg",
   headingColor = "bg-dv-900",
   bg = "bg-calmGrayBack bg-darkCyanGrad",
+  transitionType = "fade",
+  transitionClassName = "",
 }: {
   children?: React.ReactNode;
   heading?: string;
@@ -124,6 +127,8 @@ export function ColumnsPageColumn({
   transitionScreen?: string;
   headingColor?: string;
   bg?: string;
+  transitionType?: TransitionType;
+  transitionClassName?: string;
 }) {
   let columnSize = "";
   let transitionHeight = "";
@@ -152,23 +157,28 @@ export function ColumnsPageColumn({
     <Flex
       className={`w-full h-fit justify-center align-start ${columnSize} ${transitionHeight}`}
     >
-      <Flex
-        className={`h-fit min-h-full justify-center align-start ${textSizes} ${transitionHeight} ${innerColMaxW} `}
+      <Transition
+        type={transitionType}
+        className={`w-full h-full ${transitionClassName}`}
       >
-        {" "}
-        <VStack
-          className={`w-full  h-fit gap-0 pb-4 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
+        <Flex
+          className={`h-fit min-h-full justify-center align-start ${textSizes} ${transitionHeight} ${innerColMaxW} `}
         >
-          {heading && (
-            <Flex
-              className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3 py-1 border-b-2 border-b-dv-225 ${headingSizes}`}
-            >
-              {heading}
-            </Flex>
-          )}
-          <VStack className={`${cardWidths} py-3`}>{children}</VStack>
-        </VStack>
-      </Flex>
+          {" "}
+          <VStack
+            className={`w-full  h-fit gap-0 pb-4 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
+          >
+            {heading && (
+              <Flex
+                className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3 py-1 border-b-2 border-b-dv-225 ${headingSizes}`}
+              >
+                {heading}
+              </Flex>
+            )}
+            <VStack className={`${cardWidths} py-3`}>{children}</VStack>
+          </VStack>
+        </Flex>
+      </Transition>
     </Flex>
   );
 }

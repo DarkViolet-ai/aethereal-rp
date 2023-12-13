@@ -17,6 +17,7 @@ import NewStoryCard from "./components/newStoryCard";
 import StoryCard from "../components/storyCard";
 import { cardColors } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
+import Transition from "~/components/buildingBlocks/transition";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const templates = await getAllTemplates();
@@ -29,11 +30,12 @@ export default function StoryTemplate() {
 
   return (
     <ColumnsPageContainer transitionScreen="lg">
-      <ColumnsPageColumn heading="Start a Story">
-        <VStack  className="w-full gap-4">
-          <NewStoryCard />
+      <ColumnsPageColumn heading="Start a Story" transitionType="slideInLeft">
+        <VStack className="w-full gap-4">
+          <NewStoryCard newTemplate />
           {templates.map((template, index) => (
             <StoryCard
+              hideDate
               key={template.id}
               story={template}
               bgColor={cardColors[index % cardColors.length]}
@@ -41,7 +43,9 @@ export default function StoryTemplate() {
           ))}
         </VStack>
       </ColumnsPageColumn>
-      <ColumnsPageColumn>COLUMN 2</ColumnsPageColumn>
+      <ColumnsPageColumn transitionType="slideInRight">
+        COLUMN 2
+      </ColumnsPageColumn>
     </ColumnsPageContainer>
   );
 }
