@@ -20,7 +20,7 @@ import Modal from "~/components/buildingBlocks/modal";
 import LabelValue from "~/components/buildingBlocks/labelValue";
 import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import Divider from "~/components/buildingBlocks/divider";
-import { OpenCharacterView } from "~/lib/db/character.server";
+import type { OpenCharacterView } from "~/lib/db/character.server";
 import { Avatar } from "~/components/buildingBlocks/avatar";
 
 export default function CharacterCardMini({
@@ -34,20 +34,20 @@ export default function CharacterCardMini({
   const navigate = useNavigate();
   return (
     <Flex
-      className={`w-full shadow-shadow3D p-2  ${bgColor} bg-darkVioletGrad ${borderShadow}`}
+      className={`w-full h-fit shadow-shadow3D p-2 ${bgColor} bg-darkVioletGrad ${borderShadow}`}
       onClick={() => {
         navigate("/");
       }}
     >
-      <HStack className="justify-between w-full bg-white" gap="gap-1">
-        <Avatar src="images/icons/profileIcon.png" />
+      <HStack className="justify-between w-full">
+        <Avatar size="md" src="/images/icons/profileIcon.png" />
 
         <VStack
           className="w-full text-shadow-dvTextShadow"
           align="start"
           gap="gap-0"
         >
-          <Text className={`${cursiveText} text-[23px] xxl:text-[25px]`}>
+          <Text className={`${cursiveText} text-[25px] xxl:text-[28px]`}>
             {character.name}
           </Text>
 
@@ -99,7 +99,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   // console.log("story: ", story);
 
   return (
-    <Flex className="w-full h-fit lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5">
+    <Flex className="w-full h-fit min-h-fit lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5">
       <Flex className="w-full lg:w-40% justify-center lg:h-full lg:items-center">
         <VStack className="w-full h-full gap-4">
           <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg ">
