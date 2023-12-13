@@ -21,8 +21,7 @@ export default function StoryCard({
   hideDate = false,
 }: StoryCardProps) {
   const navigate = useNavigate();
-  // const imagePath = story?.imageUrl
-  const imagePath = "/images/placeholderImage.png";
+  const imagePath = story?.imageUrl;
   return (
     <Flex
       className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100`}
