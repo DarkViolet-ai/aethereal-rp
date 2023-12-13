@@ -1,16 +1,16 @@
-import { borderShadow, cursiveText } from "~/css/styles";
+import {
+  borderShadow,
+  cardWidths,
+  colMaxWidths,
+  cursiveText,
+  headingSizes,
+  textSizes,
+  titleSizes,
+} from "~/css/styles";
 import Flex from "./flex";
 import Text from "./text";
 import VStack from "./vStack";
-import Transition, { TransitionType } from "./transition";
-
-const colMaxWidths = "w-full md:w-80% lg:w-full xxl:w-90% xxxl:w-80% ";
-const cardWidths = "w-98% sm:w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
-const textSizes =
-  "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] xxl:text-[23px] leading-[27px]";
-const titleSizes =
-  "text-[33px] md:text-[40px] lg:text-[42px] xl:text-[44px] xxl:text-[46px] xxxl:text-[50px]";
-const headingSizes = `${cursiveText} text-[40px] leading-[44px] xl:text-[42px] xl:leading-[46px] xxl:text-[44px] xxl:leading-[48px] xxxl:text-[46px] xxxl:leading-[52px]`;
+import Transition, { type TransitionType } from "./transition";
 
 export function ColumnsPageHeader({
   title,
@@ -79,10 +79,10 @@ export function ColumnsPageContainer({
     transitionScreenSize = `xxl:flex-row xxl:overflow-y-hidden xxl:gap-[10px] xxl:items-start ${columnGap}`;
     scrollStyles = "xxl:overflow-y-hidden xxl:h-full";
     alignment = "xxl:items-start";
-  } else if (transitionScreen === "xxxl") {
-    transitionScreenSize = `xxxl:flex-row xxxl:overflow-y-hidden xxxl:gap-[10px] xxxl:items-start ${columnGap}`;
-    scrollStyles = "xxxl:overflow-y-hidden xxxl:h-full";
-    alignment = "xxxl:items-start";
+  } else if (transitionScreen === "fullHD") {
+    transitionScreenSize = `fullHD:flex-row fullHD:overflow-y-hidden fullHD:gap-[10px] fullHD:items-start ${columnGap}`;
+    scrollStyles = "fullHD:overflow-y-hidden fullHD:h-full";
+    alignment = "fullHD:items-start";
   } else {
     transitionScreenSize = "";
     scrollStyles = "";
@@ -145,9 +145,9 @@ export function ColumnsPageColumn({
   } else if (transitionScreen === "xxl") {
     columnSize = "xxl:w-1/2";
     transitionHeight = "xxl:h-full ";
-  } else if (transitionScreen === "xxxl") {
-    columnSize = "xxxl:w-1/2";
-    transitionHeight = "xxxl:h-full";
+  } else if (transitionScreen === "fullHD") {
+    columnSize = "fullHD:w-1/2";
+    transitionHeight = "fullHD:h-full";
   } else {
     columnSize = "";
     transitionHeight = "";
@@ -169,7 +169,7 @@ export function ColumnsPageColumn({
           >
             {" "}
             <VStack
-              className={`w-full  h-fit gap-0 pb-4 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
+              className={`w-full h-fit gap-0 pb-4 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
             >
               {heading && (
                 <Flex
