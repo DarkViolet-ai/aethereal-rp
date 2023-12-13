@@ -44,6 +44,7 @@ export const getUserStories = async (
       characters: storyCharacterQuery,
       id: true,
       title: true,
+      imageUrl: true,
       summary: true,
       createdAt: true,
       updatedAt: true,
@@ -59,6 +60,7 @@ export const getUserStories = async (
       id: true,
       title: true,
       summary: true,
+      imageUrl: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -72,6 +74,7 @@ export type StorySummaryData = Prisma.StoryGetPayload<{
     title: true;
     summary: true;
     characters: StoryCharacterQueryType;
+    imageUrl: true;
     createdAt: true;
     updatedAt: true;
   };
