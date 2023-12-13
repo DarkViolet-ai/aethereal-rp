@@ -21,6 +21,7 @@ export type StoryCharacterQueryType = {
     description: true;
     id: true;
     storyId: true;
+    avatar: true;
   };
 };
 
@@ -36,6 +37,7 @@ export const storyCharacterQuery = {
     name: true,
     description: true,
     storyId: true,
+    avatar: true,
   },
 };
 

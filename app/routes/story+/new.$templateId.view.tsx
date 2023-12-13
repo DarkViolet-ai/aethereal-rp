@@ -20,7 +20,7 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
 
 export const action = async ({ request, params }: DataFunctionArgs) => {
   const authorId = await requireUserId(request);
-  const storyTemplateId = params.storyTemplateId as string;
+  const storyTemplateId = params.templateId as string;
 
   const story = await createStoryFromTemplate({
     templateId: storyTemplateId,
@@ -55,10 +55,10 @@ export default function TemplateDisplay() {
       </HStack>
       <HStack className="w-full">
         <Form method="post">
-          <Button>Begin Story</Button>
+          <Button type="submit">Begin Story</Button>
         </Form>
 
-        <Button type="submit">Edit</Button>
+        <Button>Edit</Button>
       </HStack>
     </VStack>
   );
