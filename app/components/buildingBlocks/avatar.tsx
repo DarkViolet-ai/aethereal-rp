@@ -55,7 +55,7 @@ export const Avatar = ({
       } border-[1.5px] border-solid border-dv-400 shadow-dvShadow flex items-center justify-center text-dv-400 bg-dv-900`}
     >
       {src ? (
-        <img src={src} alt={name} />
+        <img src={src || "/images/icons/profileIcon.png"} alt={name} />
       ) : (
         <span>{name ? getInitials(name) : "N/A"}</span>
       )}

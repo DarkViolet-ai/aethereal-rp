@@ -2,14 +2,13 @@ import { borderShadow, cursiveText, textSizes } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text from "../../components/buildingBlocks/text";
 import { useNavigate } from "@remix-run/react";
-import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import HStack from "../../components/buildingBlocks/hStack";
 import VStack from "../../components/buildingBlocks/vStack";
 import Image from "../../components/buildingBlocks/image";
 
 import FormatDate from "~/lib/utils/formatDate";
 import type { StorySummaryData } from "~/lib/db/user.server";
-import { StoryTemplate } from "@prisma/client";
+import type { StoryTemplate } from "@prisma/client";
 
 interface StoryCardProps {
   story: StorySummaryData | StoryTemplate;
@@ -22,10 +21,11 @@ export default function StoryCard({
   hideDate = false,
 }: StoryCardProps) {
   const navigate = useNavigate();
-  const imagePath = story?.imageUrl;
+  // const imagePath = story?.imageUrl
+  const imagePath = "/images/placeholderImage.png";
   return (
     <Flex
-      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover`}
+      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
