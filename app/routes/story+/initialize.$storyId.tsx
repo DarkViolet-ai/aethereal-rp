@@ -3,7 +3,7 @@ import Box from "~/components/buildingBlocks/box";
 import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
 import Text from "~/components/buildingBlocks/text";
-import { borderShadow } from "~/css/styles";
+import { borderShadow, headerFooterPadding } from "~/css/styles";
 import { getStory } from "~/lib/db/story.server";
 import useStatusStream from "~/lib/hooks/useStatusStream";
 import { Link, Outlet, useParams, useRevalidator } from "@remix-run/react";
@@ -34,7 +34,9 @@ export default function Setup() {
   }, [data]);
 
   return (
-    <Flex className="w-full h-full justify-center pt-[50px] pb-[35px] items-center">
+    <Flex
+      className={`w-full h-full justify-center ${headerFooterPadding} items-center`}
+    >
       <VStack className="w-full p-4" gap="gap-5">
         <Box
           className={`w-11/12 md:w-3/4 xl:w-2/3 xxl:w-1/2 h-[400px] ${borderShadow}`}

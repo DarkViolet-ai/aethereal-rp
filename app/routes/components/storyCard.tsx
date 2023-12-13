@@ -43,7 +43,12 @@ export default function StoryCard({
           </VStack>
         </VStack>
         <Flex className="h-[100px] w-[100px] flex-shrink-0">
-          <Image src={imagePath} alt={story.title} h="100%" w="100%" />
+          <Image
+            src={imagePath || "/images/placeholderImage.png"}
+            alt={story.title}
+            h="100%"
+            w="100%"
+          />
         </Flex>
       </HStack>
     </Flex>

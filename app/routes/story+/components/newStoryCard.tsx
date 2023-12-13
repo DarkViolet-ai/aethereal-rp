@@ -26,7 +26,7 @@ export default function NewStoryCard({
           <Flex className="pt-3">
             {newTemplate ? (
               <Text
-                className={`${cursiveText} text-shadow-boldTextGlow text-dv-900 text-[33px] leading-[35px] xxxl:text-[45px] xxxl:leading-[48px]`}
+                className={`${cursiveText} text-shadow-boldTextGlow text-dv-900 text-[33px] leading-[35px] fullHD:text-[45px] fullHD:leading-[48px]`}
               >
                 Click here to start from scratch, or choose a template below.
               </Text>

@@ -28,23 +28,22 @@ export const highlightedText =
   "text-dv-400 text-shadow-dvTextShadow font-semibold";
 export const defaultOverlayColor = "bg-dv-850";
 export const defaultOverlayBlur = "backdrop-blur-sm";
-
+export const headerFooterPadding =
+  "pt-[50px] pb-[35px] quadHD:pt-[75px] ultraHD:pt-[150px]";
 export const colMaxWidths =
-  "w-full md:w-80% lg:w-full xxl:w-90% xxxl:w-75% justify-center";
+  "w-full md:w-80% lg:w-full xxl:w-90% fullHD:w-75% justify-center";
 export const textSizes =
-  "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] xxl:text-[23px] leading-[27px]";
+  "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] fullHD:text-[20px] fullHD:leading-[24px] quadHD:text-[30px] quadHD:leading-[35px] ultraHD:text-[40px] ultraHD:leading-[46px]";
 export const cardWidths =
   "w-98% sm:max-w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
 export const titleSizes =
-  "text-[33px] md:text-[40px] lg:text-[42px] xl:text-[44px] xxl:text-[46px] xxxl:text-[50px]";
-export const headingSizes =
-  "text-[40px] xl:text-[42px] xxl:text-[44px] xxxl:text-[46px]";
+  "text-[33px] leading-[35px] md:text-[40px] md:leading-[44px] lg:text-[42px] lg:leading-[46px] xl:text-[44px] xl:leading-[48px] xxl:text-[46px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px] quadHD:text-[60px] quadHD:leading-[65px] ultraHD:text-[80px] ultraHD:leading-[85px]";
+export const headingSizes = `${cursiveText} text-[40px] leading-[44px] xl:text-[42px] xl:leading-[46px] xxl:text-[44px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px]quadHD:text-[60px]  quadHD:leading-[66px] ultraHD:text-[70px] ultraHD:leading-[77px]`;
 
 // CARD COLORS
 export const cardColors = [
   "bg-dv-500",
   "bg-dv-600",
-
   "bg-dv-300",
   "bg-dv-500",
   "bg-purple",
