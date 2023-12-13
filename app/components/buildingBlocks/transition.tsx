@@ -3,7 +3,7 @@
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import React, { type ReactNode } from "react";
 
-type TransitionType =
+export type TransitionType =
   | "fade"
   | "scale"
   | "slide"
@@ -110,7 +110,7 @@ export default function Transition({
   return (
     <AnimatePresence>
       <motion.div
-        className={className}
+        className={`flex justify-center ${className}`}
         key={type}
         variants={transitionVariants[type]}
         initial="initial"
