@@ -20,6 +20,22 @@ export const createStoryTemplate = async (
   return storyTemplate;
 };
 
+export const updateStoryTemplate = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: Prisma.StoryTemplateUpdateInput;
+}) => {
+  const storyTemplate = await prisma.storyTemplate.update({
+    where: {
+      id,
+    },
+    data,
+  });
+  return storyTemplate;
+};
+
 export const createTemplateFromStory = async (storyId: string) => {
   const story = await prisma.story.findUnique({
     where: {
@@ -44,7 +60,7 @@ export const updateTemplateImage = async ({
   imageUrl,
 }: {
   id: string;
-  imageUrl: string;
+  imageUrl: string | null;
 }) => {
   const template = await prisma.storyTemplate.update({
     where: {

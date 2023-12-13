@@ -135,7 +135,7 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
     const storyTemplate = await getStoryTemplate({ id });
     if (storyTemplate?.imageUrl) {
       //removing the url here will trigger update on the loader.
-      await updateImageInStory({ storyId: storyTemplate.id, imageUrl: null });
+      await updateTemplateImage({ id: storyTemplate.id, imageUrl: null });
       return typedjson({ status: "ok" });
     }
   } else {

@@ -9,6 +9,7 @@ import { useTypedLoaderData } from "remix-typedjson";
 import type { UserStoriesLoaderData } from "../index";
 import NewStoryCard from "../story+/components/newStoryCard";
 import Transition from "~/components/buildingBlocks/transition";
+import { NavLink } from "@remix-run/react";
 
 export default function StoriesCharacters() {
   const { stories, activeStories, availableCharacters } =
@@ -33,7 +34,9 @@ export default function StoriesCharacters() {
               className={`w-full h-fit lg:full overflow-y-auto justify-center`}
             >
               <VStack className={`w-full py-3 px-3 gap-4 ${cardWidths}`}>
-                <NewStoryCard />
+                <NavLink to="/story/new" style={{ width: "100%" }}>
+                  <NewStoryCard />
+                </NavLink>
                 {allStories.map((story, index) => {
                   return (
                     <StoryCard

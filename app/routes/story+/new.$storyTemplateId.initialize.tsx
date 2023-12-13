@@ -16,5 +16,5 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
     authorId,
   });
   await submitStoryInitiation({ storyId: story.id });
-  return redirect(`/story/initialize/${story.id}`);
+  return redirect(`/story/char-select/${story.id}`);
 };
