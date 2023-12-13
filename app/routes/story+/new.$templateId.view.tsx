@@ -37,8 +37,8 @@ export default function TemplateDisplay() {
       <Flex className="w-full justify-center">
         <Flex className="w-[300px] shadow-dvShadow">
           <Image
-            // src={storyTemplate?.imageUrl}
-            src="/images/stories/create_a_new_story.png"
+            src={storyTemplate?.imageUrl || ""}
+            // src="/images/stories/create_a_new_story.png"
             alt={storyTemplate?.title || "template image"}
             h="100%"
             w="100%"

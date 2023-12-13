@@ -1,4 +1,4 @@
-import { Character, Story } from "@prisma/client";
+import { Character, Story, StoryTemplate } from "@prisma/client";
 import { DataFunctionArgs } from "@remix-run/node";
 import { Form, useRevalidator } from "@remix-run/react";
 import { createServerClient } from "@supabase/auth-helpers-remix";
@@ -14,10 +14,14 @@ import {
   updateCharacterAvatar,
 } from "~/lib/db/character.server";
 import { getStory, updateImageInStory } from "~/lib/db/story.server";
+import {
+  getStoryTemplate,
+  updateTemplateImage,
+} from "~/lib/db/storyTemplate.server";
 import { dvError } from "~/lib/utils/dvError";
 import { redis } from "~/lib/utils/redis.server";
 
-const storyImagePrompt = (story: Story) => {
+const storyImagePrompt = (story: Story | StoryTemplate) => {
   const { title, summary } = story;
   return `Create an imaginative and visually stunning artwork inspired by the story titled ${title}.
   with the following description: ${summary}.
@@ -79,7 +83,28 @@ export const storyImageLoader = async (storyId: string) => {
     });
     const imageCandidateUrl = response.data[0].url;
     // debounce the image generation
-    imageCandidateUrl && (await redis.setex(imageKey, 3000, imageCandidateUrl));
+    imageCandidateUrl && (await redis.setex(imageKey, 10, imageCandidateUrl));
+    return typedjson({ imageCandidateUrl, imageUrl: null });
+  }
+  return typedjson({ imageUrl, imageCandidateUrl: null });
+};
+
+export const storyTemplateImageLoader = async (storyId: string) => {
+  const storyTemplate = await getStoryTemplate({ id: storyId });
+  if (!storyTemplate) throw dvError.notFound("Story template not found");
+  const { imageUrl } = storyTemplate;
+  if (!imageUrl) {
+    const imageKey = `image:story-template:${storyTemplate.id}`;
+    const cachedImageUrl = await redis.get(imageKey);
+    if (cachedImageUrl) {
+      return typedjson({ imageUrl: cachedImageUrl, imageCandidateUrl: null });
+    }
+    const response = await openaiImageGenerator({
+      prompt: storyImagePrompt(storyTemplate),
+    });
+    const imageCandidateUrl = response.data[0].url;
+    // debounce the image generation
+    imageCandidateUrl && (await redis.setex(imageKey, 10, imageCandidateUrl));
     return typedjson({ imageCandidateUrl, imageUrl: null });
   }
   return typedjson({ imageUrl, imageCandidateUrl: null });
@@ -90,6 +115,8 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
   const id = params.id as string;
   if (imageType === "story") {
     return storyImageLoader(id);
+  } else if (imageType === "story-template") {
+    return storyTemplateImageLoader(id);
   }
   return characterImageLoader(id);
 };
@@ -102,6 +129,13 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
     if (story?.imageUrl) {
       //removing the url here will trigger update on the loader.
       await updateImageInStory({ storyId: story.id, imageUrl: null });
+      return typedjson({ status: "ok" });
+    }
+  } else if (imageType === "story-template") {
+    const storyTemplate = await getStoryTemplate({ id });
+    if (storyTemplate?.imageUrl) {
+      //removing the url here will trigger update on the loader.
+      await updateImageInStory({ storyId: storyTemplate.id, imageUrl: null });
       return typedjson({ status: "ok" });
     }
   } else {
@@ -146,6 +180,8 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 
   imageType === "story"
     ? await updateImageInStory({ storyId: id, imageUrl: newIMageUrl })
+    : imageType === "story-template"
+    ? await updateTemplateImage({ id, imageUrl: newIMageUrl })
     : await updateCharacterAvatar({ characterId: id, avatar: newIMageUrl });
   return typedjson({ status: "ok" });
 };
@@ -153,6 +189,7 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 export default function NewImage() {
   const { revalidate } = useRevalidator();
   const { imageUrl, imageCandidateUrl } = useTypedLoaderData<typeof loader>();
+  console.log({ imageUrl, imageCandidateUrl });
   return (
     <div className="w-full h-full overflow-y-auto">
       <h1>Image</h1>

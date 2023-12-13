@@ -39,7 +39,7 @@ export const getAllTemplates = async () => {
   return templates;
 };
 
-export const setTemplateImage = async ({
+export const updateTemplateImage = async ({
   id,
   imageUrl,
 }: {
