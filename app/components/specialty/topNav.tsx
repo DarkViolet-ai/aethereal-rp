@@ -1,7 +1,7 @@
 import Box from "../buildingBlocks/box";
 import Flex from "../buildingBlocks/flex";
 import Image from "../buildingBlocks/image";
-import { useLocation, useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams } from "@remix-run/react";
 import Drawer from "../buildingBlocks/drawer";
 import { MdOutlineGroups2 } from "react-icons/md/index.js";
 import { TempCharacterList } from "~/css/styles";
@@ -15,9 +15,9 @@ export default function TopNav() {
   // console.log(characters);
 
   return (
-    <Flex className="fixed top-0 left-0 flex-row justify-between items-center w-full h-[50px] quadHD:h-[75px] ultraHD:h-[100px] bg-dv-990 rounded-none shadow-shadow3D px-2 flex-shrink-0 z-50">
+    <Flex className="fixed top-0 left-0 flex-row justify-between items-center w-full h-[50px] quadHD:h-[75px] ultraHD:h-[150px] bg-dv-990 rounded-none shadow-shadow3D px-2 flex-shrink-0 z-50">
       <Box
-        className="h-[38px] w-[300px] sm:h-[48px] quadHD:h-[65px] ultraHD:h-[90px] sm:w-[390px] fullHD:w-fit absolute bottom-0 left-2 hover:cursor-pointer"
+        className="h-[38px] w-[302px] sm:h-[48px] sm:w-[381px] quadHD:h-[65px] quadHD:w-[516px] ultraHD:h-[130px] ultraHD:w-[1032px] absolute bottom-0 left-2 hover:cursor-pointer"
         onClick={() => navigate("/")}
       >
         <Image src="/images/core/aetherealLogo.png" alt="main logo" />
