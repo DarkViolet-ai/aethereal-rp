@@ -7,7 +7,7 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
   const id = params.templateId;
   if (!id) {
     return typedjson({
-      storyTemplate: { title: "", summary: "" },
+      storyTemplate: { title: "", summary: "", imageUrl: "" },
     });
   }
   return typedjson({
@@ -21,6 +21,7 @@ export default function TemplateEdit() {
     <EditTemplate
       title={storyTemplate?.title || ""}
       summary={storyTemplate?.summary || ""}
+      imagePath={storyTemplate?.imageUrl || ""}
     />
   );
 }
