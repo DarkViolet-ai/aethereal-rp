@@ -371,3 +371,21 @@ export const duplicateStoryForUser = async ({
     content: story.content,
   });
 };
+
+export const updateImageInStory = async ({
+  storyId,
+  imageUrl,
+}: {
+  storyId: string;
+  imageUrl: string | null;
+}) => {
+  const story = await prisma.story.update({
+    where: {
+      id: storyId,
+    },
+    data: {
+      imageUrl,
+    },
+  });
+  return story;
+};
