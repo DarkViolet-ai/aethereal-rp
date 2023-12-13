@@ -17,7 +17,6 @@ import NewStoryCard from "./components/newStoryCard";
 import StoryCard from "../components/storyCard";
 import { cardColors } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
-import Transition from "~/components/buildingBlocks/transition";
 import { NavLink, Outlet } from "@remix-run/react";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {

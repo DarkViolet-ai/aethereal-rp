@@ -236,6 +236,7 @@ export default {
         xl: "1280px",
         xxl: "1536px",
         xxxl: "1850px",
+        hd: ""
       },
       boxShadow: {
         dvShadow: "2px 2px 8px rgba(0, 0, 0, 0.9)",
