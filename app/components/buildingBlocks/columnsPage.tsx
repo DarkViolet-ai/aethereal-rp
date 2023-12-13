@@ -3,9 +3,10 @@ import {
   cardWidths,
   colMaxWidths,
   cursiveText,
-  headingSizes,
+  columnHeaderSizes,
   textSizes,
   titleSizes,
+  headingSizes,
 } from "~/css/styles";
 import Flex from "./flex";
 import Text from "./text";
@@ -49,7 +50,7 @@ export function ColumnsPageContainer({
   topNavPadding = "pt-50px",
   rowGap = "gap-[40px]",
   columnGap = "gap-[50px]",
-  pt = "pt-[10px]",
+  pt,
 }: {
   children?: React.ReactNode;
   title?: string;
@@ -98,7 +99,7 @@ export function ColumnsPageContainer({
           <ColumnsPageHeader title={title} subtitle={subtitle} />
         )}
         <VStack
-          className={`h-full w-full pt-50px justify-center overflow-y-hidden gap-0`}
+          className={`h-full w-full justify-center overflow-y-hidden gap-0`}
         >
           <Flex
             className={`w-98% h-full flex-col items-center overflow-y-auto py-2 ${transitionScreenSize} ${alignment}} ${pt} ${rowGap}`}
@@ -135,19 +136,19 @@ export function ColumnsPageColumn({
 
   if (transitionScreen === "md") {
     columnSize = "md:w-1/2";
-    transitionHeight = "md:h-full ";
+    transitionHeight = "md:h-full overflow-y-auto";
   } else if (transitionScreen === "lg") {
     columnSize = "lg:w-1/2";
-    transitionHeight = "lg:h-full";
+    transitionHeight = "lg:h-full overflow-y-auto";
   } else if (transitionScreen === "xl") {
     columnSize = "xl:w-1/2";
-    transitionHeight = "xl:h-full";
+    transitionHeight = "xl:h-full  overflow-y-auto";
   } else if (transitionScreen === "xxl") {
     columnSize = "xxl:w-1/2";
-    transitionHeight = "xxl:h-full ";
+    transitionHeight = "xxl:h-full  overflow-y-auto";
   } else if (transitionScreen === "fullHD") {
     columnSize = "fullHD:w-1/2";
-    transitionHeight = "fullHD:h-full";
+    transitionHeight = "fullHD:h-full  overflow-y-auto";
   } else {
     columnSize = "";
     transitionHeight = "";
@@ -155,7 +156,7 @@ export function ColumnsPageColumn({
 
   return (
     <Flex
-      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[20px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight}`}
+      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[0px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight}`}
     >
       <Flex
         className={`w-full h-fit justify-center align-start ${transitionHeight}`}
@@ -173,7 +174,7 @@ export function ColumnsPageColumn({
             >
               {heading && (
                 <Flex
-                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3 py-1 border-b-2 border-b-dv-225 ${headingSizes}`}
+                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3 py-1 border-b-2 border-b-dv-225 ${columnHeaderSizes}`}
                 >
                   {heading}
                 </Flex>

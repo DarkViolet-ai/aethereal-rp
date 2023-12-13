@@ -31,7 +31,7 @@ export default function StoryTemplate() {
   return (
     <ColumnsPageContainer transitionScreen="lg">
       <ColumnsPageColumn heading="Start a Story" transitionType="slideInLeft">
-        <VStack className="w-full gap-5">
+        <VStack className="w-full gap-5 fullHD:gap-7 quadHD:gap-9 ultraHD:gap-12">
           <NavLink to="edit" style={{ width: "100%" }}>
             <NewStoryCard newTemplate />
           </NavLink>

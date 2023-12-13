@@ -1,7 +1,7 @@
 import Text from "~/components/buildingBlocks/text";
 import Flex from "../../components/buildingBlocks/flex";
 import VStack from "../../components/buildingBlocks/vStack";
-import { cursiveText, headingSizes } from "~/css/styles";
+import { cursiveText, columnHeaderSizes } from "~/css/styles";
 import HStack from "~/components/buildingBlocks/hStack";
 import { NavLink } from "@remix-run/react";
 
@@ -56,7 +56,9 @@ export default function CardContainer({
             <MobileHeading />
           </Flex>
           <Flex className="w-full h-full justify-center items-center hidden lg:flex">
-            <Text className={`${cursiveText} ${headingSizes}`}>{heading}</Text>
+            <Text className={`${cursiveText} ${columnHeaderSizes}`}>
+              {heading}
+            </Text>
           </Flex>
         </Flex>
         {children}
