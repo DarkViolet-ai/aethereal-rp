@@ -38,3 +38,21 @@ export const getAllTemplates = async () => {
   const templates = await prisma.storyTemplate.findMany();
   return templates;
 };
+
+export const updateTemplateImage = async ({
+  id,
+  imageUrl,
+}: {
+  id: string;
+  imageUrl: string;
+}) => {
+  const template = await prisma.storyTemplate.update({
+    where: {
+      id,
+    },
+    data: {
+      imageUrl,
+    },
+  });
+  return template;
+};

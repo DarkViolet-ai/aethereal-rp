@@ -9,9 +9,10 @@ import Image from "../../components/buildingBlocks/image";
 
 import FormatDate from "~/lib/utils/formatDate";
 import type { StorySummaryData } from "~/lib/db/user.server";
+import { StoryTemplate } from "@prisma/client";
 
 interface StoryCardProps {
-  story: StorySummaryData;
+  story: StorySummaryData | StoryTemplate;
   bgColor: string;
   hideDate?: boolean;
 }
@@ -21,7 +22,7 @@ export default function StoryCard({
   hideDate = false,
 }: StoryCardProps) {
   const navigate = useNavigate();
-  const imagePath = GetStoryImagePath(story.title);
+  const imagePath = story?.imageUrl;
   return (
     <Flex
       className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover`}
