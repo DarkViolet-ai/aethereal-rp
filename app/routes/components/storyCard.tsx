@@ -9,9 +9,10 @@ import Image from "../../components/buildingBlocks/image";
 
 import FormatDate from "~/lib/utils/formatDate";
 import type { StorySummaryData } from "~/lib/db/user.server";
+import { StoryTemplate } from "@prisma/client";
 
 interface StoryCardProps {
-  story: StorySummaryData;
+  story: StorySummaryData | StoryTemplate;
   bgColor: string;
   hideDate?: boolean;
 }

@@ -18,7 +18,7 @@ import StoryCard from "../components/storyCard";
 import { cardColors } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
 import Transition from "~/components/buildingBlocks/transition";
-import { Outlet } from "@remix-run/react";
+import { NavLink, Outlet } from "@remix-run/react";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const templates = await getAllTemplates();
@@ -35,12 +35,14 @@ export default function StoryTemplate() {
         <VStack className="w-full gap-4">
           <NewStoryCard newTemplate />
           {templates.map((template, index) => (
-            <StoryCard
-              hideDate
-              key={template.id}
-              story={template}
-              bgColor={cardColors[index % cardColors.length]}
-            />
+            <NavLink to={`/story/new/${template.id}/view`} key={template.id}>
+              <StoryCard
+                hideDate
+                key={template.id}
+                story={template}
+                bgColor={cardColors[index % cardColors.length]}
+              />
+            </NavLink>
           ))}
         </VStack>
       </ColumnsPageColumn>

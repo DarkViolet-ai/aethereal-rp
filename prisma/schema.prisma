@@ -122,6 +122,7 @@ model StoryTemplate {
   id        String   @id @default(uuid())
   title     String
   summary   String?
+  imageUrl  String?
   usedIn    Story[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
