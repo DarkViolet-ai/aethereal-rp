@@ -70,32 +70,29 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
     await supabase.storage.getBucket("images");
   if (bucketError) {
     console.error(bucketError);
-    const { data, error } = await supabase.storage.createBucket("images", {
-      public: true,
-      allowedMimeTypes: ["image/png"],
-      fileSizeLimit: "2MB",
-    });
-    if (error) {
-      console.error(error);
-      return typedjson({ status: "error" });
-    }
+    return typedjson({ status: "error" });
   }
+
   const { data, error } = await supabase.storage
     .from("images")
-    .upload(`story/${story.id}.png`, file, { upsert: true });
+    .upload(`public/${story.id}.png`, file, { upsert: true });
   if (error) {
     console.error(error);
     return typedjson({ status: "error" });
   }
-  const newIMageUrl = data.path;
+  const newIMageUrl = supabase.storage
+    .from("images")
+    .getPublicUrl(`public/${story.id}.png`).data.publicUrl;
+
   await updateImageInStory({ storyId: story.id, imageUrl: newIMageUrl });
+  return typedjson({ status: "ok" });
 };
 
 export default function NewStoryImage() {
   const { revalidate } = useRevalidator();
   const { imageUrl, imageCandidateUrl } = useTypedLoaderData<typeof loader>();
   return (
-    <div>
+    <div className="w-full h-full overflow-y-auto">
       <h1>Image</h1>
       <img src={imageUrl ?? imageCandidateUrl} onLoad={(e) => {}} />
       <Form method="post">
