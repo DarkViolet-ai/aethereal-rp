@@ -92,10 +92,20 @@ export const getActiveOpenCharacters = async (): Promise<
   return characters;
 };
 
-export const getCharacter = async (id: string) => {
+export const getCharacter = async (
+  id: string
+): Promise<OpenCharacterView | null> => {
   const character = await prisma.character.findUnique({
     where: {
       id,
+    },
+    include: {
+      story: {
+        select: {
+          title: true,
+          summary: true,
+        },
+      },
     },
   });
   return character;
@@ -147,6 +157,24 @@ export const removeRolePlayer = async ({
     },
     data: {
       rolePlayerId: null,
+    },
+  });
+  return character;
+};
+
+export const updateCharacterAvatar = async ({
+  characterId,
+  avatar,
+}: {
+  characterId: string;
+  avatar: string | null;
+}) => {
+  const character = await prisma.character.update({
+    where: {
+      id: characterId,
+    },
+    data: {
+      avatar,
     },
   });
   return character;
