@@ -27,7 +27,7 @@ export default function InputVStack(
 ): React.ReactElement {
   return (
     <VStack
-      className={`${headingSizes} w-full props.className`}
+      className={`${headingSizes} leading-1rem w-full props.className`}
       align="start"
       style={props.style}
       gap="gap-0"

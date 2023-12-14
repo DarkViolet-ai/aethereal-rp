@@ -89,13 +89,14 @@ export default function LoginPanel() {
           {" "}
           <HStack className="w-full items-end justify-between h-30vh">
             <DarkViolet
+              name="6"
               className="w-30vw sm:w-[150px] fullHD:w-[175px] ultraHD:w-[350px]"
               b="bottom-0"
               l="left-1 md:left-2 fullHD:left-4"
             />
             <DarkViolet
               name="violetsRowSmall"
-              className="w-60vw sm:w-[150px] fullHD:w-[175px] ultraHD:w-[350px]"
+              className="w-[150px] fullHD:w-[175px] ultraHD:w-[350px]"
               b="bottom-0"
               r="right-1 md:right-2 fullHD:right-4"
             />
