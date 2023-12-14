@@ -11,6 +11,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   //return { userId };
   return eventStream(request.signal, (send) => {
     const handle = (statusMessage: string) => {
+      console.log("sending status message", statusMessage);
       send({
         data: String(statusMessage),
       });
