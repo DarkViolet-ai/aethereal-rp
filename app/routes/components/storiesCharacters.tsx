@@ -76,10 +76,19 @@ export default function StoriesCharacters() {
               {availableCharacters.map((character, index) => {
                 return (
                   <Flex className={`w-full px-2 ${cardWidths}`} key={index}>
-                    <CharacterCard
-                      character={character}
-                      bgColor={cardColors[index % cardColors.length]}
-                    />
+                    <NavLink
+                      to={`/story/${character.storyId}/${character.id}`}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <CharacterCard
+                        character={character}
+                        bgColor={cardColors[index % cardColors.length]}
+                      />
+                    </NavLink>
                   </Flex>
                 );
               })}{" "}

@@ -15,9 +15,12 @@ import Characters from "./components/characters";
 import HStack from "~/components/buildingBlocks/hStack";
 import type { DataFunctionArgs } from "@remix-run/node";
 import { getStory } from "~/lib/db/story.server";
-import { typedjson, useTypedLoaderData } from "remix-typedjson";
+import { redirect, typedjson, useTypedLoaderData } from "remix-typedjson";
 import type { StoryCharacter } from "~/lib/db/character.server";
 import Box from "~/components/buildingBlocks/box";
+import useStatusStream from "~/lib/hooks/useStatusStream";
+import { useEffect } from "react";
+import { useRevalidator } from "@remix-run/react";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const storyId = params.storyId as string;
@@ -29,6 +32,18 @@ export default function StoryId() {
   const { story } = useTypedLoaderData<typeof loader>();
   const characters = story?.characters || ([] as StoryCharacter[]);
   const paragraphs = story?.content.split("\n") || ([] as string[]);
+  const { revalidate } = useRevalidator();
+  if (!story) {
+    return redirect("/");
+  }
+  const data = useStatusStream(story.id);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      revalidate();
+    }
+  }, [data]);
 
   return (
     <>
