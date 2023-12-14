@@ -23,6 +23,7 @@ export type CreateStoryInput = {
   version?: number;
   characters?: { name: string; description: string }[];
   templateId?: string;
+  imageUrl?: string | null;
 };
 
 export const createStory = async ({
@@ -33,6 +34,7 @@ export const createStory = async ({
   version = 1,
   characters = [],
   templateId,
+  imageUrl = null,
 }: CreateStoryInput) => {
   const story = await prisma.story.create({
     data: {
@@ -89,6 +91,7 @@ export const createStoryFromTemplate = async ({
     isActive: false,
     version,
     templateId,
+    imageUrl: template?.imageUrl || null,
   });
 };
 

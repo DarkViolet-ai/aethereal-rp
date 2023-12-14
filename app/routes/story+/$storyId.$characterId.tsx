@@ -14,6 +14,7 @@ import { StoryStatus } from "@prisma/client";
 import { submitStoryGeneration, submitUserPrompt } from "~/lib/queue/queues";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import { DataFunctionArgs } from "@remix-run/node";
+import useStatusStream from "~/lib/hooks/useStatusStream";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const userId = await requireUserId(request);
@@ -59,7 +60,9 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 export default function StoryId() {
   const { story, isActiveCharacter, characterName } =
     useTypedLoaderData<typeof loader>();
+
   const storyId = story?.id;
+  const data = useStatusStream(storyId);
 
   // console.log(tempStory);
   return (
