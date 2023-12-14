@@ -6,12 +6,17 @@ import Drawer from "../buildingBlocks/drawer";
 import { MdOutlineGroups2 } from "react-icons/md/index.js";
 import { TempCharacterList } from "~/css/styles";
 import CharactersMenu from "~/routes/story+/components/characterMenu";
+import { useTypedRouteLoaderData } from "remix-typedjson";
+import { StoryLoaderData } from "~/routes/story+/$storyId.$characterId";
 
 export default function TopNav() {
   const navigate = useNavigate();
   const params = useParams();
+  const storyLoaderData = useTypedRouteLoaderData<StoryLoaderData>(
+    "routes/story+/$storyId.$characterId"
+  );
   const isStory = params.characterId !== undefined;
-  const characters = isStory && TempCharacterList.slice(0, 5);
+  const characters = isStory && storyLoaderData?.story?.characters;
   // console.log(characters);
 
   return (
@@ -35,7 +40,7 @@ export default function TopNav() {
           buttonTooltipPlacement="bottomLeft"
           overlayBlur="backdrop-blur-none"
         >
-          <CharactersMenu characters={characters} />
+          <CharactersMenu characters={characters || []} />
         </Drawer>
       )}
     </Flex>

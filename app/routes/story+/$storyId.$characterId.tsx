@@ -48,6 +48,8 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
   return typedjson({ story, isActiveCharacter, characterName: character.name });
 };
 
+export type StoryLoaderData = typeof loader;
+
 export const action = async ({ request, params }: DataFunctionArgs) => {
   const storyId = params.storyId as string;
   const characterId = params.characterId as string;
