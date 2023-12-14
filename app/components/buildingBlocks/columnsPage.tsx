@@ -7,7 +7,6 @@ import {
   titleSizes,
 } from "~/css/styles";
 import Flex from "./flex";
-import Text from "./text";
 import VStack from "./vStack";
 import Transition, { type TransitionType } from "./transition";
 
@@ -23,7 +22,7 @@ export function ColumnsPageHeader({
   titleFontStyles?: string;
 }) {
   return (
-    <VStack className={`w-full h-fit flex-shrink-0 pt-5 pb-3`}>
+    <VStack className={`w-full h-fit flex-shrink-0 pt-3 pb-3`}>
       {title && (
         <Flex
           className={`w-full h-fit flex-shrink-0 ${titleTextSizes} px-2 pt-3 justify-center ${titleFontStyles} text-shadow-dvTextShadow`}
@@ -32,7 +31,9 @@ export function ColumnsPageHeader({
         </Flex>
       )}
       {subtitle && (
-        <Flex className="w-full h-fit flex-shrink-0 justify-center">
+        <Flex
+          className={`w-full h-fit flex-shrink-0 justify-center bg-dv-950 p-2 md:p-3 xxl:p-4 text-shadow-dvTextShadow shadow-shadow3D xxl:w-98% fullHD:w-90% quadHD:w-85% ultraHD:w-80% ${textSizes}`}
+        >
           {subtitle}
         </Flex>
       )}
@@ -93,21 +94,17 @@ export function ColumnsPageContainer({
 
   return (
     <VStack
-      className={`h-fit w-99% ${topNavPadding} justify-center overflow-y-auto gap-0 ${scrollStyles}`}
+      className={`h-fit w-99% ${topNavPadding} justify-center gap-0 ${scrollStyles}`}
     >
-      <Flex className={`w-full h-full ${pt} justify-center `}>
-        {(title || subtitle) && (
+      {(title || subtitle) && (
+        <Flex className={`w-full h-fit ${pt} justify-center`}>
           <ColumnsPageHeader title={title} subtitle={subtitle} />
-        )}
-        <VStack
-          className={`h-full w-full justify-center overflow-y-hidden gap-0`}
-        >
-          <Flex
-            className={`w-98% h-full flex-col items-center overflow-y-auto py-2 ${transitionScreenSize} ${alignment}} ${pt} ${rowGap} ${pb}`}
-          >
-            {children}
-          </Flex>
-        </VStack>
+        </Flex>
+      )}{" "}
+      <Flex
+        className={`w-98% h-full flex-col items-center overflow-y-auto fullHD:py-2 ${transitionScreenSize} ${alignment}} ${pt} ${rowGap} ${pb}`}
+      >
+        {children}
       </Flex>
     </VStack>
   );
@@ -122,6 +119,7 @@ export function ColumnsPageColumn({
   bg = "bg-calmGrayBack bg-darkCyanGrad",
   transitionType = "fade",
   transitionClassName = "",
+  containerClassName = "",
 }: {
   children?: React.ReactNode;
   heading?: string;
@@ -131,6 +129,7 @@ export function ColumnsPageColumn({
   bg?: string;
   transitionType?: TransitionType;
   transitionClassName?: string;
+  containerClassName?: string;
 }) {
   let columnSize = "";
   let transitionHeight = "";
@@ -162,7 +161,7 @@ export function ColumnsPageColumn({
 
   return (
     <Flex
-      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[0px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight}`}
+      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[0px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight} ${containerClassName}}`}
     >
       <Flex
         className={`w-full h-fit justify-center align-start ${transitionHeight}`}
@@ -195,39 +194,5 @@ export function ColumnsPageColumn({
         </Transition>
       </Flex>
     </Flex>
-  );
-}
-
-// ----------------------------------------------- EXAMPLE USAGE ----------------------------------------------- //
-
-export function TempFlex() {
-  return (
-    <VStack className="w-full h-fit py-2 px-4 bg-dv-500 text-dv-900 shadow-dvShadow text-shadow-lightTextShadow font-semibold">
-      <Text>Content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-      <Text>more content</Text>
-    </VStack>
-  );
-}
-
-export default function OneToTwoColumnPage() {
-  return (
-    <ColumnsPageContainer title="This is a Title" transitionScreen="lg">
-      <ColumnsPageColumn>
-        <Text>Column One (without heading) Content</Text>
-        <TempFlex />
-      </ColumnsPageColumn>
-      <ColumnsPageColumn heading="Column Two">
-        <Text>Column Two (with heading)</Text>
-        <TempFlex />
-      </ColumnsPageColumn>
-    </ColumnsPageContainer>
   );
 }

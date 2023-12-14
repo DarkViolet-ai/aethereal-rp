@@ -1,3 +1,7 @@
+import {
+  ColumnsPageColumn,
+  ColumnsPageContainer,
+} from "~/components/buildingBlocks/columnsPage";
 import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
 import { topNavPadding } from "~/css/styles";
@@ -23,11 +27,19 @@ export const tempCharacter = {
 
 export default function EvsPlace() {
   return (
-    <Flex className={`w-full h-full justify-center ${topNavPadding} `}>
-      <VStack className="w-full max-w-[600px] px-3 pt-[50px]">
-        <CharacterCardMini character={tempCharacter} />
-        <CharacterCard character={tempCharacter} />
-      </VStack>
+    <Flex className={`w-full h-full ${topNavPadding} overflow-y-auto`}>
+      <ColumnsPageContainer>
+        <ColumnsPageColumn
+          heading="heading"
+          transitionType="slideInLeft"
+          containerClassName="bg-white"
+        >
+          Column One
+        </ColumnsPageColumn>
+        <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
+          Column Two
+        </ColumnsPageColumn>
+      </ColumnsPageContainer>
     </Flex>
   );
 }

@@ -36,9 +36,7 @@ export default function StoriesCharacters() {
               <Flex
                 className={`w-full h-fit lg:full overflow-y-auto justify-center`}
               >
-                <VStack
-                  className={`w-full pb-[20px] px-3 gap-4 pt-[10px]`}
-                >
+                <VStack className={`w-full pb-[20px] px-3 gap-4 pt-[10px]`}>
                   <NavLink
                     to="/story/new"
                     style={{
@@ -84,19 +82,10 @@ export default function StoriesCharacters() {
               {availableCharacters.map((character, index) => {
                 return (
                   <Flex className={`w-full px-2 ${cardWidths}`} key={index}>
-                    <NavLink
-                      to={`/story/${character.storyId}/${character.id}`}
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <CharacterCard
-                        character={character}
-                        bgColor={cardColors[index % cardColors.length]}
-                      />
-                    </NavLink>
+                    <CharacterCard
+                      character={character}
+                      bgColor={cardColors[index % cardColors.length]}
+                    />
                   </Flex>
                 );
               })}{" "}

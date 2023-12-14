@@ -8,13 +8,11 @@ import {
 import Flex from "../../components/buildingBlocks/flex";
 import Text from "../../components/buildingBlocks/text";
 import HStack from "../../components/buildingBlocks/hStack";
-import { useNavigate } from "@remix-run/react";
+import { NavLink } from "@remix-run/react";
 import VStack from "../../components/buildingBlocks/vStack";
 import Image from "../../components/buildingBlocks/image";
 // import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
-import { BsInfoSquareFill } from "react-icons/bs/index.js";
 import type { Character } from "@prisma/client";
-import Box from "../../components/buildingBlocks/box";
 import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
 import LabelValue from "~/components/buildingBlocks/labelValue";
@@ -31,13 +29,10 @@ export default function CharacterCardMini({
   bgColor?: string;
 }) {
   const [isModalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate();
   return (
     <Flex
-      className={`w-full h-fit shadow-shadow3D p-2 ${bgColor} bg-darkVioletGrad ${borderShadow}`}
-      onClick={() => {
-        navigate("/");
-      }}
+      className={`w-full h-fit shadow-shadow3D p-2 ${bgColor} bg-darkVioletGrad hover:cursor-pointer ${borderShadow} `}
+      onClick={() => setModalOpen(true)}
     >
       <HStack className="justify-between w-full">
         <Avatar size="md" src="/images/icons/profileIcon.png" />
@@ -55,19 +50,6 @@ export default function CharacterCardMini({
             <i>{character.story?.title}</i>
           </Text>
         </VStack>
-
-        <Box
-          className="shadow-dvShadow h-fit"
-          onClick={() => setModalOpen(true)}
-        >
-          <BsInfoSquareFill
-            className="text-white hover:cursor-pointer w-[30px] h-[30px] hover:text-dv-400 transition:all duration-300 ease-in-out"
-            onClick={(e: React.MouseEvent<SVGElement>) => {
-              e.stopPropagation();
-              setModalOpen(true);
-            }}
-          />
-        </Box>
       </HStack>
       <Modal
         setModalOpen={setModalOpen}
@@ -111,7 +93,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
             </Text>
 
             {/* Figure out this typescript issue. Summary is on the data and renders, but Typescript does not believe. */}
-            <Text className="text-center">{character.summary}</Text>
+            <Text className="text-center">{character.description}</Text>
           </VStack>
           <Divider />
           <LabelValue
@@ -161,6 +143,16 @@ export function CharacterCard({ character }: CharacterCardProps) {
               </VStack>
             </VStack>
           </VStack>
+          <NavLink
+            to={`/story/${character.storyId}/${character.id}`}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            GO TO
+          </NavLink>
         </VStack>
       </Flex>
     </Flex>
