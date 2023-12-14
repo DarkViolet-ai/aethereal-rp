@@ -1,10 +1,4 @@
-import {
-  TempCharacterList,
-  Stories,
-  borderShadow,
-  cardColors,
-  cursiveText,
-} from "~/css/styles";
+import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text from "../../components/buildingBlocks/text";
 import HStack from "../../components/buildingBlocks/hStack";
@@ -12,7 +6,6 @@ import { NavLink } from "@remix-run/react";
 import VStack from "../../components/buildingBlocks/vStack";
 import Image from "../../components/buildingBlocks/image";
 // import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
-import type { Character } from "@prisma/client";
 import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
 import LabelValue from "~/components/buildingBlocks/labelValue";
@@ -69,95 +62,64 @@ interface CharacterCardProps {
 }
 export function CharacterCard({ character }: CharacterCardProps) {
   const story = character.story;
-  const storyCharacters = TempCharacterList.filter(
-    (otherCharacter) =>
-      otherCharacter.storyId === character.storyId &&
-      otherCharacter.id !== character.id
-  );
-  const imagePath = GetStoryImagePath(story?.title || "");
-  //const paragraphs = story?.content.split("\n");
-  const [isModalOpen, setModalOpen] = useState(false);
+
+  // add character imagePath
+  const imagePath = "/images/placeholderImage.png";
 
   return (
     <Flex className="w-full h-fit min-h-full lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5 rounded-b-none">
-      <Flex className="w-full lg:w-40% justify-center lg:h-full lg:items-center">
-        <VStack className="w-full h-full gap-4">
-          <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg ">
-            <Image src={imagePath} alt={character.name} w="100%" h="100%" />
-          </Flex>
-          <VStack className="w-full" gap="gap-[20px]">
-            <Text className={`${cursiveText} text-[43px] mt-4`}>
-              {character.name}
-            </Text>
-
-            {/* Figure out this typescript issue. Summary is on the data and renders, but Typescript does not believe. */}
-            <Text className="text-center">{character.description}</Text>
-          </VStack>
-          <Divider />
-          <LabelValue
-            label="Story"
-            value={story?.title || "No title available."}
-            containerClassName="items-start lg:items-center"
-            valueClassName="italic"
-          />
-          <Divider className="flex lg:hidden" />
-        </VStack>
+      <Flex className="h-40vh w-40vh flex-shrink-0 shadow-dvShadow rounded-lg ">
+        <Image src={imagePath} alt={character.name} w="100%" h="100%" />
       </Flex>
-      <Flex className="w-full flex-col lg:w-60% lg:h-full lg:overflow-y-auto lg:px-6">
-        <VStack align="start w-full gap-[30px]">
-          {/* STORY TAGS */}
-
-          <VStack className="w-full gap-4 px-2 pb-2 h-fit ">
-            <VStack className="w-full gap-0">
-              <LabelValue label="Other Characters" />
-              <Flex className="w-full">
-                <VStack className="w-full px-4" align="start">
-                  {storyCharacters.map((character, index) => (
-                    <LabelValue
-                      key={index}
-                      direction="flex-row"
-                      label={storyCharacters[index].name}
-                      value={storyCharacters[index].summary}
-                    />
-                  ))}
-                </VStack>
-              </Flex>
+      <VStack className="w-full">
+        <Flex className="w-full lg:w-40% justify-center lg:h-full lg:items-center">
+          <VStack className="w-full h-full gap-4">
+            <VStack className="w-full" gap="gap-[20px]">
+              <Text className={`${cursiveText} text-[43px] mt-4`}>
+                {character.name}
+              </Text>
+              <Text className="text-center">{character.description}</Text>
             </VStack>
             <Divider />
-            <VStack className="w-full gap-0">
-              <LabelValue
-                label="Story Summary"
-                value={
-                  story?.summary ||
-                  "There is no summary available for this story."
-                }
-              />
-            </VStack>
+            <LabelValue
+              label="Story"
+              value={story?.title || "No title available."}
+              containerClassName="items-start lg:items-center"
+              valueClassName="italic"
+            />
+            <Divider className="flex lg:hidden" />
           </VStack>
-          <HStack className="w-full justify-around">
-            <NavLink
-              to={`/story/${character.storyId}/${character.id}`}
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Button>Story Details</Button>
-            </NavLink>
-            <NavLink
-              to={`/story/${character.storyId}/${character.id}`}
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Button>Play this Role</Button>
-            </NavLink>
-          </HStack>
-        </VStack>
-      </Flex>
+        </Flex>
+        <Flex className="w-full flex-col lg:w-60% lg:h-full lg:overflow-y-auto lg:px-6">
+          <VStack align="start w-full gap-[30px]">
+            <HStack className="w-full justify-around">
+              <NavLink
+                to={`/story/${character.storyId}/${character.id}`}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Button>Story Details</Button>
+              </NavLink>
+              <NavLink
+                to={`/story/${character.storyId}/${character.id}`}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Button>Play this Role</Button>
+              </NavLink>
+            </HStack>
+            <Flex className="w-full justify-center">
+              <Button>Generate Image</Button>
+            </Flex>
+          </VStack>
+        </Flex>
+      </VStack>
     </Flex>
   );
 }
