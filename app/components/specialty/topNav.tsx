@@ -4,7 +4,6 @@ import Image from "../buildingBlocks/image";
 import { useNavigate, useParams } from "@remix-run/react";
 import Drawer from "../buildingBlocks/drawer";
 import { MdOutlineGroups2 } from "react-icons/md/index.js";
-import { TempCharacterList } from "~/css/styles";
 import CharactersMenu from "~/routes/story+/components/characterMenu";
 import { useTypedRouteLoaderData } from "remix-typedjson";
 import { StoryLoaderData } from "~/routes/story+/$storyId.$characterId";
@@ -32,8 +31,8 @@ export default function TopNav() {
           icon={<MdOutlineGroups2 />}
           label="characters"
           buttonPos="absolute"
-          buttonT="top-2"
-          buttonR="right-2"
+          buttonT="top-2 quadHD:top-4 ultraHD:top-8"
+          buttonR="right-2 quadHD:right-4 ultraHD:right-8"
           slideDirection="top-right"
           drawerWidth="w-full max-w-[600px]"
           drawerHeight="h-full"

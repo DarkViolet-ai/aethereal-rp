@@ -30,8 +30,8 @@ interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
 export default function IconButton({
   icon,
   onClick,
-  className = "h-8 w-8 md:h-9 md:w-9",
-  iconSize = "text-[23px]",
+  className = "h-8 w-8 md:h-9 md:w-9 quadHD:h-12  quadHD:w-12 ultraHD:h-20 ultraHD:w-20",
+  iconSize = "text-[23px] quadHD:text-[30px] ultraHD:text-[50px]",
   isLoading = false,
   isDisabled = false,
   label,
