@@ -4,6 +4,8 @@ import {
   columnHeaderSizes,
   textSizes,
   headingSizes,
+  cardWidths,
+  containerPadding,
 } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text from "../../components/buildingBlocks/text";
@@ -30,10 +32,12 @@ export default function StoryCard({
   const imagePath = story?.imageUrl;
   return (
     <Flex
-      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100`}
+      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100 ${cardWidths}`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
-      <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
+      <HStack
+        className={`w-full h-full shadow-shadow3D justify-between ${containerPadding}`}
+      >
         <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
           <Text className={`${cursiveText} ${headingSizes} `}>
             <i>{story.title}</i>

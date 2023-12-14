@@ -6,6 +6,7 @@ import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
 import {
   borderShadow,
+  cardWidths,
   cursiveText,
   headingSizes,
   textSizes,
@@ -19,17 +20,19 @@ export default function NewStoryCard({
 }) {
   return (
     <Flex
-      className={`w-full p-6 shadow-shadow3D bg-dv-700 ${borderShadow} hover:cursor-pointer ${textSizes} story-card-hover`}
+      className={`w-full p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 shadow-shadow3D bg-dv-700 ${borderShadow} hover:cursor-pointer ${textSizes} story-card-hover ${cardWidths}`}
     >
       <HStack className="w-full h-full justify-between">
         <VStack
-          className="w-72% h-full text-shadow-dvTextShadow"
+          className="w-70% h-full text-shadow-dvTextShadow"
           align="start"
           gap="gap-5"
         >
           <Flex className="p-4">
             {newTemplate ? (
-              <Text className={`${cursiveText}  ${headingSizes}}`}>
+              <Text
+                className={`${cursiveText}  ${headingSizes}`}
+              >
                 Click here to start from scratch, or choose a template below.
               </Text>
             ) : (
@@ -47,7 +50,7 @@ export default function NewStoryCard({
             </Text>
           )}
         </VStack>
-        <Flex className="w-26% flex-shrink-0">
+        <Flex className="w-20% flex-shrink-0">
           <Image
             src="/images/stories/create_a_new_story.png"
             alt="create a new story"

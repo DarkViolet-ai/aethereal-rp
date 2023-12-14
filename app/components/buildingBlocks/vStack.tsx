@@ -3,9 +3,9 @@ import React from "react";
 interface VStackProps {
   children: React.ReactNode;
   gap?: string;
-  className?: string;
   style?: React.CSSProperties;
   align?: string;
+  className?: string;
 }
 
 export default function VStack({

@@ -1,10 +1,10 @@
 import { Outlet } from "@remix-run/react";
 import ResponsiveFlex from "~/components/buildingBlocks/responsiveFlex";
-import { headerFooterPadding } from "~/css/styles";
+import { topNavPadding } from "~/css/styles";
 
 export default function StoryIndex() {
   return (
-    <ResponsiveFlex className={`${headerFooterPadding}`}>
+    <ResponsiveFlex className={`${topNavPadding}`}>
       <Outlet />
     </ResponsiveFlex>
   );

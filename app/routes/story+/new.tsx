@@ -31,15 +31,25 @@ export default function StoryTemplate() {
   return (
     <ColumnsPageContainer transitionScreen="lg">
       <ColumnsPageColumn heading="Start a Story" transitionType="slideInLeft">
-        <VStack className="w-full gap-5 fullHD:gap-7 quadHD:gap-9 ultraHD:gap-12">
-          <NavLink to="edit" style={{ width: "100%" }}>
+        <VStack
+          className="w-full gap-5 fullHD:gap-7 quadHD:gap-9 ultraHD:gap-12 pb-[20px]"
+          align="center"
+        >
+          <NavLink
+            to="edit"
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
             <NewStoryCard newTemplate />
           </NavLink>
           {templates.map((template, index) => (
             <NavLink
               to={`/story/new/${template.id}/view`}
               key={template.id}
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                display: "flex",
+              }}
             >
               <StoryCard
                 hideDate
