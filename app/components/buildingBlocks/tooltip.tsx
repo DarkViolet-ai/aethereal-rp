@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { textSizes } from "~/css/styles";
 
 interface TooltipProps {
   label?: string;
@@ -72,7 +73,7 @@ export default function Tooltip({
         {/* Tooltip */}
         {isHovered && (
           <div
-            className={`text-shadow-lightTextShadow absolute ${placementStyles} justify-center px-2 py-1 z-30 leading-4 ${w} ${bg} ${color} ${fontSize} font-semibold rounded-sm shadow-dvShadow whitespace-nowrap`}
+            className={`text-shadow-lightTextShadow absolute ${placementStyles} justify-center px-2 py-1 z-30 leading-4 ${w} ${bg} ${color} ${fontSize} font-semibold rounded-sm shadow-dvShadow whitespace-nowrap ${textSizes}`}
           >
             {label}
           </div>

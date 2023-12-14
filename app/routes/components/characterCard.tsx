@@ -26,7 +26,7 @@ export function CharacterCardMini({
     character.avatar && avatar && avatar?.length > 0
       ? avatar
       : "/images/icons/profileIcon.png";
-  console.log(character);
+
   const [isModalOpen, setModalOpen] = useState(false);
   return (
     <Flex

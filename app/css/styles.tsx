@@ -33,7 +33,7 @@ export const topNavPadding =
 export const colMaxWidths =
   "w-96% md:w-80% lg:w-full xxl:w-90% fullHD:w-75% justify-center";
 export const textSizes =
-  "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] fullHD:text-[20px] fullHD:leading-[24px] quadHD:text-[35px] quadHD:leading-[40px] ultraHD:text-[50px] ultraHD:leading-[46px]";
+  "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] fullHD:text-[22px] fullHD:leading-[28px] quadHD:text-[32px] quadHD:leading-[40px] ultraHD:text-[45px] ultraHD:leading-[55px]";
 export const cardWidths = "w-97% sm:w-90% md:w-90% lg:w-95% xl:w-90% xxl:w-88%";
 export const titleSizes =
   "text-[33px] leading-[35px] md:text-[40px] md:leading-[44px] lg:text-[42px] lg:leading-[46px] xl:text-[44px] xl:leading-[48px] xxl:text-[46px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px] quadHD:text-[60px] quadHD:leading-[70px] ultraHD:text-[80px] ultraHD:leading-[90px]";
