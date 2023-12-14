@@ -132,25 +132,30 @@ export function CharacterCard({ character }: CharacterCardProps) {
                   "There is no summary available for this story."
                 }
               />
-              {/* <VStack className="w-full h-fit overflow-y-auto">
-                {paragraphs?.map((paragraph, index) => (
-                  <Text key={index} className="text-[18px]">
-                    {paragraph.trim()}
-                  </Text>
-                ))}
-              </VStack> */}
             </VStack>
           </VStack>
-          <NavLink
-            to={`/story/${character.storyId}/${character.id}`}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            GO TO
-          </NavLink>
+          <HStack className="w-full justify-around">
+            <NavLink
+              to={`/story/${character.storyId}/${character.id}`}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button>Story Details</Button>
+            </NavLink>
+            <NavLink
+              to={`/story/${character.storyId}/${character.id}`}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button>Play this Role</Button>
+            </NavLink>
+          </HStack>
         </VStack>
       </Flex>
     </Flex>
