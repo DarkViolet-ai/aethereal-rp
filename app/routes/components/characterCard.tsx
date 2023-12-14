@@ -28,6 +28,7 @@ export default function CharacterCardMini({
   character: OpenCharacterView;
   bgColor?: string;
 }) {
+  console.log(character);
   const [isModalOpen, setModalOpen] = useState(false);
   return (
     <Flex
@@ -63,20 +64,19 @@ export default function CharacterCardMini({
 }
 
 interface CharacterCardProps {
-  character: Character;
+  character: OpenCharacterView;
 }
 export function CharacterCard({ character }: CharacterCardProps) {
-
-  const story = Stories.find((story) => story.id === character.storyId);
+  const story = character.story;
   const storyCharacters = TempCharacterList.filter(
     (otherCharacter) =>
       otherCharacter.storyId === character.storyId &&
       otherCharacter.id !== character.id
   );
   const imagePath = GetStoryImagePath(story?.title || "");
-  const paragraphs = story?.content.split("\n");
+  //const paragraphs = story?.content.split("\n");
   const [isModalOpen, setModalOpen] = useState(false);
-  
+
   return (
     <Flex className="w-full h-fit min-h-fit lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5">
       <Flex className="w-full lg:w-40% justify-center lg:h-full lg:items-center">
@@ -131,13 +131,13 @@ export function CharacterCard({ character }: CharacterCardProps) {
                   "There is no summary available for this story."
                 }
               />
-              <VStack className="w-full h-fit overflow-y-auto">
+              {/* <VStack className="w-full h-fit overflow-y-auto">
                 {paragraphs?.map((paragraph, index) => (
                   <Text key={index} className="text-[18px]">
                     {paragraph.trim()}
                   </Text>
                 ))}
-              </VStack>
+              </VStack> */}
             </VStack>
           </VStack>
           <NavLink
