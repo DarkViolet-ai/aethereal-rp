@@ -21,24 +21,26 @@ export const violetsTwo = "/images/core/violetsRowTwo.png";
 export const parchmentCorner = "/images/core/parchmentCorner.png";
 
 // STYLES
+export const buttonDimensions = `h-[30px] w-[200px] md:w-[250px] md:h-[33px] xxl:w-[300px] xxl:h-[38px] quadHD:w-[350px] quadHD:h-[50px] ultraHD:w-[450px] ultraHD:h-[70px]`;
 export const cursiveText = "font-cursive text-dv-400 text-shadow-dvTextShadow";
 export const borderShadow = "border-[1.5px] border-dv-800 shadow-dvShadow";
 export const highlightedText =
   "text-dv-400 text-shadow-dvTextShadow font-semibold";
 export const defaultOverlayColor = "bg-dv-850";
 export const defaultOverlayBlur = "backdrop-blur-sm";
-export const headerFooterPadding =
-  "pt-[50px] pb-[35px] quadHD:pt-[75px] ultraHD:pt-[150px]";
+export const topNavPadding =
+  "pt-[50px]  fullHD:pb-[25px] quadHD:pt-[75px] ultraHD:pt-[150px] ultraHD:pb-[35px]";
 export const colMaxWidths =
-  "w-full md:w-80% lg:w-full xxl:w-90% fullHD:w-75% justify-center";
+  "w-96% md:w-80% lg:w-full xxl:w-90% fullHD:w-75% justify-center";
 export const textSizes =
   "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] fullHD:text-[20px] fullHD:leading-[24px] quadHD:text-[30px] quadHD:leading-[35px] ultraHD:text-[40px] ultraHD:leading-[46px]";
 export const cardWidths =
-  "w-98% sm:max-w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
+  "w-94% sm:max-w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
 export const titleSizes =
   "text-[33px] leading-[35px] md:text-[40px] md:leading-[44px] lg:text-[42px] lg:leading-[46px] xl:text-[44px] xl:leading-[48px] xxl:text-[46px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px] quadHD:text-[60px] quadHD:leading-[70px] ultraHD:text-[80px] ultraHD:leading-[90px]";
 export const columnHeaderSizes = `${cursiveText} text-[40px] leading-[44px] xl:text-[42px] xl:leading-[46px] xxl:text-[44px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px]quadHD:text-[60px]  quadHD:leading-[66px] ultraHD:text-[70px] ultraHD:leading-[77px]`;
-export const headingSizes = `${cursiveText} text-[24px] leading-[28px] md:text-[28px] md:leading-[32px] xl:text-[32px] xl:leading-[36px] xxl:text-[36px] xxl:leading-[40px] fullHD:text-[44px] fullHD:leading-[48px] quadHD:text-[48px]  quadHD:leading-[52px] ultraHD:text-[70px] ultraHD:leading-[77px]`;
+export const headingSizes = `${cursiveText} text-[24px] leading-[28px] md:text-[28px] md:leading-[32px] xl:text-[32px] xl:leading-[36px] xxl:text-[36px] xxl:leading-[40px] fullHD:text-[44px] fullHD:leading-[48px] quadHD:text-[48px]  quadHD:leading-[56px] ultraHD:text-[70px] ultraHD:leading-[80px]`;
+export const containerPadding = `p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 `;
 
 // CARD COLORS
 export const cardColors = [

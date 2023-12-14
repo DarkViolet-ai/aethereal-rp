@@ -7,6 +7,7 @@ import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
 import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
+import { cardWidths, containerPadding, highlightedText } from "~/css/styles";
 import { createStoryFromTemplate } from "~/lib/db/story.server";
 import { getStoryTemplate } from "~/lib/db/storyTemplate.server";
 import { submitStoryInitiation } from "~/lib/queue/queues";
@@ -33,37 +34,40 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 export default function TemplateDisplay() {
   const { storyTemplate } = useTypedLoaderData<typeof loader>();
   return (
-    <VStack className="w-full">
-      <Flex className="w-full justify-center">
-        <Flex className="w-[300px] shadow-dvShadow">
-          <Image
-            src={storyTemplate?.imageUrl || ""}
-            // src="/images/stories/create_a_new_story.png"
-            alt={storyTemplate?.title || "template image"}
-            h="100%"
-            w="100%"
-          />
-        </Flex>{" "}
-      </Flex>
-      <HStack className="w-full">
-        <Text>Title </Text>
-        <Text>{storyTemplate?.title}</Text>
-      </HStack>
-      <HStack className="w-full">
-        <Text>Summary</Text>
-        <Text>{storyTemplate?.summary}</Text>
-      </HStack>
-      <HStack className="w-full">
-        <Form method="post">
-          <Button type="submit">Begin Story</Button>
-        </Form>
-        <NavLink
-          to={`/story/new/${storyTemplate?.id}/edit`}
-          style={{ width: "100%" }}
-        >
-          <Button>Edit</Button>
-        </NavLink>
-      </HStack>
-    </VStack>
+    <Flex className={`w-full h-full justify-center ${containerPadding}`}>
+      <VStack className={`w-full h-full ${cardWidths} justify-between py-3`}>
+        <Flex className="w-full justify-center h-40vh">
+          <Flex className="w-98% shadow-dvShadow">
+            <Image
+              src={storyTemplate?.imageUrl || ""}
+              // src="/images/stories/create_a_new_story.png"
+              alt={storyTemplate?.title || "template image"}
+              h="100%"
+              w="100%"
+            />
+          </Flex>{" "}
+        </Flex>
+        <VStack className="w-full justify-start h-34vh">
+          <HStack className={`w-full ${cardWidths}`}>
+            <Text className={`${highlightedText}`}>Title </Text>
+            <Text>{storyTemplate?.title}</Text>
+          </HStack>
+          <HStack className={`w-full ${cardWidths}`}>
+            <Text className={`${highlightedText}`}>Summary</Text>
+            <Flex className="w-full ">
+              <Text>{storyTemplate?.summary}</Text>
+            </Flex>
+          </HStack>
+        </VStack>
+        <HStack className={`w-full justify-around`}>
+          <Form method="post">
+            <Button type="submit">Begin Story</Button>
+          </Form>
+          <NavLink to={`/story/new/${storyTemplate?.id}/edit`}>
+            <Button>Edit</Button>
+          </NavLink>
+        </HStack>
+      </VStack>
+    </Flex>
   );
 }

@@ -2,7 +2,7 @@ import {
   cardColors,
   cardWidths,
   colMaxWidths,
-  headerFooterPadding,
+  topNavPadding,
 } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import CardContainer from "./cardContainer";
@@ -22,7 +22,7 @@ export default function StoriesCharacters() {
   const allStories = [...activeStories, ...stories];
   return (
     <Flex
-      className={`w-full h-fit lg:h-full justify-center ${headerFooterPadding}`}
+      className={`w-full h-fit lg:h-full justify-center ${topNavPadding}`}
       id="stories"
     >
       <Flex className="w-full h-fit lg:h-98% flex-col lg:flex-row gap-[40px] lg:gap-[10px] ">

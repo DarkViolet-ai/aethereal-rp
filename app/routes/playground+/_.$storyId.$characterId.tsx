@@ -1,7 +1,7 @@
 import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
 import Text from "~/components/buildingBlocks/text";
-import { borderShadow, headerFooterPadding } from "~/css/styles";
+import { borderShadow, topNavPadding } from "~/css/styles";
 import { getNextCharacterInStory, getStory } from "~/lib/db/story.server";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import Box from "~/components/buildingBlocks/box";
@@ -75,7 +75,7 @@ export default function Story() {
   }, [data]);
   return (
     <Flex
-      className={`w-full h-full justify-center ${headerFooterPadding}  pb-[35px] items-center`}
+      className={`w-full h-full justify-center ${topNavPadding}  pb-[35px] items-center`}
     >
       <VStack className="w-full p-4" gap="gap-5">
         <Box

@@ -1,12 +1,10 @@
 import {
   borderShadow,
-  cardWidths,
   colMaxWidths,
   cursiveText,
   columnHeaderSizes,
   textSizes,
   titleSizes,
-  headingSizes,
 } from "~/css/styles";
 import Flex from "./flex";
 import Text from "./text";
@@ -51,6 +49,8 @@ export function ColumnsPageContainer({
   rowGap = "gap-[40px]",
   columnGap = "gap-[50px]",
   pt,
+  // pb = "pb-2 fullHD:pb-4 quadHD:pb-[60px] ultraHD:pb-[20px]",
+  pb,
 }: {
   children?: React.ReactNode;
   title?: string;
@@ -60,6 +60,7 @@ export function ColumnsPageContainer({
   rowGap?: string;
   columnGap?: string;
   pt?: string;
+  pb?: string;
 }) {
   let transitionScreenSize = "";
   let scrollStyles = "";
@@ -102,7 +103,7 @@ export function ColumnsPageContainer({
           className={`h-full w-full justify-center overflow-y-hidden gap-0`}
         >
           <Flex
-            className={`w-98% h-full flex-col items-center overflow-y-auto py-2 ${transitionScreenSize} ${alignment}} ${pt} ${rowGap}`}
+            className={`w-98% h-full flex-col items-center overflow-y-auto py-2 ${transitionScreenSize} ${alignment}} ${pt} ${rowGap} ${pb}`}
           >
             {children}
           </Flex>
@@ -133,22 +134,27 @@ export function ColumnsPageColumn({
 }) {
   let columnSize = "";
   let transitionHeight = "";
-
+  let transitionOverflow = "";
   if (transitionScreen === "md") {
     columnSize = "md:w-1/2";
-    transitionHeight = "md:h-full overflow-y-auto";
+    transitionHeight = "md:h-full";
+    transitionOverflow = "md:overflow-y-auto";
   } else if (transitionScreen === "lg") {
     columnSize = "lg:w-1/2";
-    transitionHeight = "lg:h-full overflow-y-auto";
+    transitionHeight = "lg:h-full";
+    transitionOverflow = "lg:overflow-y-auto";
   } else if (transitionScreen === "xl") {
     columnSize = "xl:w-1/2";
-    transitionHeight = "xl:h-full  overflow-y-auto";
+    transitionHeight = "xl:h-full";
+    transitionOverflow = "xl:overflow-y-auto";
   } else if (transitionScreen === "xxl") {
     columnSize = "xxl:w-1/2";
-    transitionHeight = "xxl:h-full  overflow-y-auto";
+    transitionHeight = "xxl:h-full";
+    transitionOverflow = "xxl:overflow-y-auto";
   } else if (transitionScreen === "fullHD") {
     columnSize = "fullHD:w-1/2";
-    transitionHeight = "fullHD:h-full  overflow-y-auto";
+    transitionHeight = "fullHD:h-full";
+    transitionOverflow = "fullHD:overflow-y-auto";
   } else {
     columnSize = "";
     transitionHeight = "";
@@ -163,23 +169,27 @@ export function ColumnsPageColumn({
       >
         <Transition
           type={transitionType}
-          className={`w-full h-full ${transitionClassName}`}
+          className={`w-full h-full ${transitionClassName} ${transitionHeight}}`}
         >
           <Flex
-            className={`h-fit min-h-full justify-center align-start ${textSizes} ${transitionHeight} ${innerColMaxW} `}
+            className={`h-fit min-h-full justify-center align-start ${textSizes} ${transitionHeight} ${innerColMaxW}`}
           >
             {" "}
             <VStack
-              className={`w-full h-fit gap-0 pb-4 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
+              className={`w-full h-fit gap-0 ${transitionHeight} ${borderShadow} justify-start ${bg}`}
             >
               {heading && (
                 <Flex
-                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3 py-1 border-b-2 border-b-dv-225 ${columnHeaderSizes}`}
+                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3  border-b-2 border-b-dv-225 ${columnHeaderSizes}`}
                 >
                   {heading}
                 </Flex>
               )}
-              <VStack className={`${cardWidths} py-3`}>{children}</VStack>
+              <VStack
+                className={`w-full h-full ${transitionHeight} ${transitionOverflow} overflow-x-hidden gap-0`}
+              >
+                {children}
+              </VStack>
             </VStack>
           </Flex>
         </Transition>
