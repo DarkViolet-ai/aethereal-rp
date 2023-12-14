@@ -45,7 +45,8 @@ const characterImagePrompt = (character: OpenCharacterView) => {
    a sense of wonder and intrigue. It should include symbolic elements related to the character's content,
     creating a magical and otherworldly atmosphere. The composition should be balanced and aesthetically 
     pleasing, suitable for use as a captivating and memorable illustration on a game card. The image should
-    be a single continuous scene, not a collection of separate images.`;
+    be a single continuous scene, not a collection of separate images.  Absolutely no text whatsoever in this image.
+    No handwriting.  No letters or numbers.`;
 };
 
 export const characterImageLoader = async (characterId: string) => {

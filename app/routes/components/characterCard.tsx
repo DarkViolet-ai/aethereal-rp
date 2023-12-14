@@ -12,6 +12,7 @@ import Divider from "~/components/buildingBlocks/divider";
 import type { OpenCharacterView } from "~/lib/db/character.server";
 import { Avatar } from "~/components/buildingBlocks/avatar";
 import Button from "~/components/buildingBlocks/button";
+import useSizedImage from "../hooks/useSizedImage";
 
 export function CharacterCardMini({
   character,
@@ -20,6 +21,11 @@ export function CharacterCardMini({
   character: OpenCharacterView;
   bgColor?: string;
 }) {
+  const avatar = useSizedImage(character.id, "thumbnail");
+  const _avatar =
+    character.avatar && avatar && avatar?.length > 0
+      ? avatar
+      : "/images/icons/profileIcon.png";
   console.log(character);
   const [isModalOpen, setModalOpen] = useState(false);
   return (
@@ -28,7 +34,7 @@ export function CharacterCardMini({
       onClick={() => setModalOpen(true)}
     >
       <HStack className="justify-between w-full">
-        <Avatar size="lg" src="/images/icons/profileIcon.png" />
+        <Avatar size="lg" src={_avatar} />
 
         <VStack
           className="w-full text-shadow-dvTextShadow"
@@ -59,10 +65,15 @@ interface CharacterCardProps {
   character: OpenCharacterView;
 }
 export function CharacterCard({ character }: CharacterCardProps) {
+  const avatar = useSizedImage(character.id, "medium");
+  const imagePath =
+    character.avatar && avatar && avatar?.length > 0
+      ? avatar
+      : "/images/placeholderImage.png";
   const story = character.story;
 
   // add character imagePath
-  const imagePath = "/images/placeholderImage.png";
+  //const imagePath = "/images/placeholderImage.png";
 
   return (
     <Flex className="w-full h-fit min-h-full lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-[50px] rounded-b-none">
@@ -111,7 +122,16 @@ export function CharacterCard({ character }: CharacterCardProps) {
             <Button>Play Role</Button>
           </NavLink>
           <Flex className="w-full justify-center">
-            <Button>Generate Image</Button>
+            <NavLink
+              to={`/playground/image-create/character/${character.id}`}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button>Generate Image</Button>
+            </NavLink>
           </Flex>
         </VStack>
       </VStack>
