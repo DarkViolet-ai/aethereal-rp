@@ -1,7 +1,6 @@
 import {
   borderShadow,
   cursiveText,
-  columnHeaderSizes,
   textSizes,
   headingSizes,
   cardWidths,
@@ -34,33 +33,38 @@ export default function StoryCard({
   const imagePath = useSizedImage(id, "thumbnail");
   return (
     <Flex
-      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100 ${cardWidths}`}
+      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100 ${cardWidths} py-3`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
-      <HStack
-        className={`w-full h-full shadow-shadow3D justify-between ${containerPadding}`}
-      >
-        <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
-          <Text className={`${cursiveText} ${headingSizes} `}>
+      <HStack className={`w-full h-full justify-between ${containerPadding}`}>
+        <VStack
+          align="start text-shadow-dvTextShadow w-70% h-full justify-between"
+          gap="gap-0"
+        >
+          <Text
+            className={`${cursiveText} ${headingSizes} text-shadow-textFog`}
+          >
             <i>{story.title}</i>
           </Text>
-          <VStack
-            className={`w-full leading-[15px] ${textSizes}`}
-            align="start"
-          >
-            {hideDate ? null : (
-              <Text>{FormatDate(String(story.createdAt))}</Text>
-            )}
-            <Text noOfLines={2}>{story.summary}</Text>
-          </VStack>
+          {hideDate ? null : <Text>{FormatDate(String(story.createdAt))}</Text>}
+
+          <Text noOfLines={2} className={` ${textSizes}`}>
+            {story.summary}
+          </Text>
         </VStack>
-        <Flex className="h-[100px] w-[100px] flex-shrink-0">
-          <Image
-            src={imagePath || "/images/placeholderImage.png"}
-            alt={story.title}
-            h="100%"
-            w="100%"
-          />
+        <Flex className="h-full w-30% justify-center itmes-center">
+          <Flex className="w-full h-auto flex-shrink-0 shadow-dvShadow">
+            <Image
+              src={
+                imagePath && imagePath.length > 1
+                  ? imagePath
+                  : "/images/placeholderImage.png"
+              }
+              alt={story.title}
+              h="100%"
+              w="100%"
+            />
+          </Flex>
         </Flex>
       </HStack>
     </Flex>

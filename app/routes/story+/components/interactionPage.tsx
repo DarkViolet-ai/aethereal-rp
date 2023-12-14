@@ -15,7 +15,6 @@ import {
   headingSizes,
 } from "~/css/styles";
 import type { StoryData } from "~/lib/db/story.server";
-import RandomText from "~/lib/utils/randomText";
 
 export default function InteractionPage({
   story,
@@ -26,14 +25,15 @@ export default function InteractionPage({
   isActiveCharacter: boolean;
   characterName: string;
 }) {
-  // const promptText = (isActiveCharacter && story?.prompt) || "";
-  // const paragraphs = promptText.split("\n");
+  const promptText = (isActiveCharacter && story?.prompt) || "";
+  const paragraphs = promptText.split("\n");
 
-  const paragraphs = [
-    " Vox spree tuff flea raw bubbles sag bluff pox tingle huff blabber straw. Jabber squish huff flea clumsy ruff. Backpack jamboree poodle gnaw crackerjack nix jabber chocolate. ",
-    "Pop tag drag straw mingle whack gnaw fairy flipflop. Cox fox yak pop flapjack glisten quack plainy bubbles. Top fluster brag yak butterfly. ",
-    "Lox jellybean cat bungle piddle. Wag bubble box mop yabber rainbow chocolate flipflop law piddle kitten waddle backpack. Paw gruff tack crackerjack whack clumsy top drop gag noodle sugar mumble. ",
-  ];
+  // const paragraphs = [
+  //   " Vox spree tuff flea raw bubbles sag bluff pox tingle huff blabber straw. Jabber squish huff flea clumsy ruff. Backpack jamboree poodle gnaw crackerjack nix jabber chocolate. ",
+  //   "Pop tag drag straw mingle whack gnaw fairy flipflop. Cox fox yak pop flapjack glisten quack plainy bubbles. Top fluster brag yak butterfly. ",
+  //   "Lox jellybean cat bungle piddle. Wag bubble box mop yabber rainbow chocolate flipflop law piddle kitten waddle backpack. Paw gruff tack crackerjack whack clumsy top drop gag noodle sugar mumble. ",
+  // ];
+
   return (
     <Flex
       className={`w-full h-full justify-center items-center ${colMaxWidths}`}
