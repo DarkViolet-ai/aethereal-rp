@@ -12,7 +12,11 @@ export function CloseButton({
     <IconButton
       label="close"
       icon={CloseIcon}
-      onClick={onClose}
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onClose();
+      }}
       className={` m-2 z-10 ${className}`}
       pos="absolute"
       t="top=0"

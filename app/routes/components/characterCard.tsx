@@ -66,7 +66,6 @@ interface CharacterCardProps {
   character: Character;
 }
 export function CharacterCard({ character }: CharacterCardProps) {
-
   const story = Stories.find((story) => story.id === character.storyId);
   const storyCharacters = TempCharacterList.filter(
     (otherCharacter) =>
@@ -75,8 +74,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   );
   const imagePath = GetStoryImagePath(story?.title || "");
   const paragraphs = story?.content.split("\n");
-  const [isModalOpen, setModalOpen] = useState(false);
-  
+
   return (
     <Flex className="w-full h-fit min-h-fit lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5">
       <Flex className="w-full lg:w-40% justify-center lg:h-full lg:items-center">
