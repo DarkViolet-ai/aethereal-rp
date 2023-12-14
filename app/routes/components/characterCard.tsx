@@ -29,6 +29,7 @@ export function CharacterCardMini({
   character: OpenCharacterView;
   bgColor?: string;
 }) {
+  console.log(character);
   const [isModalOpen, setModalOpen] = useState(false);
   return (
     <Flex
@@ -64,17 +65,18 @@ export function CharacterCardMini({
 }
 
 interface CharacterCardProps {
-  character: Character;
+  character: OpenCharacterView;
 }
 export function CharacterCard({ character }: CharacterCardProps) {
-  const story = Stories.find((story) => story.id === character.storyId);
+  const story = character.story;
   const storyCharacters = TempCharacterList.filter(
     (otherCharacter) =>
       otherCharacter.storyId === character.storyId &&
       otherCharacter.id !== character.id
   );
   const imagePath = GetStoryImagePath(story?.title || "");
-  const paragraphs = story?.content.split("\n");
+  //const paragraphs = story?.content.split("\n");
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <Flex className="w-full h-fit min-h-full lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5 rounded-b-none">
@@ -105,28 +107,50 @@ export function CharacterCard({ character }: CharacterCardProps) {
         <VStack align="start w-full gap-[30px]">
           {/* STORY TAGS */}
 
-          <HStack className="w-full justify-around">
-            <NavLink
-              to={`/story/${character.storyId}/${character.id}`}
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Button>Story Details</Button>
-            </NavLink>
-            <NavLink
-              to={`/story/${character.storyId}/${character.id}`}
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Button>Play this Role</Button>
-            </NavLink>
-          </HStack>
+          <VStack className="w-full gap-4 px-2 pb-2 h-fit ">
+            <VStack className="w-full gap-0">
+              <LabelValue label="Other Characters" />
+              <Flex className="w-full">
+                <VStack className="w-full px-4" align="start">
+                  {storyCharacters.map((character, index) => (
+                    <LabelValue
+                      key={index}
+                      direction="flex-row"
+                      label={storyCharacters[index].name}
+                      value={storyCharacters[index].summary}
+                    />
+                  ))}
+                </VStack>
+              </Flex>
+            </VStack>
+            <Divider />
+            <VStack className="w-full gap-0">
+              <LabelValue
+                label="Story Summary"
+                value={
+                  story?.summary ||
+                  "There is no summary available for this story."
+                }
+              />
+              {/* <VStack className="w-full h-fit overflow-y-auto">
+                {paragraphs?.map((paragraph, index) => (
+                  <Text key={index} className="text-[18px]">
+                    {paragraph.trim()}
+                  </Text>
+                ))}
+              </VStack> */}
+            </VStack>
+          </VStack>
+          <NavLink
+            to={`/story/${character.storyId}/${character.id}`}
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            GO TO
+          </NavLink>
         </VStack>
       </Flex>
     </Flex>
