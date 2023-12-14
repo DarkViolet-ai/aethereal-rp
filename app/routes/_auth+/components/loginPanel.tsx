@@ -8,12 +8,19 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { useState } from "react";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
+import HStack from "~/components/buildingBlocks/hStack";
 import InputVStack from "~/components/buildingBlocks/inputVStack";
 import PasswordInput from "~/components/buildingBlocks/passwordInput";
 import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
-import { borderShadow } from "~/css/styles";
+import {
+  borderShadow,
+  cardWidths,
+  cursiveText,
+  titleSizes,
+  topNavPadding,
+} from "~/css/styles";
 
 export default function LoginPanel() {
   const navigate = useNavigate();
@@ -38,23 +45,25 @@ export default function LoginPanel() {
   };
 
   return (
-    <Flex className="w-full h-full justify-center items-center">
+    <Flex
+      className={`w-full h-full justify-center items-center ${topNavPadding}`}
+    >
       <VStack
-        gap="gap-3"
-        className={`${borderShadow} relative w-[375px] h-[585px] p-3 text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad `}
+        gap="gap-3 ultraHD:gap-6"
+        className={`${borderShadow} relative w-98% h-98% max-w-[550px] md:h-90% fullHD:max-w-[700px] quadHD:h-80% ultraHD:max-w-[1000px] ultraHD:h-75% p-3 pb-[0px] text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad justify-between`}
       >
-        <DarkViolet b="-bottom-[2px]" l="left-2" w="w-[125px]" />
-        <DarkViolet
-          name="violetsRowSmall"
-          b="bottom-0"
-          r="right-4"
-          w="w-[150px]"
-        />
-        <Text className="text-[44px] font-cursive">Login to</Text>
-        <DarkViolet name="Logo" pos="relative" w="w-98%" />
+        <VStack className="w-full flex-shrink-0 items-center ultraHD:gap-5">
+          <Text className={`${titleSizes} ${cursiveText}`}>Login to</Text>
+          <Flex className={`${cardWidths} justify-center`}>
+            <DarkViolet name="Logo" pos="relative" w="w-98%" />
+          </Flex>
+        </VStack>
 
-        <Form onSubmit={handleSubmit} style={{ width: "95%" }}>
-          <VStack gap="gap-3">
+        <Form
+          onSubmit={handleSubmit}
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-8 h-full w-98% max-w-[400px] fullHD:max-w-[600px]">
             <InputVStack
               className="w-full"
               label="Email"
@@ -66,13 +75,32 @@ export default function LoginPanel() {
 
             <PasswordInput />
             <Flex className="w-full justify-end">
-              <Flex className="w-[150px] justify-end flex-col gap-[20px]">
+              <VStack
+                className="w-full fullHD:gap-5 ultraHD:gap-8"
+                align="items-end"
+              >
                 <Button type="submit">Submit</Button>
                 <Button onClick={() => navigate("/register")}>Join</Button>
-              </Flex>
+              </VStack>
             </Flex>
           </VStack>
         </Form>
+        <Flex className="w-full h-full">
+          {" "}
+          <HStack className="w-full items-end justify-between h-30vh">
+            <DarkViolet
+              className="w-30vw sm:w-[150px] fullHD:w-[175px] ultraHD:w-[350px]"
+              b="bottom-0"
+              l="left-1 md:left-2 fullHD:left-4"
+            />
+            <DarkViolet
+              name="violetsRowSmall"
+              className="w-60vw sm:w-[150px] fullHD:w-[175px] ultraHD:w-[350px]"
+              b="bottom-0"
+              r="right-1 md:right-2 fullHD:right-4"
+            />
+          </HStack>
+        </Flex>
       </VStack>
     </Flex>
   );

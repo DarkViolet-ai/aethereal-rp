@@ -7,6 +7,8 @@ import {
 } from "@remix-run/react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireUserId } from "~/lib/utils/session.server";
+import Flex from "~/components/buildingBlocks/flex";
+import LogoutPanel from "./components/logout";
 
 export const loader = async ({ request }: DataFunctionArgs) => {
   const userId = await requireUserId(request);
@@ -29,5 +31,9 @@ export default function Logout() {
       });
     }
   }, [userId, supabase.auth, revalidator]);
-  return <div>Logging out...</div>;
+  return (
+    <Flex className="w-full h-full justify-center items-center">
+      <LogoutPanel />
+    </Flex>
+  );
 }

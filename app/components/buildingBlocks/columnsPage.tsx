@@ -93,7 +93,7 @@ export function ColumnsPageContainer({
 
   return (
     <VStack
-      className={`h-fit w-full ${topNavPadding} justify-center overflow-y-auto gap-0 ${scrollStyles}`}
+      className={`h-fit w-99% ${topNavPadding} justify-center overflow-y-auto gap-0 ${scrollStyles}`}
     >
       <Flex className={`w-full h-full ${pt} justify-center `}>
         {(title || subtitle) && (

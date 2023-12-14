@@ -32,7 +32,7 @@ export default function StoryTemplate() {
     <ColumnsPageContainer transitionScreen="lg">
       <ColumnsPageColumn heading="Start a Story" transitionType="slideInLeft">
         <VStack
-          className="w-full gap-5 fullHD:gap-7 quadHD:gap-9 ultraHD:gap-12 pb-[20px]"
+          className="w-full gap-5 fullHD:gap-7 quadHD:gap-9 ultraHD:gap-12 pt-[10px] pb-[20px]"
           align="center"
         >
           <NavLink

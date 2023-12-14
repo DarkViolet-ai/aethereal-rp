@@ -25,38 +25,46 @@ export default function StoriesCharacters() {
       className={`w-full h-fit lg:h-full justify-center ${topNavPadding}`}
       id="stories"
     >
-      <Flex className="w-full h-fit lg:h-98% flex-col lg:flex-row gap-[40px] lg:gap-[10px] ">
+      <Flex className="w-full h-fit flex-col lg:flex-row gap-[40px] lg:h-full lg:gap-[10px] py-1 quadHD:py-3">
         <Transition
           type="slideInLeft"
           className="w-full h-full lg:w-1/2 px-4 flex justify-center"
           duration={0.6}
         >
-          <CardContainer
-            className={`w-full ${colMaxWidths}`}
-            heading="My Stories"
-          >
-            <Flex
-              className={`w-full h-fit lg:full overflow-y-auto justify-center`}
-            >
-              <VStack className={`w-full py-3 px-3 gap-4 ${cardWidths}`}>
-                <NavLink to="/story/new" style={{ width: "100%" }}>
-                  <NewStoryCard />
-                </NavLink>
-                {allStories.map((story, index) => {
-                  return (
-                    <StoryCard
-                      key={index}
-                      story={story}
-                      bgColor={cardColors[index % cardColors.length]}
-                    />
-                  );
-                })}
-              </VStack>
-            </Flex>
-          </CardContainer>
+          <Flex className={`${colMaxWidths}`}>
+            <CardContainer className={`w-full`} heading="My Stories">
+              <Flex
+                className={`w-full h-fit lg:full overflow-y-auto justify-center`}
+              >
+                <VStack
+                  className={`w-full pb-[20px] px-3 gap-4 pt-[10px]`}
+                >
+                  <NavLink
+                    to="/story/new"
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <NewStoryCard />
+                  </NavLink>
+                  {allStories.map((story, index) => {
+                    return (
+                      <StoryCard
+                        key={index}
+                        story={story}
+                        bgColor={cardColors[index % cardColors.length]}
+                      />
+                    );
+                  })}
+                </VStack>
+              </Flex>
+            </CardContainer>
+          </Flex>
         </Transition>
         <Flex
-          className="w-full h-[55px] lg:hidden text-transparent"
+          className="w-full h-[10px] lg:hidden text-transparent"
           id="openings"
         >
           .
