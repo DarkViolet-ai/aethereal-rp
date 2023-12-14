@@ -115,7 +115,16 @@ export function CharacterCard({ character }: CharacterCardProps) {
               </NavLink>
             </HStack>
             <Flex className="w-full justify-center">
-              <Button>Generate Image</Button>
+              <NavLink
+                to={`/playground/image-create/character/${character.id}`}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Button>Generate Image</Button>
+              </NavLink>
             </Flex>
           </VStack>
         </Flex>
