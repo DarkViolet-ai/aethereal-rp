@@ -1,4 +1,4 @@
-import { headingSizes, textSizes, titleSizes } from "~/css/styles";
+import { headingSizes } from "~/css/styles";
 import Input from "./input";
 import Text from "./text";
 import VStack from "./vStack";
