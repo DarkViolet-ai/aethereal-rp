@@ -76,7 +76,11 @@ export default function Modal({
             {/* Overlay */}
             <motion.div
               className={`fixed inset-0 w-screen h-screen ${overlayColor} ${overlayBlur} z-60 ${modalOverlayClassName}`}
-              onClick={onClose}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onClose();
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -92,9 +96,7 @@ export default function Modal({
               {...(props as any)}
             >
               <Flex className="w-full h-full relative ">
-                {showTopClose && (
-                  <CloseButton onClose={() => setModalOpen(false)} />
-                )}
+                {showTopClose && <CloseButton onClose={onClose} />}
                 <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
                   <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900 ">
                     <Box className="w-full h-full pb-[50px] rounded-b-none">
@@ -109,7 +111,7 @@ export default function Modal({
                   </Flex>
                   {showBottomClose && (
                     <Flex className="w-full h-[50px] bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
-                      <CloseTextButton onClose={() => setModalOpen(false)} />
+                      <CloseTextButton onClose={onClose} />
                     </Flex>
                   )}
                 </Flex>

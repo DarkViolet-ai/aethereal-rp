@@ -6,9 +6,6 @@ import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
 import { topNavPadding } from "~/css/styles";
 import RandomText from "~/lib/utils/randomText";
-import CharacterCardMini, {
-  CharacterCard,
-} from "~/routes/components/characterCard";
 
 export const tempCharacter = {
   story: {

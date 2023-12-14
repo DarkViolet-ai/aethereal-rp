@@ -8,7 +8,14 @@ export function CloseTextButton({
   className?: string;
 }) {
   return (
-    <Button onClick={onClose} className={` m-2 z-10 ${className}`}>
+    <Button
+      onClick={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onClose();
+      }}
+      className={` m-2 z-10 ${className}`}
+    >
       Close
     </Button>
   );
