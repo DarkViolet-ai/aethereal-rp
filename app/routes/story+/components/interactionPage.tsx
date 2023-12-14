@@ -1,6 +1,4 @@
-import type { Story } from "@prisma/client";
-import { Form, useParams } from "@remix-run/react";
-import { BsFillExclamationDiamondFill } from "react-icons/bs";
+import { Form } from "@remix-run/react";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
@@ -9,9 +7,15 @@ import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import LoadingText from "~/components/specialty/loading";
-import { borderShadow, cursiveText } from "~/css/styles";
-import { StoryData } from "~/lib/db/story.server";
-import { dummyText } from "~/lib/utils/randomText";
+import {
+  borderShadow,
+  cardWidths,
+  colMaxWidths,
+  cursiveText,
+  headingSizes,
+} from "~/css/styles";
+import type { StoryData } from "~/lib/db/story.server";
+import RandomText from "~/lib/utils/randomText";
 
 export default function InteractionPage({
   story,
@@ -22,11 +26,18 @@ export default function InteractionPage({
   isActiveCharacter: boolean;
   characterName: string;
 }) {
-  const promptText = (isActiveCharacter && story?.prompt) || "";
-  const paragraphs = promptText.split("\n");
+  // const promptText = (isActiveCharacter && story?.prompt) || "";
+  // const paragraphs = promptText.split("\n");
 
+  const paragraphs = [
+    " Vox spree tuff flea raw bubbles sag bluff pox tingle huff blabber straw. Jabber squish huff flea clumsy ruff. Backpack jamboree poodle gnaw crackerjack nix jabber chocolate. ",
+    "Pop tag drag straw mingle whack gnaw fairy flipflop. Cox fox yak pop flapjack glisten quack plainy bubbles. Top fluster brag yak butterfly. ",
+    "Lox jellybean cat bungle piddle. Wag bubble box mop yabber rainbow chocolate flipflop law piddle kitten waddle backpack. Paw gruff tack crackerjack whack clumsy top drop gag noodle sugar mumble. ",
+  ];
   return (
-    <Flex className="w-full h-full justify-center items-center">
+    <Flex
+      className={`w-full h-full justify-center items-center ${colMaxWidths}`}
+    >
       <VStack className="w-full h-full p-2 pb-4" gap="gap-5">
         <VStack className="w-full h-40% flex-shrink-0">
           <Box className={`w-full h-full relative ${borderShadow}`}>
@@ -53,14 +64,13 @@ export default function InteractionPage({
 
             <Flex className="w-full h-full bg-dv-700 bg-darkVioletGrad shadow-shadow3D overflow-y-auto justify-end">
               <Flex className="w-76% bg-dv-950 shadow-shadow3D h-fit min-h-full p-2 pr-0 rounded-l-none">
-                <VStack className="w-full gap-[10px]">
+                <VStack className="w-full gap-[10px] py-2">
                   {paragraphs.map((paragraph, index) => (
-                    <Text
-                      key={index}
-                      className="text-[16px] leading-[23px] text-shadow-dvTextShadow"
-                    >
-                      {paragraph.trim()}
-                    </Text>
+                    <Flex key={index} className={`${cardWidths}`}>
+                      <Text className="text-shadow-dvTextShadow">
+                        {paragraph.trim()}
+                      </Text>
+                    </Flex>
                   ))}
                 </VStack>
               </Flex>
@@ -81,7 +91,7 @@ export default function InteractionPage({
           <input type="hidden" name="storyId" value={story.id} />
           <VStack className="w-full h-full" gap="gap-[15px]">
             <Flex
-              className={`${cursiveText}  text-[33px] text-shadow-textFog flex-shrink-0`}
+              className={`${cursiveText} ${headingSizes} text-shadow-textFog flex-shrink-0`}
             >
               <Text>You are {characterName}</Text>
             </Flex>

@@ -40,7 +40,7 @@ export default function TextAreaVStack(
         value={props.value}
         defaultValue={props.defaultValue}
         onChange={props.onChange}
-        className={`${props.textAreaWidth} ${props.textAreaHeight} `}
+        className={`${props.textAreaWidth} ${props.textAreaHeight}`}
       />
     </VStack>
   );

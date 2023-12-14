@@ -3,13 +3,12 @@ import VStack from "~/components/buildingBlocks/vStack";
 import ParchmentCorner from "./parchmentCorners";
 import Text from "~/components/buildingBlocks/text";
 import ParchmentSpacer from "./parchmentSpacer";
-import { Stories } from "~/css/styles";
-import { useParams } from "@remix-run/react";
+import { cardWidths, colMaxWidths, textSizes } from "~/css/styles";
 import Button from "~/components/buildingBlocks/button";
 import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
 import InteractionPage from "./interactionPage";
-import { StoryData } from "~/lib/db/story.server";
+import type { StoryData } from "~/lib/db/story.server";
 
 interface ParchmentPageProps {
   showInteractionButton?: boolean;
@@ -30,7 +29,9 @@ export default function ParchmentPage({
 
   return (
     <VStack className="w-full h-full">
-      <Flex className="h-90% w-92% lg:h-94% bg-parchment shadow-parchmentShadow relative pr-2">
+      <Flex
+        className={`h-90% w-92% lg:h-94% bg-parchment shadow-parchmentShadow relative pr-2 ${colMaxWidths}`}
+      >
         <ParchmentSpacer />
         <ParchmentSpacer placement="bottom" />
         <ParchmentCorner />
@@ -42,11 +43,13 @@ export default function ParchmentPage({
           className="w-full h-full overflow-y-auto justify-start py-[45px]"
           gap="gap-0"
         >
-          <VStack className="w-full h-fit px-[40px] text-dv-900">
+          <VStack
+            className={`w-full h-fit px-[40px] text-dv-900 ${textSizes} gap-3 quadHD:gap-4 ultraHD:gap-5`}
+          >
             {paragraphs.map((paragraph, index) => (
-              <Text key={index} className="text-[18px]">
-                {paragraph.trim()}
-              </Text>
+              <Flex key={index} className={`${cardWidths}`}>
+                <Text>{paragraph.trim()}</Text>
+              </Flex>
             ))}
           </VStack>
         </VStack>
