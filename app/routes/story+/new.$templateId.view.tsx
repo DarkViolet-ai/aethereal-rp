@@ -12,6 +12,7 @@ import { createStoryFromTemplate } from "~/lib/db/story.server";
 import { getStoryTemplate } from "~/lib/db/storyTemplate.server";
 import { submitStoryInitiation } from "~/lib/queue/queues";
 import { requireUserId } from "~/lib/utils/session.server";
+import useSizedImage from "../hooks/useSizedImage";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   return typedjson({
@@ -33,6 +34,8 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 
 export default function TemplateDisplay() {
   const { storyTemplate } = useTypedLoaderData<typeof loader>();
+  const imageUrl = useSizedImage(storyTemplate?.id, "medium");
+
   return (
     <Flex className={`w-full h-full justify-center ${containerPadding}`}>
       <VStack className={`w-full h-full ${cardWidths} justify-between py-3`}>

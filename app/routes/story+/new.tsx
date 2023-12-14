@@ -17,7 +17,7 @@ import NewStoryCard from "./components/newStoryCard";
 import StoryCard from "../components/storyCard";
 import { cardColors } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
-import { NavLink, Outlet } from "@remix-run/react";
+import { NavLink, Outlet, useOutletContext } from "@remix-run/react";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const templates = await getAllTemplates();
@@ -27,6 +27,7 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
 export default function StoryTemplate() {
   // const dummyData = Stories;
   const { templates } = useTypedLoaderData<typeof loader>();
+  const context = useOutletContext();
 
   return (
     <ColumnsPageContainer transitionScreen="lg">
@@ -62,7 +63,7 @@ export default function StoryTemplate() {
         </VStack>
       </ColumnsPageColumn>
       <ColumnsPageColumn transitionType="slideInRight">
-        <Outlet />
+        <Outlet context={context} />
       </ColumnsPageColumn>
     </ColumnsPageContainer>
   );

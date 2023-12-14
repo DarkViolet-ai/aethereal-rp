@@ -29,14 +29,15 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   const url = new URL(request.url);
   const searchParams = url.searchParams;
 
-  const id = params.templateId;
+  let id = params.templateId;
   const formData = await request.formData();
   try {
     const template = storyTemplateSchema.parse(
       Object.fromEntries(formData.entries())
     );
     if (!id) {
-      await createStoryTemplate(template);
+      const newTemplate = await createStoryTemplate(template);
+      id = newTemplate.id;
     } else {
       await updateStoryTemplate({ id, data: template });
     }

@@ -17,6 +17,7 @@ import Image from "../../components/buildingBlocks/image";
 import FormatDate from "~/lib/utils/formatDate";
 import type { StorySummaryData } from "~/lib/db/user.server";
 import type { StoryTemplate } from "@prisma/client";
+import useSizedImage from "../hooks/useSizedImage";
 
 interface StoryCardProps {
   story: StorySummaryData | StoryTemplate;
@@ -29,7 +30,8 @@ export default function StoryCard({
   hideDate = false,
 }: StoryCardProps) {
   const navigate = useNavigate();
-  const imagePath = story?.imageUrl;
+  const id = (story as StorySummaryData).storyTemplateId || story.id;
+  const imagePath = useSizedImage(id, "thumbnail");
   return (
     <Flex
       className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100 ${cardWidths}`}
