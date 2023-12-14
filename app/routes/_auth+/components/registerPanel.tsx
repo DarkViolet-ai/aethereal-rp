@@ -7,13 +7,20 @@ import { redirect } from "remix-typedjson";
 import { z } from "zod";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
+import HStack from "~/components/buildingBlocks/hStack";
 import InputVStack from "~/components/buildingBlocks/inputVStack";
 import PasswordInput from "~/components/buildingBlocks/passwordInput";
 import Text from "~/components/buildingBlocks/text";
 import Toast, { useToast } from "~/components/buildingBlocks/toast";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
-import { borderShadow } from "~/css/styles";
+import {
+  borderShadow,
+  cardWidths,
+  cursiveText,
+  titleSizes,
+  topNavPadding,
+} from "~/css/styles";
 
 export const action = async ({ request }: DataFunctionArgs) => {
   const formData = await request.formData();
@@ -69,26 +76,33 @@ export default function RegisterPanel() {
   );
 
   return (
-    <Flex className="w-full h-full justify-center items-center">
+    <Flex
+      className={`w-full h-full justify-center items-center ${topNavPadding}`}
+    >
       <VStack
-        gap="gap-0 sm:gap-3"
-        className={`${borderShadow} relative w-[375px] h-[610px] sm:h-[700px] p-3 text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad`}
+        gap="gap-3 ultraHD:gap-6"
+        className={`${borderShadow} relative w-98% h-98% sm:w-95% max-w-[700px] fullHD:max-w-[1050px] quadHD:h-80% ultraHD:max-w-[1500px]  p-3 pb-[0px] text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad justify-between`}
       >
-        <DarkViolet b="-bottom-[2px]" l="left-2" w="w-[115px]" />
-        <DarkViolet
-          name="violetsRowSmall"
-          b="bottom-0"
-          r="right-2"
-          w="w-[125px]"
-        />
-        <Text className="text-[36px] sm:text-[44px] font-cursive mb-0 sm:mb-2">
-          Welcome to
-        </Text>
-        <DarkViolet name="Logo" pos="relative" w="w-[200px] sm:w-[300px]" />
+        <VStack className="w-full flex-shrink-0 items-center ultraHD:gap-5">
+          <Text className={`${titleSizes} ${cursiveText}`}>
+            Create an account
+          </Text>
+          <Flex className={`${cardWidths} justify-center`}>
+            <DarkViolet
+              name="Logo"
+              pos="relative"
+              w="w-60%"
+              className="max-w-[300px] ultraHD:max-w-[700px]"
+            />
+          </Flex>
+        </VStack>
 
-        <Form onSubmit={handleSubmit} style={{ width: "95%" }}>
-          <VStack gap="gap-1 sm:gap-3">
-            <VStack gap="gap-0" className="w-full">
+        <Form
+          onSubmit={handleSubmit}
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
+        >
+          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-8 h-full w-98% max-w-[400px] fullHD:max-w-[600px]">
+            <VStack className="w-full">
               <InputVStack
                 className="w-full"
                 label="Email"
@@ -109,7 +123,7 @@ export default function RegisterPanel() {
               />
             </VStack>
 
-            <VStack gap="gap-0" className="w-full">
+            <VStack className="w-full">
               <PasswordInput />
               <PasswordInput confirm />
             </VStack>
@@ -118,6 +132,23 @@ export default function RegisterPanel() {
             </Flex>
           </VStack>
         </Form>
+        <Flex className="w-full h-full">
+          {" "}
+          <HStack className="w-full items-end justify-between h-30vh">
+            <DarkViolet
+              name="6"
+              className="w-30vw sm:w-[150px] fullHD:w-[175px] ultraHD:w-[350px] max-w-[150px] md:max-x-[200px] xl:max-w-[225px] ultraHD:max-w-[400px]"
+              b="bottom-0"
+              l="left-1 md:left-2 fullHD:left-4"
+            />
+            <DarkViolet
+              name="violetsRowSmall"
+              className="w-40vw sm:w-[150px] fullHD:w-[175px] ultraHD:w-[350px] ultraHD:max-w-[400px]"
+              b="bottom-0"
+              r="right-1 md:right-2 fullHD:right-4"
+            />
+          </HStack>
+        </Flex>
       </VStack>
       <AnimatePresence>
         {isToastVisible && (
