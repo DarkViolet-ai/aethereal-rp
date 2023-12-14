@@ -3,7 +3,7 @@ import Flex from "~/components/buildingBlocks/flex";
 import ParchmentPage from "./components/parchmentPage";
 import InteractionPage from "./components/interactionPage";
 import Transition from "~/components/buildingBlocks/transition";
-import { useParams } from "@remix-run/react";
+import { useParams, useRevalidator } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
 import Text from "~/components/buildingBlocks/text";
 import { requireUserId } from "~/lib/utils/session.server";
@@ -15,6 +15,7 @@ import { submitStoryGeneration, submitUserPrompt } from "~/lib/queue/queues";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import { DataFunctionArgs } from "@remix-run/node";
 import useStatusStream from "~/lib/hooks/useStatusStream";
+import { useEffect } from "react";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const userId = await requireUserId(request);
@@ -58,11 +59,17 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 };
 
 export default function StoryId() {
+  const { revalidate } = useRevalidator();
   const { story, isActiveCharacter, characterName } =
     useTypedLoaderData<typeof loader>();
 
   const storyId = story?.id;
   const data = useStatusStream(storyId);
+
+  useEffect(() => {
+    console.log("data", data);
+    revalidate();
+  }, [data]);
 
   // console.log(tempStory);
   return (

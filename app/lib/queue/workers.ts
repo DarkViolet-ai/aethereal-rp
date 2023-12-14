@@ -57,6 +57,7 @@ const workerDispatch: WorkerDispatch = {
       status: StoryStatus;
     };
     const story = await updateStoryStatus({ id: storyId, status });
+    console.log("sending status", storyId, getStatusMessage({ story }));
     dvEvent.status(storyId, getStatusMessage({ story }));
   },
 
@@ -84,6 +85,7 @@ const workerDispatch: WorkerDispatch = {
   },
   //**************************************************************************/
   [QueueName.PROMPT_USER]: async (job: Job) => {
+    console.log("handling user prompt");
     const { story: _story } = job.data as { story: StoryData };
     const story = await getStory({ id: _story.id });
 
@@ -118,6 +120,7 @@ const workerDispatch: WorkerDispatch = {
     }
 
     if (characterUsername === "ai") {
+      console.log("submitting ai status");
       await submitStatus({
         storyId: story.id,
         status: StoryStatus.AICHARACTER,
@@ -126,6 +129,7 @@ const workerDispatch: WorkerDispatch = {
         story,
       });
     } else {
+      console.log("submitting user status");
       await submitStatus({
         storyId: story.id,
         status: StoryStatus.USER,
@@ -217,6 +221,7 @@ const workerDispatch: WorkerDispatch = {
     });
     newContent.length > 0 &&
       (await createNarratorStep({ storyId, content: newContent }));
+    console.log("submitting user prompt");
     await submitUserPrompt({ story });
   },
 

@@ -30,7 +30,9 @@ const storyImagePrompt = (story: Story | StoryTemplate) => {
    a sense of wonder and intrigue. It should include symbolic elements related to the story's content,
     creating a magical and otherworldly atmosphere. The composition should be balanced and aesthetically 
     pleasing, suitable for use as a captivating and memorable illustration on a game card. The image should
-    be a single continuous scene, not a collection of separate images.`;
+    be a single continuous scene, not a collection of separate images.  The image will not contain any
+    written words or numbers, just a single continuous scene that is based on the title and description of the story.
+    There is no text whatsoever in this image.`;
 };
 
 const characterImagePrompt = (character: OpenCharacterView) => {

@@ -21,6 +21,7 @@ import Box from "~/components/buildingBlocks/box";
 import useStatusStream from "~/lib/hooks/useStatusStream";
 import { useEffect } from "react";
 import { useRevalidator } from "@remix-run/react";
+import { set } from "zod";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const storyId = params.storyId as string;

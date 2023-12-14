@@ -45,6 +45,7 @@ export const createStory = async ({
       isActive,
       version,
       storyTemplateId: templateId,
+      imageUrl,
     },
   });
   const newCharacters = await Promise.all(
