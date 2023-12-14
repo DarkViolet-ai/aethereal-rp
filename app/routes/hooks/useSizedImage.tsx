@@ -14,12 +14,12 @@ const imageSizes = {
 };
 
 export default function useSizedImage(
-  contentId: string,
+  contentId: string | null | undefined,
   size: keyof typeof imageSizes
 ) {
   const filename = `${contentId}.png`;
   const { supabase } = useOutletContext<{ supabase: SupabaseClient }>();
-  if (!supabase) return;
+  if (!supabase || !contentId) return null;
   const imageUrl = supabase.storage
     .from(bucketName)
     .getPublicUrl(filePath + filename, {
