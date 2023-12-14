@@ -4,30 +4,32 @@ import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
 import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
-import { borderShadow, cursiveText, textSizes } from "~/css/styles";
+import {
+  borderShadow,
+  cursiveText,
+  headingSizes,
+  textSizes,
+  titleSizes,
+} from "~/css/styles";
 
 export default function NewStoryCard({
   newTemplate = false,
 }: {
   newTemplate?: boolean;
 }) {
-  const navigate = useNavigate();
-
   return (
     <Flex
-      className={`w-full shadow-slate-500 bg-cyanGrad ${borderShadow} hover:cursor-pointer ${textSizes} story-card-hover`}
-      // onClick={() => navigate(`/story/new`)}
+      className={`w-full p-6 shadow-shadow3D bg-dv-700 ${borderShadow} hover:cursor-pointer ${textSizes} story-card-hover`}
     >
-      <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
+      <HStack className="w-full h-full justify-between">
         <VStack
-          align="start h-full text-shadow-dvTextShadow text-[17px]"
+          className="w-72% h-full text-shadow-dvTextShadow"
+          align="start"
           gap="gap-5"
         >
-          <Flex className="pt-3">
+          <Flex className="p-4">
             {newTemplate ? (
-              <Text
-                className={`${cursiveText} text-shadow-boldTextGlow text-dv-900 text-[33px] leading-[35px] fullHD:text-[45px] fullHD:leading-[48px]`}
-              >
+              <Text className={`${cursiveText}  ${headingSizes}}`}>
                 Click here to start from scratch, or choose a template below.
               </Text>
             ) : (
@@ -45,7 +47,7 @@ export default function NewStoryCard({
             </Text>
           )}
         </VStack>
-        <Flex className="h-98% w-[100px] flex-shrink-0">
+        <Flex className="w-26% flex-shrink-0">
           <Image
             src="/images/stories/create_a_new_story.png"
             alt="create a new story"

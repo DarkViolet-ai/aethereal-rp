@@ -21,8 +21,7 @@ export const violetsTwo = "/images/core/violetsRowTwo.png";
 export const parchmentCorner = "/images/core/parchmentCorner.png";
 
 // STYLES
-export const cursiveText =
-  "font-cursive text-dv-400 text-shadow-dvTextShadow text-[25px]";
+export const cursiveText = "font-cursive text-dv-400 text-shadow-dvTextShadow";
 export const borderShadow = "border-[1.5px] border-dv-800 shadow-dvShadow";
 export const highlightedText =
   "text-dv-400 text-shadow-dvTextShadow font-semibold";
@@ -37,8 +36,9 @@ export const textSizes =
 export const cardWidths =
   "w-98% sm:max-w-92% md:w-90% lg:w-98% xl:w-90% xxl:w-88%";
 export const titleSizes =
-  "text-[33px] leading-[35px] md:text-[40px] md:leading-[44px] lg:text-[42px] lg:leading-[46px] xl:text-[44px] xl:leading-[48px] xxl:text-[46px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px] quadHD:text-[60px] quadHD:leading-[65px] ultraHD:text-[80px] ultraHD:leading-[85px]";
-export const headingSizes = `${cursiveText} text-[40px] leading-[44px] xl:text-[42px] xl:leading-[46px] xxl:text-[44px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px]quadHD:text-[60px]  quadHD:leading-[66px] ultraHD:text-[70px] ultraHD:leading-[77px]`;
+  "text-[33px] leading-[35px] md:text-[40px] md:leading-[44px] lg:text-[42px] lg:leading-[46px] xl:text-[44px] xl:leading-[48px] xxl:text-[46px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px] quadHD:text-[60px] quadHD:leading-[70px] ultraHD:text-[80px] ultraHD:leading-[90px]";
+export const columnHeaderSizes = `${cursiveText} text-[40px] leading-[44px] xl:text-[42px] xl:leading-[46px] xxl:text-[44px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px]quadHD:text-[60px]  quadHD:leading-[66px] ultraHD:text-[70px] ultraHD:leading-[77px]`;
+export const headingSizes = `${cursiveText} text-[24px] leading-[28px] md:text-[28px] md:leading-[32px] xl:text-[32px] xl:leading-[36px] xxl:text-[36px] xxl:leading-[40px] fullHD:text-[44px] fullHD:leading-[48px] quadHD:text-[48px]  quadHD:leading-[52px] ultraHD:text-[70px] ultraHD:leading-[77px]`;
 
 // CARD COLORS
 export const cardColors = [

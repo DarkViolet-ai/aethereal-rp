@@ -3,7 +3,7 @@ import {
   cardWidths,
   colMaxWidths,
   cursiveText,
-  headingSizes,
+  columnHeaderSizes,
   textSizes,
   titleSizes,
 } from "~/css/styles";
@@ -90,7 +90,7 @@ export default function StoryId() {
                 >
                   <HStack className="w-full h-[70px] bg-dv-975 bg-darkCyanGrad rounded-b-none p-3 items-center border-b-2 border-dv-450 ">
                     <Text
-                      className={`${cursiveText} ${headingSizes} text-shadow-textFog`}
+                      className={`${cursiveText} ${columnHeaderSizes} text-shadow-textFog`}
                     >
                       The Story
                     </Text>

@@ -1,4 +1,10 @@
-import { borderShadow, cursiveText, textSizes } from "~/css/styles";
+import {
+  borderShadow,
+  cursiveText,
+  columnHeaderSizes,
+  textSizes,
+  headingSizes,
+} from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text from "../../components/buildingBlocks/text";
 import { useNavigate } from "@remix-run/react";
@@ -29,7 +35,7 @@ export default function StoryCard({
     >
       <HStack className="w-full h-full p-2 shadow-shadow3D justify-between">
         <VStack align="start text-shadow-dvTextShadow text-[17px]" gap="gap-0">
-          <Text className={`${cursiveText} text-[30px]`}>
+          <Text className={`${cursiveText} ${headingSizes} `}>
             <i>{story.title}</i>
           </Text>
           <VStack
