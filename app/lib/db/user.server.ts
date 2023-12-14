@@ -48,6 +48,7 @@ export const getUserStories = async (
       summary: true,
       createdAt: true,
       updatedAt: true,
+      storyTemplateId: true,
     },
   });
 
@@ -63,6 +64,7 @@ export const getUserStories = async (
       imageUrl: true,
       createdAt: true,
       updatedAt: true,
+      storyTemplateId: true,
     },
   });
   return { stories, activeStories };
@@ -77,6 +79,7 @@ export type StorySummaryData = Prisma.StoryGetPayload<{
     imageUrl: true;
     createdAt: true;
     updatedAt: true;
+    storyTemplateId: true;
   };
 }>;
 
