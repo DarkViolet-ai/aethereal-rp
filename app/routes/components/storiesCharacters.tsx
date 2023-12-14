@@ -7,7 +7,7 @@ import {
 import Flex from "../../components/buildingBlocks/flex";
 import CardContainer from "./cardContainer";
 import StoryCard from "./storyCard";
-import CharacterCard from "./characterCard";
+import { CharacterCardMini } from "./characterCard";
 
 import VStack from "~/components/buildingBlocks/vStack";
 import { useTypedLoaderData } from "remix-typedjson";
@@ -82,7 +82,7 @@ export default function StoriesCharacters() {
               {availableCharacters.map((character, index) => {
                 return (
                   <Flex className={`w-full px-2 ${cardWidths}`} key={index}>
-                    <CharacterCard
+                    <CharacterCardMini
                       character={character}
                       bgColor={cardColors[index % cardColors.length]}
                     />

@@ -1,9 +1,5 @@
 import type { DataFunctionArgs } from "@remix-run/node";
-import {
-  typedjson,
-  useTypedActionData,
-  useTypedLoaderData,
-} from "remix-typedjson";
+import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import {
   ColumnsPageColumn,
   ColumnsPageContainer,

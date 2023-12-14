@@ -20,8 +20,9 @@ import GetStoryImagePath from "~/lib/utils/getStoryImagePath";
 import Divider from "~/components/buildingBlocks/divider";
 import type { OpenCharacterView } from "~/lib/db/character.server";
 import { Avatar } from "~/components/buildingBlocks/avatar";
+import Button from "~/components/buildingBlocks/button";
 
-export default function CharacterCardMini({
+export function CharacterCardMini({
   character,
   bgColor = cardColors[1 % cardColors.length],
 }: {
@@ -35,7 +36,7 @@ export default function CharacterCardMini({
       onClick={() => setModalOpen(true)}
     >
       <HStack className="justify-between w-full">
-        <Avatar size="md" src="/images/icons/profileIcon.png" />
+        <Avatar size="lg" src="/images/icons/profileIcon.png" />
 
         <VStack
           className="w-full text-shadow-dvTextShadow"
@@ -76,7 +77,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
   const paragraphs = story?.content.split("\n");
 
   return (
-    <Flex className="w-full h-fit min-h-fit lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5">
+    <Flex className="w-full h-fit min-h-full lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-5 rounded-b-none">
       <Flex className="w-full lg:w-40% justify-center lg:h-full lg:items-center">
         <VStack className="w-full h-full gap-4">
           <Flex className="w-[350px] h-[500px] flex-shrink-0 shadow-dvShadow rounded-lg ">
@@ -104,50 +105,28 @@ export function CharacterCard({ character }: CharacterCardProps) {
         <VStack align="start w-full gap-[30px]">
           {/* STORY TAGS */}
 
-          <VStack className="w-full gap-4 px-2 pb-2 h-fit ">
-            <VStack className="w-full gap-0">
-              <LabelValue label="Other Characters" />
-              <Flex className="w-full">
-                <VStack className="w-full px-4" align="start">
-                  {storyCharacters.map((character, index) => (
-                    <LabelValue
-                      key={index}
-                      direction="flex-row"
-                      label={storyCharacters[index].name}
-                      value={storyCharacters[index].summary}
-                    />
-                  ))}
-                </VStack>
-              </Flex>
-            </VStack>
-            <Divider />
-            <VStack className="w-full gap-0">
-              <LabelValue
-                label="Story Summary"
-                value={
-                  story?.summary ||
-                  "There is no summary available for this story."
-                }
-              />
-              <VStack className="w-full h-fit overflow-y-auto">
-                {paragraphs?.map((paragraph, index) => (
-                  <Text key={index} className="text-[18px]">
-                    {paragraph.trim()}
-                  </Text>
-                ))}
-              </VStack>
-            </VStack>
-          </VStack>
-          <NavLink
-            to={`/story/${character.storyId}/${character.id}`}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            GO TO
-          </NavLink>
+          <HStack className="w-full justify-around">
+            <NavLink
+              to={`/story/${character.storyId}/${character.id}`}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button>Story Details</Button>
+            </NavLink>
+            <NavLink
+              to={`/story/${character.storyId}/${character.id}`}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button>Play this Role</Button>
+            </NavLink>
+          </HStack>
         </VStack>
       </Flex>
     </Flex>
