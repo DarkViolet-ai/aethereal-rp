@@ -13,7 +13,7 @@ interface TextAreaProps
 export default function TextArea({
   className = "",
   style,
-  textAreaHeight = "h-[200px]",
+  textAreaHeight = "h-[150px] xxl:h-[200px]  quadHD:h-[275px] ultraHD:h-[450px]",
   textAreaWidth = "w-full",
   autoFocus = false,
   ...props

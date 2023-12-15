@@ -1,11 +1,9 @@
-import { useNavigate } from "@remix-run/react";
 import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
 import Text from "~/components/buildingBlocks/text";
 import VStack from "~/components/buildingBlocks/vStack";
 import {
-  borderShadow,
   cardWidths,
   cursiveText,
   headingSizes,
@@ -24,7 +22,7 @@ export default function NewStoryCard({
     >
       <HStack className="w-full h-full justify-between">
         <VStack
-          className="w-70% h-full text-shadow-dvTextShadow"
+          className="w-75% h-full text-shadow-dvTextShadow"
           align="start"
           gap="gap-3"
         >
@@ -46,7 +44,7 @@ export default function NewStoryCard({
             </Text>
           )}
         </VStack>
-        <Flex className="w-40% flex-shrink-0">
+        <Flex className="w-25% flex-shrink-0">
           <Image
             src="/images/stories/create_a_new_story.png"
             alt="create a new story"
