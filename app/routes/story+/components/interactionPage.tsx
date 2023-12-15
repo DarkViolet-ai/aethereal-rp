@@ -2,18 +2,12 @@ import { Form } from "@remix-run/react";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
-import Text from "~/components/buildingBlocks/textComponents";
+import Text, { HeadingLG } from "~/components/buildingBlocks/textComponents";
 import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import LoadingText from "~/components/specialty/loading";
-import {
-  borderShadow,
-  cardWidths,
-  colMaxWidths,
-  cursiveText,
-  headingSizes,
-} from "~/css/styles";
+import { borderShadow, cardWidths, colMaxWidths } from "~/css/styles";
 import type { StoryData } from "~/lib/db/story.server";
 
 export default function InteractionPage({
@@ -90,10 +84,10 @@ export default function InteractionPage({
         >
           <input type="hidden" name="storyId" value={story.id} />
           <VStack className="w-full h-full" gap="gap-[15px]">
-            <Flex
-              className={`${cursiveText} ${headingSizes} text-shadow-textFog flex-shrink-0`}
-            >
-              <Text>You are {characterName}</Text>
+            <Flex className="flex-shrink-0">
+              <HeadingLG shadow="text-shadow-textFog">
+                You are {characterName}
+              </HeadingLG>
             </Flex>
             <Flex className="w-full h-full justify-center ">
               <TextAreaVStack

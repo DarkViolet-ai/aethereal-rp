@@ -1,13 +1,7 @@
-import Text from "~/components/buildingBlocks/textComponents";
+import Text, { HeadingLG } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import HStack from "~/components/buildingBlocks/hStack";
-import {
-  borderShadow,
-  cardColors,
-  cardWidths,
-  cursiveText,
-  headingSizes,
-} from "~/css/styles";
+import { borderShadow, cardColors, cardWidths } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
 import type { StoryCharacter } from "~/lib/db/character.server";
 import { NavLink } from "@remix-run/react";
@@ -58,11 +52,9 @@ export default function Characters({
                 </Box>
               </Flex>
               <VStack align="start" className="w-70% h-full justify-evenly">
-                <Text
-                  className={`${cursiveText} text-shadow-textFog ${headingSizes}`}
-                >
+                <HeadingLG shadow="text-shadow-textFog">
                   {character.name}
-                </Text>
+                </HeadingLG>
                 <Text className="text-shadow-dvTextShadow">
                   {character.description}
                 </Text>

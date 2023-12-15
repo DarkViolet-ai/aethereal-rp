@@ -5,8 +5,7 @@ import Box from "./box";
 import IconButton from "./iconButton";
 import { FaEye, FaEyeSlash } from "react-icons/fa/index.js";
 import VStack from "./vStack";
-import Text from "./textComponents";
-import { headingSizes } from "~/css/styles";
+import { HeadingLG } from "./textComponents";
 
 interface PasswordInputProps {
   name?: string;
@@ -23,12 +22,12 @@ export default function PasswordInput({
   const handleClick = () => setShow(!show);
 
   return (
-    <VStack
-      gap="gap-0"
-      align="start"
-      className={`w-full ${headingSizes} text-shadow-textFog`}
-    >
-      {confirm ? <Text>Confirm Password</Text> : <Text>Password</Text>}
+    <VStack gap="gap-0" align="start" className={`w-full`}>
+      {confirm ? (
+        <HeadingLG shadow="text-shadow-textFog">Confirm Password</HeadingLG>
+      ) : (
+        <HeadingLG shadow="text-shadow-textFog">Password</HeadingLG>
+      )}
       <HStack className="w-full relative" gap="gap-0">
         <Box className="relative w-full">
           <Input

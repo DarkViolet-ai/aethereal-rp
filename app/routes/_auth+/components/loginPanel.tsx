@@ -11,14 +11,12 @@ import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import InputVStack from "~/components/buildingBlocks/inputVStack";
 import PasswordInput from "~/components/buildingBlocks/passwordInput";
-import Text from "~/components/buildingBlocks/textComponents";
+import { HeadingXL } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import {
   borderShadow,
   cardWidths,
-  cursiveText,
-  titleSizes,
   topNavPadding,
 } from "~/css/styles";
 
@@ -53,7 +51,7 @@ export default function LoginPanel() {
         className={`${borderShadow} relative w-98% h-98% max-w-[550px] md:h-90% fullHD:max-w-[700px] quadHD:h-80% ultraHD:max-w-[1000px] ultraHD:h-75% p-3 pb-[0px] text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad justify-between`}
       >
         <VStack className="w-full flex-shrink-0 items-center ultraHD:gap-5">
-          <Text className={`${titleSizes} ${cursiveText}`}>Login to</Text>
+          <HeadingXL shadow="text-shadow-textFog">Login to</HeadingXL>
           <Flex className={`${cardWidths} justify-center`}>
             <DarkViolet name="Logo" pos="relative" w="w-98%" />
           </Flex>

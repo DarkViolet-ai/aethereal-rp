@@ -600,6 +600,7 @@ export default {
 
       textShadow: {
         lightTextShadow: "1px 1px 3px rgba(255, 255, 255, 0.9)",
+        none: "",
         dvTextShadow: "2px 2px 2px rgba(0, 0, 0, 0.9)",
         subtleTextShadow: "1px 1px 2px rgba(0, 0, 0, 0.9)",
         standoutTextShadow: "3px 3px 4px rgba(0, 0, 0, 0.9)",

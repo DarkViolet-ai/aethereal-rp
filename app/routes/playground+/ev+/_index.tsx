@@ -5,7 +5,6 @@ import {
 import Divider from "~/components/buildingBlocks/divider";
 import Flex from "~/components/buildingBlocks/flex";
 import Text, {
-  Heading,
   HeadingLG,
   HeadingMD,
   HeadingSM,

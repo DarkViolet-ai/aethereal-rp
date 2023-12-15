@@ -6,15 +6,9 @@ import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
-import Text from "~/components/buildingBlocks/textComponents";
+import Text, { HeadingLG } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
-import {
-  cardWidths,
-  headingSizes,
-  //   containerPadding,
-  highlightedText,
-  negativeStyles,
-} from "~/css/styles";
+import { cardWidths, highlightedText, negativeStyles } from "~/css/styles";
 
 export default function ViewPanel({
   storyTemplate,
@@ -37,7 +31,7 @@ export default function ViewPanel({
         <VStack className="w-full h-40% gap-4 fullHD:gap-6 ultraHD:gap-10">
           <VStack className="w-full justify-start h-full fullHD:gap-6 ultraHD:gap-10">
             <Flex className={`w-full ${cardWidths}`}>
-              <Text className={`${headingSizes}`}>{storyTemplate?.title}</Text>
+              <HeadingLG>{storyTemplate?.title}</HeadingLG>
             </Flex>
             <VStack className={`w-full ${cardWidths}`} align="start">
               <Text className={`${highlightedText}`}>Summary</Text>

@@ -1,11 +1,11 @@
-import { cursiveText, titleSizes, topNavPadding } from "~/css/styles";
+import { topNavPadding } from "~/css/styles";
 import Flex from "~/components/buildingBlocks/flex";
 import ParchmentPage from "./components/parchmentPage";
 import InteractionPage from "./components/interactionPage";
 import Transition from "~/components/buildingBlocks/transition";
 import { useRevalidator } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
-import Text from "~/components/buildingBlocks/textComponents";
+import { HeadingXL } from "~/components/buildingBlocks/textComponents";
 import { requireUserId } from "~/lib/utils/session.server";
 import { getNextCharacterInStory, getStory } from "~/lib/db/story.server";
 import { dvError } from "~/lib/utils/dvError";
@@ -82,11 +82,7 @@ export default function StoryId() {
       <Transition type="fade" className="w-full h-full lg:w-7/12 ">
         <VStack className="w-full h-full justify-center">
           <Flex className="flex-shrink-0 py-2">
-            <Text
-              className={`${cursiveText} ${titleSizes} text-shadow-textFog`}
-            >
-              {story?.title || ""}
-            </Text>
+            <HeadingXL>{story?.title || ""}</HeadingXL>
           </Flex>
           <ParchmentPage
             isActiveCharacter={isActiveCharacter}

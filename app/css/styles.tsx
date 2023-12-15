@@ -35,12 +35,8 @@ export const colMaxWidths =
 export const textSizes =
   "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] fullHD:text-[22px] fullHD:leading-[28px] quadHD:text-[32px] quadHD:leading-[40px] ultraHD:text-[45px] ultraHD:leading-[55px]";
 export const cardWidths = "w-97% sm:w-90% md:w-90% lg:w-95% xl:w-90% xxl:w-88%";
-export const titleSizes =
-  "text-[33px] leading-[35px] md:text-[40px] md:leading-[44px] lg:text-[42px] lg:leading-[46px] xl:text-[44px] xl:leading-[48px] xxl:text-[46px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px] quadHD:text-[60px] quadHD:leading-[70px] ultraHD:text-[80px] ultraHD:leading-[90px]";
-export const columnHeaderSizes = `${cursiveText} text-[40px] leading-[44px] xl:text-[42px] xl:leading-[46px] xxl:text-[44px] xxl:leading-[50px] fullHD:text-[50px] fullHD:leading-[55px]quadHD:text-[60px]  quadHD:leading-[66px] ultraHD:text-[70px] ultraHD:leading-[77px]`;
-export const headingSizes = `${cursiveText} text-[24px] leading-[28px] md:text-[28px] md:leading-[32px] xl:text-[32px] xl:leading-[36px] xxl:text-[36px] xxl:leading-[40px] fullHD:text-[44px] fullHD:leading-[48px] quadHD:text-[48px] quadHD:leading-[56px] ultraHD:text-[70px] ultraHD:leading-[80px]`;
 export const containerPadding = `p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 `;
-export const negativeStyles = `bg-pinkest text-dv-900 text-shadow-dvTextShadow border-2 border-dv-900 hover:bg-dv-900 hover:text-pinkest hover:border-pinkest ultraHD:border-8 text-shadow-lightTextShadow`;
+export const negativeStyles = `bg-pinkest text-dv-900 border-2 border-dv-900 hover:bg-dv-900 hover:text-pinkest hover:border-pinkest ultraHD:border-8 hover:text-shadow-dvTextShadow`;
 
 // CARD COLORS
 export const cardColors = [

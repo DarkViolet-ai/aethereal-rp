@@ -1,13 +1,13 @@
 import {
   borderShadow,
-  cursiveText,
   textSizes,
-  headingSizes,
   cardWidths,
   containerPadding,
 } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
-import Text from "../../components/buildingBlocks/textComponents";
+import Text, {
+  HeadingLG,
+} from "../../components/buildingBlocks/textComponents";
 import { useNavigate } from "@remix-run/react";
 import HStack from "../../components/buildingBlocks/hStack";
 import VStack from "../../components/buildingBlocks/vStack";
@@ -41,11 +41,9 @@ export default function StoryCard({
           align="start text-shadow-dvTextShadow w-75% h-full justify-evenly"
           gap="gap-0"
         >
-          <Text
-            className={`${cursiveText} ${headingSizes} text-shadow-textFog`}
-          >
+          <HeadingLG shadow={`text-shadow-textFog`}>
             <i>{story.title}</i>
-          </Text>
+          </HeadingLG>
           {hideDate ? null : <Text>{FormatDate(String(story.createdAt))}</Text>}
 
           <Text noOfLines={2} className={` ${textSizes}`}>
