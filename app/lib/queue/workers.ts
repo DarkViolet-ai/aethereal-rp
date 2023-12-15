@@ -47,7 +47,7 @@ export type WorkerDispatch = {
 const workerDispatch: WorkerDispatch = {
   [QueueName.ERROR]: async (job: Job) => {
     const { message, stack } = job.data as { message: string; stack?: string };
-    await submitLog({ type: "ERROR", message, stack });
+    //await submitLog({ type: "ERROR", message, stack });
     console.log("error", message, stack);
   },
 
@@ -57,7 +57,7 @@ const workerDispatch: WorkerDispatch = {
       storyId: string;
       status: StoryStatus;
     };
-    await submitLog({ type: "INFO", message: `status: ${storyId} ${status}` });
+    //await submitLog({ type: "INFO", message: `status: ${storyId} ${status}` });
     const story = await updateStoryStatus({ id: storyId, status });
     console.log("sending status", storyId, getStatusMessage({ story }));
     dvEvent.status(storyId, getStatusMessage({ story }));
@@ -92,10 +92,10 @@ const workerDispatch: WorkerDispatch = {
     const story = await getStory({ id: _story.id });
 
     if (!story?.isActive) {
-      submitLog({
-        type: "INFO",
-        message: "Story is not active.  Will wait for user to join.",
-      });
+      // await submitLog({
+      //   type: "INFO",
+      //   message: "Story is not active.  Will wait for user to join.",
+      // });
       return;
     }
     if (!story?.nextCharacter) {
@@ -157,7 +157,7 @@ const workerDispatch: WorkerDispatch = {
   [QueueName.GENERATE_STORY]: async (job: Job) => {
     const { storyId, input } = job.data as { storyId: string; input: string };
     //await clearStoryTimeouts(storyId);
-    await submitLog({ type: "INFO", message: "generate story" });
+    //await submitLog({ type: "INFO", message: "generate story" });
     console.log("generate story", storyId, input);
     if (await redis.get(`story-input:${storyId}:${input}`)) {
       return;
@@ -242,11 +242,12 @@ const workerDispatch: WorkerDispatch = {
       story && (await updateStory({ id: story.id, isActive: false }));
       return;
     }
-    console.log("submitting character generation");
+    console.log("submitting character generation 1");
     // duplicate generations can only be re-sent every 60 seconds
     if (
       (await redis.get(`story-prompt:${story.id}:${story.prompt}`)) === null
     ) {
+      console.log("submitting character generation 2");
       await redis.setex(`story-prompt:${story.id}:${story.prompt}`, 60, "1");
       const result = await generateCharacterOutput({
         story,

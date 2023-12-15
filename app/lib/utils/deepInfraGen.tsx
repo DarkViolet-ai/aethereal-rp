@@ -1,4 +1,4 @@
-const DEEP_INFRA_BASE = "https://api.deepinfra.com/v1/" as const;
+const DEEP_INFRA_BASE = "https://api.deepinfra.com/v1/inference/" as const;
 const DEEP_INFRA_API_KEY = process.env.DEEP_INFRA_API_KEY;
 
 type DeepInfraTextGenerationOut = {
@@ -51,6 +51,7 @@ export const deepInfraGen = async ({
   numResponses,
   stream,
 }: DeepInfraGenInput) => {
+  console.log("deepInfraGen");
   const uri = apiBase + model;
   const headers = {
     "Content-Type": "application/json",
@@ -67,14 +68,16 @@ export const deepInfraGen = async ({
     num_responses: numResponses,
     stream,
   };
+  console.log(body);
   const response = await fetch(uri, {
     method: "POST",
     headers,
     body: JSON.stringify(body),
   });
-  console.log(response);
+  const data = await response.json();
+  console.log(data);
 
-  return (await response.json()) as DeepInfraTextGenerationOut;
+  return data as DeepInfraTextGenerationOut;
 };
 
 export const deepInfraMakeSysPrompt = (systemPrompt: string) => {

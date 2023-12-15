@@ -4,6 +4,7 @@ export const deepInfraCharacterGenerator = async (
   systemPrompt: string,
   input: string
 ) => {
+  console.log("deepInfraCharacterGenerator", systemPrompt, input);
   const response = await deepInfraGen({
     userPrompt: input,
     systemPrompt,
