@@ -2,6 +2,7 @@ import { borderShadow, colMaxWidths } from "~/css/styles";
 import Flex from "./flex";
 import VStack from "./vStack";
 import Transition, { type TransitionType } from "./transition";
+import { HeadingLG, HeadingXL, TextLG } from "./textComponents";
 
 export function ColumnsPageHeader({
   title,
@@ -13,19 +14,17 @@ export function ColumnsPageHeader({
   titleFontStyles?: string;
 }) {
   return (
-    <VStack className={`w-full h-fit flex-shrink-0 pt-3 pb-3`}>
+    <VStack className={`w-full h-fit flex-shrink-0 pt-3 pb-3 gap-0`}>
       {title && (
-        <Flex
-          className={`w-full h-fit flex-shrink-0 px-2 pt-3 justify-center text-shadow-dvTextShadow`}
-        >
-          {title}
+        <Flex className={`w-full h-fit flex-shrink-0 px-2 pt-1 justify-center`}>
+          <HeadingXL>{title}</HeadingXL>
         </Flex>
       )}
       {subtitle && (
         <Flex
-          className={`w-full h-fit flex-shrink-0 justify-center bg-dv-950 p-2 md:p-3 xxl:p-4 text-shadow-dvTextShadow shadow-shadow3D xxl:w-98% fullHD:w-90% quadHD:w-85% ultraHD:w-80% `}
+          className={`w-95% h-fit flex-shrink-0 justify-center bg-dv-950 px-2 py-1 md:px-3 xxl:px-4 shadow-shadow3D fullHD:w-90% quadHD:w-85% ultraHD:w-80% `}
         >
-          {subtitle}
+          <TextLG>{subtitle}</TextLG>
         </Flex>
       )}
     </VStack>
@@ -85,7 +84,7 @@ export function ColumnsPageContainer({
 
   return (
     <VStack
-      className={`h-fit w-99% ${topNavPadding} justify-center gap-0 ${scrollStyles}`}
+      className={`h-fit w-99% ${topNavPadding} justify-center gap-0 ${scrollStyles} gap-0`}
     >
       {(title || subtitle) && (
         <Flex className={`w-full h-fit ${pt} justify-center`}>
@@ -170,9 +169,9 @@ export function ColumnsPageColumn({
             >
               {heading && (
                 <Flex
-                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3  border-b-2 border-b-dv-225 `}
+                  className={`w-full h-fit flex-shrink-0 rounded-b-none px-3 bg-dv-900 border-b-2 border-b-dv-225 `}
                 >
-                  {heading}
+                  <HeadingLG>{heading}</HeadingLG>
                 </Flex>
               )}
               <VStack

@@ -5,6 +5,11 @@ import {
 import Divider from "~/components/buildingBlocks/divider";
 import Flex from "~/components/buildingBlocks/flex";
 import Text, {
+  Heading,
+  HeadingLG,
+  HeadingMD,
+  HeadingSM,
+  HeadingXL,
   Text2XL,
   Text3XL,
   Text4XL,
@@ -24,7 +29,7 @@ const textExample = RandomText(3, 3);
 export default function EvsPlace() {
   return (
     <Flex className={`w-full h-full ${topNavPadding} overflow-y-auto`}>
-      <ColumnsPageContainer>
+      <ColumnsPageContainer title="title" subtitle="subtitle">
         <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
           <VStack gap="gap-1">
             <Text3XL>SIZED TEXT COMPONENTS</Text3XL>
@@ -38,8 +43,11 @@ export default function EvsPlace() {
             <Text4XL>Text4XL - 4.2vh</Text4XL>
             <Text5XL>Text5XL - 4.4vh</Text5XL>
             <Text6XL>Text6XL - 5vh</Text6XL>
-            <Divider />
-            <Text className="text-6xl">Text6XL - 5vh</Text>
+            <Text className="text-6xl">Text6XL - 5vh</Text> <Divider />
+            <HeadingXL>HeadingXL</HeadingXL>
+            <HeadingLG>HeadingLG</HeadingLG>
+            <HeadingMD>HeadingMD</HeadingMD>
+            <HeadingSM>HeadingSM</HeadingSM>
           </VStack>
         </ColumnsPageColumn>
         <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
