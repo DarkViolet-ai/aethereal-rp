@@ -1,5 +1,4 @@
 import type { ReactNode, MouseEventHandler } from "react";
-import { buttonDimensions, textSizes } from "~/css/styles";
 
 interface ButtonProps {
   type?: "button" | "submit" | "reset";
@@ -17,11 +16,11 @@ export default function Button({
   className = "",
   ...props
 }: ButtonProps) {
-  const buttonWidth = width || buttonDimensions;
+  const buttonWidth = width || "w-[40vw] md:w-[15vw]";
   return (
     <button
       type={type}
-      className={`flex font-semibold justify-center items-center px-5 py-1 ultraHD:py-3 ultraHD:px-8 text-md leading-none shadow-dvShadow rounded-md text-dv-400 bg-dv-800 border border-solid border-1.5 border-dv-400 transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-900 hover:border-dv-900 hover:shadow-dvshadow hover:text-shadow-lightTextShadow ultraHD:border-6 ultraHD:rounded-[25px] ${textSizes} ${buttonWidth} ${className} `}
+      className={`flex h-fit flex-shrink-0 font-semibold justify-center text-[2vh] leading-[3.5vh] lg:text-[2.3vh] lg:leading-[4vh] items-center px-[1vw] shadow-dvShadow rounded-md text-dv-400 bg-dv-800 border border-solid border-1.5 quadHD:border-3 ultraHD:border-7 border-dv-400 transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-900 hover:border-dv-900 hover:shadow-dvshadow hover:text-shadow-lightTextShadow ultraHD:border-6 ultraHD:rounded-[15px] ${buttonWidth} ${className} `}
       onClick={onClick}
       {...props}
     >

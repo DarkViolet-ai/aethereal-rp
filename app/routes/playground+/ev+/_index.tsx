@@ -5,6 +5,8 @@ import {
 import Divider from "~/components/buildingBlocks/divider";
 import Flex from "~/components/buildingBlocks/flex";
 import Text, {
+  Heading2XL,
+  Heading3XL,
   HeadingLG,
   HeadingMD,
   HeadingSM,
@@ -43,6 +45,8 @@ export default function EvsPlace() {
             <Text5XL>Text5XL - 4.4vh</Text5XL>
             <Text6XL>Text6XL - 5vh</Text6XL>
             <Text className="text-6xl">Text6XL - 5vh</Text> <Divider />
+            <Heading3XL>Heading3XL</Heading3XL>
+            <Heading2XL>Heading2XL</Heading2XL>
             <HeadingXL>HeadingXL</HeadingXL>
             <HeadingLG>HeadingLG</HeadingLG>
             <HeadingMD>HeadingMD</HeadingMD>

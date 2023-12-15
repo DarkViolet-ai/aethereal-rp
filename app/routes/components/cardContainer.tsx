@@ -1,7 +1,7 @@
 import Text, { HeadingXL } from "~/components/buildingBlocks/textComponents";
 import Flex from "../../components/buildingBlocks/flex";
 import VStack from "../../components/buildingBlocks/vStack";
-import { cursiveText } from "~/css/styles";
+import { borderShadow, cursiveText } from "~/css/styles";
 import HStack from "~/components/buildingBlocks/hStack";
 import { NavLink } from "@remix-run/react";
 
@@ -18,6 +18,7 @@ export default function CardContainer({
   id?: string;
   // overflowY?: string;
 }) {
+  // MOBILE HEADING -------------------------------------------------------------- //
   function MobileHeading() {
     const MobileInactiveStyle = `${cursiveText} text-[35px] sm:text-[45px] hover:text-brightPink hover:cursor-pointer`;
     const MobileActiveStyle = `${cursiveText} text-[40px] sm:text-[50px] text-dv-900 text-shadow-textGlow`;
@@ -46,12 +47,17 @@ export default function CardContainer({
     );
   }
 
+  // MAIN COMPONENT -------------------------------------------------------------- //
+
   return (
-    <Flex className={`w-full h-full justify-center p-3 ${className}`} id={id}>
+    <Flex
+      className={`w-full h-full justify-center md:p-[1vh] ${className}`}
+      id={id}
+    >
       <VStack
-        className={`h-fit w-full lg:h-auto  bg-dv-975 shadow-dvShadow gap-0`}
+        className={`h-fit w-full lg:h-auto  bg-dv-975 ${borderShadow} gap-0`}
       >
-        <Flex className="w-full h-[70px] justify-center items-center p-2 pb-1 flex-shrink-0 bg-dv-975 rounded-b-none shadow-shadow3D">
+        <Flex className="w-full h-[70px] lg:h-fit justify-center items-center p-2 pb-1 flex-shrink-0 bg-dv-975 rounded-b-none shadow-shadow3D">
           <Flex className="w-full h-full justify-center items-center flex lg:hidden">
             <MobileHeading />
           </Flex>

@@ -74,7 +74,7 @@ export function TextSM({
 
 export function TextMD({
   children,
-  className = "text-shadow-dvTextShadow text-[2.1vh] leading-[2.9vh]",
+  className = "text-shadow-dvTextShadow text-[2.1vh] leading-[2.9vh] quadHD:text-[2.4vh] quadHD:leading-[3.2vh] ultraHD:text-[2.6vh] ultraHD:leading-[3.4vh]",
   noOfLines,
 }: TextProps) {
   const style: React.CSSProperties = {};
@@ -96,7 +96,7 @@ export function TextMD({
 
 export function TextLG({
   children,
-  className = "text-shadow-dvTextShadow text-[2.3vh] leading-[3.1vh]",
+  className = "text-shadow-dvTextShadow text-[2.3vh] leading-[3.1vh] quadHD:text-[2.5vh] quadHD:leading-[3.3vh] ultraHD:text-[2.7vh] ultraHD:leading-[3.5vh]",
   noOfLines,
 }: TextProps) {
   const style: React.CSSProperties = {};
@@ -245,6 +245,35 @@ export function Text6XL({
     <p className={className} style={style}>
       {children}
     </p>
+  );
+}
+
+export function Heading3XL({
+  children,
+  className = "text-[6.5vh] leading-[7.5vh]",
+  noOfLines,
+  cursive = true,
+  color = "text-dv-400",
+  shadow = "text-shadow-dvTextShadow",
+}: ExtendedTextProps) {
+  const style: React.CSSProperties = {};
+
+  if (noOfLines) {
+    style.overflow = "hidden";
+    style.textOverflow = "ellipsis";
+    style.display = "-webkit-box";
+    style.WebkitLineClamp = noOfLines;
+    style.WebkitBoxOrient = "vertical"; // Deprecated but necessary for line clamping in WebKit browsers
+  }
+
+  const textClassName = cursive
+    ? `font-cursive ${className} ${color} ${shadow}`
+    : `${className} ${color} ${shadow}`;
+
+  return (
+    <h1 className={textClassName} style={style}>
+      {children}
+    </h1>
   );
 }
 

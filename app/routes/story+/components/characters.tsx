@@ -1,7 +1,6 @@
 import Text, { HeadingLG } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
-import HStack from "~/components/buildingBlocks/hStack";
-import { borderShadow, cardColors, cardWidths } from "~/css/styles";
+import { cardColors, cardWidths } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
 import type { StoryCharacter } from "~/lib/db/character.server";
 import { NavLink } from "@remix-run/react";
@@ -14,6 +13,7 @@ export default function Characters({
 }: {
   characters: StoryCharacter[];
 }) {
+  // CHARACTER TEMPLATE------------------------------------------ //
   function CharacterTemplate({
     character,
     cardColor,
@@ -32,35 +32,27 @@ export default function Characters({
         style={{ width: "100%", display: "flex", justifyContent: "center" }}
       >
         <Box
-          className={`${cardWidths} shadow-dvShadow text-dv-100 font-normal hover:text-dv-100`}
+          className={`${cardWidths} ${cardColor} shadow-dvShadow text-dv-100 font-normal hover:text-dv-100`}
         >
-          <Flex
-            className={`w-full h-full p-4  ${cardColor} ${borderShadow} bg-darkenGrad shadow-shadow3D `}
-          >
-            <HStack className="w-full items-center ">
-              <Flex className="w-30% h-auto justify-center flex-shrink-0 p-2">
-                <Box className="w-full shadow-shadow3D rounded-full border-2 border-dv-800">
-                  <Image
-                    alt={character.name}
-                    className="rounded-full"
-                    rounded="full"
-                    borderRadius="full"
-                    src={_avatar}
-                    w="100%"
-                    h="100%"
-                  />
-                </Box>
-              </Flex>
-              <VStack align="start" className="w-70% h-full justify-evenly">
-                <HeadingLG shadow="text-shadow-textFog">
-                  {character.name}
-                </HeadingLG>
-                <Text className="text-shadow-dvTextShadow">
-                  {character.description}
-                </Text>
-              </VStack>
-            </HStack>
-          </Flex>
+          <Box className="w-full h-full py-[1vh] px-[1vw] bg-darkenGrad shadow-shadow3D ">
+            <Flex className="w-30% h-auto justify-center flex-shrink-0 p-[1vh] items-start float-left">
+              <Box className="w-full shadow-dvShadow rounded-full border-2 border-dv-800 mr-[1vw]">
+                <Image
+                  alt={character.name}
+                  className="rounded-full"
+                  rounded="full"
+                  borderRadius="full"
+                  src={_avatar}
+                  w="100%"
+                  h="100%"
+                />
+              </Box>
+            </Flex>
+            <HeadingLG>{character.name}</HeadingLG>
+            <Text className="text-shadow-dvTextShadow">
+              {character.description}
+            </Text>
+          </Box>
         </Box>
       </NavLink>
     );
@@ -68,7 +60,7 @@ export default function Characters({
 
   return (
     <VStack
-      className={`w-full h-fit lg:h-full overflow-y-auto py-4 bg-calmGrayBack bg-darkCyanGrad`}
+      className={`w-full h-fit lg:h-full overflow-y-auto py-[1vh] bg-calmGrayBack bg-darkCyanGrad gap-[1vh]`}
     >
       {characters.map((character, index) => (
         <CharacterTemplate

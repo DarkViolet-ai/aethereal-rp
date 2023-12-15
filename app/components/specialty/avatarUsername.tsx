@@ -2,7 +2,6 @@ import { useNavigate } from "@remix-run/react";
 import { Avatar } from "../buildingBlocks/avatar";
 import HStack from "../buildingBlocks/hStack";
 import Text from "../buildingBlocks/textComponents";
-import { tempUsername } from "~/css/styles";
 import VStack from "../buildingBlocks/vStack";
 import Flex from "../buildingBlocks/flex";
 import FormatDate from "~/lib/utils/formatDate";
@@ -14,12 +13,12 @@ interface AvatarUsernameProps {
   rounded?: string;
   className?: string;
   style?: React.CSSProperties;
-  avatarSize?: "2xs" | "xs" | "sm" | "md" | "mdpl" | "lg" | "xl" | "2xl";
+  avatarSize?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
   onClick?: () => void;
 }
 
 export default function AvatarUsername({
-  username = tempUsername,
+  username,
   userAvatar = "/images/icons/profileIcon.png",
   date,
   avatarSize,

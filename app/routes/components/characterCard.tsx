@@ -1,6 +1,14 @@
 import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
-import Text from "../../components/buildingBlocks/textComponents";
+import Text, {
+  Heading2XL,
+  Heading3XL,
+  HeadingLG,
+  HeadingMD,
+  HeadingXL,
+  TextLG,
+  TextXL,
+} from "../../components/buildingBlocks/textComponents";
 import HStack from "../../components/buildingBlocks/hStack";
 import { NavLink } from "@remix-run/react";
 import VStack from "../../components/buildingBlocks/vStack";
@@ -13,6 +21,9 @@ import type { OpenCharacterView } from "~/lib/db/character.server";
 import { Avatar } from "~/components/buildingBlocks/avatar";
 import Button from "~/components/buildingBlocks/button";
 import useSizedImage from "../hooks/useSizedImage";
+import Box from "~/components/buildingBlocks/box";
+
+// CHARACTER CARD MINI --------------------------------------------------------- //
 
 export function CharacterCardMini({
   character,
@@ -30,10 +41,10 @@ export function CharacterCardMini({
   const [isModalOpen, setModalOpen] = useState(false);
   return (
     <Flex
-      className={`w-full h-fit shadow-shadow3D p-2 ${bgColor} bg-darkVioletGrad hover:cursor-pointer ${borderShadow} `}
+      className={`w-full h-fit shadow-shadow3D px-[1vw] py-[1vh] ${bgColor} bg-darkVioletGrad hover:cursor-pointer ${borderShadow} `}
       onClick={() => setModalOpen(true)}
     >
-      <HStack className="justify-between w-full">
+      <HStack className="justify-between w-full gap-[1vw]">
         <Avatar size="lg" src={_avatar} />
 
         <VStack
@@ -41,11 +52,14 @@ export function CharacterCardMini({
           align="start"
           gap="gap-0"
         >
-          <Text className={`${cursiveText} text-[25px] xxl:text-[28px]`}>
-            {character.name}
-          </Text>
+          <Flex className="flex md:hidden">
+            <HeadingMD>{character.name}</HeadingMD>
+          </Flex>
+          <Flex className="hidden md:flex">
+            <HeadingLG>{character.name}</HeadingLG>
+          </Flex>
 
-          <Text className="text-shadow-dvTextShadow text-[20px]">
+          <Text className="text-shadow-dvTextShadow]">
             <i>{character.story?.title}</i>
           </Text>
         </VStack>
@@ -60,6 +74,8 @@ export function CharacterCardMini({
     </Flex>
   );
 }
+
+// CHARACTER CARD MAIN --------------------------------------------------------- //
 
 interface CharacterCardProps {
   character: OpenCharacterView;
@@ -76,65 +92,52 @@ export function CharacterCard({ character }: CharacterCardProps) {
   //const imagePath = "/images/placeholderImage.png";
 
   return (
-    <Flex className="w-full h-fit min-h-full lg:h-full items-center lg:items-start lg:overflow-y-hidden flex-col gap-5 lg:flex-row bg-dv-950 p-3 lg:pt-[50px] rounded-b-none">
-      <Flex className="h-50vh w-50vh flex-shrink-0 shadow-dvShadow rounded-lg lg:w-1/2 lg:h-auto">
-        <Image src={imagePath} alt={character.name} w="100%" h="100%" />
-      </Flex>
-      <VStack className="w-full lg:w-1/2 flex-shrink-0 gap-[50px]">
-        <Flex className="w-full justify-center lg:h-full lg:items-center px-3">
-          <VStack className="w-full h-full">
-            <VStack className="w-full" gap="gap-[20px]">
-              <Text className={`${cursiveText} text-[43px] mt-4`}>
-                {character.name}
-              </Text>
-              <Text className="text-center">{character.description}</Text>
-            </VStack>
-            <Divider />
-            <LabelValue
-              label="Story Title"
-              value={story?.title || "No title available."}
-              containerClassName="items-center"
-              valueClassName="italic"
-            />
-            <Divider className="flex lg:hidden" />
-          </VStack>
+    <Flex className="w-full h-full overflow-y-auto overflow-x-hidden rounded-b-none">
+      <Flex className="w-full h-fit min-h-full bg-dv-950 rounded-b-none flex-col lg:flex-row lg:h-full pt-[2vh] pb-[7vh] gap-[2vh] lg:gap-[0px]">
+        <Flex className="w-full h-fit justify-center lg:1/2 lg:h-full lg:items-center">
+          <Box className="w-80% h-auto lg:h-80% lg:w-70% shadow-dvShadow ">
+            <Image src={imagePath} alt={character.name} w="100%" h="100%" />
+          </Box>
         </Flex>
-
-        <VStack align="start w-full gap-[30px]">
-          <NavLink
-            to={`/story/${character.storyId}/${character.id}`}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Button>Story Details</Button>
-          </NavLink>
-          <NavLink
-            to={`/story/${character.storyId}/${character.id}`}
-            style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Button>Play Role</Button>
-          </NavLink>
-          <Flex className="w-full justify-center">
-            <NavLink
-              to={`/playground/image-create/character/${character.id}`}
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
+        <Flex className="w-full h-fit justify-center lg:1/2 lg:h-full lg:items-center lg:overflow-hidden">
+          <Flex className="w-full justify-center lg:h-full lg:items-center px-3">
+            <VStack
+              className="w-full"
+              gap="gap-[15px] lg:gap-[5vh] lg:pr-[2vw] lg:h-full lg:justify-evenly quadHD:gap-[5vh]"
             >
-              <Button>Generate Image</Button>
-            </NavLink>
+              <Flex className="w-full flex lg:hidden justify-center">
+                <HeadingLG>{character.name}</HeadingLG>{" "}
+              </Flex>
+              <Flex className="w-full hidden lg:flex justify-center">
+                <Heading3XL>{character.name}</Heading3XL>{" "}
+              </Flex>
+              <TextLG>{character.description}</TextLG>
+
+              <Divider />
+              <LabelValue
+                label="Story Title"
+                value={story?.title || "No title available."}
+                containerClassName="items-center"
+                valueClassName="italic"
+              />
+              <Divider className="hidden lg:flex" />
+              <HStack className="w-full justify-evenly">
+                <NavLink to={`/story/${character.storyId}/${character.id}`}>
+                  <Button>Story Details</Button>
+                </NavLink>
+                <NavLink to={`/story/${character.storyId}/${character.id}`}>
+                  <Button>Play Role</Button>
+                </NavLink>
+                <NavLink
+                  to={`/playground/image-create/character/${character.id}`}
+                >
+                  <Button width="w-fit">img</Button>
+                </NavLink>
+              </HStack>
+            </VStack>
           </Flex>
-        </VStack>
-      </VStack>
+        </Flex>
+      </Flex>
     </Flex>
   );
 }

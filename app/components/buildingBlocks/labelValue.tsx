@@ -24,7 +24,7 @@ export default function LabelValue({
     <>
       {" "}
       {direction === "flex-row" ? (
-        <Flex className={`${containerClassName}`}>
+        <Flex className={`${containerClassName} quadHD:text-xxl`}>
           <Text>
             <span className={`${highlightedText} ${labelClassName}`}>
               {label}:{" "}

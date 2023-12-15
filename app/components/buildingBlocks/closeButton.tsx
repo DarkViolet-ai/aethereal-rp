@@ -19,8 +19,8 @@ export function CloseButton({
       }}
       className={` m-2 z-10 ${className}`}
       pos="absolute"
-      t="top=0"
-      r="right-0"
+      t="top=0 quadHD:top-2 ultraHD:top-4"
+      r="right-0 quadHD:right-2 ultraHD:right-4"
       tooltipPlacement="left"
     />
   );

@@ -30,7 +30,7 @@ interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
 export default function IconButton({
   icon,
   onClick,
-  className = "h-8 w-8 md:h-9 md:w-9 quadHD:h-12  quadHD:w-12 ultraHD:h-20 ultraHD:w-20",
+  className = "h-8 w-8 md:h-9 md:w-9 quadHD:h-12  quadHD:w-12 ultraHD:h-24 ultraHD:w-24",
   iconSize = "text-[23px] quadHD:text-[30px] ultraHD:text-[50px]",
   isLoading = false,
   isDisabled = false,
@@ -48,7 +48,7 @@ export default function IconButton({
     <div className={`${pos} ${t} ${r} ${l} ${b}`}>
       <Tooltip label={label} placement={tooltipPlacement}>
         <button
-          className={`inline-flex items-center justify-center rounded-md text-dv-400 bg-dv-900 border border-solid border-1.5 border-dv-400 shadow-dvShadow transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-800 text-shadow-dvTextShadow hover:border-dv-900 ${className}`}
+          className={`flex h-fit flex-shrink-0 font-semibold justify-center text-[2vh] leading-[3.5vh] lg:text-[2.3vh] lg:leading-[3.5vh] items-center fullHD:p-[1vh] shadow-dvShadow rounded-md text-dv-400 bg-dv-800 border border-solid border-1.5 quadHD:border-3 ultraHD:border-5 border-dv-400 transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-900 hover:border-dv-900 hover:shadow-dvshadow hover:text-shadow-lightTextShadow ultraHD:border-6 ultraHD:rounded-[20px] ${className} `}
           type={type}
           onClick={onClick}
           disabled={isDisabled || isLoading}

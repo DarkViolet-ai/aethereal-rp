@@ -31,11 +31,6 @@ html {
 body {
   @apply text-md lg:text-lg;
   background-color: #7795f2;
-  /* background-image: url("/images/core/aethereal-background.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover; */
   color: #ebeff7;
   font-family: "Barlow", sans-serif;
   font-size: 2.1vh;
@@ -53,12 +48,13 @@ body {
   }
 }
 
-@media (min-width: 3840px) {
+@media (min-width: 2560px) {
   body {
-    font-size: 2.6vh;
-    line-height: 3.4vh;
+    font-size: 2.7vh;
+    line-height: 3.6vh;
   }
 }
+
 h1 {
   font-size: 2rem;
   font-weight: 600;
