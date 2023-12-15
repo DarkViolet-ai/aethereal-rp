@@ -1,7 +1,7 @@
 import { useNavigate } from "@remix-run/react";
 import { Avatar } from "../buildingBlocks/avatar";
 import HStack from "../buildingBlocks/hStack";
-import Text from "../buildingBlocks/text";
+import Text from "../buildingBlocks/textComponents";
 import { tempUsername } from "~/css/styles";
 import VStack from "../buildingBlocks/vStack";
 import Flex from "../buildingBlocks/flex";

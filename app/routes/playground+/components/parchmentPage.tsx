@@ -1,7 +1,7 @@
 import Flex from "~/components/buildingBlocks/flex";
 import VStack from "~/components/buildingBlocks/vStack";
 import ParchmentCorner from "./parchmentCorners";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import ParchmentSpacer from "./parchmentSpacer";
 import { Stories } from "~/css/styles";
 import { useParams } from "@remix-run/react";

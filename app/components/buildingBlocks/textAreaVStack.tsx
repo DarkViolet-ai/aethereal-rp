@@ -1,5 +1,5 @@
 import React from "react";
-import Text from "./text";
+import Text from "./textComponents";
 import TextArea from "./textArea";
 import VStack from "./vStack";
 

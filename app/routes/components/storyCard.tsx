@@ -7,7 +7,7 @@ import {
   containerPadding,
 } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
-import Text from "../../components/buildingBlocks/text";
+import Text from "../../components/buildingBlocks/textComponents";
 import { useNavigate } from "@remix-run/react";
 import HStack from "../../components/buildingBlocks/hStack";
 import VStack from "../../components/buildingBlocks/vStack";
@@ -38,7 +38,7 @@ export default function StoryCard({
     >
       <HStack className={`w-full h-full justify-between ${containerPadding}`}>
         <VStack
-          align="start text-shadow-dvTextShadow w-75% h-full justify-between"
+          align="start text-shadow-dvTextShadow w-75% h-full justify-evenly"
           gap="gap-0"
         >
           <Text

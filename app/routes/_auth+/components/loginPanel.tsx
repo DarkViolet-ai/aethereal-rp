@@ -11,7 +11,7 @@ import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import InputVStack from "~/components/buildingBlocks/inputVStack";
 import PasswordInput from "~/components/buildingBlocks/passwordInput";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import {

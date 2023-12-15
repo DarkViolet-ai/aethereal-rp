@@ -1,11 +1,4 @@
-import {
-  borderShadow,
-  colMaxWidths,
-  cursiveText,
-  columnHeaderSizes,
-  textSizes,
-  titleSizes,
-} from "~/css/styles";
+import { borderShadow, colMaxWidths } from "~/css/styles";
 import Flex from "./flex";
 import VStack from "./vStack";
 import Transition, { type TransitionType } from "./transition";
@@ -13,8 +6,6 @@ import Transition, { type TransitionType } from "./transition";
 export function ColumnsPageHeader({
   title,
   subtitle,
-  titleTextSizes = titleSizes,
-  titleFontStyles = cursiveText,
 }: {
   title?: string;
   subtitle?: string;
@@ -25,14 +16,14 @@ export function ColumnsPageHeader({
     <VStack className={`w-full h-fit flex-shrink-0 pt-3 pb-3`}>
       {title && (
         <Flex
-          className={`w-full h-fit flex-shrink-0 ${titleTextSizes} px-2 pt-3 justify-center ${titleFontStyles} text-shadow-dvTextShadow`}
+          className={`w-full h-fit flex-shrink-0 px-2 pt-3 justify-center text-shadow-dvTextShadow`}
         >
           {title}
         </Flex>
       )}
       {subtitle && (
         <Flex
-          className={`w-full h-fit flex-shrink-0 justify-center bg-dv-950 p-2 md:p-3 xxl:p-4 text-shadow-dvTextShadow shadow-shadow3D xxl:w-98% fullHD:w-90% quadHD:w-85% ultraHD:w-80% ${textSizes}`}
+          className={`w-full h-fit flex-shrink-0 justify-center bg-dv-950 p-2 md:p-3 xxl:p-4 text-shadow-dvTextShadow shadow-shadow3D xxl:w-98% fullHD:w-90% quadHD:w-85% ultraHD:w-80% `}
         >
           {subtitle}
         </Flex>
@@ -171,7 +162,7 @@ export function ColumnsPageColumn({
           className={`w-full h-full ${transitionClassName} ${transitionHeight}}`}
         >
           <Flex
-            className={`h-fit min-h-full justify-center align-start ${textSizes} ${transitionHeight} ${innerColMaxW}`}
+            className={`h-fit min-h-full justify-center align-start ${transitionHeight} ${innerColMaxW}`}
           >
             {" "}
             <VStack
@@ -179,7 +170,7 @@ export function ColumnsPageColumn({
             >
               {heading && (
                 <Flex
-                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3  border-b-2 border-b-dv-225 ${columnHeaderSizes}`}
+                  className={`w-full h-fit flex-shrink-0  ${headingColor} rounded-b-none px-3  border-b-2 border-b-dv-225 `}
                 >
                   {heading}
                 </Flex>

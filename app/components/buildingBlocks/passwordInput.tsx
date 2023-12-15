@@ -5,7 +5,7 @@ import Box from "./box";
 import IconButton from "./iconButton";
 import { FaEye, FaEyeSlash } from "react-icons/fa/index.js";
 import VStack from "./vStack";
-import Text from "./text";
+import Text from "./textComponents";
 import { headingSizes } from "~/css/styles";
 
 interface PasswordInputProps {

@@ -5,7 +5,7 @@ import InteractionPage from "./components/interactionPage";
 import Transition from "~/components/buildingBlocks/transition";
 import { useRevalidator } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import { requireUserId } from "~/lib/utils/session.server";
 import { getNextCharacterInStory, getStory } from "~/lib/db/story.server";
 import { dvError } from "~/lib/utils/dvError";

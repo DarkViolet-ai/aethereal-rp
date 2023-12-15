@@ -1,6 +1,6 @@
 import Box from "../buildingBlocks/box";
 import HStack from "../buildingBlocks/hStack";
-import Text from "../buildingBlocks/text";
+import Text from "../buildingBlocks/textComponents";
 import BouncingDots from "./bouncingDots";
 
 export default function LoadingText({

@@ -1,4 +1,4 @@
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import { GiCharacter } from "react-icons/gi/index.js";
 import HStack from "~/components/buildingBlocks/hStack";

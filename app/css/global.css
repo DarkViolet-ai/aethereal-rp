@@ -38,7 +38,8 @@ body {
   background-size: cover;
   color: #ebeff7;
   font-family: "Barlow", sans-serif;
-  font-size: 1.25rem;
+  font-size: 2.1vh;
+  line-height: 2.9vh;
   padding: 0;
   position: relative;
   overflow-y: hidden;

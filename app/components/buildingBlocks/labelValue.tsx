@@ -1,5 +1,5 @@
 import { highlightedText } from "~/css/styles";
-import Text from "./text";
+import Text from "./textComponents";
 import VStack from "./vStack";
 import Flex from "./flex";
 
