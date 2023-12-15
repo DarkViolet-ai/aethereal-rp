@@ -33,12 +33,12 @@ export default function StoryCard({
   const imagePath = useSizedImage(id, "thumbnail");
   return (
     <Flex
-      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100 ${cardWidths} py-3`}
+      className={`w-full shadow-shadow3D ${bgColor} bg-darkVioletGrad ${borderShadow} hover:cursor-pointer story-card-hover  text-dv-100 font-normal hover:text-dv-100 ${cardWidths}`}
       onClick={() => navigate(`/story/char-select/${story.id}`)}
     >
       <HStack className={`w-full h-full justify-between ${containerPadding}`}>
         <VStack
-          align="start text-shadow-dvTextShadow w-70% h-full justify-between"
+          align="start text-shadow-dvTextShadow w-75% h-full justify-between"
           gap="gap-0"
         >
           <Text
@@ -52,7 +52,7 @@ export default function StoryCard({
             {story.summary}
           </Text>
         </VStack>
-        <Flex className="h-full w-30% justify-center itmes-center">
+        <Flex className="h-full w-25% justify-center itmes-center">
           <Flex className="w-full h-auto flex-shrink-0 shadow-dvShadow">
             <Image
               src={

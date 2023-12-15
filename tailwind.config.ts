@@ -536,7 +536,7 @@ export default {
         "9xl": ["8rem", { lineHeight: "1" }], // 128px font-size, normal line-height
       },
       screens: {
-        mobile: "320px",
+        mobile: "360px",
         sm: "640px",
         md: "768px",
         lg: "1024px",

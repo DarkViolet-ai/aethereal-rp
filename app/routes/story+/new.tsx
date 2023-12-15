@@ -13,7 +13,14 @@ import NewStoryCard from "./components/newStoryCard";
 import StoryCard from "../components/storyCard";
 import { cardColors } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
-import { NavLink, Outlet, useOutletContext } from "@remix-run/react";
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useOutletContext,
+} from "@remix-run/react";
+import Flex from "~/components/buildingBlocks/flex";
+import DarkViolet from "~/components/specialty/darkViolet";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const templates = await getAllTemplates();
@@ -24,6 +31,8 @@ export default function StoryTemplate() {
   // const dummyData = Stories;
   const { templates } = useTypedLoaderData<typeof loader>();
   const context = useOutletContext();
+  const location = useLocation();
+  const isNew = location.pathname.endsWith("new");
 
   return (
     <ColumnsPageContainer transitionScreen="lg">
@@ -58,9 +67,26 @@ export default function StoryTemplate() {
           ))}
         </VStack>
       </ColumnsPageColumn>
-      <ColumnsPageColumn transitionType="slideInRight">
-        <Outlet context={context} />
-      </ColumnsPageColumn>
+      {isNew ? (
+        <ColumnsPageColumn
+          bg="bg-transparent"
+          containerClassName="hidden lg:flex "
+        >
+          <Flex className="w-full h-full bg-[url('/images/core/containerBackground2.png')] bg-cover bg-center bg-no-repeat relative">
+            <DarkViolet name="10" b="bottom-0" r="right-2" w="w-50% xl:w-40%" />
+            <DarkViolet
+              name="speechBubble"
+              w="w-60%"
+              b="lg:bottom-1/2"
+              l="left-2"
+            />
+          </Flex>
+        </ColumnsPageColumn>
+      ) : (
+        <ColumnsPageColumn transitionType="slideInRight">
+          <Outlet context={context} />
+        </ColumnsPageColumn>
+      )}
     </ColumnsPageContainer>
   );
 }
