@@ -54,7 +54,7 @@ export default function RegisterPanel() {
 
       let redirectUrl = "http://localhost:3000/verify";
       if (process.env.NODE_ENV === "production") {
-        redirectUrl = "https://darkvioletai.fly.dev/verify";
+        redirectUrl = "https://aethereal.darkviolet.ai/verify";
       }
       const username = formData.get("username") as string;
 
