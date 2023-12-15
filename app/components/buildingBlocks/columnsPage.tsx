@@ -161,7 +161,7 @@ export function ColumnsPageColumn({
 
   return (
     <Flex
-      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[0px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight} ${containerClassName}`}
+      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[15px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight} ${containerClassName}`}
     >
       <Flex
         className={`w-full h-fit justify-center align-start ${transitionHeight}`}

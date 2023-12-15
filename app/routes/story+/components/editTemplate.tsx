@@ -12,8 +12,9 @@ import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
 import Input from "~/components/buildingBlocks/input";
 import Text from "~/components/buildingBlocks/text";
+import TextArea from "~/components/buildingBlocks/textArea";
 import VStack from "~/components/buildingBlocks/vStack";
-import { cardWidths } from "~/css/styles";
+import { cardWidths, highlightedText, negativeStyles } from "~/css/styles";
 
 interface EditTemplateProps {
   title: string;
@@ -31,40 +32,66 @@ export default function EditTemplate({
   const templateId = params.templateId as string;
   const [searchParams, setSearchparams] = useSearchParams();
   return (
-    <Flex className="w-full max-w-[750px] justify-center">
-      <VStack className={`w-full ${cardWidths}`}>
-        <Box className="w-90%">
-          <Image src={imagePath || ""} alt={title} h="100%" w="100%" />
+    <Flex className="w-full justify-center h-full p-4 fullHD:p-6">
+      <VStack className={`${cardWidths} h-full gap-4 justify-between`}>
+        <Box className="h-40% xxl:h-50% shadow-dvShadow">
+          <Image
+            src={imagePath || "/images/placeholderImage.png"}
+            alt={title}
+            h="100%"
+            w="100%"
+          />
         </Box>
-        <Flex>
+        <Flex className="w-full h-60% xxl:h-50%">
           <Form method="post" style={{ width: "100%" }}>
-            <Text>Title</Text>
-            <Input name="title" defaultValue={title} />
-            <Text>Summary</Text>
-            <Input name="summary" defaultValue={summary} />
-            <HStack className="w-full">
-              <Button
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                Cancel
-              </Button>
-              <Button type="submit">Save</Button>
-              <Button
-                type="submit"
-                onClick={() => setSearchparams({ begin: "true" })}
-              >
-                Begin
-              </Button>
-              {templateId && (
-                <NavLink
-                  to={`/playground/image-create/story-template/${templateId}`}
+            <VStack className="w-full h-full justify-between">
+              <VStack className="w-full gap-4">
+                <VStack className="w-full gap-1" align="start">
+                  <Text
+                    className={`${highlightedText} text-shadow-dvTextShadow`}
+                  >
+                    Title
+                  </Text>
+                  <Input name="title" defaultValue={title} />
+                </VStack>
+                <VStack className="w-full gap-1" align="start">
+                  <Text
+                    className={`${highlightedText} text-shadow-dvTextShadow`}
+                  >
+                    Summary
+                  </Text>
+                  <TextArea name="summary" defaultValue={summary} />
+                </VStack>
+              </VStack>
+              <HStack className="w-full justify-around">
+                <Button
+                  onClick={() => {
+                    navigate(-1);
+                  }}
+                  width="w-fit"
+                  className={`${negativeStyles}`}
                 >
-                  <Button>Generate Image</Button>
-                </NavLink>
-              )}
-            </HStack>
+                  Cancel
+                </Button>
+                <Button type="submit" width="w-fit">
+                  Save
+                </Button>
+                <Button
+                  type="submit"
+                  onClick={() => setSearchparams({ begin: "true" })}
+                  width="w-fit"
+                >
+                  Begin
+                </Button>
+                {templateId && (
+                  <NavLink
+                    to={`/playground/image-create/story-template/${templateId}`}
+                  >
+                    <Button width="w-fit">Generate Image</Button>
+                  </NavLink>
+                )}
+              </HStack>
+            </VStack>
           </Form>
         </Flex>
       </VStack>

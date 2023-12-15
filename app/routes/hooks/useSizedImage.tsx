@@ -25,7 +25,7 @@ export default function useSizedImage(
     .getPublicUrl(filePath + filename, {
       transform: { width: imageSizes[size], height: imageSizes[size] },
     }).data.publicUrl;
-  console.log("thumbnail", imageUrl);
+  // console.log("thumbnail", imageUrl);
   return imageUrl;
 }
 //https://sodvgvqfukkmhxsoyfbs.supabase.co/storage/v1/object/public/images/public/f0f614de-2e0f-468e-93e5-f18919874976.png
