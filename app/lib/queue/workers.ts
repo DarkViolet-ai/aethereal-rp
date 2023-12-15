@@ -250,7 +250,7 @@ const workerDispatch: WorkerDispatch = {
       const result = await generateCharacterOutput({
         story,
         characterInstructions,
-        generator: openaiCharacterGenerator,
+        generator: deepInfra,
       });
       if (!result) {
         await submitError({

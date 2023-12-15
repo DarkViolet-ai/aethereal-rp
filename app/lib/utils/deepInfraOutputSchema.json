@@ -1,0 +1,93 @@
+{
+  "title": "TextGenerationOut",
+  "type": "object",
+  "properties": {
+    "results": {
+      "title": "Results",
+      "description": "a list of generated texts",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/GeneratedText"
+      }
+    },
+    "num_tokens": {
+      "title": "Num Tokens",
+      "description": "number of generated tokens, excluding prompt",
+      "example": 42,
+      "type": "integer"
+    },
+    "num_input_tokens": {
+      "title": "Num Input Tokens",
+      "description": "number of input tokens",
+      "example": 100,
+      "type": "integer"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "description": "The request id",
+      "is_base_field": true,
+      "type": "string"
+    },
+    "inference_status": {
+      "title": "Inference Status",
+      "description": "Object containing the status of the inference request",
+      "is_base_field": true,
+      "allOf": [
+        {
+          "$ref": "#/definitions/Status"
+        }
+      ]
+    }
+  },
+  "required": ["results"],
+  "definitions": {
+    "Status": {
+      "title": "Status",
+      "type": "object",
+      "properties": {
+        "status": {
+          "title": "Status",
+          "description": "Inference status",
+          "default": "succeeded",
+          "choices": ["unknown", "queued", "running", "succeeded", "failed"],
+          "type": "string"
+        },
+        "runtime_ms": {
+          "title": "Runtime Ms",
+          "description": "billable runtime in milliseconds",
+          "default": 0,
+          "type": "integer"
+        },
+        "cost": {
+          "title": "Cost",
+          "description": "estimated cost billed for the request in USD",
+          "type": "number"
+        },
+        "tokens_generated": {
+          "title": "Tokens Generated",
+          "description": "number of tokens generated",
+          "type": "integer"
+        },
+        "tokens_input": {
+          "title": "Tokens Input",
+          "description": "number of input tokens",
+          "type": "integer"
+        }
+      },
+      "required": ["cost"]
+    },
+    "GeneratedText": {
+      "title": "GeneratedText",
+      "type": "object",
+      "properties": {
+        "generated_text": {
+          "title": "Generated Text",
+          "description": "generated text, including the prompt",
+          "example": "I have this dream about the day I got a job at a tech company. I just woke up on a plane. I sat down on the floor and started getting work done. After getting up around 6 p.m., I looked around and",
+          "type": "string"
+        }
+      },
+      "required": ["generated_text"]
+    }
+  }
+}
