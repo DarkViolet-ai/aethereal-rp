@@ -67,7 +67,7 @@ export default function EditTemplate({
               <HStack className="w-full justify-around">
                 <Button
                   onClick={() => {
-                    navigate(-1);
+                    navigate(`/story/new/${templateId}/view`);
                   }}
                   width="w-fit"
                   className={`${negativeStyles}`}
