@@ -11,7 +11,7 @@ import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
 import Input from "~/components/buildingBlocks/input";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import TextArea from "~/components/buildingBlocks/textArea";
 import VStack from "~/components/buildingBlocks/vStack";
 import { cardWidths, highlightedText, negativeStyles } from "~/css/styles";

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import DarkViolet from "../specialty/darkViolet";
 import ImageIcon from "../specialty/imageIcon";
 import VStack from "./vStack";
-import Text from "./text";
+import Text from "./textComponents";
 import Box from "./box";
 
 export const useToast = () => {

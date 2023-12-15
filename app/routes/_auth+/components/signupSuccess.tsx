@@ -1,5 +1,5 @@
 import Flex from "~/components/buildingBlocks/flex";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import {

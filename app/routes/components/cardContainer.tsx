@@ -1,4 +1,4 @@
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import Flex from "../../components/buildingBlocks/flex";
 import VStack from "../../components/buildingBlocks/vStack";
 import { cursiveText, columnHeaderSizes } from "~/css/styles";

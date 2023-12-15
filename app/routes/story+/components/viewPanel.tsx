@@ -6,7 +6,7 @@ import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import {
   cardWidths,
@@ -23,8 +23,10 @@ export default function ViewPanel({
 }) {
   return (
     <Flex className="w-full justify-center h-full p-4 fullHD:p-6">
-      <VStack className={`${cardWidths} gap-4 h-fit lg:h-full`}>
-        <Box className="w-80% h-auto lg:h-40%shadow-dvShadow">
+      <VStack
+        className={`${cardWidths} gap-4 h-fit lg:h-full fullHD:gap-6 ultraHD:gap-10`}
+      >
+        <Box className="w-70% h-auto lg:h-55% lg:w-auto shadow-dvShadow">
           <Image
             src={storyTemplate.imageUrl || "/images/placeholderImage.png"}
             alt={storyTemplate.title}
@@ -32,8 +34,8 @@ export default function ViewPanel({
             w="100%"
           />
         </Box>
-        <VStack className="w-full h-40%">
-          <VStack className="w-full justify-start h-34vh">
+        <VStack className="w-full h-40% gap-4 fullHD:gap-6 ultraHD:gap-10">
+          <VStack className="w-full justify-start h-full fullHD:gap-6 ultraHD:gap-10">
             <Flex className={`w-full ${cardWidths}`}>
               <Text className={`${headingSizes}`}>{storyTemplate?.title}</Text>
             </Flex>

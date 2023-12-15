@@ -38,13 +38,15 @@ body {
   background-size: cover;
   color: #ebeff7;
   font-family: "Barlow", sans-serif;
-  font-size: 1.25rem;
+  font-size: 2.1vh;
+  line-height: 2.9vh;
   padding: 0;
   position: relative;
   overflow-y: hidden;
   scroll-behavior: smooth;
 }
 
+/* 
 @media (min-width: 768px) {
   body {
     font-size: 1.3rem;
@@ -70,22 +72,21 @@ body {
     font-size: 1.6rem;
     line-height: 1.9rem;
   }
-}
+} */
 
 @media (min-width: 2560px) {
   body {
-    font-size: 1.7rem;
-    line-height: 2rem;
+    font-size: 2.4vh;
+    line-height: 3.2vh;
   }
 }
 
 @media (min-width: 3840px) {
   body {
-    font-size: 2.5rem;
-    line-height: 3rem;
+    font-size: 2.6vh;
+    line-height: 3.4vh;
   }
 }
-
 h1 {
   font-size: 2rem;
   font-weight: 600;

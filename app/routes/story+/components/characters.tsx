@@ -1,4 +1,4 @@
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import HStack from "~/components/buildingBlocks/hStack";
 import {
@@ -57,7 +57,7 @@ export default function Characters({
                   />
                 </Box>
               </Flex>
-              <VStack align="start" className="w-70%">
+              <VStack align="start" className="w-70% h-full justify-evenly">
                 <Text
                   className={`${cursiveText} text-shadow-textFog ${headingSizes}`}
                 >

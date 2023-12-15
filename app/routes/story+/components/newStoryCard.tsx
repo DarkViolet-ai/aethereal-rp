@@ -1,7 +1,7 @@
 import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import {
   cardWidths,
@@ -20,7 +20,7 @@ export default function NewStoryCard({
     <Flex
       className={`w-full p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 bg-dv-900 border-2 border-dv-400 rounded-xl shadow-dvShadow hover:cursor-pointer ${textSizes} story-card-hover ${cardWidths}`}
     >
-      <HStack className="w-full h-full justify-between">
+      <HStack className="w-full h-full justify-evenly">
         <VStack
           className="w-75% h-full text-shadow-dvTextShadow"
           align="start"

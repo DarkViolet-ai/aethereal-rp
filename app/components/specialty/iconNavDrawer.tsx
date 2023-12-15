@@ -5,7 +5,7 @@ import VStack from "../buildingBlocks/vStack";
 import { IoIosClose } from "react-icons/io/index.js";
 import Box from "../buildingBlocks/box";
 import Portal from "../buildingBlocks/portal";
-import Text from "../buildingBlocks/text";
+import Text from "../buildingBlocks/textComponents";
 // import { set } from "zod";
 
 interface IconDrawerProps extends React.HTMLAttributes<HTMLDivElement> {

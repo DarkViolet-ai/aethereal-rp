@@ -8,7 +8,7 @@ import Flex from "~/components/buildingBlocks/flex";
 import Transition from "~/components/buildingBlocks/transition";
 import { Outlet, useParams } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import Characters from "./components/characters";
 import HStack from "~/components/buildingBlocks/hStack";
 import { DataFunctionArgs } from "@remix-run/node";

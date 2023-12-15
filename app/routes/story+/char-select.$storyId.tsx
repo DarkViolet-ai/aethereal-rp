@@ -1,6 +1,6 @@
 import { cardWidths } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
-import Text from "~/components/buildingBlocks/text";
+import Text from "~/components/buildingBlocks/textComponents";
 import Characters from "./components/characters";
 import type { DataFunctionArgs } from "@remix-run/node";
 import { getStory } from "~/lib/db/story.server";

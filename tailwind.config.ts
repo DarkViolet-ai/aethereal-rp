@@ -395,12 +395,65 @@ export default {
         "99%": "99%",
         "100%": "100%",
         "0vh": "0vh",
-        "1vh": "1vh",
-        "2vh": "2vh",
-        "3vh": "3vh",
-        "4vh": "4vh",
-        "5vh": "5vh",
-        "6vh": "6vh",
+        "0.2vh": "0.2vh",
+        "0.3vh": "0.3vh",
+        "0.4vh": "0.4vh",
+        "0.5vh": "0.5vh",
+        "0.6vh": "0.6vh",
+        "0.7vh": "0.7vh",
+        "0.8vh": "0.8vh",
+        "0.9vh": "0.9vh",
+        "1.0vh": "1.0vh",
+        "1.1vh": "1.1vh",
+        "1.2vh": "1.2vh",
+        "1.3vh": "1.3vh",
+        "1.4vh": "1.4vh",
+        "1.5vh": "1.5vh",
+        "1.6vh": "1.6vh",
+        "1.7vh": "1.7vh",
+        "1.8vh": "1.8vh",
+        "1.9vh": "1.9vh",
+        "2.0vh": "2.0vh",
+        "2.1vh": "2.1vh",
+        "2.2vh": "2.2vh",
+        "2.3vh": "2.3vh",
+        "2.4vh": "2.4vh",
+        "2.5vh": "2.5vh",
+        "2.6vh": "2.6vh",
+        "2.7vh": "2.7vh",
+        "2.8vh": "2.8vh",
+        "2.9vh": "2.9vh",
+        "3.0vh": "3.0vh",
+        "3.1vh": "3.1vh",
+        "3.2vh": "3.2vh",
+        "3.3vh": "3.3vh",
+        "3.4vh": "3.4vh",
+        "3.5vh": "3.5vh",
+        "3.6vh": "3.6vh",
+        "3.7vh": "3.7vh",
+        "3.8vh": "3.8vh",
+        "3.9vh": "3.9vh",
+        "4.0vh": "4.0vh",
+        "4.1vh": "4.1vh",
+        "4.2vh": "4.2vh",
+        "4.3vh": "4.3vh",
+        "4.4vh": "4.4vh",
+        "4.5vh": "4.5vh",
+        "4.6vh": "4.6vh",
+        "4.7vh": "4.7vh",
+        "4.8vh": "4.8vh",
+        "4.9vh": "4.9vh",
+        "5.0vh": "5.0vh",
+        "5.1vh": "5.1vh",
+        "5.2vh": "5.2vh",
+        "5.3vh": "5.3vh",
+        "5.4vh": "5.4vh",
+        "5.5vh": "5.5vh",
+        "5.6vh": "5.6vh",
+        "5.7vh": "5.7vh",
+        "5.8vh": "5.8vh",
+        "5.9vh": "5.9vh",
+        "6.0vh": "6.0vh",
         "7vh": "7vh",
         "8vh": "8vh",
         "9vh": "9vh",
@@ -520,21 +573,6 @@ export default {
         sans: ["Barlow", "sans-serif"],
         cursive: ["Annie Use Your Telescope", "cursive"],
       },
-      fontSize: {
-        xs: ["0.9rem", { lineHeight: "1rem" }], // 12px font-size, 16px line-height
-        sm: ["1rem", { lineHeight: "1.2rem" }], // 14px font-size, 20px line-height
-        md: ["1.1rem", { lineHeight: "1.3rem" }], // 16px font-size, 24px line-height
-        lg: ["1.3rem", { lineHeight: "1.5rem" }], // 18px font-size, 28px line-height
-        xl: ["1.5rem", { lineHeight: "1.7rem" }], // 20px font-size, 28px line-height
-        "2xl": ["1.5rem", { lineHeight: "1.6rem" }], // 24px font-size, 32px line-height
-        "3xl": ["1.875rem", { lineHeight: "2.25rem" }], // 30px font-size, 36px line-height
-        "4xl": ["2.25rem", { lineHeight: "2.5rem" }], // 36px font-size, 40px line-height
-        "5xl": ["3rem", { lineHeight: "1" }], // 48px font-size, normal line-height
-        "6xl": ["3.75rem", { lineHeight: "1" }], // 60px font-size, normal line-height
-        "7xl": ["4.5rem", { lineHeight: "1" }], // 72px font-size, normal line-height
-        "8xl": ["6rem", { lineHeight: "1" }], // 96px font-size, normal line-height
-        "9xl": ["8rem", { lineHeight: "1" }], // 128px font-size, normal line-height
-      },
       screens: {
         mobile: "360px",
         sm: "640px",
@@ -604,6 +642,18 @@ export default {
           "linear-gradient(to bottom, rgba(255,232,176,1) 0%, rgba(255,232,176,0.7) 33%,  rgba(255,232,176,0.4) 66%,  rgba(255,232,176,0.1) 100%)",
         parchmentSpacerBottom:
           "linear-gradient(to top, rgba(255,232,176,1) 0%, rgba(255,232,176,0.7) 33%,  rgba(255,232,176,0.4) 66%,  rgba(255,232,176,0.1) 100%)",
+      },
+      fontSize: {
+        xs: ["1.4vh", { lineHeight: "2.2vh" }], // 12px font-size, 16px line-height
+        sm: ["1.6", { lineHeight: "2.4vh" }], // 14px font-size, 20px line-height
+        md: ["2.1vh", { lineHeight: "2.9vh" }], // 16px font-size, 24px line-height
+        lg: ["2.3vh", { lineHeight: "3.1vh" }], // 18px font-size, 28px line-height
+        xl: ["3vh", { lineHeight: "3.8vh" }], // 20px font-size, 28px line-height
+        "2xl": ["3.5vh", { lineHeight: "4.3vh" }], // 24px font-size, 32px line-height
+        "3xl": ["4vh", { lineHeight: "4.8vh" }], // 30px font-size, 36px line-height
+        "4xl": ["4.2vh", { lineHeight: "5vh" }], // 36px font-size, 40px line-height
+        "5xl": ["4.4vh", { lineHeight: "5.2vh" }], // 48px font-size, normal line-height
+        "6xl": ["5vh", { lineHeight: "5.8vh" }], // 60px font-size, normal line-height
       },
     },
   },

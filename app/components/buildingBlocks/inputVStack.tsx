@@ -1,6 +1,6 @@
 import { headingSizes } from "~/css/styles";
 import Input from "./input";
-import Text from "./text";
+import Text from "./textComponents";
 import VStack from "./vStack";
 import ValidatedInput from "./validatedInput";
 
