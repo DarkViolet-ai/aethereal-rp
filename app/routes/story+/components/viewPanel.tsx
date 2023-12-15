@@ -47,7 +47,7 @@ export default function ViewPanel({
             </VStack>
           </VStack>
           <HStack className={`w-full justify-around`}>
-            <NavLink to={`/story/new/${storyTemplate?.id}/edit`}>
+            <NavLink to={`/story/new`}>
               <Button width="w-fit" className={`${negativeStyles}`}>
                 Cancel
               </Button>

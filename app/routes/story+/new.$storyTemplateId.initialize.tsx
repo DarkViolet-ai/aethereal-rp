@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 import { getLatestVersionofStory } from "~/lib/db/story.server";
 import { createStoryFromTemplate } from "~/lib/db/story.server";
 import { getStoryTemplate } from "~/lib/db/storyTemplate.server";
-import { submitStoryInitiation } from "~/lib/queue/queues";
+import { submitLog, submitStoryInitiation } from "~/lib/queue/queues";
 import { requireUserId } from "~/lib/utils/session.server";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
@@ -14,6 +14,10 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
   const story = await createStoryFromTemplate({
     templateId: storyTemplateId,
     authorId,
+  });
+  submitLog({
+    type: "INFO",
+    message: "Created new story with id: " + story.id,
   });
   await submitStoryInitiation({ storyId: story.id });
   return redirect(`/story/char-select/${story.id}`);
