@@ -38,6 +38,7 @@ import {
 import { clearStoryTimeouts, setStoryTimeouts } from "./timeouts";
 import { characterInstructions } from "~/lib/ai/characterInstructions";
 import { getStatusMessage } from "./statusMessages";
+import { deepInfraCharacterGenerator } from "../ai/deepInfraGenerator.server";
 
 export type WorkerDispatch = {
   [key in QueueName]: (job: Job) => Promise<void>;
@@ -250,7 +251,7 @@ const workerDispatch: WorkerDispatch = {
       const result = await generateCharacterOutput({
         story,
         characterInstructions,
-        generator: deepInfra,
+        generator: deepInfraCharacterGenerator,
       });
       if (!result) {
         await submitError({
