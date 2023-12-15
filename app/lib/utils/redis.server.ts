@@ -21,7 +21,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export const qRedisGetConnection = () => {
-  return { connection: new Redis(REDIS_URL, { maxRetriesPerRequest: null }) };
+  return {
+    connection: new Redis(REDIS_URL, { maxRetriesPerRequest: null, family: 6 }),
+  };
 };
 
 export { redis };
