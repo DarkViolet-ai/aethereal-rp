@@ -56,6 +56,7 @@ const workerDispatch: WorkerDispatch = {
       storyId: string;
       status: StoryStatus;
     };
+    await submitLog({ type: "INFO", message: `status: ${storyId} ${status}` });
     const story = await updateStoryStatus({ id: storyId, status });
     console.log("sending status", storyId, getStatusMessage({ story }));
     dvEvent.status(storyId, getStatusMessage({ story }));
@@ -155,7 +156,7 @@ const workerDispatch: WorkerDispatch = {
   [QueueName.GENERATE_STORY]: async (job: Job) => {
     const { storyId, input } = job.data as { storyId: string; input: string };
     //await clearStoryTimeouts(storyId);
-    //await submitLog({ type: "INFO", message: "generate story" });
+    await submitLog({ type: "INFO", message: "generate story" });
     console.log("generate story", storyId, input);
     if (await redis.get(`story-input:${storyId}:${input}`)) {
       return;
