@@ -46,7 +46,8 @@ const characterImagePrompt = (character: OpenCharacterView) => {
     creating a magical and otherworldly atmosphere. The composition should be balanced and aesthetically 
     pleasing, suitable for use as a captivating and memorable illustration on a game card. The image should
     be a single continuous scene, not a collection of separate images.  Absolutely no text whatsoever in this image.
-    No handwriting.  No letters or numbers.`;
+    No handwriting.  No letters or numbers. No words.  Only a single continuous scene that is based on the name and description of the character
+    and the title and description of the story.  There is no text whatsoever in this image.`;
 };
 
 export const characterImageLoader = async (characterId: string) => {
