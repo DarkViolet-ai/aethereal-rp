@@ -32,13 +32,13 @@ export default function StoryTemplate() {
   const { templates } = useTypedLoaderData<typeof loader>();
   const context = useOutletContext();
   const location = useLocation();
-  const isNew = location.pathname.endsWith("new/" || "new");
-  const isEdit = location.pathname.endsWith("edit/" || "edit");
-
+  const isNew = location.pathname.endsWith("new" || "new/");
+  const isEdit = location.pathname.endsWith("edit" || "edit/");
+  const isView = location.pathname.endsWith("view" || "view/");
   return (
     <>
       {/* // MOBILE VIEW NEW & EDIT ----------------------------------------------------------- // */}
-      <Flex className="w-full h-full lg:hidden">
+      <Flex className="w-full h-full flex lg:hidden">
         {isNew && (
           <ColumnsPageColumn
             heading="Start a Story"
@@ -79,8 +79,20 @@ export default function StoryTemplate() {
             </VStack>
           </ColumnsPageColumn>
         )}
+
         {isEdit && (
-          <ColumnsPageColumn transitionType="slideInRight">
+          <ColumnsPageColumn
+            transitionType="slideInRight"
+            containerClassName="items-center h-full lg:items-start lg:h-auto"
+          >
+            <Outlet context={context} />
+          </ColumnsPageColumn>
+        )}
+        {isView && (
+          <ColumnsPageColumn
+            transitionType="slideInRight"
+            containerClassName="items-center h-full lg:items-start lg:h-auto"
+          >
             <Outlet context={context} />
           </ColumnsPageColumn>
         )}
@@ -88,7 +100,7 @@ export default function StoryTemplate() {
       {/* // DESKTOP VIEW NEW & EDIT ----------------------------------------------------------- // */}
       <Flex className="w-full h-full jusity-center hidden lg:flex">
         <ColumnsPageContainer transitionScreen="lg">
-          {isNew && (
+          {/* {isNew && (
             <ColumnsPageColumn
               heading="Start a Story"
               transitionType="slideInLeft"
@@ -127,7 +139,7 @@ export default function StoryTemplate() {
                 ))}
               </VStack>
             </ColumnsPageColumn>
-          )}
+          )} */}
           <ColumnsPageColumn
             heading="Start a Story"
             transitionType="slideInLeft"

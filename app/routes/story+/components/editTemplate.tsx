@@ -30,6 +30,7 @@ export default function EditTemplate({
   const navigate = useNavigate();
   const params = useParams();
   const templateId = params.templateId as string;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchparams] = useSearchParams();
   return (
     <Flex className="w-full justify-center h-full p-4 fullHD:p-6">
