@@ -11,7 +11,7 @@ import {
 } from "~/lib/db/storyTemplate.server";
 import NewStoryCard from "./components/newStoryCard";
 import StoryCard from "../components/storyCard";
-import { cardColors } from "~/css/styles";
+import { cardColors, topNavPadding } from "~/css/styles";
 import VStack from "~/components/buildingBlocks/vStack";
 import {
   NavLink,
@@ -38,7 +38,10 @@ export default function StoryTemplate() {
   return (
     <>
       {/* // MOBILE VIEW NEW & EDIT ----------------------------------------------------------- // */}
-      <Flex className="w-full h-full flex lg:hidden">
+      <VStack
+        className={`w-full h-full flex lg:hidden overflow-x-hidden overflow-y-auto ${topNavPadding}`}
+      >
+        <Flex className="h-[15px] text-transparent">.</Flex>
         {isNew && (
           <ColumnsPageColumn
             heading="Start a Story"
@@ -96,7 +99,7 @@ export default function StoryTemplate() {
             <Outlet context={context} />
           </ColumnsPageColumn>
         )}
-      </Flex>
+      </VStack>
       {/* // DESKTOP VIEW NEW & EDIT ----------------------------------------------------------- // */}
       <Flex className="w-full h-full jusity-center hidden lg:flex">
         <ColumnsPageContainer transitionScreen="lg">

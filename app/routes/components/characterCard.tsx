@@ -119,7 +119,7 @@ export function CharacterCard({ character }: CharacterCardProps) {
               />
               <Divider className="hidden lg:flex" />
               <HStack className="w-full justify-evenly">
-                <NavLink to={`/story/${character.storyId}/${character.id}`}>
+                <NavLink to={`/story/char-select/${character.storyId}`}>
                   <Button>Story Details</Button>
                 </NavLink>
                 <NavLink to={`/story/${character.storyId}/${character.id}`}>

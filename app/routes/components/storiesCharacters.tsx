@@ -62,7 +62,7 @@ export default function StoriesCharacters() {
           </Flex>
         </Transition>
         <Flex
-          className="w-full h-[10px] lg:hidden text-transparent"
+          className="w-full h-[5px] lg:hidden text-transparent mb-[10px]"
           id="openings"
         >
           .

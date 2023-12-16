@@ -33,17 +33,17 @@ export default function EditTemplate({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchparams] = useSearchParams();
   return (
-    <Flex className="w-full justify-center h-full p-4 fullHD:p-6">
+    <Flex className="w-full justify-center h-full p-4 fullHD:p-6 bg-dv-625">
       <VStack className={`${cardWidths} h-full gap-4 justify-between`}>
-        <Box className="h-40% xxl:h-50% shadow-dvShadow">
+        <Box className="h-30% md:h-40% xxl:h-50% shadow-dvShadow">
           <Image
-            src={imagePath || "/images/placeholderImage.png"}
+            src={imagePath || "/images/core/storyImagePlaceholder.png"}
             alt={title}
             h="100%"
             w="100%"
           />
         </Box>
-        <Flex className="w-full h-60% xxl:h-50%">
+        <Flex className="w-full h-70% md:h-50%">
           <Form method="post" style={{ width: "100%" }}>
             <VStack className="w-full h-full justify-between">
               <VStack className="w-full gap-4">
