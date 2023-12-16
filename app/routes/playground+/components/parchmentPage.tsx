@@ -3,13 +3,11 @@ import VStack from "~/components/buildingBlocks/vStack";
 import ParchmentCorner from "./parchmentCorners";
 import Text from "~/components/buildingBlocks/textComponents";
 import ParchmentSpacer from "./parchmentSpacer";
-import { Stories } from "~/css/styles";
-import { useParams } from "@remix-run/react";
 import Button from "~/components/buildingBlocks/button";
 import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
 import InteractionPage from "./interactionPage";
-import { StoryData } from "~/lib/db/story.server";
+import type { StoryData } from "~/lib/db/story.server";
 
 interface ParchmentPageProps {
   showInteractionButton?: boolean;
@@ -30,7 +28,7 @@ export default function ParchmentPage({
 
   return (
     <VStack className="w-full h-full">
-      <Flex className="h-90% w-92% lg:h-94% bg-parchment shadow-parchmentShadow relative pr-2">
+      <Flex className="h-85% md:h-90% w-92% lg:h-94% bg-parchment shadow-parchmentShadow relative pr-2">
         <ParchmentSpacer />
         <ParchmentSpacer placement="bottom" />
         <ParchmentCorner />
