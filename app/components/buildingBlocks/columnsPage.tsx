@@ -39,7 +39,7 @@ export function ColumnsPageContainer({
   topNavPadding = "pt-50px",
   rowGap = "gap-[2vh]",
   columnGap = "gap-[2vw]",
-  pt,
+  pt = "pt-[1.2vh]",
   pb = "pb-[2vh] md:pb-[1vh] quadHD:pb-[1.4vh]",
 }: {
   children?: React.ReactNode;

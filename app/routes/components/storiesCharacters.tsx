@@ -25,7 +25,7 @@ export default function StoriesCharacters() {
       className={`w-full h-fit lg:h-full justify-center ${topNavPadding} overflow-x-hidden`}
       id="stories"
     >
-      <Flex className="w-full h-fit flex-col lg:flex-row gap-[40px] lg:h-full lg:gap-[10px] py-1 quadHD:py-3">
+      <Flex className="w-full h-fit flex-col lg:flex-row gap-[40px] lg:h-full lg:gap-[10px] pt-1  quadHD:py-3">
         <Transition
           type="slideInLeft"
           className="w-full h-full lg:w-1/2 flex justify-center"

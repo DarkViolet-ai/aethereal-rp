@@ -75,9 +75,9 @@ export default function RegisterPanel() {
     >
       <VStack
         gap="gap-3 ultraHD:gap-6"
-        className={`${borderShadow} relative w-98% h-98% sm:w-95% max-w-[700px] fullHD:max-w-[1050px] quadHD:h-80% ultraHD:max-w-[1500px]  p-3 pb-[0px] text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad justify-between`}
+        className={`${borderShadow} relative w-98% h-98% sm:w-95% max-w-[700px] fullHD:max-w-[850px] quadHD:h-80% ultraHD:max-w-[1500px]  p-3 pb-[0px] text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad justify-between`}
       >
-        <VStack className="w-full flex-shrink-0 items-center ultraHD:gap-5">
+        <VStack className="w-full flex-shrink-0 items-center ultraHD:gap-5 ">
           <HeadingXL shadow="text-shadow-textFog">Create an account</HeadingXL>
           <Flex className={`${cardWidths} justify-center`}>
             <DarkViolet
@@ -93,7 +93,7 @@ export default function RegisterPanel() {
           onSubmit={handleSubmit}
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-10 h-full w-98% max-w-[400px] fullHD:max-w-[600px]">
+          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-10 h-full w-98% max-w-[400px] fullHD:max-w-[500px] ultraHD:max-w-[700px]">
             <VStack className="w-full">
               <InputVStack
                 className="w-full"

@@ -51,11 +51,11 @@ export default function CardContainer({
 
   return (
     <Flex
-      className={`w-full h-full justify-center md:p-[1vh] ${className}`}
+      className={`w-full h-full justify-center md:p-[1vh] md:pb-[0.4vh] ${className}`}
       id={id}
     >
       <VStack
-        className={`h-fit w-full lg:h-auto  bg-dv-975 ${borderShadow} gap-0`}
+        className={`h-fit w-full lg:h-auto  bg-dv-975 ${borderShadow} gap-0 pb-1 fullHD:pb-[1vh]`}
       >
         <Flex className="w-full h-[70px] lg:h-fit justify-center items-center p-2 pb-1 flex-shrink-0 bg-dv-975 rounded-b-none shadow-shadow3D">
           <Flex className="w-full h-full justify-center items-center flex lg:hidden">
