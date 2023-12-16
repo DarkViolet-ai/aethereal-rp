@@ -39,15 +39,19 @@ export default function Characters({
           <Box className="w-full h-full py-[1vh] px-[1vw] bg-darkenGrad shadow-shadow3D ">
             <Flex className="w-30% h-auto justify-center flex-shrink-0 p-[1vh] items-start float-left">
               <Box className="w-full shadow-dvShadow rounded-full border-2 border-dv-800 mr-[1vw]">
-                <Image
-                  alt={character.name}
-                  className="rounded-full"
-                  rounded="full"
-                  borderRadius="full"
-                  src={_avatar}
-                  w="100%"
-                  h="100%"
-                />
+                <NavLink
+                  to={`/playground/image-create/character/${character.id}`}
+                >
+                  <Image
+                    alt={character.name}
+                    className="rounded-full"
+                    rounded="full"
+                    borderRadius="full"
+                    src={_avatar}
+                    w="100%"
+                    h="100%"
+                  />
+                </NavLink>
               </Box>
             </Flex>
             <HeadingLG>{character.name}</HeadingLG>

@@ -34,9 +34,9 @@ export default function CharactersMenu({
           className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
           align="start"
         >
-          <HStack className="w-full items-center">
+          <HStack className="w-full items-center gap-[1vh]">
             <Box className="bg-dv-400 shadow-dvShadow">
-              <Avatar src={_avatar} />
+              <Avatar rounded="rounded-lg" src={_avatar} />
             </Box>
             <Text className={`${cursiveText} text-[30px] text-shadow-textFog`}>
               {character.name}
