@@ -1,3 +1,4 @@
+import Box from "~/components/buildingBlocks/box";
 import {
   ColumnsPageColumn,
   ColumnsPageContainer,
@@ -23,13 +24,20 @@ import Text, {
   TextXS,
 } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
+import AvatarModal from "~/components/specialty/avatarModal";
+import UserOrAI from "~/components/specialty/userOrAI";
 import { topNavPadding } from "~/css/styles";
 import RandomText from "~/lib/utils/randomText";
 
 const textExample = RandomText(3, 3);
 export default function EvsPlace() {
   return (
-    <Flex className={`w-full h-full ${topNavPadding} overflow-y-auto`}>
+    <Flex
+      className={`w-full h-full ${topNavPadding} overflow-y-auto justify-center items-center`}
+    >
+      {/* <AvatarModal /> */}
+      <VStack>this</VStack>
+      {/* 
       <ColumnsPageContainer title="title" subtitle="subtitle">
         <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
           <VStack gap="gap-1">
@@ -56,7 +64,7 @@ export default function EvsPlace() {
         <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
           {textExample}
         </ColumnsPageColumn>
-      </ColumnsPageContainer>
+      </ColumnsPageContainer> */}
     </Flex>
   );
 }

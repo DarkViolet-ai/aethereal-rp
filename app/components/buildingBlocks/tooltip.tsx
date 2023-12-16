@@ -70,9 +70,9 @@ export default function Tooltip({
         {children}
         {/* Tooltip */}
         {isHovered && (
-          <div>
+          <div className={`absolute ${placementStyles} p-2`}>
             <div
-              className={`text-shadow-lightTextShadow absolute ${placementStyles} justify-center px-2 py-1 z-30 leading-4 ${w} ${bg} ${color} font-semibold rounded-sm shadow-dvShadow whitespace-nowrap`}
+              className={`text-shadow-lightTextShadow justify-center px-2 py-1 z-30 leading-4 ${w} ${bg} ${color} font-semibold rounded-sm shadow-dvShadow whitespace-nowrap`}
             >
               {label}
             </div>

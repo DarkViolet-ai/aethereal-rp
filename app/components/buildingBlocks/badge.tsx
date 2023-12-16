@@ -22,7 +22,7 @@ export default function Badge({
   textColor = "text-dv-900",
   ...props
 }: BadgeProps) {
-  const baseClasses = "px-2 text-xs font-semibold leading-none";
+  const baseClasses = "px-2 text-md font-semibold leading-none";
 
   // Merge Tailwind classes with the provided className prop
   const badgeClasses = `${baseClasses} ${rounded} ${className} ${bgColor} ${textColor} shadow-dvShadow `;

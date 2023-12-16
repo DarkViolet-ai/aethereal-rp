@@ -35,13 +35,12 @@ export default function TopNav({
       >
         <Image src="/images/core/aetherealLogo.png" alt="main logo" />
       </Box>
-      <HStack gap="gap-[2vw]">
+      <HStack gap="gap-[1vw]" className="pr-[0.2vw] ">
         <LogoutButton isUserId={isUserId} />
         {isStory && (
           <Drawer
             icon={MdOutlineGroups2}
             label="characters"
-            buttonPos="absolute"
             buttonT="top-2 quadHD:top-4 ultraHD:top-8"
             buttonR="right-2 quadHD:right-4 ultraHD:right-8"
             slideDirection="top-right"

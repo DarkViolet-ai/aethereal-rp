@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React, { type MouseEventHandler } from "react";
 import { Spinner } from "./spinner";
 import Tooltip from "./tooltip";
 
@@ -10,7 +10,7 @@ interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
   isLoading?: boolean;
   isDisabled?: boolean;
   label: string;
-  pos?: "absolute" | "relative" | "fixed" | "sticky" | "static";
+  pos?: "absolute" | "relative" | "fixed" | "sticky" | "static" | "inherit";
   t?: string;
   l?: string;
   r?: string;
@@ -35,7 +35,7 @@ export default function IconButton({
   isLoading = false,
   isDisabled = false,
   label,
-  pos = "relative",
+  pos = "absolute",
   t,
   l,
   r,

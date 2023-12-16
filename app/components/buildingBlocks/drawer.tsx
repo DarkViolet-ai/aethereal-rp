@@ -28,7 +28,13 @@ interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string;
   drawerWidth?: string;
   drawerHeight?: string;
-  buttonPos?: "absolute" | "relative" | "fixed" | "sticky" | "static";
+  buttonPos?:
+    | "absolute"
+    | "relative"
+    | "fixed"
+    | "sticky"
+    | "static"
+    | "inherit";
   buttonT?: string;
   buttonR?: string;
   buttonB?: string;
@@ -55,7 +61,7 @@ export default function Drawer({
   children,
   icon: Icon,
   label,
-  buttonPos = "absolute",
+  buttonPos = "inherit",
   buttonT,
   buttonR,
   buttonB,
@@ -151,7 +157,6 @@ export default function Drawer({
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [setDrawerOpen]);
-
   return (
     <>
       {" "}

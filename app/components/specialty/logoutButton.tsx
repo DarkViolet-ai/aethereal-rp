@@ -13,6 +13,7 @@ export default function LogoutButton({ isUserId }: { isUserId: boolean }) {
           label="logout"
           tooltipPlacement="bottomLeft"
           onClick={() => navigate("/logout")}
+          pos="inherit"
         />
       ) : (
         <IconButton
@@ -20,6 +21,7 @@ export default function LogoutButton({ isUserId }: { isUserId: boolean }) {
           label="login"
           tooltipPlacement="bottomLeft"
           onClick={() => navigate("/login")}
+          pos="inherit"
         />
       )}
     </>
