@@ -11,7 +11,7 @@ import { CharacterCardMini } from "./characterCard";
 
 import VStack from "~/components/buildingBlocks/vStack";
 import { useTypedLoaderData } from "remix-typedjson";
-import type { UserStoriesLoaderData } from "../index";
+import type { UserStoriesLoaderData } from "..";
 import NewStoryCard from "../story+/components/newStoryCard";
 import Transition from "~/components/buildingBlocks/transition";
 import { NavLink } from "@remix-run/react";

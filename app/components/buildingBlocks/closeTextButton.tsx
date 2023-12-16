@@ -15,6 +15,7 @@ export function CloseTextButton({
         onClose();
       }}
       className={` m-2 z-10 ${className}`}
+      width="w-fit"
     >
       Close
     </Button>

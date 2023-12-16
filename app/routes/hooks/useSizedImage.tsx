@@ -1,8 +1,6 @@
 import { useOutletContext } from "@remix-run/react";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { useCallback, useState } from "react";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
-const thumbnailSize = 150;
 const bucketName = "images";
 const filePath = `public/`;
 

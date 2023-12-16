@@ -24,7 +24,7 @@ interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
     | "left";
   style?: React.CSSProperties;
   children?: React.ReactNode;
-  icon?: JSX.Element;
+  icon: React.ComponentType;
   label?: string;
   drawerWidth?: string;
   drawerHeight?: string;
@@ -61,9 +61,9 @@ export default function Drawer({
   buttonB,
   buttonL,
   showBottomButton = true,
-  drawerWidth = "w-[400px]",
+  drawerWidth = "w-[400px] ultraHD:w-[800px]",
   drawerBg = "bg-dv-700",
-  drawerHeight = "h-full",
+  drawerHeight = "h-100vh",
   overlayBlur = defaultOverlayBlur,
   overlayColor = defaultOverlayColor,
   buttonTooltipPlacement = "bottomRight",
@@ -185,7 +185,7 @@ export default function Drawer({
               <motion.div
                 className={`fixed ${drawerPositionClass(
                   slideDirection
-                )} ${drawerWidth} ${drawerHeight} shadow-dvShadow z-50 ${className}`}
+                )} shadow-dvShadow z-50 ${drawerHeight} ${className} ${drawerWidth}`}
                 style={style}
                 variants={variants}
                 custom={slideDirection}
@@ -198,13 +198,16 @@ export default function Drawer({
                   className={`w-full h-full justify-between relative ${drawerBg} border-l-3 border-dv-900`}
                   gap="gap-0"
                 >
-                  <CloseButton onClose={() => setDrawerOpen(false)} />
-                  {children}
-                  {showBottomButton && (
-                    <Flex className="w-full bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center">
-                      <CloseTextButton onClose={() => setDrawerOpen(false)} />
-                    </Flex>
-                  )}
+                  <Flex className="w-full h-full relative">
+                    <CloseButton onClose={() => setDrawerOpen(false)} />
+                    {showBottomButton && (
+                      <Flex className="w-full h-[6vh] bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center fixed bottom-0 left-0 items-center">
+                        <CloseTextButton onClose={() => setDrawerOpen(false)} />
+                      </Flex>
+                    )}
+
+                    <Flex className="w-full h-full pb-[6vh]">{children}</Flex>
+                  </Flex>
                 </VStack>
               </motion.div>
             </>

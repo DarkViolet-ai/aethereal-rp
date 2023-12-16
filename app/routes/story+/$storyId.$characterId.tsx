@@ -84,11 +84,13 @@ export default function StoryId() {
           <Flex className="flex-shrink-0 py-2">
             <HeadingXL>{story?.title || ""}</HeadingXL>
           </Flex>
-          <ParchmentPage
-            isActiveCharacter={isActiveCharacter}
-            story={story}
-            characterName={characterName}
-          />
+          <Flex className="w-full h-full px-[2vw] pb-[2vh]">
+            <ParchmentPage
+              isActiveCharacter={isActiveCharacter}
+              story={story}
+              characterName={characterName}
+            />
+          </Flex>
         </VStack>
       </Transition>
       <Transition

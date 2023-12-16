@@ -16,7 +16,9 @@ export function ColumnsPageHeader({
   return (
     <VStack className={`w-full h-fit flex-shrink-0 py-[1vh] gap-0`}>
       {title && (
-        <Flex className={`w-full h-fit flex-shrink-0 px-2 pt-1 justify-center`}>
+        <Flex
+          className={`w-full h-fit flex-shrink-0 px-[2vw] pt-1 justify-center`}
+        >
           <HeadingXL shadow="text-shadow-textFog">{title}</HeadingXL>
         </Flex>
       )}
@@ -40,7 +42,7 @@ export function ColumnsPageContainer({
   rowGap = "gap-[2vh]",
   columnGap = "gap-[2vw]",
   pt = "py-[1vh]",
-  pb = "pb-[2vh] md:pb-[1vh]",
+  pb = "pb-[2vh] md:pb-[1vh] quadHD:pb-[1.4vh]",
 }: {
   children?: React.ReactNode;
   title?: string;
@@ -168,7 +170,7 @@ export function ColumnsPageColumn({
             >
               {heading && (
                 <Flex
-                  className={`w-full h-fit flex-shrink-0 rounded-b-none px-3 bg-dv-900 border-b-2 border-b-dv-225 `}
+                  className={`w-full h-fit flex-shrink-0 rounded-b-none bg-dv-900 border-b-2 border-b-dv-225 px-[2vw] ${headingColor}`}
                 >
                   <HeadingLG>{heading}</HeadingLG>
                 </Flex>

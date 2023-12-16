@@ -40,11 +40,11 @@ export default function ParchmentPage({
         <ParchmentCorner corner="bottom-left" />
 
         <VStack
-          className="w-full h-full overflow-y-auto justify-start py-[45px]"
+          className="w-full h-full overflow-y-auto justify-start py-[3vh]"
           gap="gap-0"
         >
           <VStack
-            className={`w-full h-fit px-[40px] text-dv-900 ${textSizes} gap-3 quadHD:gap-4 ultraHD:gap-5`}
+            className={`w-full h-fit px-[4vw] text-dv-900 ${textSizes} gap-[1vh] `}
           >
             {paragraphs.map((paragraph, index) => (
               <Flex key={index} className={`${cardWidths}`}>

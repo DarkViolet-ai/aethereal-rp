@@ -1,13 +1,10 @@
-import { borderShadow, cardColors, cursiveText } from "~/css/styles";
+import { borderShadow, cardColors } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text, {
-  Heading2XL,
   Heading3XL,
   HeadingLG,
   HeadingMD,
-  HeadingXL,
   TextLG,
-  TextXL,
 } from "../../components/buildingBlocks/textComponents";
 import HStack from "../../components/buildingBlocks/hStack";
 import { NavLink } from "@remix-run/react";

@@ -28,13 +28,13 @@ export default function TopNav() {
       </Box>
       {isStory && (
         <Drawer
-          icon={<MdOutlineGroups2 />}
+          icon={MdOutlineGroups2}
           label="characters"
           buttonPos="absolute"
           buttonT="top-2 quadHD:top-4 ultraHD:top-8"
           buttonR="right-2 quadHD:right-4 ultraHD:right-8"
           slideDirection="top-right"
-          drawerWidth="w-full max-w-[600px]"
+          drawerWidth="w-full md:w-[60vw] lg:w-[40vw] quadHD:w-[30vw]"
           drawerHeight="h-full"
           buttonTooltipPlacement="bottomLeft"
           overlayBlur="backdrop-blur-none"

@@ -32,7 +32,7 @@ export default function ParchmentCorner({
       <Image
         src="/images/core/parchmentCorner.png"
         alt="parchment corner"
-        className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[170px] md:h-[170px]"
+        className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[170px] md:h-[170px] ultraHD:h-[300px] ultraHD:w-[300px]"
       />
     </Box>
   );

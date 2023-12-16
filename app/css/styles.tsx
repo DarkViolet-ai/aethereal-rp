@@ -7,7 +7,7 @@ export const scrollBarStyles =
 export const imitationOverlay = "absolute inset-0 bg-dv-900 opacity-50 z-10";
 
 // ICONS
-export const CloseIcon = <MdClose />;
+export const CloseIcon = MdClose;
 export const MenuIcon = <MdOutlineMenuOpen />;
 
 // IMAGES
