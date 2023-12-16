@@ -1,4 +1,4 @@
-import { Form } from "@remix-run/react";
+import { Form, useSubmit } from "@remix-run/react";
 import Box from "~/components/buildingBlocks/box";
 import Button from "~/components/buildingBlocks/button";
 import Flex from "~/components/buildingBlocks/flex";
@@ -30,6 +30,7 @@ export default function InteractionPage({
 }) {
   const promptText = (isActiveCharacter && story?.prompt) || "";
   const paragraphs = promptText.split("\n");
+  const submit = useSubmit();
 
   // const paragraphs = [
   //   " Vox spree tuff flea raw bubbles sag bluff pox tingle huff blabber straw. Jabber squish huff flea clumsy ruff. Backpack jamboree poodle gnaw crackerjack nix jabber chocolate. ",
@@ -51,6 +52,10 @@ export default function InteractionPage({
   const onConfirm = () => {
     // Handle the confirm action
     console.log("Confirmed!");
+    submit(
+      {},
+      { method: "post", action: `/story/leave/${story.id}/${characterName}` }
+    );
     closeAlert();
   };
 
