@@ -1,4 +1,3 @@
-import Box from "~/components/buildingBlocks/box";
 import {
   ColumnsPageColumn,
   ColumnsPageContainer,
@@ -37,7 +36,7 @@ export default function EvsPlace() {
     >
       {/* <AvatarModal /> */}
       <VStack>this</VStack>
-      {/* 
+
       <ColumnsPageContainer title="title" subtitle="subtitle">
         <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
           <VStack gap="gap-1">
@@ -64,7 +63,7 @@ export default function EvsPlace() {
         <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
           {textExample}
         </ColumnsPageColumn>
-      </ColumnsPageContainer> */}
+      </ColumnsPageContainer>
     </Flex>
   );
 }

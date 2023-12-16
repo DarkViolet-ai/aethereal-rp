@@ -5,7 +5,7 @@ import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
 import type { StoryCharacter } from "~/lib/db/character.server";
 import { Avatar } from "~/components/buildingBlocks/avatar";
-import useSizedImage from "~/routes/hooks/useSizedImage";
+import UserOrAI from "~/components/specialty/userOrAI";
 
 export default function CharactersMenu({
   characters,
@@ -28,7 +28,8 @@ export default function CharactersMenu({
         : "/images/icons/profileIcon.png";
 
     return (
-      <Box className="w-96% shadow-dvShadow">
+      <Box className="w-96% shadow-dvShadow relative">
+        <UserOrAI character={character} />
         <VStack
           className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
           align="start"
