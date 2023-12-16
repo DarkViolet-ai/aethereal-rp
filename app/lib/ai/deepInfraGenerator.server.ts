@@ -26,3 +26,16 @@ export const deepInfraStoryGenerator = async (
   });
   return response.results[0].generated_text;
 };
+
+export const deepInfraEditGenerator = async (
+  systemPrompt: string,
+  input: string
+) => {
+  const response = await deepInfraGen({
+    userPrompt: input,
+    systemPrompt,
+    temperature: 0.9,
+    maxNewtokens: 2500,
+  });
+  return response.results[0].generated_text;
+};

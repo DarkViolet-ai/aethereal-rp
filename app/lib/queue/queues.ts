@@ -14,6 +14,7 @@ export enum QueueName {
   PROMPT_USER = "prompt-user",
   GENERATE_STORY = "generate-story",
   GENERATE_CHARACTER = "generate-character",
+  GENERATE_EDIT = "generate-edit",
   ERROR = "error",
   LOG = "log",
 }
@@ -146,5 +147,19 @@ export const submitLog = async ({
   await queue.add(QueueName.LOG, {
     message,
     stack,
+  });
+};
+
+export const submitEditGeneration = async ({
+  story,
+  newInput,
+}: {
+  story: StoryData;
+  newInput: string;
+}) => {
+  const queue = getQueue(QueueName.GENERATE_EDIT);
+  await queue.add(QueueName.GENERATE_EDIT, {
+    story,
+    newInput,
   });
 };

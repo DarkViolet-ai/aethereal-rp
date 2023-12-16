@@ -38,8 +38,14 @@ import {
 import { clearStoryTimeouts, setStoryTimeouts } from "./timeouts";
 import { characterInstructions } from "~/lib/ai/characterInstructions";
 import { getStatusMessage } from "./statusMessages";
-import { deepInfraCharacterGenerator } from "../ai/deepInfraGenerator.server";
-
+import {
+  deepInfraCharacterGenerator,
+  deepInfraEditGenerator,
+  deepInfraStoryGenerator,
+} from "../ai/deepInfraGenerator.server";
+import { generateEditedContent } from "../ai/editorGen.server";
+import { deepInfraGen } from "../utils/deepInfraGen";
+import { editorInstructions } from "~/lib/ai/editorInstructions";
 export type WorkerDispatch = {
   [key in QueueName]: (job: Job) => Promise<void>;
 };
@@ -218,7 +224,7 @@ const workerDispatch: WorkerDispatch = {
     const { newContent } = await continueStory({
       story,
       narratorInstructions,
-      generator: openaiStoryGenerator,
+      generator: deepInfraStoryGenerator,
       newInput: input,
     });
     newContent.length > 0 &&
@@ -267,6 +273,52 @@ const workerDispatch: WorkerDispatch = {
       });
     }
   },
+  [QueueName.GENERATE_EDIT] : async (job: Job) => {
+    const { story: _story, newInput } = job.data as {
+      story: StoryData, newInput: string;
+    };
+    const story = await getStory({ id: _story.id }) as StoryData;
+    await generateEditedContent({
+      newInput,
+      story,
+      editorInstructions,
+      generator: deepInfraEditGenerator,
+    });
+    })
+
+    // if there are no roleplayers left, set the story to inactive.
+    console.log("generate character ", story?.nextCharacter);
+    if (!story || !story.characters.some((c) => c.rolePlayer !== null)) {
+      story &&
+        (await submitStatus({ storyId: story.id, status: StoryStatus.PAUSED }));
+      story && (await updateStory({ id: story.id, isActive: false }));
+      return;
+    }
+    console.log("submitting character generation 1");
+    // duplicate generations can only be re-sent every 60 seconds
+    if (
+      (await redis.get(`story-prompt:${story.id}:${story.prompt}`)) === null
+    ) {
+      console.log("submitting character generation 2");
+      await redis.setex(`story-prompt:${story.id}:${story.prompt}`, 60, "1");
+      const result = await generateCharacterOutput({
+        story,
+        characterInstructions,
+        generator: deepInfraCharacterGenerator,
+      });
+      if (!result) {
+        await submitError({
+          message: `character generation failed: ${story.nextCharacter}`,
+        });
+        await submitStatus({ storyId: story.id, status: StoryStatus.ERROR });
+        return;
+      }
+      await submitStoryGeneration({
+        storyId: story.id,
+        input: result,
+      });
+    }
+  }
 
   //**************************************************************************/
   [QueueName.LOG]: async (job: Job) => {

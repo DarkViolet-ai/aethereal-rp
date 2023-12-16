@@ -86,6 +86,28 @@ export const createUserCharacterStep = async ({
   });
 };
 
+export const createUserCharacterEditStep = async ({
+  storyId,
+  content,
+  characterName,
+  userId,
+  characterPrompt,
+}: {
+  storyId: string;
+  content: string;
+  characterName: string;
+  userId: string;
+  characterPrompt: string;
+}) => {
+  return await createStep({
+    storyId,
+    content,
+    characterName,
+    userId,
+    characterPrompt: "edit: " + characterPrompt,
+  });
+};
+
 export const createAICharacterStep = async ({
   storyId,
   content,
