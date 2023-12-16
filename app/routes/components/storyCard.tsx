@@ -1,9 +1,4 @@
-import {
-  borderShadow,
-  textSizes,
-  cardWidths,
-  containerPadding,
-} from "~/css/styles";
+import { borderShadow, cardWidths, containerPadding } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text, {
   HeadingLG,
@@ -54,9 +49,7 @@ export default function StoryCard({
           </Flex>
           {hideDate ? null : <Text>{FormatDate(String(story.createdAt))}</Text>}
 
-          <Text noOfLines={2} className={` ${textSizes}`}>
-            {story.summary}
-          </Text>
+          <Text noOfLines={2}>{story.summary}</Text>
         </VStack>
         <Flex className="h-full w-25% justify-center itmes-center flex-shrink-0">
           <Flex className="w-full h-auto flex-shrink-0 shadow-dvShadow">

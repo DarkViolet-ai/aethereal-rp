@@ -6,7 +6,7 @@ import Text, {
   HeadingXL,
 } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
-import { cardWidths, textSizes } from "~/css/styles";
+import { cardWidths } from "~/css/styles";
 
 export default function NewStoryCard({
   newTemplate = false,
@@ -15,7 +15,7 @@ export default function NewStoryCard({
 }) {
   return (
     <Flex
-      className={`w-full p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 bg-dv-900 border-2 border-dv-400 rounded-xl shadow-dvShadow hover:cursor-pointer ${textSizes} story-card-hover ${cardWidths}`}
+      className={`w-full p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 bg-dv-900 border-2 border-dv-400 rounded-xl shadow-dvShadow hover:cursor-pointer story-card-hover ${cardWidths}`}
     >
       <HStack className="w-full h-full justify-evenly">
         <VStack

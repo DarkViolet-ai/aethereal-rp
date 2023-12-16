@@ -57,7 +57,7 @@ export default function InteractionPage({
             />
 
             <Flex className="w-full h-full bg-dv-700 bg-darkVioletGrad shadow-shadow3D overflow-y-auto justify-end">
-              <Flex className="w-76% bg-dv-950 shadow-shadow3D h-fit min-h-full p-2 pr-0 rounded-l-none">
+              <Flex className="w-76% bg-dv-975 shadow-shadow3D h-fit min-h-full p-2 pr-0 rounded-l-none border-l-2 border-dv-900">
                 <VStack className="w-full gap-[10px] py-2">
                   {paragraphs.map((paragraph, index) => (
                     <Flex key={index} className={`${cardWidths}`}>

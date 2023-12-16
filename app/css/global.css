@@ -43,15 +43,15 @@ body {
 
 @media (min-width: 2560px) {
   body {
-    font-size: 2.4vh;
-    line-height: 3.2vh;
+    font-size: 2.2vh;
+    line-height: 3vh;
   }
 }
 
-@media (min-width: 2560px) {
+@media (min-width: 3840px) {
   body {
-    font-size: 2.7vh;
-    line-height: 3.6vh;
+    font-size: 2.4vh;
+    line-height: 3.2vh;
   }
 }
 

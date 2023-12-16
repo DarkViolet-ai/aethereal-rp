@@ -2,7 +2,7 @@ import { borderShadow, colMaxWidths } from "~/css/styles";
 import Flex from "./flex";
 import VStack from "./vStack";
 import Transition, { type TransitionType } from "./transition";
-import { HeadingLG, HeadingXL, TextLG } from "./textComponents";
+import { HeadingLG, HeadingXL, TextMD } from "./textComponents";
 
 export function ColumnsPageHeader({
   title,
@@ -10,8 +10,6 @@ export function ColumnsPageHeader({
 }: {
   title?: string;
   subtitle?: string;
-  titleTextSizes?: string;
-  titleFontStyles?: string;
 }) {
   return (
     <VStack className={`w-full h-fit flex-shrink-0 py-[1vh] gap-0`}>
@@ -26,7 +24,7 @@ export function ColumnsPageHeader({
         <Flex
           className={`w-95% h-fit flex-shrink-0 justify-center bg-dv-975 px-[1vw] py-[1vh] rounded-[1vw] shadow-shadow3D fullHD:w-90% quadHD:w-85% ultraHD:w-80% `}
         >
-          <TextLG>{subtitle}</TextLG>
+          <TextMD>{subtitle}</TextMD>
         </Flex>
       )}
     </VStack>
@@ -41,7 +39,7 @@ export function ColumnsPageContainer({
   topNavPadding = "pt-50px",
   rowGap = "gap-[2vh]",
   columnGap = "gap-[2vw]",
-  pt = "py-[1vh]",
+  pt,
   pb = "pb-[2vh] md:pb-[1vh] quadHD:pb-[1.4vh]",
 }: {
   children?: React.ReactNode;
@@ -85,7 +83,7 @@ export function ColumnsPageContainer({
 
   return (
     <VStack
-      className={`h-fit w-99% ${topNavPadding} justify-center ${scrollStyles} overflow-x-hidden`}
+      className={`h-fit w-99% ${topNavPadding} justify-center ${scrollStyles} overflow-x-hidden gap-0`}
     >
       {(title || subtitle) && (
         <Flex className={`w-full h-fit ${pt} justify-center`}>
@@ -93,7 +91,7 @@ export function ColumnsPageContainer({
         </Flex>
       )}{" "}
       <Flex
-        className={`w-98% h-full flex-col items-center overflow-y-auto fullHD:py-2 ${transitionScreenSize} ${alignment}} ${pt} ${rowGap} ${pb}`}
+        className={`w-98% h-full flex-col items-center overflow-y-auto ${transitionScreenSize} ${alignment}} ${pt} ${rowGap} ${pb}`}
       >
         {children}
       </Flex>
