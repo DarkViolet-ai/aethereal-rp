@@ -1,6 +1,7 @@
 import { useNavigate } from "@remix-run/react";
 import { BiLogInCircle, BiLogOutCircle } from "react-icons/bi/index.js";
 import IconButton from "~/components/buildingBlocks/iconButton";
+import { negativeStyles } from "~/css/styles";
 
 export default function LogoutButton({ isUserId }: { isUserId: boolean }) {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function LogoutButton({ isUserId }: { isUserId: boolean }) {
           tooltipPlacement="bottomLeft"
           onClick={() => navigate("/logout")}
           pos="inherit"
+          className={negativeStyles}
         />
       ) : (
         <IconButton

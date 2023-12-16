@@ -1,3 +1,7 @@
+import { AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import Alert from "~/components/buildingBlocks/alert";
+import Button from "~/components/buildingBlocks/button";
 import {
   ColumnsPageColumn,
   ColumnsPageContainer,
@@ -24,18 +28,58 @@ import Text, {
 } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import AvatarModal from "~/components/specialty/avatarModal";
-import UserOrAI from "~/components/specialty/userOrAI";
-import { topNavPadding } from "~/css/styles";
+
+import { negativeStyles, topNavPadding } from "~/css/styles";
 import RandomText from "~/lib/utils/randomText";
 
 const textExample = RandomText(3, 3);
 export default function EvsPlace() {
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const cancelRef = useRef<HTMLButtonElement | null>(null);
+
+  const openAlert = () => {
+    setIsAlertOpen(true);
+  };
+
+  const closeAlert = () => {
+    setIsAlertOpen(false);
+  };
+
+  const onConfirm = () => {
+    // Handle the confirm action
+    console.log("Confirmed!");
+    closeAlert();
+  };
   return (
     <Flex
       className={`w-full h-full ${topNavPadding} overflow-y-auto justify-center items-center`}
     >
       {/* <AvatarModal /> */}
-      <VStack>this</VStack>
+      <div>
+        <Button
+          onClick={openAlert}
+          className={`${negativeStyles}`}
+          width="w-fit"
+        >
+          Leave Story
+        </Button>
+
+        <AnimatePresence>
+          {isAlertOpen && (
+            <Alert
+              isAlertOpen={isAlertOpen}
+              onClose={closeAlert}
+              onConfirmClick={onConfirm}
+              cancelRef={cancelRef}
+              title="Are you sure?"
+              body="A copy of this story will kept for you to return to and pick up where you left off."
+              confirmButtonText="Confirm"
+              cancelButtonText="Cancel"
+              imageIcon="warning"
+            />
+          )}
+        </AnimatePresence>
+      </div>
 
       <ColumnsPageContainer title="title" subtitle="subtitle">
         <ColumnsPageColumn heading="heading" transitionType="slideInLeft">
