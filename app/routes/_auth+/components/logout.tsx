@@ -6,7 +6,7 @@ export default function LogoutButton() {
   const navigate = useNavigate();
   return (
     <IconButton
-      icon={<BiLogOutCircle />}
+      icon={BiLogOutCircle}
       label="logout"
       onClick={() => navigate("/")}
     />
