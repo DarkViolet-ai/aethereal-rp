@@ -3,9 +3,12 @@ import Flex from "~/components/buildingBlocks/flex";
 import ParchmentPage from "./components/parchmentPage";
 import InteractionPage from "./components/interactionPage";
 import Transition from "~/components/buildingBlocks/transition";
-import { useRevalidator, useSubmit } from "@remix-run/react";
+import { useRevalidator } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
-import { HeadingXL } from "~/components/buildingBlocks/textComponents";
+import {
+  HeadingMD,
+  HeadingXL,
+} from "~/components/buildingBlocks/textComponents";
 import { requireUserId } from "~/lib/utils/session.server";
 import { getNextCharacterInStory, getStory } from "~/lib/db/story.server";
 import { dvError } from "~/lib/utils/dvError";
@@ -111,9 +114,12 @@ export default function StoryId() {
       className={`w-full h-full justify-start items-center flex-col lg:flex-row lg:justify-center lg:items-start overflow-y-hidden ${topNavPadding}`}
     >
       <Transition type="fade" className="w-full h-full lg:w-7/12 ">
-        <VStack className="w-full h-full justify-center">
-          <Flex className="flex-shrink-0 py-2">
+        <VStack className="w-full h-full justify-center pb-[35px] md:pb-[0px]">
+          <Flex className="flex-shrink-0 py-2 hidden lg:flex">
             <HeadingXL>{story?.title || ""}</HeadingXL>
+          </Flex>
+          <Flex className="flex-shrink-0 py-2 flex lg:hidden">
+            <HeadingMD>{story?.title || ""}</HeadingMD>
           </Flex>
           <Flex className="w-full h-full px-[2vw] pb-[2vh]">
             <ParchmentPage

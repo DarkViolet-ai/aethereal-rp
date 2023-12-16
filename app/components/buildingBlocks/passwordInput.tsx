@@ -38,7 +38,7 @@ export default function PasswordInput({
             required
           />
         </Box>
-        <Box className="absolute right-[5px] top-1 md:top-[7px] fullHD:right-[10px] quadHD:top-[3px] ultraHD:top-[1px] ultraHD:right-[15px]">
+        <Box className="absolute right-[5px] top-1 md:top-[3px] fullHD:right-[10px] quadHD:top-[3px] ultraHD:top-[1px] ultraHD:right-[15px]">
           <IconButton
             pos="inherit"
             className="h-[25px] w-[25px] md:h-[20px] md:w-[20px] fullHD:h-[30px] fullHD:w-[30px] quadHD:h-[25px] quadHD:w-[25px] ultraHD:h-[45px] ultraHD:w-[45px]"

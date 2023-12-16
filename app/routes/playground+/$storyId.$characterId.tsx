@@ -1,19 +1,21 @@
-import { Stories, cursiveText } from "~/css/styles";
+import { cursiveText } from "~/css/styles";
 import Flex from "~/components/buildingBlocks/flex";
 import ParchmentPage from "./components/parchmentPage";
 import InteractionPage from "./components/interactionPage";
 import Transition from "~/components/buildingBlocks/transition";
-import { useParams } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
 import Text from "~/components/buildingBlocks/textComponents";
 import { requireUserId } from "~/lib/utils/session.server";
 import { getNextCharacterInStory, getStory } from "~/lib/db/story.server";
 import { dvError } from "~/lib/utils/dvError";
-import { StoryCharacter, assignRolePlayer } from "~/lib/db/character.server";
+import {
+  type StoryCharacter,
+  assignRolePlayer,
+} from "~/lib/db/character.server";
 import { StoryStatus } from "@prisma/client";
 import { submitStoryGeneration, submitUserPrompt } from "~/lib/queue/queues";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
-import { DataFunctionArgs } from "@remix-run/node";
+import type { DataFunctionArgs } from "@remix-run/node";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const userId = await requireUserId(request);
@@ -48,7 +50,6 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
 
 export const action = async ({ request, params }: DataFunctionArgs) => {
   const storyId = params.storyId as string;
-  const characterId = params.characterId as string;
   const formData = await request.formData();
   const newInput = formData.get("newInput") as string;
   console.log("submitting for story generation", newInput);
@@ -59,11 +60,8 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
 export default function StoryId() {
   const { story, isActiveCharacter, characterName } =
     useTypedLoaderData<typeof loader>();
-  const storyId = story?.id;
 
-  // console.log(tempStory);
   return (
-    // <Transition type="zoom" className="w-full h-full">
     <Flex className="w-full h-full justify-start items-center flex-col lg:flex-row lg:justify-center lg:items-start pt-7 overflow-y-hidden">
       <Transition type="fade" className="w-full h-full lg:w-7/12 ">
         <VStack className="w-full h-full justify-center py-[5px]">
@@ -92,6 +90,5 @@ export default function StoryId() {
         />
       </Transition>
     </Flex>
-    // </Transition>
   );
 }

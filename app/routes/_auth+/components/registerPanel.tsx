@@ -10,11 +10,14 @@ import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import InputVStack from "~/components/buildingBlocks/inputVStack";
 import PasswordInput from "~/components/buildingBlocks/passwordInput";
-import { HeadingXL } from "~/components/buildingBlocks/textComponents";
+import {
+  HeadingMD,
+  HeadingXL,
+} from "~/components/buildingBlocks/textComponents";
 import Toast, { useToast } from "~/components/buildingBlocks/toast";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
-import { borderShadow, cardWidths, topNavPadding } from "~/css/styles";
+import { borderShadow, cardWidths } from "~/css/styles";
 
 export const action = async ({ request }: DataFunctionArgs) => {
   const formData = await request.formData();
@@ -70,24 +73,38 @@ export default function RegisterPanel() {
   );
 
   return (
-    <Flex
-      className={`w-full h-full justify-center items-center ${topNavPadding}`}
-    >
+    <Flex className={`w-full h-full justify-center items-center`}>
       <VStack
-        gap="gap-3 ultraHD:gap-6"
-        className={`${borderShadow} relative w-98% h-98% sm:w-95% max-w-[700px] fullHD:max-w-[850px] quadHD:h-80% ultraHD:max-w-[1500px]  p-3 pb-[0px] text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad justify-between`}
+        gap="gap-0 md:gap-3 ultraHD:gap-6"
+        className={`${borderShadow} relative w-98% h-98% fullHD:h-85% sm:w-95% max-w-[700px] fullHD:max-w-[850px] quadHD:h-80% ultraHD:max-w-[1500px]  p-3 pb-[0px] text-shadow-dvTextShadow bg-dv-375 bg-darkVioletGrad justify-between`}
       >
         <VStack className="w-full flex-shrink-0 items-center ultraHD:gap-5 ">
-          <HeadingXL shadow="text-shadow-textFog">Create an account</HeadingXL>
-          <Flex className={`${cardWidths} justify-center`}>
-            <DarkViolet
-              name="Logo"
-              pos="relative"
-              w="w-60%"
-              className="max-w-[300px] ultraHD:max-w-[700px]"
-            />
+          <Flex className="w-full justify-center flex md:hidden ">
+            {/* CREATE ACCOUNT ------------------------------------------------ */}
+            <HeadingMD shadow="text-shadow-textFog">
+              Create an account
+            </HeadingMD>
+          </Flex>
+          <Flex className="w-full justify-center hidden md:flex">
+            <HeadingXL shadow="text-shadow-textFog">
+              Create an account
+            </HeadingXL>
+          </Flex>
+
+          {/* LOGO IMAGE ------------------------------------------------ */}
+          <Flex className="w-50% fullHD:100%">
+            <Flex className={`${cardWidths} justify-center`}>
+              <DarkViolet
+                name="Logo"
+                pos="relative"
+                w="100%"
+                className="xxl:max-w-[300px] ultraHD:max-w-[700px]"
+              />
+            </Flex>
           </Flex>
         </VStack>
+
+        {/* FORM INPUTS ------------------------------------------------ */}
 
         <Form
           onSubmit={handleSubmit}

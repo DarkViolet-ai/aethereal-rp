@@ -39,71 +39,10 @@ export default function StoryTemplate() {
     <>
       {/* // MOBILE VIEW NEW & EDIT ----------------------------------------------------------- // */}
       <VStack
-        className={`w-full h-full flex lg:hidden overflow-x-hidden overflow-y-auto ${topNavPadding}`}
+        className={`w-full h-full flex lg:hidden overflow-x-hidden overflow-y-auto pt-[10px]`}
       >
-        <Flex className="h-[15px] text-transparent">.</Flex>
         {isNew && (
-          <ColumnsPageColumn
-            heading="Start a Story"
-            transitionType="slideInLeft"
-          >
-            <VStack
-              className="w-full gap-5 fullHD:gap-7 quadHD:gap-9 ultraHD:gap-12 pt-[10px] pb-[20px]"
-              align="center"
-            >
-              <NavLink
-                to="edit"
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <NewStoryCard newTemplate />
-              </NavLink>
-              {templates.map((template, index) => (
-                <NavLink
-                  to={`/story/new/${template.id}/view`}
-                  key={template.id}
-                  style={{
-                    width: "100%",
-                    justifyContent: "center",
-                    display: "flex",
-                  }}
-                >
-                  <StoryCard
-                    hideDate
-                    key={template.id}
-                    story={template}
-                    bgColor={cardColors[index % cardColors.length]}
-                  />
-                </NavLink>
-              ))}
-            </VStack>
-          </ColumnsPageColumn>
-        )}
-
-        {isEdit && (
-          <ColumnsPageColumn
-            transitionType="slideInRight"
-            containerClassName="items-center h-full lg:items-start lg:h-auto"
-          >
-            <Outlet context={context} />
-          </ColumnsPageColumn>
-        )}
-        {isView && (
-          <ColumnsPageColumn
-            transitionType="slideInRight"
-            containerClassName="items-center h-full lg:items-start lg:h-auto"
-          >
-            <Outlet context={context} />
-          </ColumnsPageColumn>
-        )}
-      </VStack>
-      {/* // DESKTOP VIEW NEW & EDIT ----------------------------------------------------------- // */}
-      <Flex className="w-full h-full jusity-center hidden lg:flex">
-        <ColumnsPageContainer transitionScreen="lg">
-          {/* {isNew && (
+          <>
             <ColumnsPageColumn
               heading="Start a Story"
               transitionType="slideInLeft"
@@ -142,7 +81,33 @@ export default function StoryTemplate() {
                 ))}
               </VStack>
             </ColumnsPageColumn>
-          )} */}
+          </>
+        )}
+
+        {isEdit && (
+          <div className="w-full h-fit justify-center">
+            <ColumnsPageColumn
+              transitionType="slideInRight"
+              containerClassName="items-center h-full lg:items-start lg:h-auto"
+            >
+              <Outlet context={context} />
+            </ColumnsPageColumn>
+          </div>
+        )}
+        {isView && (
+          <div className="w-full h-fit justify-center">
+            <ColumnsPageColumn
+              transitionType="slideInRight"
+              containerClassName="items-center h-full lg:items-start lg:h-auto"
+            >
+              <Outlet context={context} />
+            </ColumnsPageColumn>
+          </div>
+        )}
+      </VStack>
+      {/* // DESKTOP VIEW NEW & EDIT ----------------------------------------------------------- // */}
+      <Flex className="w-full h-full jusity-center hidden lg:flex">
+        <ColumnsPageContainer transitionScreen="lg">
           <ColumnsPageColumn
             heading="Start a Story"
             transitionType="slideInLeft"
