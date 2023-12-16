@@ -93,7 +93,7 @@ export default function RegisterPanel() {
           onSubmit={handleSubmit}
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-8 h-full w-98% max-w-[400px] fullHD:max-w-[600px]">
+          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-10 h-full w-98% max-w-[400px] fullHD:max-w-[600px]">
             <VStack className="w-full">
               <InputVStack
                 className="w-full"

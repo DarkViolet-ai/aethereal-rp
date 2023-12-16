@@ -5,7 +5,7 @@ import Box from "./box";
 import IconButton from "./iconButton";
 import { FaEye, FaEyeSlash } from "react-icons/fa/index.js";
 import VStack from "./vStack";
-import { HeadingLG } from "./textComponents";
+import { HeadingMD } from "./textComponents";
 
 interface PasswordInputProps {
   name?: string;
@@ -24,9 +24,9 @@ export default function PasswordInput({
   return (
     <VStack gap="gap-0" align="start" className={`w-full`}>
       {confirm ? (
-        <HeadingLG shadow="text-shadow-textFog">Confirm Password</HeadingLG>
+        <HeadingMD shadow="text-shadow-textFog">Confirm Password</HeadingMD>
       ) : (
-        <HeadingLG shadow="text-shadow-textFog">Password</HeadingLG>
+        <HeadingMD shadow="text-shadow-textFog">Password</HeadingMD>
       )}
       <HStack className="w-full relative" gap="gap-0">
         <Box className="relative w-full">
@@ -38,10 +38,11 @@ export default function PasswordInput({
             required
           />
         </Box>
-        <Box className="absolute right-[5px] top-1 fullHD:right-[10px]">
+        <Box className="absolute right-[5px] top-1 md:top-[7px] fullHD:right-[10px] quadHD:top-[3px] ultraHD:top-[1px] ultraHD:right-[15px]">
           <IconButton
-            className="h-[25px] w-[25px] fullHD:h-[30px] fullHD:w-[30px] ultraHD:h-[35px] ultraHD:w-[35px]"
-            iconSize="text-[17px] md:text-[20px] fullHD:text-[25px] ultraHD:text-[30px]"
+            pos="inherit"
+            className="h-[25px] w-[25px] md:h-[20px] md:w-[20px] fullHD:h-[30px] fullHD:w-[30px] quadHD:h-[25px] quadHD:w-[25px] ultraHD:h-[45px] ultraHD:w-[45px]"
+            iconSize="text-[17px] md:text-[15px] fullHD:text-[20px] ultraHD:text-[25px]"
             label="show/hide"
             icon={show ? FaEyeSlash : FaEye}
             onClick={handleClick}

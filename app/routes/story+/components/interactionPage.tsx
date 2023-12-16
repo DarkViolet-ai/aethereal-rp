@@ -7,8 +7,17 @@ import TextAreaVStack from "~/components/buildingBlocks/textAreaVStack";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
 import LoadingText from "~/components/specialty/loading";
-import { borderShadow, cardWidths, colMaxWidths } from "~/css/styles";
+import {
+  borderShadow,
+  cardWidths,
+  colMaxWidths,
+  negativeStyles,
+} from "~/css/styles";
 import type { StoryData } from "~/lib/db/story.server";
+import { AnimatePresence } from "framer-motion";
+import HStack from "~/components/buildingBlocks/hStack";
+import { useRef, useState } from "react";
+import Alert from "~/components/buildingBlocks/alert";
 
 export default function InteractionPage({
   story,
@@ -27,6 +36,23 @@ export default function InteractionPage({
   //   "Pop tag drag straw mingle whack gnaw fairy flipflop. Cox fox yak pop flapjack glisten quack plainy bubbles. Top fluster brag yak butterfly. ",
   //   "Lox jellybean cat bungle piddle. Wag bubble box mop yabber rainbow chocolate flipflop law piddle kitten waddle backpack. Paw gruff tack crackerjack whack clumsy top drop gag noodle sugar mumble. ",
   // ];
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const cancelRef = useRef<HTMLButtonElement | null>(null);
+
+  const openAlert = () => {
+    setIsAlertOpen(true);
+  };
+
+  const closeAlert = () => {
+    setIsAlertOpen(false);
+  };
+
+  const onConfirm = () => {
+    // Handle the confirm action
+    console.log("Confirmed!");
+    closeAlert();
+  };
 
   return (
     <Flex
@@ -97,12 +123,37 @@ export default function InteractionPage({
                 name="newInput"
               />
             </Flex>
-            <Button type="submit" className="w-[200px]">
-              Submit
-            </Button>
+            <HStack className="w-full justify-evenly">
+              <Button
+                onClick={openAlert}
+                className={`${negativeStyles}`}
+                width="w-fit"
+              >
+                Leave Story
+              </Button>{" "}
+              <Button type="submit" className="w-fit">
+                Submit
+              </Button>
+            </HStack>
           </VStack>
         </Form>
       </VStack>
+
+      <AnimatePresence>
+        {isAlertOpen && (
+          <Alert
+            isAlertOpen={isAlertOpen}
+            onClose={closeAlert}
+            onConfirmClick={onConfirm}
+            cancelRef={cancelRef}
+            title="Are you sure?"
+            body="A copy of this story will kept for you to return to and pick up where you left off."
+            confirmButtonText="Confirm"
+            cancelButtonText="Cancel"
+            imageIcon="warning"
+          />
+        )}
+      </AnimatePresence>
     </Flex>
   );
 }
