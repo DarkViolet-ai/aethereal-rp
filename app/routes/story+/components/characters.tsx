@@ -7,6 +7,7 @@ import { NavLink } from "@remix-run/react";
 import Flex from "~/components/buildingBlocks/flex";
 import Image from "~/components/buildingBlocks/image";
 import useSizedImage from "~/routes/hooks/useSizedImage";
+import UserOrAI from "~/components/specialty/userOrAI";
 
 export default function Characters({
   characters,
@@ -32,8 +33,9 @@ export default function Characters({
         style={{ width: "100%", display: "flex", justifyContent: "center" }}
       >
         <Box
-          className={`${cardWidths} ${cardColor} shadow-dvShadow text-dv-100 font-normal hover:text-dv-100`}
+          className={`${cardWidths} ${cardColor} shadow-dvShadow text-dv-100 font-normal hover:text-dv-100 relative`}
         >
+          <UserOrAI character={character} />
           <Box className="w-full h-full py-[1vh] px-[1vw] bg-darkenGrad shadow-shadow3D ">
             <Flex className="w-30% h-auto justify-center flex-shrink-0 p-[1vh] items-start float-left">
               <Box className="w-full shadow-dvShadow rounded-full border-2 border-dv-800 mr-[1vw]">
