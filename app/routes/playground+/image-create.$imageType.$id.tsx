@@ -68,7 +68,7 @@ export const characterImageLoader = async (characterId: string) => {
   });
   const imageCandidateUrl = response.data[0].url;
   // debounce the image generation
-  imageCandidateUrl && (await redis.setex(imageKey, 10, imageCandidateUrl));
+  imageCandidateUrl && (await redis.setex(imageKey, 3, imageCandidateUrl));
   return typedjson({ imageCandidateUrl, imageUrl: null });
 };
 
@@ -87,7 +87,7 @@ export const storyImageLoader = async (storyId: string) => {
     });
     const imageCandidateUrl = response.data[0].url;
     // debounce the image generation
-    imageCandidateUrl && (await redis.setex(imageKey, 10, imageCandidateUrl));
+    imageCandidateUrl && (await redis.setex(imageKey, 3, imageCandidateUrl));
     return typedjson({ imageCandidateUrl, imageUrl: null });
   }
   return typedjson({ imageUrl, imageCandidateUrl: null });
@@ -108,7 +108,7 @@ export const storyTemplateImageLoader = async (storyId: string) => {
     });
     const imageCandidateUrl = response.data[0].url;
     // debounce the image generation
-    imageCandidateUrl && (await redis.setex(imageKey, 10, imageCandidateUrl));
+    imageCandidateUrl && (await redis.setex(imageKey, 3, imageCandidateUrl));
     return typedjson({ imageCandidateUrl, imageUrl: null });
   }
   return typedjson({ imageUrl, imageCandidateUrl: null });

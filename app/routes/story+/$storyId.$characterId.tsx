@@ -3,7 +3,7 @@ import Flex from "~/components/buildingBlocks/flex";
 import ParchmentPage from "./components/parchmentPage";
 import InteractionPage from "./components/interactionPage";
 import Transition from "~/components/buildingBlocks/transition";
-import { useRevalidator } from "@remix-run/react";
+import { useRevalidator, useSubmit } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
 import { HeadingXL } from "~/components/buildingBlocks/textComponents";
 import { requireUserId } from "~/lib/utils/session.server";

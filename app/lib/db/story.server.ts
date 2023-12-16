@@ -4,6 +4,7 @@ import {
   Character,
   StoryTemplate,
   StoryStatus,
+  Story,
 } from "@prisma/client";
 import { prisma } from "~/lib/utils/prisma.server";
 import { dvError } from "../utils/dvError";
@@ -22,7 +23,7 @@ export type CreateStoryInput = {
   isActive?: boolean;
   version?: number;
   characters?: { name: string; description: string }[];
-  templateId?: string;
+  templateId?: string | null;
   imageUrl?: string | null;
 };
 
@@ -35,28 +36,48 @@ export const createStory = async ({
   characters = [],
   templateId,
   imageUrl = null,
-}: CreateStoryInput) => {
-  const story = await prisma.story.create({
-    data: {
-      title,
-      summary,
-      content: "",
-      authorId,
-      isActive,
-      version,
-      storyTemplateId: templateId,
-      imageUrl,
-    },
-  });
-  const newCharacters = await Promise.all(
-    characters.map((character) =>
-      createCharacter({
-        ...character,
-        storyId: story.id,
-      })
-    )
-  );
-  return story;
+}: CreateStoryInput): Promise<Story> => {
+  try {
+    const story = await prisma.story.create({
+      data: {
+        title,
+        summary,
+        content: "",
+        authorId,
+        isActive,
+        version,
+        storyTemplateId: templateId,
+        imageUrl,
+      },
+    });
+    const newCharacters = await Promise.all(
+      characters.map((character) =>
+        createCharacter({
+          ...character,
+          storyId: story.id,
+        })
+      )
+    );
+    return story;
+  } catch (e) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === "P2002"
+    ) {
+      // increment version and call again
+      return await createStory({
+        title,
+        summary,
+        authorId,
+        isActive,
+        version: version + 1,
+        characters,
+        templateId,
+        imageUrl,
+      });
+    }
+    throw e;
+  }
 };
 
 export const createStoryFromTemplate = async ({
@@ -368,6 +389,7 @@ export const duplicateStoryForUser = async ({
     isActive: false,
     version: story.version + 1,
     characters: newCharacters,
+    templateId: story.storyTemplateId,
   });
 
   return await updateStory({
