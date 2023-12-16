@@ -85,6 +85,11 @@ export default function ValidatedInput({
             <span
               className={` ${baseTextStyle} ${textColorClass} ${textShadowClass}`}
             >
+              we are good!
+            </span>
+          )}
+          {!isInvalid && (
+            <span className={` ${baseTextStyle} `}>
               Gonna need at least {min} chars.
             </span>
           )}
