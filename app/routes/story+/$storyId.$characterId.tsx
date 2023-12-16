@@ -5,7 +5,10 @@ import InteractionPage from "./components/interactionPage";
 import Transition from "~/components/buildingBlocks/transition";
 import { useRevalidator } from "@remix-run/react";
 import VStack from "~/components/buildingBlocks/vStack";
-import { HeadingXL } from "~/components/buildingBlocks/textComponents";
+import {
+  HeadingMD,
+  HeadingXL,
+} from "~/components/buildingBlocks/textComponents";
 import { requireUserId } from "~/lib/utils/session.server";
 import { getNextCharacterInStory, getStory } from "~/lib/db/story.server";
 import { dvError } from "~/lib/utils/dvError";
@@ -112,8 +115,11 @@ export default function StoryId() {
     >
       <Transition type="fade" className="w-full h-full lg:w-7/12 ">
         <VStack className="w-full h-full justify-center pb-[35px] md:pb-[0px]">
-          <Flex className="flex-shrink-0 py-2">
+          <Flex className="flex-shrink-0 py-2 hidden lg:flex">
             <HeadingXL>{story?.title || ""}</HeadingXL>
+          </Flex>
+          <Flex className="flex-shrink-0 py-2 flex lg:hidden">
+            <HeadingMD>{story?.title || ""}</HeadingMD>
           </Flex>
           <Flex className="w-full h-full px-[2vw] pb-[2vh]">
             <ParchmentPage

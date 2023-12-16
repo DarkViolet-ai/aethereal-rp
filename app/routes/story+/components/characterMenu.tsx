@@ -31,7 +31,7 @@ export default function CharactersMenu({
       <Box className="w-96% shadow-dvShadow relative">
         <UserOrAI character={character} />
         <VStack
-          className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
+          className={`w-full h-full py-5 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
           align="start"
         >
           <HStack className="w-full items-center gap-[1vh]">

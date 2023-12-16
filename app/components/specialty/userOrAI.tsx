@@ -9,7 +9,7 @@ export default function UserOrAI({ character }: { character: StoryCharacter }) {
   return (
     <>
       <Flex
-        className={`px-[0.5vh] pb-[0.4vh] text-sm leading-none border-2 font-semibold shadow-dvShadow absolute top-2 right-2 quadHD:top-3 quadHD:right-3 text-shadow-noShadow ${useStyles} `}
+        className={`px-[0.5vh] pb-[0.4vh] text-sm leading-none border-2 font-semibold shadow-dvShadow absolute -top-2 -right-1 md:top-2 md:right-2 quadHD:top-3 quadHD:right-3 text-shadow-noShadow ${useStyles} `}
       >
         {rolePlayerName}
       </Flex>
