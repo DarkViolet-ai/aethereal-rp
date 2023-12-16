@@ -21,10 +21,10 @@ export default function CharactersMenu({
     character: StoryCharacter;
     cardColor: string;
   }) {
-    const avatar = useSizedImage(character.id, "thumbnail");
+    //const avatar = useSizedImage(character.avatar, "thumbnail");
     const _avatar =
-      character.avatar && avatar && avatar?.length > 0
-        ? avatar
+      character.avatar && character.avatar?.length > 0
+        ? character.avatar
         : "/images/icons/profileIcon.png";
 
     return (

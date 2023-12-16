@@ -19,13 +19,44 @@ import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import type { DataFunctionArgs } from "@remix-run/node";
 import useStatusStream from "~/lib/hooks/useStatusStream";
 import { useEffect } from "react";
+import { createServerClient } from "@supabase/auth-helpers-remix";
+
+const bucketName = "images";
+const filePath = "public/";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
+  const env = {
+    SUPABASE_URL: process.env.SUPABASE_URL!,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY!,
+  };
+
+  const response = new Response();
+
+  const supabase = createServerClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!,
+    {
+      request,
+      response,
+    }
+  );
+
   const userId = await requireUserId(request);
   const storyId = params.storyId as string;
   const story = await getStory({ id: storyId });
   if (!story) throw dvError.notFound("Story not found");
-  const { characters } = story;
+  const { characters: _characters } = story;
+
+  // replace all character avatars with a thumbnail version from getPublicUrl
+  const characters = _characters.map((character) => {
+    const filename = `${character.id}.png`;
+    const avatar = supabase.storage
+      .from(bucketName)
+      .getPublicUrl(filePath + filename, {
+        transform: { width: 150, height: 150 },
+      }).data.publicUrl;
+    return { ...character, avatar };
+  });
 
   const characterId = params.characterId as string;
   const character = characters.find((c) => c.id === characterId);

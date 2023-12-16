@@ -4,7 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 const bucketName = "images";
 const filePath = `public/`;
 
-const imageSizes = {
+export const imageSizes = {
   thumbnail: 150,
   small: 300,
   medium: 600,
