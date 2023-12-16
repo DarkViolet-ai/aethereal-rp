@@ -15,10 +15,18 @@ import { DataFunctionArgs } from "@remix-run/node";
 import { getStory } from "~/lib/db/story.server";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import { StoryCharacter } from "~/lib/db/character.server";
+import { submitStoryInitiation } from "~/lib/queue/queues";
+import { dvError } from "~/lib/utils/dvError";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const storyId = params.storyId as string;
   const story = await getStory({ id: storyId });
+  if (!story) throw dvError.notFound("Story not found");
+  console.log("story", story);
+  if (!story.content) {
+    console.log("resubmitting story init");
+    await submitStoryInitiation({ storyId });
+  }
   return typedjson({ story });
 };
 
