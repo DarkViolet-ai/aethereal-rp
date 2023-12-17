@@ -68,4 +68,4 @@ For more information about DarkViolet.ai, visit [Dark Violet](http://darkviolet.
 
 <img src="https://sodvgvqfukkmhxsoyfbs.supabase.co/storage/v1/object/public/images/aetherealImages/aetherealRP3.png" width="700" alt="Story Overview">
 
-<img src="https://sodvgvqfukkmhxsoyfbs.supabase.co/storage/v1/object/public/images/aetherealImages/aetherealRP5.pngZ" width="700" alt="Creating a New Story">
+<img src="https://sodvgvqfukkmhxsoyfbs.supabase.co/storage/v1/object/public/images/aetherealImages/aetherealRP5.png" width="700" alt="Creating a New Story">
