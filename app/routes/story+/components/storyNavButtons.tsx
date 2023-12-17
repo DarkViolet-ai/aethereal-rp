@@ -39,7 +39,7 @@ export function StoryNavButtons({
         {onNext ? (
           <IconButton
             label="next ⏵"
-            icon={<VscTriangleRight />}
+            icon={VscTriangleRight}
             onClick={(event) => {
               event.stopPropagation(); // Stop the event propagation
 
@@ -60,7 +60,7 @@ export function StoryNavButtons({
         {onPrevious ? (
           <IconButton
             label="⏴ previous"
-            icon={<VscTriangleLeft />}
+            icon={VscTriangleLeft}
             onClick={(event) => {
               event.stopPropagation(); // Stop the event propagation
 

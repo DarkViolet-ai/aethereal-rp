@@ -11,7 +11,7 @@ interface DividerProps {
 
 export default function Divider({
   bg = "bg-dv-350",
-  h = "h-[1px]",
+  h = "h-[1px] quadHD:h-[2px]",
   w = "w-98%",
   m = "",
   p = "",

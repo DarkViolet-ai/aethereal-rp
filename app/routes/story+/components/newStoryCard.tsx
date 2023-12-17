@@ -1,9 +1,12 @@
 import Flex from "~/components/buildingBlocks/flex";
 import HStack from "~/components/buildingBlocks/hStack";
 import Image from "~/components/buildingBlocks/image";
-import Text, { HeadingXL } from "~/components/buildingBlocks/textComponents";
+import Text, {
+  HeadingMD,
+  HeadingXL,
+} from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
-import { cardWidths, textSizes } from "~/css/styles";
+import { cardWidths } from "~/css/styles";
 
 export default function NewStoryCard({
   newTemplate = false,
@@ -12,7 +15,7 @@ export default function NewStoryCard({
 }) {
   return (
     <Flex
-      className={`w-full p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 bg-dv-900 border-2 border-dv-400 rounded-xl shadow-dvShadow hover:cursor-pointer ${textSizes} story-card-hover ${cardWidths}`}
+      className={`w-full p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 bg-dv-900 border-2 border-dv-400 rounded-xl shadow-dvShadow hover:cursor-pointer story-card-hover ${cardWidths}`}
     >
       <HStack className="w-full h-full justify-evenly">
         <VStack
@@ -22,16 +25,34 @@ export default function NewStoryCard({
         >
           <Flex className="p-4">
             {newTemplate ? (
-              <HeadingXL>
-                Click here to start from scratch, or choose a template below.
-              </HeadingXL>
+              <>
+                <Flex className="w-full hidden lg:flex">
+                  <HeadingXL>
+                    Click here to start from scratch, or choose a template
+                    below.
+                  </HeadingXL>
+                </Flex>
+                <Flex className="w-full flex lg:hidden">
+                  <HeadingMD>
+                    Click here to start from scratch, or choose a template
+                    below.
+                  </HeadingMD>
+                </Flex>
+              </>
             ) : (
-              <HeadingXL>Create a New Story!</HeadingXL>
+              <>
+                <Flex className="w-full hidden lg:flex">
+                  <HeadingXL>Create a New Story!</HeadingXL>
+                </Flex>{" "}
+                <Flex className="w-full flex lg:hidden">
+                  <HeadingMD>Create a New Story!</HeadingMD>
+                </Flex>
+              </>
             )}
           </Flex>
 
           {newTemplate ? null : (
-            <Text noOfLines={2} className="text-dv-100 hover:text-dv-100" >
+            <Text noOfLines={2} className="text-dv-100 hover:text-dv-100">
               Start something new and exciting...or new and chill!
             </Text>
           )}

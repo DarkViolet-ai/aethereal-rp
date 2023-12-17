@@ -18,7 +18,7 @@ interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   style?: React.CSSProperties;
   children?: React.ReactNode;
   maxWidth?: string;
-  icon?: JSX.Element;
+  icon: React.ComponentType;
   label?: string;
   overlayBlur?: string;
   overlayColor?: string;
@@ -67,6 +67,7 @@ export default function ModalWithButton({
       {" "}
       {Icon && label && (
         <IconButton
+          pos="inherit"
           icon={Icon}
           alt={label}
           label={label}

@@ -14,11 +14,7 @@ import PasswordInput from "~/components/buildingBlocks/passwordInput";
 import { HeadingXL } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
 import DarkViolet from "~/components/specialty/darkViolet";
-import {
-  borderShadow,
-  cardWidths,
-  topNavPadding,
-} from "~/css/styles";
+import { borderShadow, cardWidths, topNavPadding } from "~/css/styles";
 
 export default function LoginPanel() {
   const navigate = useNavigate();
@@ -61,7 +57,7 @@ export default function LoginPanel() {
           onSubmit={handleSubmit}
           style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-8 h-full w-98% max-w-[400px] fullHD:max-w-[600px]">
+          <VStack gap="gap-3 fullHD:gap-5 ultraHD:gap-8 h-full w-98% max-w-[400px] fullHD:max-w-[450px]">
             <InputVStack
               className="w-full"
               label="Email"
@@ -74,7 +70,7 @@ export default function LoginPanel() {
             <PasswordInput />
             <Flex className="w-full justify-end">
               <VStack
-                className="w-full fullHD:gap-5 ultraHD:gap-8"
+                className="w-full gap-[2vh] fullHD:gap-[4vh] ultraHD:gap-[6vh]"
                 align="items-end"
               >
                 <Button type="submit">Submit</Button>

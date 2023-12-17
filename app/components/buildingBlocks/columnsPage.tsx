@@ -2,7 +2,7 @@ import { borderShadow, colMaxWidths } from "~/css/styles";
 import Flex from "./flex";
 import VStack from "./vStack";
 import Transition, { type TransitionType } from "./transition";
-import { HeadingLG, HeadingXL, TextLG } from "./textComponents";
+import { HeadingLG, HeadingXL, TextMD } from "./textComponents";
 
 export function ColumnsPageHeader({
   title,
@@ -10,21 +10,21 @@ export function ColumnsPageHeader({
 }: {
   title?: string;
   subtitle?: string;
-  titleTextSizes?: string;
-  titleFontStyles?: string;
 }) {
   return (
-    <VStack className={`w-full h-fit flex-shrink-0 pt-3 pb-3 gap-0`}>
+    <VStack className={`w-full h-fit flex-shrink-0 py-[1vh] gap-0`}>
       {title && (
-        <Flex className={`w-full h-fit flex-shrink-0 px-2 pt-1 justify-center`}>
-          <HeadingXL>{title}</HeadingXL>
+        <Flex
+          className={`w-full h-fit flex-shrink-0 px-[2vw] pt-1 justify-center`}
+        >
+          <HeadingXL shadow="text-shadow-textFog">{title}</HeadingXL>
         </Flex>
       )}
       {subtitle && (
         <Flex
-          className={`w-95% h-fit flex-shrink-0 justify-center bg-dv-950 px-2 py-1 md:px-3 xxl:px-4 shadow-shadow3D fullHD:w-90% quadHD:w-85% ultraHD:w-80% `}
+          className={`w-95% h-fit flex-shrink-0 justify-center bg-dv-975 px-[1vw] py-[1vh] rounded-[1vw] shadow-shadow3D fullHD:w-90% quadHD:w-85% ultraHD:w-80% `}
         >
-          <TextLG>{subtitle}</TextLG>
+          <TextMD>{subtitle}</TextMD>
         </Flex>
       )}
     </VStack>
@@ -37,11 +37,10 @@ export function ColumnsPageContainer({
   subtitle,
   transitionScreen = "lg",
   topNavPadding = "pt-50px",
-  rowGap = "gap-[40px]",
-  columnGap = "gap-[50px]",
-  pt,
-  // pb = "pb-2 fullHD:pb-4 quadHD:pb-[60px] ultraHD:pb-[20px]",
-  pb,
+  rowGap = "gap-[2vh]",
+  columnGap = "gap-[2vw]",
+  pt = "pt-[1.2vh]",
+  pb = "pb-[2vh] md:pb-[1vh] quadHD:pb-[1.4vh]",
 }: {
   children?: React.ReactNode;
   title?: string;
@@ -84,7 +83,7 @@ export function ColumnsPageContainer({
 
   return (
     <VStack
-      className={`h-fit w-99% ${topNavPadding} justify-center gap-0 ${scrollStyles} gap-0`}
+      className={`h-fit w-99% ${topNavPadding} justify-center ${scrollStyles} overflow-x-hidden gap-0`}
     >
       {(title || subtitle) && (
         <Flex className={`w-full h-fit ${pt} justify-center`}>
@@ -92,7 +91,7 @@ export function ColumnsPageContainer({
         </Flex>
       )}{" "}
       <Flex
-        className={`w-98% h-full flex-col items-center overflow-y-auto fullHD:py-2 ${transitionScreenSize} ${alignment}} ${pt} ${rowGap} ${pb}`}
+        className={`w-98% h-full flex-col items-center overflow-y-auto ${transitionScreenSize} ${alignment}} ${pt} ${rowGap} ${pb}`}
       >
         {children}
       </Flex>
@@ -151,7 +150,7 @@ export function ColumnsPageColumn({
 
   return (
     <Flex
-      className={`w-full h-fit justify-center align-start py-[10px] fullHD:py-[15px] quadHD:py-[25px] ultraHD:py-[30px] ${columnSize} ${transitionHeight} ${containerClassName}`}
+      className={`w-full h-fit justify-center align-start ${columnSize} ${transitionHeight} ${containerClassName}`}
     >
       <Flex
         className={`w-full h-fit justify-center align-start ${transitionHeight}`}
@@ -169,7 +168,7 @@ export function ColumnsPageColumn({
             >
               {heading && (
                 <Flex
-                  className={`w-full h-fit flex-shrink-0 rounded-b-none px-3 bg-dv-900 border-b-2 border-b-dv-225 `}
+                  className={`w-full h-fit flex-shrink-0 rounded-b-none bg-dv-900 border-b-2 border-b-dv-225 px-[2vw] ${headingColor}`}
                 >
                   <HeadingLG>{heading}</HeadingLG>
                 </Flex>

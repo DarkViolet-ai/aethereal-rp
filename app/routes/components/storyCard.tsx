@@ -1,12 +1,8 @@
-import {
-  borderShadow,
-  textSizes,
-  cardWidths,
-  containerPadding,
-} from "~/css/styles";
+import { borderShadow, cardWidths, containerPadding } from "~/css/styles";
 import Flex from "../../components/buildingBlocks/flex";
 import Text, {
   HeadingLG,
+  HeadingSM,
 } from "../../components/buildingBlocks/textComponents";
 import { useNavigate } from "@remix-run/react";
 import HStack from "../../components/buildingBlocks/hStack";
@@ -41,16 +37,21 @@ export default function StoryCard({
           align="start text-shadow-dvTextShadow w-75% h-full justify-evenly"
           gap="gap-0"
         >
-          <HeadingLG shadow={`text-shadow-textFog`}>
-            <i>{story.title}</i>
-          </HeadingLG>
+          <Flex className="w-full hidden lg:flex">
+            <HeadingLG shadow={`text-shadow-textFog`}>
+              <i>{story.title}</i>
+            </HeadingLG>
+          </Flex>
+          <Flex className="w-full flex lg:hidden">
+            <HeadingSM>
+              <i>{story.title}</i>
+            </HeadingSM>
+          </Flex>
           {hideDate ? null : <Text>{FormatDate(String(story.createdAt))}</Text>}
 
-          <Text noOfLines={2} className={` ${textSizes}`}>
-            {story.summary}
-          </Text>
+          <Text noOfLines={2}>{story.summary}</Text>
         </VStack>
-        <Flex className="h-full w-25% justify-center itmes-center">
+        <Flex className="h-full w-25% justify-center itmes-center flex-shrink-0">
           <Flex className="w-full h-auto flex-shrink-0 shadow-dvShadow">
             <Image
               src={

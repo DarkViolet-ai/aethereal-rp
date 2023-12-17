@@ -1,5 +1,5 @@
 import Input from "./input";
-import { HeadingLG } from "./textComponents";
+import { HeadingMD } from "./textComponents";
 import VStack from "./vStack";
 import ValidatedInput from "./validatedInput";
 
@@ -26,11 +26,11 @@ export default function InputVStack(
 ): React.ReactElement {
   return (
     <VStack
-      className={` leading-1rem w-full props.className`}
+      className={` leading-1rem w-full ${props.className}`}
       align="start"
       style={props.style}
     >
-      <HeadingLG className="text-shadow-textFog">{props.label}</HeadingLG>
+      <HeadingMD shadow="text-shadow-textFog">{props.label}</HeadingMD>
       {props.isValidated && props.validationMax ? (
         <ValidatedInput
           autoFocus={autoFocus}

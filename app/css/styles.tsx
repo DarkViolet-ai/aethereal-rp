@@ -7,7 +7,7 @@ export const scrollBarStyles =
 export const imitationOverlay = "absolute inset-0 bg-dv-900 opacity-50 z-10";
 
 // ICONS
-export const CloseIcon = <MdClose />;
+export const CloseIcon = MdClose;
 export const MenuIcon = <MdOutlineMenuOpen />;
 
 // IMAGES
@@ -21,7 +21,6 @@ export const violetsTwo = "/images/core/violetsRowTwo.png";
 export const parchmentCorner = "/images/core/parchmentCorner.png";
 
 // STYLES
-export const buttonDimensions = `h-[30px] w-[200px] md:w-[250px] md:h-[33px] xxl:w-[300px] xxl:h-[38px] quadHD:w-[350px] quadHD:h-[50px] ultraHD:w-[450px] ultraHD:h-[70px]`;
 export const cursiveText = "font-cursive text-dv-400 text-shadow-dvTextShadow";
 export const borderShadow = "border-[1.5px] border-dv-800 shadow-dvShadow";
 export const highlightedText =
@@ -30,10 +29,7 @@ export const defaultOverlayColor = "bg-dv-850";
 export const defaultOverlayBlur = "backdrop-blur-sm";
 export const topNavPadding =
   "pt-[50px]  fullHD:pb-[25px] quadHD:pt-[75px] ultraHD:pt-[150px] ultraHD:pb-[35px]";
-export const colMaxWidths =
-  "w-96% md:w-80% lg:w-full xxl:w-90% fullHD:w-75% justify-center";
-export const textSizes =
-  "text-[18px] leading-[22px] md:text-[20px] md:leading-[26px] lg:text-[18px] lg:leading-[22px] xl:text-[20px] xl:leading-[24px] xxl:text-[21px] xxl:leading-[25px] fullHD:text-[22px] fullHD:leading-[28px] quadHD:text-[32px] quadHD:leading-[40px] ultraHD:text-[45px] ultraHD:leading-[55px]";
+export const colMaxWidths = "w-98% md:w-90% lg:w-98% xxl:w-96% justify-center";
 export const cardWidths = "w-97% sm:w-90% md:w-90% lg:w-95% xl:w-90% xxl:w-88%";
 export const containerPadding = `p-2 md:p-3 xl:p-4 quadHD:p-5 ultraHD:p-8 `;
 export const negativeStyles = `bg-pinkest text-dv-900 border-2 border-dv-900 hover:bg-dv-900 hover:text-pinkest hover:border-pinkest ultraHD:border-8 hover:text-shadow-dvTextShadow`;

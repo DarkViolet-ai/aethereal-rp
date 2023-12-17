@@ -1,17 +1,19 @@
-import Text from "~/components/buildingBlocks/textComponents";
+import Text, { HeadingLG } from "~/components/buildingBlocks/textComponents";
 import VStack from "~/components/buildingBlocks/vStack";
-import { GiCharacter } from "react-icons/gi/index.js";
-import type { Character } from "@prisma/client";
 import HStack from "~/components/buildingBlocks/hStack";
 import { borderShadow, cardColors, cursiveText } from "~/css/styles";
 import Box from "~/components/buildingBlocks/box";
 import type { StoryCharacter } from "~/lib/db/character.server";
+import { Avatar } from "~/components/buildingBlocks/avatar";
+import UserOrAI from "~/components/specialty/userOrAI";
 
 export default function CharactersMenu({
   characters,
 }: {
   characters: StoryCharacter[];
 }) {
+  // CHARACTER MENU TEMPLATE --------------------------------------------------- //
+
   function CharacterMenuTemplate({
     character,
     cardColor,
@@ -19,16 +21,22 @@ export default function CharactersMenu({
     character: StoryCharacter;
     cardColor: string;
   }) {
-    console.log("CHAR: ", character);
+    //const avatar = useSizedImage(character.avatar, "thumbnail");
+    const _avatar =
+      character.avatar && character.avatar?.length > 0
+        ? character.avatar
+        : "/images/icons/profileIcon.png";
+
     return (
-      <Box className="w-96% shadow-dvShadow">
+      <Box className="w-96% shadow-dvShadow relative">
+        <UserOrAI character={character} />
         <VStack
-          className={`w-full h-full py-4 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
+          className={`w-full h-full py-5 px-2 ${cardColor} ${borderShadow} bg-darkVioletGrad shadow-shadow3D `}
           align="start"
         >
-          <HStack className="w-full items-center">
+          <HStack className="w-full items-center gap-[1vh]">
             <Box className="bg-dv-400 shadow-dvShadow">
-              <GiCharacter className="text-dv-800 text-[33px]" />
+              <Avatar rounded="rounded-lg" src={_avatar} />
             </Box>
             <Text className={`${cursiveText} text-[30px] text-shadow-textFog`}>
               {character.name}
@@ -42,12 +50,11 @@ export default function CharactersMenu({
     );
   }
 
+  // CHARACTER MENU  ------------------------------------------------------------------- //
   return (
     <VStack className={`w-full h-full `} gap="gap-0">
-      <HStack className="w-full h-[70px] bg-dv-975 bg-darkCyanGrad rounded-b-none p-3 items-center border-b-2 border-dv-450">
-        <Text className={`${cursiveText} text-[40px] text-shadow-textFog`}>
-          The Characters
-        </Text>
+      <HStack className="w-full h-[6vh] bg-dv-975 bg-darkCyanGrad rounded-b-none p-[2vh] items-center border-b-2 border-dv-450">
+        <HeadingLG>The Characters</HeadingLG>
       </HStack>
       <VStack className="w-full h-fit lg:h-full overflow-y-auto py-4">
         {characters.map((character, index) => (

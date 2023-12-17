@@ -4,7 +4,7 @@ interface AvatarProps {
   name?: string;
   rounded?: string;
   src?: string;
-  size?: "2xs" | "xs" | "sm" | "md" | "mdpl" | "lg" | "xl" | "2xl";
+  size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
   // Additional props like alt text, onError event for image load failure, etc.
 }
 
@@ -18,7 +18,7 @@ interface AvatarGroupProps {
   children: React.ReactNode;
 
   max?: number;
-  size?: "2xs" | "xs" | "sm" | "md" | "mdpl" | "lg" | "xl" | "2xl";
+  size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
   spacing?: string;
 }
 
@@ -38,14 +38,13 @@ export const Avatar = ({
 
   // Tailwind CSS classes based on size
   const sizeClasses = {
-    "2xs": "h-6 w-6",
-    xs: "h-8 w-8",
-    sm: "h-10 w-10",
-    md: "h-12 w-12",
-    mdpl: "h-14 w-14",
-    lg: "h-16 w-16",
-    xl: "h-20 w-20",
-    "2xl": "h-24 w-24",
+    xxs: "h-[3.5vh] w-[3.5vh]",
+    xs: "h-[4.5vh] w-[4.5vh]",
+    sm: "h-[5.5vh] w-[5.5vh]",
+    md: "h-[6.5vh] w-[6.5vh]",
+    lg: "h-[7.5vh] w-[7.5vh]",
+    xl: "h-[8.5vh] w-[8.5vh]",
+    xxl: "h-[9.5vh] w-[9.5vh]",
   };
 
   return (

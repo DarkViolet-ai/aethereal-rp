@@ -52,9 +52,20 @@ export const getUserStories = async (
     },
   });
 
+  const activeStoryIds = activeStories.map((story) => story.id);
+
   const stories = await prisma.story.findMany({
     where: {
-      authorId: id,
+      AND: [
+        { authorId: id },
+        {
+          NOT: {
+            id: {
+              in: activeStoryIds,
+            },
+          },
+        },
+      ],
     },
     select: {
       characters: storyCharacterQuery,

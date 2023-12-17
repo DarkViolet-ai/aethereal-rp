@@ -73,6 +73,10 @@ const workerDispatch: WorkerDispatch = {
   [QueueName.INITIATE_STORY]: async (job: Job) => {
     const { storyId } = job.data as { storyId: string };
     const story = await getStory({ id: storyId });
+    if (await redis.get(`story-init:${storyId}`)) {
+      return;
+    }
+    await redis.setex(`story-init:${storyId}`, 60, "1");
     if (!story) {
       console.log("story not found", storyId);
       await submitError({ message: `story not found: ${storyId}` });
@@ -327,6 +331,7 @@ const workerDispatch: WorkerDispatch = {
       message: string;
       stack?: string;
     };
+    console.log("log", type, message, stack);
     await createLogEntry({ type, message, stack });
   },
 };

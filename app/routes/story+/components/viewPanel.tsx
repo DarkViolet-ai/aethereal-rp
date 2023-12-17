@@ -16,11 +16,11 @@ export default function ViewPanel({
   storyTemplate: StoryTemplate;
 }) {
   return (
-    <Flex className="w-full justify-center h-full p-4 fullHD:p-6">
+    <Flex className="w-full justify-center h-full p-4 fullHD:p-6 bg-dv-625">
       <VStack
-        className={`${cardWidths} gap-4 h-fit lg:h-full fullHD:gap-6 ultraHD:gap-10`}
+        className={`${cardWidths} gap-4 h-fit lg:h-full fullHD:gap-6 ultraHD:gap-10 `}
       >
-        <Box className="w-70% h-auto lg:h-55% lg:w-auto shadow-dvShadow">
+        <Box className="w-70% h-auto lg:h-40% lg:w-auto shadow-dvShadow">
           <Image
             src={storyTemplate.imageUrl || "/images/placeholderImage.png"}
             alt={storyTemplate.title}
@@ -28,19 +28,19 @@ export default function ViewPanel({
             w="100%"
           />
         </Box>
-        <VStack className="w-full h-40% gap-4 fullHD:gap-6 ultraHD:gap-10">
+        <VStack className="w-full h-50% gap-4 fullHD:gap-6 ultraHD:gap-10 justify-between">
           <VStack className="w-full justify-start h-full fullHD:gap-6 ultraHD:gap-10">
-            <Flex className={`w-full ${cardWidths}`}>
+            <Flex className={`w-full ${cardWidths} justify-center`}>
               <HeadingLG>{storyTemplate?.title}</HeadingLG>
             </Flex>
             <VStack className={`w-full ${cardWidths}`} align="start">
               <Text className={`${highlightedText}`}>Summary</Text>
-              <Flex className="w-full h-50% overflow-y-auto">
+              <Flex className="w-full h-90% overflow-y-auto">
                 <Text>{storyTemplate?.summary}</Text>
               </Flex>
             </VStack>
           </VStack>
-          <HStack className={`w-full justify-around`}>
+          <HStack className={`w-full justify-around flex-shrink-0`}>
             <NavLink to={`/story/new`}>
               <Button width="w-fit" className={`${negativeStyles}`}>
                 Cancel

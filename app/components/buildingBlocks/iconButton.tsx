@@ -1,16 +1,16 @@
-import React, { MouseEventHandler } from "react";
+import React, { type MouseEventHandler } from "react";
 import { Spinner } from "./spinner";
 import Tooltip from "./tooltip";
 
 interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  icon: JSX.Element;
+  icon: React.ComponentType;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
   iconSize?: string;
   isLoading?: boolean;
   isDisabled?: boolean;
   label: string;
-  pos?: "absolute" | "relative" | "fixed" | "sticky" | "static";
+  pos?: "absolute" | "relative" | "fixed" | "sticky" | "static" | "inherit";
   t?: string;
   l?: string;
   r?: string;
@@ -28,14 +28,14 @@ interface IconButtonProps extends React.HTMLProps<HTMLButtonElement> {
 }
 
 export default function IconButton({
-  icon,
+  icon: Icon,
   onClick,
-  className = "h-8 w-8 md:h-9 md:w-9 quadHD:h-12  quadHD:w-12 ultraHD:h-20 ultraHD:w-20",
-  iconSize = "text-[23px] quadHD:text-[30px] ultraHD:text-[50px]",
+  className = "",
+  iconSize = "text-[23px] fullHD:text-[30px] quadHD:text-[30px] ultraHD:text-[50px]",
   isLoading = false,
   isDisabled = false,
   label,
-  pos = "relative",
+  pos = "absolute",
   t,
   l,
   r,
@@ -48,16 +48,18 @@ export default function IconButton({
     <div className={`${pos} ${t} ${r} ${l} ${b}`}>
       <Tooltip label={label} placement={tooltipPlacement}>
         <button
-          className={`inline-flex items-center justify-center rounded-md text-dv-400 bg-dv-900 border border-solid border-1.5 border-dv-400 shadow-dvShadow transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-800 text-shadow-dvTextShadow hover:border-dv-900 ${className}`}
+          className={`flex flex-shrink-0 font-semibold justify-center text-[2vh] leading-[3.5vh] lg:text-[2.3vh] lg:leading-[3.5vh] items-center fullHD:p-[1vh] shadow-dvShadow rounded-md text-dv-400 bg-dv-800 border border-solid border-1.5 quadHD:border-3 ultraHD:border-5 border-dv-400 transition duration-500 ease-in-out hover:bg-dv-400 hover:text-dv-900 hover:border-dv-900 hover:shadow-dvshadow hover:text-shadow-lightTextShadow ultraHD:border-6  h-8 w-8 md:h-9 md:w-9 quadHD:h-12 quadHD:w-12 ultraHD:h-24 ultraHD:w-24 ${className}`}
           type={type}
           onClick={onClick}
           disabled={isDisabled || isLoading}
-          {...props} // All other HTML button properties are spread here
+          {...props}
         >
           {isLoading ? (
             <Spinner />
           ) : (
-            React.cloneElement(icon, { className: iconSize }) // Apply the iconSize to the icon
+            <div className={iconSize}>
+              <Icon />
+            </div>
           )}
         </button>
       </Tooltip>

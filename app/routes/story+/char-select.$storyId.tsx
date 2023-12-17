@@ -14,10 +14,18 @@ import {
   ColumnsPageColumn,
   ColumnsPageContainer,
 } from "~/components/buildingBlocks/columnsPage";
+import { submitStoryInitiation } from "~/lib/queue/queues";
+import { dvError } from "~/lib/utils/dvError";
 
 export const loader = async ({ request, params }: DataFunctionArgs) => {
   const storyId = params.storyId as string;
   const story = await getStory({ id: storyId });
+  if (!story) throw dvError.notFound("Story not found");
+  console.log("story", story);
+  if (!story.content) {
+    console.log("resubmitting story init");
+    await submitStoryInitiation({ storyId });
+  }
   return typedjson({ story });
 };
 

@@ -3,7 +3,7 @@ import VStack from "~/components/buildingBlocks/vStack";
 import ParchmentCorner from "./parchmentCorners";
 import Text from "~/components/buildingBlocks/textComponents";
 import ParchmentSpacer from "./parchmentSpacer";
-import { cardWidths, colMaxWidths, textSizes } from "~/css/styles";
+import { cardWidths, colMaxWidths } from "~/css/styles";
 import Button from "~/components/buildingBlocks/button";
 import { useState } from "react";
 import Modal from "~/components/buildingBlocks/modal";
@@ -40,12 +40,10 @@ export default function ParchmentPage({
         <ParchmentCorner corner="bottom-left" />
 
         <VStack
-          className="w-full h-full overflow-y-auto justify-start py-[45px]"
+          className="w-full h-full overflow-y-auto justify-start py-[3vh]"
           gap="gap-0"
         >
-          <VStack
-            className={`w-full h-fit px-[40px] text-dv-900 ${textSizes} gap-3 quadHD:gap-4 ultraHD:gap-5`}
-          >
+          <VStack className={`w-full h-fit px-[4vw] text-dv-900 gap-[1vh] `}>
             {paragraphs.map((paragraph, index) => (
               <Flex key={index} className={`${cardWidths}`}>
                 <Text>{paragraph.trim()}</Text>

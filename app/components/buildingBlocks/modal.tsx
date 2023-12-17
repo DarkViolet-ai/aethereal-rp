@@ -37,7 +37,7 @@ export default function Modal({
   setModalOpen,
   showTopClose = true,
   showBottomClose = true,
-  maxWidth = "max-w-[1300px]",
+  maxWidth,
   overlayBlur = defaultOverlayBlur,
   overlayColor = defaultOverlayColor,
   ...props
@@ -87,7 +87,7 @@ export default function Modal({
             />
             {/* Modal */}
             <motion.div
-              className={`w-full h-full ${maxWidth} fixed inset-0 m-auto shadow-shadow3D z-50 lg:w-94% lg:h-94% ${modalContentClassName}`}
+              className={`w-full h-full ${maxWidth} fixed inset-0 m-auto shadow-shadow3D z-50 lg:w-94% lg:h-94% ${modalContentClassName} overflow-y-hidden`}
               style={{ ...style }}
               variants={variants}
               initial="closed"
@@ -110,7 +110,7 @@ export default function Modal({
                     </Box>
                   </Flex>
                   {showBottomClose && (
-                    <Flex className="w-full h-[50px] bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
+                    <Flex className="w-full h-[7vh] items-center bg-darkGrayBack rounded-t-none border-t-2 border-dv-850 justify-center flex-shrink-0 absolute bottom-0 left-0">
                       <CloseTextButton onClose={onClose} />
                     </Flex>
                   )}

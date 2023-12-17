@@ -17,10 +17,10 @@ export function CloseButton({
         event.stopPropagation();
         onClose();
       }}
-      className={` m-2 z-10 ${className}`}
+      className={`m-2 z-10 ${className}`}
       pos="absolute"
-      t="top=0"
-      r="right-0"
+      t="top=0 quadHD:top-2 ultraHD:top-3"
+      r="right-0 quadHD:right-2 ultraHD:right-3"
       tooltipPlacement="left"
     />
   );

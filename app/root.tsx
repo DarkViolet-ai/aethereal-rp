@@ -92,7 +92,6 @@ export const loader = async ({ request }: DataFunctionArgs) => {
     userId = undefined;
   }
   const user = userId && (await getUser(userId));
-
   return typedjson(
     {
       env,
@@ -133,6 +132,7 @@ export default function App() {
     };
   }, [serverAccessToken, supabase, revalidate]);
 
+  const isUserId = userId !== undefined;
   return (
     <html lang="en">
       <head>
@@ -144,7 +144,7 @@ export default function App() {
       <body>
         <MainBackground>
           <EntirePageContainer>
-            {userId && <TopNav />}
+            {userId && <TopNav supabase={supabase} isUserId={isUserId} />}
             <Footer />
             <Outlet context={{ supabase }} />
           </EntirePageContainer>
