@@ -219,7 +219,7 @@ export const narrate = async ({
     scenario: "narrate",
   });
   console.log("nextPrompt", { nextPrompt, lastInput: story.lastInput });
-  const narrateResults = await generator(nextPrompt, story.lastInput || "");
+  const narrateResults = await generator(nextPrompt, story.content);
   const validatedNarrateResults = await validateOrNull({
     story,
     results: narrateResults,

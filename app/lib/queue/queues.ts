@@ -111,15 +111,12 @@ export const submitUserPrompt = async ({ story }: { story: StoryData }) => {
 
 export const submitStoryGeneration = async ({
   storyId,
-  input,
 }: {
   storyId: string;
-  input: string;
 }) => {
   const queue = getQueue(QueueName.GENERATE_STORY);
   await queue.add(QueueName.GENERATE_STORY, {
     storyId,
-    input,
   });
 };
 
