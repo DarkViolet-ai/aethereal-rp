@@ -47,20 +47,12 @@ WORKDIR /myapp
 COPY --from=production-deps /myapp/node_modules /myapp/node_modules 
 COPY --from=build /myapp/node_modules/.prisma /myapp/node_modules/.prisma
 
-# COPY --from=build /myapp/server-build /myapp/server-build
 COPY --from=build /myapp/build /myapp/build 
 COPY --from=build /myapp/public /myapp/public
 COPY --from=build /myapp/package.json /myapp/package.json
 COPY --from=build /myapp/prisma /myapp/prisma
 
-# prepare for litefs
-# COPY --from=flyio/litefs:0.5.8 /usr/local/bin/litefs /usr/local/bin/litefs
-# ADD other/litefs.yml /etc/litefs.yml
-# RUN mkdir -p /data ${LITEFS_DIR}
 
-#ADD . .
-
-#CMD ["litefs", "mount"]
 EXPOSE 3000
 ENTRYPOINT [ "node", "node_modules/.bin/remix-serve", "build/index.js"]
 

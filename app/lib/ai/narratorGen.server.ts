@@ -16,6 +16,10 @@ import { set, z } from "zod";
 import { buildSystemPrompt } from "~/lib/ai/systemPrompt";
 import internal from "node:stream";
 import type { StoryData } from "~/lib/db/story.server";
+import { redis } from "../utils/redis.server";
+
+const retryKey = (storyId: string) => `retry:${storyId}`;
+const MAX_RETRIES = 5;
 
 export const continueStory = async ({
   story,
@@ -42,7 +46,7 @@ export const continueStory = async ({
   }
   if (!story.lastInput) return { story, newContent: "" };
   console.log("generating narration");
-  return await narrate({ story, newInput: story.lastInput, generator });
+  return await narrate({ story, generator });
 };
 
 const initializeStory = async ({
@@ -58,19 +62,23 @@ const initializeStory = async ({
     scenario: "initialize",
   });
   const results = (await generator(systemPrompt, "begin story")) as string;
-  const validatedResults = validateResults({
-    results: results,
+
+  const validatedResults = await validateOrNull({
+    story,
+    results,
     scenario: "initialize",
   });
-  if (validatedResults?.scenario !== "initialize") {
-    throw dvError.badRequest("Invalid results");
+  if (!validatedResults || validatedResults.scenario !== "initialize") {
+    return initializeStory({ story, generator });
   }
-  const { text, prompt, characters, nextCharacter } = validatedResults;
+
   let updatedContent = `${story.content}\n${validatedResults.text}`;
   let updatedStory = await updateStory({
     id: story.id,
     content: updatedContent || story.content,
   });
+
+  const { characters, nextCharacter, prompt, text } = validatedResults;
 
   const _characters =
     Object.keys(characters).map(
@@ -123,6 +131,58 @@ const expectedResponseSchema = z.discriminatedUnion("scenario", [
 
 type ExpectedResponseSchema = z.infer<typeof expectedResponseSchema>;
 
+export const validateOrNull = async ({
+  story,
+  results,
+  scenario,
+}: {
+  story: StoryData;
+  results: string;
+  scenario: "integrate" | "characters" | "narrate" | "initialize";
+}): Promise<ExpectedResponseSchema | null> => {
+  try {
+    const validatedResults = validateResults({ results, scenario });
+    if (!validatedResults) throw dvError.badRequest("Invalid results");
+    if (validatedResults.scenario !== scenario)
+      throw dvError.badRequest("Invalid results");
+    if (
+      validatedResults.scenario === "initialize" &&
+      !validatedResults.characters
+    )
+      throw dvError.badRequest("Invalid results");
+    if (
+      validatedResults.scenario === "initialize" ||
+      validatedResults.scenario === "narrate"
+    ) {
+      const storyCharacterNames = story.characters.map(
+        (character) => character.name
+      );
+      const validatedCharacterNames =
+        (validatedResults.characters &&
+          Object.keys(validatedResults.characters)) ||
+        [];
+      // see if validatedResults.nextCharacter is in the set of storyCharacterNames + validatedCharacterNames
+      const nextCharacterName = validatedResults.nextCharacter;
+      if (!nextCharacterName) throw dvError.badRequest("Invalid results");
+      if (
+        !storyCharacterNames.includes(nextCharacterName) &&
+        !validatedCharacterNames.includes(nextCharacterName)
+      )
+        throw dvError.badRequest("Invalid results");
+    }
+    await redis.del(retryKey(story.id));
+    return validatedResults as ExpectedResponseSchema;
+  } catch (e) {
+    console.log(e);
+    console.log("results", results);
+    const count = await redis.incr(retryKey(story.id));
+    if (count > MAX_RETRIES) {
+      throw dvError.badRequest("Too many retries");
+    }
+    return null;
+  }
+};
+
 export const validateResults = ({
   results,
   scenario,
@@ -147,7 +207,6 @@ export const narrate = async ({
   generator,
 }: {
   story: StoryData;
-  newInput: string;
   generator: (systemPrompt: string, input: string) => Promise<string>;
 }): Promise<{ story: StoryData; newContent: string }> => {
   const narrator = story.narrator as Narrator;
@@ -161,15 +220,16 @@ export const narrate = async ({
   });
   console.log("nextPrompt", { nextPrompt, lastInput: story.lastInput });
   const narrateResults = await generator(nextPrompt, story.lastInput || "");
-  const validatedNarrateResults = validateResults({
+  const validatedNarrateResults = await validateOrNull({
+    story,
     results: narrateResults,
     scenario: "narrate",
   });
-  if (!validatedNarrateResults) {
-    return { story, newContent: "" };
-  }
-  if (validatedNarrateResults?.scenario !== "narrate") {
-    throw dvError.badRequest("Invalid results");
+  if (
+    !validatedNarrateResults ||
+    validatedNarrateResults.scenario !== "narrate"
+  ) {
+    return await narrate({ story, generator });
   }
 
   const { characters, nextCharacter, prompt, text } = validatedNarrateResults;
