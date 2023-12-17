@@ -278,17 +278,21 @@ const workerDispatch: WorkerDispatch = {
     }
   },
   [QueueName.GENERATE_EDIT] : async (job: Job) => {
-    const { story: _story, newInput } = job.data as {
-      story: StoryData, newInput: string;
+    const { storyId, newInput } = job.data as {
+      storyId: string, newInput: string;
     };
-    const story = await getStory({ id: _story.id }) as StoryData;
-    await generateEditedContent({
+    const story = await getStory({ id: storyId }) as StoryData;
+
+    if ( await redis.get(`story-edit:${storyId}:${newInput}`)) {
+      return;
+    }
+    await redis.setex(`story-edit:${storyId}:${newInput}`, 60, "1");
+    const updatedStory = await generateEditedContent({
       newInput,
       story,
       editorInstructions,
       generator: deepInfraEditGenerator,
     });
-    })
 
     // if there are no roleplayers left, set the story to inactive.
     console.log("generate character ", story?.nextCharacter);

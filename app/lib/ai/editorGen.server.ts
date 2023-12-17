@@ -1,5 +1,10 @@
 import { StoryCharacter } from "../db/character.server";
-import { StoryData } from "../db/story.server";
+import { createUserCharacterEditStep } from "../db/steps.server";
+import {
+  StoryData,
+  getNextCharacterInStory,
+  updateStory,
+} from "../db/story.server";
 import { submitError } from "../queue/queues";
 
 export const generateEditedContent = async ({
@@ -32,7 +37,24 @@ export const generateEditedContent = async ({
   });
   if (!editorPrompt) return null;
   const results = await generator(editorPrompt, newInput);
-  return results;
+  const { characterUserId: userId } = getNextCharacterInStory({ story });
+  if (!userId) {
+    await submitError({ message: "no user id found" });
+  } else {
+    await createUserCharacterEditStep({
+      storyId: story.id,
+      characterName: story.nextCharacter!,
+      content: results,
+      characterPrompt: story.prompt!,
+      userId,
+    });
+  }
+  const newContent = story.content + "\n" + results + "\n";
+  const updatedStory = await updateStory({
+    ...story,
+    content: newContent,
+  });
+  return updatedStory;
 };
 
 export const buildEditorPrompt = async ({

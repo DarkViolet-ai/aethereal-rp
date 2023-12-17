@@ -151,15 +151,15 @@ export const submitLog = async ({
 };
 
 export const submitEditGeneration = async ({
-  story,
+  storyId,
   newInput,
 }: {
-  story: StoryData;
+  storyId: string;
   newInput: string;
 }) => {
   const queue = getQueue(QueueName.GENERATE_EDIT);
   await queue.add(QueueName.GENERATE_EDIT, {
-    story,
+    storyId,
     newInput,
   });
 };
