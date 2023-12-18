@@ -1,6 +1,7 @@
 import { string } from "zod";
-import type { StoryData } from "~/lib/db/story.server";
+import { updateStory, type StoryData } from "~/lib/db/story.server";
 import { submitError } from "../queue/queues";
+import { createAICharacterStep } from "../db/steps.server";
 
 export const generateCharacterOutput = async ({
   story,
@@ -28,6 +29,12 @@ export const generateCharacterOutput = async ({
   });
   if (!characterPrompt) return null;
   const results = await generator(characterPrompt, story?.prompt || "");
+  createAICharacterStep({
+    storyId: story.id,
+    characterName: story.nextCharacter!,
+    content: results,
+    characterPrompt: story.prompt!,
+  });
   return results;
 };
 

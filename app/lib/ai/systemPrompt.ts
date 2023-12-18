@@ -26,8 +26,7 @@ export const buildSystemPrompt = async ({
     const characterString = JSON.stringify({ characters });
 
     const systemPrompt = `${narratorInstructions} title:${storyTitle}
-   \n summary: ${storySummary}\n ${characterString}\n
-   ${story.content}`;
+   \n summary: ${storySummary}\n ${characterString}\n`;
 
     return systemPrompt;
   } else {

@@ -3,6 +3,7 @@ import { Worker, Job } from "bullmq";
 import {
   QueueName,
   submitCharacterGeneration,
+  submitEditGeneration,
   submitError,
   submitLog,
   submitStatus,
@@ -38,7 +39,15 @@ import {
 import { clearStoryTimeouts, setStoryTimeouts } from "./timeouts";
 import { characterInstructions } from "~/lib/ai/characterInstructions";
 import { getStatusMessage } from "./statusMessages";
-
+import {
+  deepInfraCharacterGenerator,
+  deepInfraEditGenerator,
+  deepInfraStoryGenerator,
+} from "../ai/deepInfraGenerator.server";
+import { generateEditedContent } from "../ai/editorGen.server";
+import { deepInfraGen } from "../utils/deepInfraGen";
+import { editorInstructions } from "~/lib/ai/editorInstructions";
+import { openAsBlob } from "node:fs";
 export type WorkerDispatch = {
   [key in QueueName]: (job: Job) => Promise<void>;
 };
@@ -46,7 +55,7 @@ export type WorkerDispatch = {
 const workerDispatch: WorkerDispatch = {
   [QueueName.ERROR]: async (job: Job) => {
     const { message, stack } = job.data as { message: string; stack?: string };
-    await submitLog({ type: "ERROR", message, stack });
+    //await submitLog({ type: "ERROR", message, stack });
     console.log("error", message, stack);
   },
 
@@ -56,7 +65,7 @@ const workerDispatch: WorkerDispatch = {
       storyId: string;
       status: StoryStatus;
     };
-    await submitLog({ type: "INFO", message: `status: ${storyId} ${status}` });
+    //await submitLog({ type: "INFO", message: `status: ${storyId} ${status}` });
     const story = await updateStoryStatus({ id: storyId, status });
     console.log("sending status", storyId, getStatusMessage({ story }));
     dvEvent.status(storyId, getStatusMessage({ story }));
@@ -95,10 +104,10 @@ const workerDispatch: WorkerDispatch = {
     const story = await getStory({ id: _story.id });
 
     if (!story?.isActive) {
-      submitLog({
-        type: "INFO",
-        message: "Story is not active.  Will wait for user to join.",
-      });
+      // await submitLog({
+      //   type: "INFO",
+      //   message: "Story is not active.  Will wait for user to join.",
+      // });
       return;
     }
     if (!story?.nextCharacter) {
@@ -158,18 +167,18 @@ const workerDispatch: WorkerDispatch = {
 
   //**************************************************************************/
   [QueueName.GENERATE_STORY]: async (job: Job) => {
-    const { storyId, input } = job.data as { storyId: string; input: string };
+    const { storyId } = job.data as { storyId: string };
     //await clearStoryTimeouts(storyId);
-    await submitLog({ type: "INFO", message: "generate story" });
-    console.log("generate story", storyId, input);
-    if (await redis.get(`story-input:${storyId}:${input}`)) {
+    //await submitLog({ type: "INFO", message: "generate story" });
+    console.log("generate story", storyId);
+
+    const story = await getStory({ id: storyId });
+    const stub = story?.content.slice(-30);
+    if (await redis.get(`story-input:${storyId}:${stub}`)) {
       return;
     }
-    await redis.setex(`story-input:${storyId}:${input}`, 60, "1");
-    const story = await setLastInputInStory({
-      storyId,
-      lastInput: input,
-    });
+    await redis.setex(`story-input:${storyId}:${stub}`, 60, "1");
+
     if (!story) {
       console.log("story not found", storyId);
       await submitError({ message: `story not found: ${storyId}` });
@@ -191,30 +200,6 @@ const workerDispatch: WorkerDispatch = {
     const { characterUsername: stepUsername, characterUserId } =
       getNextCharacterInStory({ story });
 
-    if (stepUsername === "ai") {
-      await createAICharacterStep({
-        storyId,
-        content: input,
-        characterName: story.nextCharacter,
-        characterPrompt: story.prompt,
-      });
-    } else {
-      if (!characterUserId) {
-        await submitError({
-          message: `characterUserId not found: ${characterUserId}`,
-        });
-        await submitStatus({ storyId, status: StoryStatus.ERROR });
-        return;
-      }
-      await createUserCharacterStep({
-        storyId,
-        content: input,
-        characterName: story.nextCharacter,
-        characterPrompt: story.prompt,
-        userId: characterUserId,
-      });
-    }
-
     console.log("submitting narrator status");
     await submitStatus({ storyId, status: StoryStatus.NARRATOR });
     console.log("submitting narrator generation");
@@ -222,10 +207,8 @@ const workerDispatch: WorkerDispatch = {
       story,
       narratorInstructions,
       generator: openaiStoryGenerator,
-      newInput: input,
     });
-    newContent.length > 0 &&
-      (await createNarratorStep({ storyId, content: newContent }));
+    console.log({ newContent });
     console.log("submitting user prompt");
     await submitUserPrompt({ story });
   },
@@ -245,29 +228,51 @@ const workerDispatch: WorkerDispatch = {
       story && (await updateStory({ id: story.id, isActive: false }));
       return;
     }
-    console.log("submitting character generation");
+    console.log("submitting character generation 1");
     // duplicate generations can only be re-sent every 60 seconds
     if (
       (await redis.get(`story-prompt:${story.id}:${story.prompt}`)) === null
     ) {
+      console.log("submitting character generation 2");
       await redis.setex(`story-prompt:${story.id}:${story.prompt}`, 60, "1");
       const result = await generateCharacterOutput({
         story,
         characterInstructions,
         generator: openaiCharacterGenerator,
       });
-      if (!result) {
-        await submitError({
-          message: `character generation failed: ${story.nextCharacter}`,
-        });
-        await submitStatus({ storyId: story.id, status: StoryStatus.ERROR });
-        return;
-      }
-      await submitStoryGeneration({
+      await submitEditGeneration({
         storyId: story.id,
-        input: result,
+        newInput: result || "",
       });
     }
+  },
+
+  //**************************************************************************/
+  [QueueName.GENERATE_EDIT]: async (job: Job) => {
+    const { storyId, newInput } = job.data as {
+      storyId: string;
+      newInput: string;
+    };
+    const story = await setLastInputInStory({
+      storyId,
+      lastInput: newInput,
+    });
+    //const story = (await getStory({ id: storyId })) as StoryData;
+
+    if (await redis.get(`story-edit:${storyId}:${newInput}`)) {
+      return;
+    }
+    await redis.setex(`story-edit:${storyId}:${newInput}`, 60, "1");
+    const updatedStory = await generateEditedContent({
+      newInput,
+      story,
+      editorInstructions,
+      generator: openaiCharacterGenerator,
+    });
+
+    await submitStoryGeneration({
+      storyId: story.id,
+    });
   },
 
   //**************************************************************************/

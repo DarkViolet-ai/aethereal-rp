@@ -38,23 +38,23 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
     );
     if (!id) {
       const newTemplate = await createStoryTemplate(template);
-      submitLog({
-        type: "INFO",
-        message: "Created new story template with title: " + newTemplate.title,
-      });
+      // await submitLog({
+      //   type: "INFO",
+      //   message: "Created new story template with title: " + newTemplate.title,
+      // });
       id = newTemplate.id;
     } else {
-      submitLog({
-        type: "INFO",
-        message: "Updated story template with id: " + id,
-      });
+      //  await submitLog({
+      //     type: "INFO",
+      //     message: "Updated story template with id: " + id,
+      //   });
       await updateStoryTemplate({ id, data: template });
     }
   } catch (e) {
-    submitLog({
-      type: "ERROR",
-      message: "Failed to create/update story template with id: " + id,
-    });
+    // await submitLog({
+    //   type: "ERROR",
+    //   message: "Failed to create/update story template with id: " + id,
+    // });
     return typedjson({ error: e });
   }
 

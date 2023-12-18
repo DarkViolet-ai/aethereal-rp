@@ -25,12 +25,14 @@ export const createStep = async ({
   characterName,
   userId,
   characterPrompt,
+  userInput = "",
 }: {
   storyId: string;
   content: string;
   characterName?: string;
-  userId?: string;
+  userId?: string | null;
   characterPrompt?: string;
+  userInput?: string;
 }) => {
   const step = await prisma.storyStep.create({
     data: {
@@ -40,6 +42,7 @@ export const createStep = async ({
       characterName,
       userId,
       characterPrompt,
+      userInput,
       isAI: userId ? false : true,
       isNarrator: characterName ? false : true,
     },
@@ -54,13 +57,16 @@ export const createStep = async ({
 export const createNarratorStep = async ({
   storyId,
   content,
+  lastInput,
 }: {
   storyId: string;
   content: string;
+  lastInput?: string;
 }) => {
   return await createStep({
     storyId,
     content,
+    userInput: lastInput,
   });
 };
 
@@ -83,6 +89,31 @@ export const createUserCharacterStep = async ({
     characterName,
     userId,
     characterPrompt,
+  });
+};
+
+export const createCharacterEditStep = async ({
+  storyId,
+  content,
+  characterName,
+  userId,
+  characterPrompt,
+  userInput = "",
+}: {
+  storyId: string;
+  content: string;
+  characterName: string;
+  userId: string | null;
+  characterPrompt: string;
+  userInput?: string;
+}) => {
+  return await createStep({
+    storyId,
+    content,
+    characterName,
+    userId,
+    characterPrompt: "edit: " + characterPrompt,
+    userInput,
   });
 };
 

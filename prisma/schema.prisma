@@ -92,6 +92,7 @@ model StoryStep {
   character       Character?      @relation(fields: [characterName, storyId], references: [name, storyId], onDelete: Cascade)
   characterName   String?
   content         String
+  userInput       String?
   user            User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId          String?
   characterPrompt String?

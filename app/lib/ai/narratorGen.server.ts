@@ -17,6 +17,7 @@ import { buildSystemPrompt } from "~/lib/ai/systemPrompt";
 import internal from "node:stream";
 import type { StoryData } from "~/lib/db/story.server";
 import { redis } from "../utils/redis.server";
+import { createNarratorStep } from "../db/steps.server";
 
 const retryKey = (storyId: string) => `retry:${storyId}`;
 const MAX_RETRIES = 5;
@@ -25,14 +26,12 @@ export const continueStory = async ({
   story,
   narratorInstructions,
   generator,
-  newInput,
 }: {
   story: StoryData;
   narratorInstructions: NarratorInstructions;
   generator: (systemPrompt: string, input: string) => Promise<string>;
-  newInput?: string;
 }): Promise<{ story: StoryData; newContent: string }> => {
-  //console.log("initStory", initStory);
+  console.log("continueStory", { story });
   if (!story.narrator) {
     story.narrator = await createNarrator({
       storyId: story.id,
@@ -44,7 +43,6 @@ export const continueStory = async ({
     console.log("initializing story");
     return await initializeStory({ story, generator });
   }
-  if (!story.lastInput) return { story, newContent: "" };
   console.log("generating narration");
   return await narrate({ story, generator });
 };
@@ -71,6 +69,11 @@ const initializeStory = async ({
   if (!validatedResults || validatedResults.scenario !== "initialize") {
     return initializeStory({ story, generator });
   }
+  await createNarratorStep({
+    storyId: story.id,
+    content: JSON.stringify(validatedResults),
+    lastInput: story.content,
+  });
 
   let updatedContent = `${story.content}\n${validatedResults.text}`;
   let updatedStory = await updateStory({
@@ -219,7 +222,7 @@ export const narrate = async ({
     scenario: "narrate",
   });
   console.log("nextPrompt", { nextPrompt, lastInput: story.lastInput });
-  const narrateResults = await generator(nextPrompt, story.lastInput || "");
+  const narrateResults = await generator(nextPrompt, story.content);
   const validatedNarrateResults = await validateOrNull({
     story,
     results: narrateResults,
@@ -231,6 +234,10 @@ export const narrate = async ({
   ) {
     return await narrate({ story, generator });
   }
+  await createNarratorStep({
+    storyId: story.id,
+    content: JSON.stringify(validatedNarrateResults),
+  });
 
   const { characters, nextCharacter, prompt, text } = validatedNarrateResults;
 

@@ -15,10 +15,10 @@ export const loader = async ({ request, params }: DataFunctionArgs) => {
     templateId: storyTemplateId,
     authorId,
   });
-  submitLog({
-    type: "INFO",
-    message: "Created new story with id: " + story.id,
-  });
+  // await submitLog({
+  //   type: "INFO",
+  //   message: "Created new story with id: " + story.id,
+  // });
   await submitStoryInitiation({ storyId: story.id });
   return redirect(`/story/char-select/${story.id}`);
 };
