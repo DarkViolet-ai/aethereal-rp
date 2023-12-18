@@ -95,15 +95,15 @@ export default function Modal({
               exit="closed"
               {...(props as any)}
             >
-              <Flex className="w-full h-full relative ">
+              <Flex className="w-full h-full relative overflow-y-hidden">
                 {showTopClose && <CloseButton onClose={onClose} />}
-                <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900">
-                  <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900 ">
-                    <Box className="w-full h-full pb-[50px] rounded-b-none">
+                <Flex className="w-full h-full justify-between bg-cyanBack border-l-3 border-dv-900 overflow-y-hidden ">
+                  <Flex className="h-full w-full flex-1 bg-cyanBack border-l-3 border-dv-900 overflow-y-hidden">
+                    <Box className="w-full h-full pb-[50px] rounded-b-none overflow-y-hidden">
                       <Box
-                        className={`w-full h-full shadow-shadow3D text-shadow-dvTextShadow rounded-b-none bg-darkVioletGrad ${borderShadow} overflow-y-auto`}
+                        className={`w-full h-full shadow-shadow3D text-shadow-dvTextShadow rounded-b-none bg-darkVioletGrad ${borderShadow} overflow-y-hidden`}
                       >
-                        <Flex className="w-full h-full flex-col items-center rounded-b-none gap-5">
+                        <Flex className="w-full h-full flex-col items-center rounded-b-none gap-5  pb-[7vh]">
                           {children}
                         </Flex>
                       </Box>
