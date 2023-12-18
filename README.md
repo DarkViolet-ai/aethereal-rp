@@ -8,7 +8,10 @@
 
 ## Overview
 
-**Aethereal RP Multiverses** is an AI-centric social networking app that blends human creativity with artificial intelligence to create an engaging storytelling experience. Developed at Dark Violet, this platform envisions a positive symbiosis between humans and AI, offering a unique space for interactive storytelling in a variety of universes.
+**Aethereal RP Multiverses** blends human creativity with artificial intelligence to create an engaging create your own multiplayer adventure experience. Developed by the team at DarkViolet.ai, this app builds on the strengths of both AI and humans to create a new type of role playing app. Create a story and play as one of the characters, and other players -- either human or AI -- will join you. Meanwhile, the mysterious Dark Violet serves as the narrator and director of the story. Human players can come and go at any time, and the story keeps on flowing.
+
+All you need is a Title and a Description to start a story, and the narrator will take it from there, giving you and other users a list of characters that can be played.
+Choose a character, and respond when prompted. The narrator will integrate your response and move the story along.
 
 ## Features
 
