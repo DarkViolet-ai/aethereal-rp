@@ -17,7 +17,11 @@ import {
   assignRolePlayer,
 } from "~/lib/db/character.server";
 import { StoryStatus } from "@prisma/client";
-import { submitStoryGeneration, submitUserPrompt } from "~/lib/queue/queues";
+import {
+  submitEditGeneration,
+  submitStoryGeneration,
+  submitUserPrompt,
+} from "~/lib/queue/queues";
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import type { DataFunctionArgs } from "@remix-run/node";
 import useStatusStream from "~/lib/hooks/useStatusStream";
@@ -92,7 +96,7 @@ export const action = async ({ request, params }: DataFunctionArgs) => {
   const formData = await request.formData();
   const newInput = formData.get("newInput") as string;
   console.log("submitting for story generation", newInput);
-  await submitStoryGeneration({ storyId, input: newInput });
+  await submitEditGeneration({ storyId, newInput });
   return typedjson({ status: "ok" });
 };
 

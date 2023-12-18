@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 interface CenterProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
@@ -95,6 +92,7 @@ model StoryStep {
   character       Character?      @relation(fields: [characterName, storyId], references: [name, storyId], onDelete: Cascade)
   characterName   String?
   content         String
+  userInput       String?
   user            User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId          String?
   characterPrompt String?
