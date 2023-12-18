@@ -144,6 +144,7 @@ export const submitLog = async ({
 }) => {
   const queue = getQueue(QueueName.LOG);
   await queue.add(QueueName.LOG, {
+    type,
     message,
     stack,
   });
