@@ -3,6 +3,7 @@ import { Worker, Job } from "bullmq";
 import {
   QueueName,
   submitCharacterGeneration,
+  submitEditGeneration,
   submitError,
   submitLog,
   submitStatus,
@@ -46,6 +47,7 @@ import {
 import { generateEditedContent } from "../ai/editorGen.server";
 import { deepInfraGen } from "../utils/deepInfraGen";
 import { editorInstructions } from "~/lib/ai/editorInstructions";
+import { openAsBlob } from "node:fs";
 export type WorkerDispatch = {
   [key in QueueName]: (job: Job) => Promise<void>;
 };
@@ -165,18 +167,18 @@ const workerDispatch: WorkerDispatch = {
 
   //**************************************************************************/
   [QueueName.GENERATE_STORY]: async (job: Job) => {
-    const { storyId, input } = job.data as { storyId: string; input: string };
+    const { storyId } = job.data as { storyId: string };
     //await clearStoryTimeouts(storyId);
     //await submitLog({ type: "INFO", message: "generate story" });
-    console.log("generate story", storyId, input);
-    if (await redis.get(`story-input:${storyId}:${input}`)) {
+    console.log("generate story", storyId);
+
+    const story = await getStory({ id: storyId });
+    const stub = story?.content.slice(-30);
+    if (await redis.get(`story-input:${storyId}:${stub}`)) {
       return;
     }
-    await redis.setex(`story-input:${storyId}:${input}`, 60, "1");
-    const story = await setLastInputInStory({
-      storyId,
-      lastInput: input,
-    });
+    await redis.setex(`story-input:${storyId}:${stub}`, 60, "1");
+
     if (!story) {
       console.log("story not found", storyId);
       await submitError({ message: `story not found: ${storyId}` });
@@ -204,11 +206,9 @@ const workerDispatch: WorkerDispatch = {
     const { newContent } = await continueStory({
       story,
       narratorInstructions,
-      generator: deepInfraStoryGenerator,
-      newInput: input,
+      generator: openaiStoryGenerator,
     });
-    newContent.length > 0 &&
-      (await createNarratorStep({ storyId, content: newContent }));
+    console.log({ newContent });
     console.log("submitting user prompt");
     await submitUserPrompt({ story });
   },
@@ -238,19 +238,26 @@ const workerDispatch: WorkerDispatch = {
       const result = await generateCharacterOutput({
         story,
         characterInstructions,
-        generator: deepInfraCharacterGenerator,
+        generator: openaiCharacterGenerator,
       });
-      await submitStoryGeneration({
+      await submitEditGeneration({
         storyId: story.id,
+        newInput: result || "",
       });
     }
   },
+
+  //**************************************************************************/
   [QueueName.GENERATE_EDIT]: async (job: Job) => {
     const { storyId, newInput } = job.data as {
       storyId: string;
       newInput: string;
     };
-    const story = (await getStory({ id: storyId })) as StoryData;
+    const story = await setLastInputInStory({
+      storyId,
+      lastInput: newInput,
+    });
+    //const story = (await getStory({ id: storyId })) as StoryData;
 
     if (await redis.get(`story-edit:${storyId}:${newInput}`)) {
       return;
@@ -260,7 +267,7 @@ const workerDispatch: WorkerDispatch = {
       newInput,
       story,
       editorInstructions,
-      generator: deepInfraEditGenerator,
+      generator: openaiCharacterGenerator,
     });
 
     await submitStoryGeneration({

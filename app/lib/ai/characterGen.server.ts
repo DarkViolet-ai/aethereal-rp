@@ -35,12 +35,7 @@ export const generateCharacterOutput = async ({
     content: results,
     characterPrompt: story.prompt!,
   });
-  const newContent = story.content + "\n" + results;
-  const updatedStory = await updateStory({
-    ...story,
-    content: newContent,
-  });
-  return updatedStory;
+  return results;
 };
 
 export const buildCharacterPrompt = async ({

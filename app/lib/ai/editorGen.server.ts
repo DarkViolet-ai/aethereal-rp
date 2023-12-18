@@ -1,5 +1,5 @@
 import { StoryCharacter } from "../db/character.server";
-import { createUserCharacterEditStep } from "../db/steps.server";
+import { createCharacterEditStep } from "../db/steps.server";
 import {
   StoryData,
   getNextCharacterInStory,
@@ -38,17 +38,17 @@ export const generateEditedContent = async ({
   if (!editorPrompt) return null;
   const results = await generator(editorPrompt, newInput);
   const { characterUserId: userId } = getNextCharacterInStory({ story });
-  if (!userId) {
-    await submitError({ message: "no user id found" });
-  } else {
-    await createUserCharacterEditStep({
-      storyId: story.id,
-      characterName: story.nextCharacter!,
-      content: results,
-      characterPrompt: story.prompt!,
-      userId,
-    });
-  }
+
+  console.log("creating user character edit step with newInput:", newInput);
+  await createCharacterEditStep({
+    storyId: story.id,
+    characterName: story.nextCharacter!,
+    content: results,
+    characterPrompt: story.prompt!,
+    userId: userId,
+    userInput: newInput,
+  });
+
   const newContent = story.content + "\n" + results + "\n";
   const updatedStory = await updateStory({
     ...story,
